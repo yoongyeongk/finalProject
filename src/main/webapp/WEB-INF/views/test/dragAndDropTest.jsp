@@ -12,7 +12,7 @@
 	$(function(){
 		$("#btn").click(function(){
 			$("#myDropzone").submit();
-		})
+		});
 	});
 </script>
 </head>
