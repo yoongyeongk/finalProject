@@ -21,5 +21,6 @@
 	<h1>drag and drop</h1>
 		<form action="./file-upload" id="myDropzone" class="dropzone" method="post" enctype="multipart/form-data"></form>
 		<button id="btn">upload</button>
+		<input type="file" multiple="multiple">
 </body>
 </html>

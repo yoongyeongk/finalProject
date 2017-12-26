@@ -1,30 +1,40 @@
 package com.hi.project.test;
 
-import java.util.Enumeration;
+import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.hi.boardFile.FileDTO;
+import com.hi.boardFile.FileSaver;
 
 @Controller
 @RequestMapping(value="/test/*")
 public class TestController {
 
+	@Inject
+	private FileSaver FileSaver;
+	
 	@RequestMapping("dadTest")
 	public String dragAndDrop() {
 		return "test/dragAndDropTest";
 	}
 	
-	@RequestMapping("file-upload")
-	public String fileUpload(HttpServletRequest request, MultipartFile [] file) {
-		Enumeration<String> em = request.getParameterNames();
+	@RequestMapping(value="fileUpload", method=RequestMethod.POST)
+	public String fileUpload(MultipartFile [] file, HttpSession session, Model model) throws Exception {
 		
-		while(em.hasMoreElements()){
-			System.out.println(em.nextElement());
+		for(MultipartFile f: file){
+			FileDTO fileDTO = new FileDTO();
+			fileDTO.setOriname(f.getOriginalFilename());
+			fileDTO.setFilename(FileSaver.transperSave(f, session, "upload"));
+			model.addAttribute("data", fileDTO);
 		}
-		
-		return "";
+
+		return "common/ajax";
 	}
 	
 	@RequestMapping("payTest")
