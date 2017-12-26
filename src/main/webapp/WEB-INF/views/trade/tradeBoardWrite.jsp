@@ -240,7 +240,7 @@
 						if(count < 8){
 							var t = "<div class='tag'  id='del"+count+"'>"+"<li>";
 							t = t + "<span class='tagColor'>"+"#"+ar[i]+"</span>"+"<span class='tagDel' title='del"+count+"'>X</span></li>";
-							t = t + "<input type='hidden' class='tags' value='#"+ar[i]+"'>"+"</div>";
+							t = t + "<input type='hidden' name='tag' class='tags' value='#"+ar[i]+"'>"+"</div>";
 							$("#tagBox ul").append(t)
 							$("#addInput").val("")
 							count++;
@@ -334,12 +334,13 @@ function imgPreview(f){
 <body>
 	<contents>
 		<div class="all">
-					<form action="" method="post" enctype="multipart/form-data">
+					<form action="./tradeBoardWrite" method="post" enctype="multipart/form-data">
 				
 				<div class="box" style="margin-top: 70px;">
 					<div id="titleBox">
 						<span class="star">*</span>
 						<input type="text" name="title" id="title" placeholder="매매할 프로젝트의 제목" style="padding-left: 12px">
+						<input type="hidden" name="writer" value="sson">
 					</div>
 				</div>
 				
@@ -371,7 +372,6 @@ function imgPreview(f){
 								</div>
 								
 							<div id="fileBox">
-								<input multiple="multiple" type="file" name="file []" id="multi">
 							
 								<div class="previewBox">
 										<label for="imgInput0">
@@ -393,7 +393,7 @@ function imgPreview(f){
 								<div class="in">
 									<div>
 										<label for="phone" class="lb">연락처 <span class="star">*</span></label>
-										<input type="tel" name="phone" id="phone" placeholder="ex) 01056807909">
+										<input type="tel"  id="phone" placeholder="ex) 01056807909">
 										<input type="button" id="pc" value="번호인증" class="pb b">
 									</div>
 								</div>

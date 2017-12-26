@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="tradeMapper">
+  	<insert id="insert" parameterType="tradeBoardDTO">
+  		insert into TRADE_BOARD 
+  		values(#{num},#{writer},#{title},#{contents},sysdate,#{closing_date},0,#{corporate_phone},#{min_price})
+  	</insert>
+  	
+  	<select id="getNum" resultType="Integer">
+  		select board_seq.nextval from dual
+  	</select>
+  </mapper>
