@@ -50,6 +50,10 @@
 		color: #005fc1;
 		background-color: #f2f2f2;
 	}
+	.upColor{
+		color: salmon;
+		background-color: #f2f2f2;
+	}
 	#tagBox{
 		margin-top: 10px;
 		margin-left: 33px;
@@ -58,11 +62,11 @@
 		width: 700px;
 		height: 40px;
 		border: 2px solid powderblue;
-		border-radius: 8px;
 	}
 	#title:focus{
-		border: 2px solid turquoise;
-		  outline-offset:-2px;
+		outline: 2px solid turquoise;
+		outline-offset:-2px;
+		outline-width: 3px;
 	}
 	#titleBox{
 		padding-top: 25px;
@@ -391,7 +395,7 @@ function imgPreview(f){
 											<c:forEach items="${one.tags }" var="t" varStatus="i">
 													<div class='tag'  id="uptag${i.index }">
 														<li>
-															<span class='tagColor'>${t.tag}</span>
+															<span class='upColor'>${t.tag}</span>
 															<span class='upDel' title='uptag${i.index }' id="${t.tag_num }">X</span>
 														</li>
 															<input type='hidden' name='tag' class='tags' value='${t.tag}'>
