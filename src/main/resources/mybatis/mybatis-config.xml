@@ -5,5 +5,7 @@
   <configuration>
   	<typeAliases>
   	  	<typeAlias type="com.hi.trade.TradeBoardDTO" alias="tradeBoardDTO"/>
+  	  	<typeAlias type="com.hi.boardFile.FileDTO" alias="fileDTO"/>
+  	  	<typeAlias type="com.hi.tag.TagDTO" alias="tagDTO"/>
   	</typeAliases>
   </configuration>

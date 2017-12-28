@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.hi.boardFile.FileDAO;
+import com.hi.boardFile.FileDTO;
 import com.hi.boardFile.FileSaver;
 import com.hi.boardFile.FileService;
+import com.hi.tag.TagService;
 
 @Service
 public class TradeBoardService {
@@ -18,15 +20,16 @@ public class TradeBoardService {
 	@Inject
 	TradeBoardDAO tradeBoardDAO;
 	@Inject
-	FileSaver fileSaver;
-	@Inject
 	FileService fileService;
-	
+	@Inject 
+	TagService tagService;
 	
 	public int insert(TradeBoardDTO tradeBoardDTO,HttpSession session) throws Exception {
 			tradeBoardDTO.setNum(tradeBoardDAO.getNum());
-			tradeBoardDAO.insert(tradeBoardDTO);
-		return 0;
+			tradeBoardDTO.setFileNames(fileService.insert(tradeBoardDTO, session));
+			tagService.insert(tradeBoardDTO);
+			
+		return tradeBoardDAO.insert(tradeBoardDTO);
 	}
 	
 	public List<TradeBoardDTO> selectList() throws Exception{
@@ -35,7 +38,8 @@ public class TradeBoardService {
 	}
 	
 	public TradeBoardDTO selectOne(int num) throws Exception {
-			TradeBoardDTO tradeBoardDTO = null;
+			TradeBoardDTO tradeBoardDTO = tradeBoardDAO.selectOne(num);
+			
 		return tradeBoardDTO;
 	}
 	

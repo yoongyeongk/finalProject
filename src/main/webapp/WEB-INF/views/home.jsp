@@ -22,7 +22,8 @@
 	</c:if>
 	
 
-	<a href="./trade/tradeBoardList">t List</a>
-	<a href="./trade/tradeBoardWrite">t write</a>
+	<a href="./trade/tradeBoardList"> T List</a>
+	<a href="./trade/tradeBoardWrite">T Write</a>
+	<a href="./trade/tradeBoardUpdate?num=7">T Update</a>
 </body>
 </html>

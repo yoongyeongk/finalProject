@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.hi.boardFile.FileDTO;
+import com.hi.tag.TagDTO;
+
 public class TradeBoardDTO {
 
 	private int num;
@@ -16,21 +19,36 @@ public class TradeBoardDTO {
 	private int hit;
 	private String corporate_phone;
 	private int min_price;
-	private String [] tag;
+	private List<String> tag;
+	private List<TagDTO> tags;
 	private MultipartFile [] img;
+	private List<FileDTO> fileNames;
 	
 	
 
+	public List<TagDTO> getTags() {
+		return tags;
+	}
+	public void setTags(List<TagDTO> tags) {
+		this.tags = tags;
+	}
+	public List<FileDTO> getFileNames() {
+		return fileNames;
+	}
+	public void setFileNames(List<FileDTO> fileNames) {
+		this.fileNames = fileNames;
+	}
 	public MultipartFile[] getImg() {
 		return img;
 	}
 	public void setImg(MultipartFile[] img) {
 		this.img = img;
 	}
-	public String[] getTag() {
+	
+	public List<String> getTag() {
 		return tag;
 	}
-	public void setTag(String[] tag) {
+	public void setTag(List<String> tag) {
 		this.tag = tag;
 	}
 	public int getNum() {

@@ -27,8 +27,8 @@ public class TradeBoardDAO {
 	}
 	
 	public TradeBoardDTO selectOne(int num) throws Exception {
-			TradeBoardDTO tradeBoardDTO = null;
-		return tradeBoardDTO;
+			
+		return sqlSession.selectOne(NAMESPACE+"selectOne", num);
 	}
 	
 	public int update (TradeBoardDTO tradeBoardDTO) throws Exception {
