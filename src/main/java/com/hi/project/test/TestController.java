@@ -31,10 +31,18 @@ public class TestController {
 			FileDTO fileDTO = new FileDTO();
 			fileDTO.setOriname(f.getOriginalFilename());
 			fileDTO.setFilename(FileSaver.transperSave(f, session, "upload"));
-			model.addAttribute("data", fileDTO);
+			
+			System.out.println(fileDTO.getFilename());
+			System.out.println(fileDTO.getOriname());
+			model.addAttribute("file", fileDTO);
 		}
 
-		return "common/ajax";
+		return "test/fileResult";
+	}
+	
+	@RequestMapping("login")
+	public String login(){
+		return "login/loginForm";
 	}
 	
 	@RequestMapping("payTest")

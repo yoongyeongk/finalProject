@@ -13,6 +13,7 @@ public class FileSaver {
 
 	public String transperSave (MultipartFile file,HttpSession session,String path) throws Exception {
 		String filePath = session.getServletContext().getRealPath("resources/"+path);
+		System.out.println(filePath);
 		File f = new File(filePath);
 		if(!f.exists()){
 			f.mkdirs();
