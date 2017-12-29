@@ -42,8 +42,16 @@
 		padding: 0px 0px 0px 6px;
 		cursor: pointer;
 	}
+	.upDel{
+		padding: 0px 0px 0px 6px;
+		cursor: pointer;
+	}
 	.tagColor{
 		color: #005fc1;
+		background-color: #f2f2f2;
+	}
+	.upColor{
+		color: salmon;
 		background-color: #f2f2f2;
 	}
 	#tagBox{
@@ -54,11 +62,11 @@
 		width: 700px;
 		height: 40px;
 		border: 2px solid powderblue;
-		border-radius: 8px;
 	}
 	#title:focus{
-		border: 2px solid turquoise;
-		  outline-offset:-2px;
+		outline: 2px solid turquoise;
+		outline-offset:-2px;
+		outline-width: 3px;
 	}
 	#titleBox{
 		padding-top: 25px;
@@ -71,7 +79,7 @@
 	}
 	#conBox{
 		margin: 0 auto;
-		width: 800px;
+		width: 850px;
 	}
 	#conBox:hover{
 		outline: 2px solid #27b6ba;
@@ -225,7 +233,7 @@
 		
 	$(function() {
 		
-		$("#addTag").click(function() {
+		$("#tagForm").on("click","#addTag",function(){
 			var tag = $("#addInput").val();
 			var regExp = /[\{\}\[\]\/?.;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi
 			
@@ -235,7 +243,7 @@
 			}else if($(".tag").length < 8){
 				var ar = tag.split(",");
 					for(var i=0;i<ar.length;i++){
-						if(count < 8){
+						if($(".tag").length < 8){
 							var t = "<div class='tag'  id='del"+count+"'>"+"<li>";
 							t = t + "<span class='tagColor'>"+"#"+ar[i]+"</span>"+"<span class='tagDel' title='del"+count+"'>X</span></li>";
 							t = t + "<input type='hidden' name='tag' class='tags' value='#"+ar[i]+"'>"+"</div>";
@@ -253,6 +261,25 @@
 			var id = $(this).attr("title")
 			$("#"+id).remove();
 			count--;
+		})
+		
+		$("#tagBox").on("click",".upDel",function(){
+			if(confirm("기존 태그를 삭제하시겠습니까?") == true){
+				var num = parseInt(this.id);
+				$.ajax({
+					type:"POST",
+					url:"${pageContext.request.contextPath}/tag/tagDelete",
+					data:{
+						num:num
+					}, success : function(){
+						
+					}
+				})
+					
+					var id = $(this).attr("title")
+					$("#"+id).remove();
+				
+			}
 		})
 		
 		  $("#addFile").click(function(){
@@ -347,10 +374,12 @@ function imgPreview(f){
 					</div>
 				</div>
 				
+				<div class="box" style="height: auto;">
 				<div id="con">
 					<div id="conBox">
 							<textarea style="width: 800px; height: 300px;  resize:vertical ;" name="contents" id="contents">${one.contents }</textarea>
 					</div>
+				</div>
 				</div>
 				
 					<div class="box" style="margin-bottom: 20px;">
@@ -364,10 +393,17 @@ function imgPreview(f){
 									<ul>
 										<c:if test="${form eq 'Update'}">
 											<c:forEach items="${one.tags }" var="t" varStatus="i">
+<<<<<<< HEAD
 													<div class='tag'  id="del${i.index }">
 														<li>
 															<span class='tagColor'>${t.tag}</span>
 															<span class='tagDel' title='del${i.index }'>X</span>
+=======
+													<div class='tag'  id="uptag${i.index }">
+														<li>
+															<span class='upColor'>${t.tag}</span>
+															<span class='upDel' title='uptag${i.index }' id="${t.tag_num }">X</span>
+>>>>>>> dc18a591be59a68baccbc32bfcf30b5ac1e94976
 														</li>
 															<input type='hidden' name='tag' class='tags' value='${t.tag}'>
 													</div>

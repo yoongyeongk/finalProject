@@ -7,4 +7,11 @@
   	<insert id="insert" parameterType="tagDTO">
   		insert into TAGS values(tag_seq.nextval, #{num},#{tag},#{kind})
   	</insert>
+<<<<<<< HEAD
+=======
+  	
+  	<delete id="delete" parameterType="Integer">
+  		delete TAGS where tag_num=#{num}
+  	</delete>
+>>>>>>> dc18a591be59a68baccbc32bfcf30b5ac1e94976
   </mapper>

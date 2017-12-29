@@ -30,4 +30,13 @@ public class TagService {
 			}
 		return result;
 	}
+<<<<<<< HEAD
+=======
+	
+	public int delete (int num) throws Exception {
+		int result = 0;
+		result = tagDAO.delete(num);
+		return result;
+	}
+>>>>>>> dc18a591be59a68baccbc32bfcf30b5ac1e94976
 }
