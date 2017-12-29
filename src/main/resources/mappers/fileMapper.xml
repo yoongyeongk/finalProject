@@ -7,4 +7,12 @@
   	<insert id="insert" parameterType="fileDTO">
   		insert into BOARDFILE values(board_seq.nextval,#{num},#{fileName},#{oriName})
   	</insert>
+  	
+  	<delete id="deleteOne" parameterType="Integer">
+  		delete BOARDFILE where fnum=#{num}
+  	</delete>
+  	
+  	<delete id="deleteAll" parameterType="Integer">
+  		delete BOARDFILE where num=#{num}
+   	</delete>
   </mapper>

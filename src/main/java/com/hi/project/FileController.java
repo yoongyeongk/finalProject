@@ -5,25 +5,23 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.hi.tag.TagService;
+import com.hi.boardFile.FileService;
 
 @Controller
-@RequestMapping(value="/tag/*")
-public class TagController {
+@RequestMapping(value="/file/*")
+public class FileController {
 
 	@Inject
-	TagService tagService;
+	FileService fileService;
 	
-	@RequestMapping(value="tagDelete")
-	public void deleteOne (int num){
-		int result = 0;
+	
+	@RequestMapping(value="fileDelete")
+	public void deleteOne (int num) {
 		try {
-			result = tagService.deleteOne(num);
+			fileService.deleteOne(num);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		System.out.println(result);
 	}
 }

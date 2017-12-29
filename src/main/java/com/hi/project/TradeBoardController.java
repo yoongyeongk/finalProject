@@ -46,6 +46,7 @@ public class TradeBoardController {
 	
 	@RequestMapping(value="tradeBoardUpdate" , method = RequestMethod.GET)
 	public String update (Model model , int num)  {
+	
 			model.addAttribute("form", "Update");
 			try {
 				model.addAttribute("one", tradeBoardService.selectOne(num));
@@ -56,4 +57,33 @@ public class TradeBoardController {
 		return "trade/tradeBoardWrite";
 	}
 	
+	@RequestMapping(value="tradeBoardUpdate" , method = RequestMethod.POST)
+	public String update (TradeBoardDTO tradeBoardDTO,HttpSession session) {
+			try {
+				tradeBoardService.update(tradeBoardDTO, session);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value="tradeBoardDelete")
+	public String deleteAll (int num,Model model) {
+		int result = 0;
+		try {
+			result = tradeBoardService.deleteAll(num);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String message = "삭제 실패했습니다";
+		if(result > 0){
+			message = "삭제 됐습니다.";
+			model.addAttribute("message", message);
+		}else{
+			model.addAttribute("message", message);
+		}
+		return "redirect:/";
+	}
 }

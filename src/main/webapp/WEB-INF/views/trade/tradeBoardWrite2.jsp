@@ -14,10 +14,7 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
 <script src="//cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
-<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.4.js"></script>
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 
 <style type="text/css">
 	html{
@@ -127,6 +124,8 @@
 		width: 800px;
 		margin: 0 auto;
 		border: 1px solid #c9c9c9;
+  	 	padding-left: 34px;
+    	padding-top: 15px;
 	}
 	.previewBox{
 		width: 170px;
@@ -135,19 +134,23 @@
 		margin-right: 10px;
 		margin-top:0;
 	}
-	.upPreviewBox{
+	.files{
+		width: 80px;
+		margin: 0 auto;
+	}
+	#imgInput0{
+		display: none;
+	}
+	.move{
 		width: 170px;
-		height: 165px;
-		display: inline-block;
-		margin-right: 10px;
-		margin-top:0;
+		margin: 0 auto;
+		text-align: center;
+		margin-top: 5px;
 	}
 	.preview{
 		width: 170px;
 		height: 130px;
 		border: 1px solid powderblue;
-		margin-left: 34px;
-  		margin-top: 15px;
 	}
 	.imgs{
 		width: 170px;
@@ -223,45 +226,8 @@
 </style>
 
 <script type="text/javascript">
-$(function() {
-	
-$("#pc").click(function() {
-	
-IMP.init('imp80639420');
-	IMP.certification({
-	    merchant_uid : '01056807909' + new Date().getTime() //본인인증과 연관된 가맹점 내부 주문번호가 있다면 넘겨주세요
-	}, function(rsp) {
-	    if ( rsp.success ) {
-	    	 // 인증성공
-	        console.log(rsp.imp_uid);
-	        console.log(rsp.merchant_uid);
-	        
-	        $.ajax({
-					type : 'POST',
-					url : '/certifications/confirm',
-					dataType : 'json',
-					data : {
-						imp_uid : rsp.imp_uid
-					}
-			 }).done(function(rsp) {
-			 		// 이후 Business Logic 처리하시면 됩니다.
-			 });
-	        	
-	    } else {
-	    	 // 인증취소 또는 인증실패
-	        var msg = '인증에 실패하였습니다.';
-	        msg += '에러내용 : ' + rsp.error_msg;
-
-	        alert(msg);
-	    }
-	});
-})
-
-})
-</script>
-
-<script type="text/javascript">
 		var count = 0;
+		var index = 1;
 		var regNumber = /^[0-9]*$/;
 		
 		
@@ -269,7 +235,7 @@ IMP.init('imp80639420');
 		
 		$("#tagForm").on("click","#addTag",function(){
 			var tag = $("#addInput").val();
-			var regExp = /[\{\}\[\]\/.;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi
+			var regExp = /[\{\}\[\]\/?.;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi
 			
 			if(tag == '' || regExp.test(tag)){
 				tag = tag.replace(regExp, "")
@@ -298,7 +264,7 @@ IMP.init('imp80639420');
 		})
 		
 		$("#tagBox").on("click",".upDel",function(){
-			if(confirm("기존 태그를 삭제하시겠습니까? 게시글에서도 삭제됩니다") == true){
+			if(confirm("기존 태그를 삭제하시겠습니까?") == true){
 				var num = parseInt(this.id);
 				$.ajax({
 					type:"POST",
@@ -316,6 +282,20 @@ IMP.init('imp80639420');
 			}
 		})
 		
+		  $("#addFile").click(function(){
+			if($(".files").length < 8){
+				$.post("../common/tradeWriteAjax?index="+index,function(form){
+					$("#fileBox").append(form)
+					index++;
+				})
+			}
+		}) 
+		
+		$("#fileBox").on("click",".imgDel",function(){
+			var id = $(this).attr("title");
+			$("#"+id).remove();
+			index--;
+		})
 
 		$("#infoBox").on("keyup","#phone",function(){
 				if(!regNumber.test($(this).val())) {
@@ -330,76 +310,53 @@ IMP.init('imp80639420');
 				    $(this).val("")
 				}
 		})
-	
+		
+		$("#btn").click(function() {
+		/* 	for(var i=0;i<$(".tags").length;i++){
+			var t = document.getElementsByClassName("tags")[i].value;
+			alert(t)
+			} */
+		})
 		
 	})
 </script>
-
 <script type="text/javascript">
-
-	var sel_files = [];
-	var i = 0;
-	
 $(function(){
-		
-	$("#fileBox").on("click",".imgDel",function(){
-			var id = $(this).attr("title");
-			$("#"+id).remove();
-			i--;
-		})
-	
-	$("#fileBox").on("click",".upImgDel",function(){
-		if(confirm("기존 이미지를 삭제하시겠습니까? 게시글에서도 삭제됩니다") == true){
-			var fnum = this.id
-			$.post("../file/fileDelete?num="+fnum,function(){
-				
-			})
-			var id = $(this).attr("title");
-			$("#"+id).remove();
+	$("#fileBox").on("change",".files",function(){
+		if($(this).val() != ''){
+			imgPreview(this)
+		}else{
+			$("#preview"+this.title).html('<img src="${pageContext.request.contextPath }/resources/images/'
+					+'tradeBoard/image+.png" style="width: 170px; height: 130px;">');
 		}
 	})
 	
-	$("#but").on("change","#f",function(){
-		preview(this)
-	})
-		
-	function preview (e) {
-		sel_files = [];
-		
-		$(".previewBox").remove();
-		
-		i=0;
-		var files = e.files;
-		var filesAr = Array.prototype.slice.call(files);
-		
-		var index = 0;
-		filesAr.forEach(function(f) {
-			if(!f.type.match("image.*")){
-				alert("업로드는 이미지만 가능합니다");
-				return;
-			}
-			
-			sel_files.push(f);
-			
-			var reader = new FileReader();
-			reader.onload = function(e) {
-				$("#default").remove();
-				var html = '<div class="previewBox" id="imgDel'+i+'">'
-				+'<div title="imgDel'+i+'" class="imgDel" style="position: absolute;">'
-				+'<a href="javascpript:void(0)"  style="position: relative; left: 178px; top: 15px;">'
-				+'<img alt="" src="${pageContext.request.contextPath }/resources/images/tradeBoard/x.png" class="x"></a></div>'
-				+'<div class="preview" id="preview'+i+'">'
-				+'<img src="'+e.target.result +'" style="width: 170px; height: 130px;"></div></div>'
-					
-				$("#fileBox").append(html);
-				i++;
-				
-				
-			}
-			reader.readAsDataURL(f);
-			
-		})
+function imgPreview(f){
+	var file = f.files; // files 를 사용하면 파일의 정보를 알 수 있음
+	
+	if(file[0].size > 1024 * 1024 * 10){
+		// 큰 파일을 올리니까 브라우저가 다운되었음 -_-;;
+		alert('10MB 이상의 파일은 안됩니다.');
+
+		return;
+	}	
+	else if(file[0].type.indexOf('image') < 0){ // 선택한 파일이 이미지인지 확인
+		alert('이미지 파일만 선택하세요.');
+
+		return;
 	}
+//파일의 갯수만큼 반복
+	for(var i=0; i<file.length; i++){
+		
+		var reader = new FileReader(); // FileReader 객체 사용
+		reader.onload = function(rst){
+			$('#preview'+f.title).html('<img class="imgs" src="' + rst.target.result + '">'); // append 메소드를 사용해서 이미지 추가
+			// 이미지는 base64 문자열로 추가
+			// 이 방법을 응용하면 선택한 이미지를 미리보기 할 수 있음
+		}
+		reader.readAsDataURL(file[i]); // 파일을 읽는다
+	}
+}
 
 })
 </script>
@@ -408,10 +365,6 @@ $(function(){
 	<contents>
 		<div class="all">
 					<form action="./tradeBoard${form }" method="post" enctype="multipart/form-data" name="frm">
-				
-				<c:if test="${form eq 'Update'}">
-					<input type="hidden" name="num" value="${param.num }">
-				</c:if>
 				
 				<div class="box" style="margin-top: 70px;">
 					<div id="titleBox">
@@ -456,30 +409,24 @@ $(function(){
 						
 						<div class="box" style="height:auto;">
 								<div id="but">
-									<label for="f">
-									<div class="move">
-										<div class="b">이미지 선택</div>
-										<input type="file" id="f" name="img" multiple="multiple" style="display: none;">
-									</div>
-									</label>
-									<h5 style="user-select:none; display: inline-block;"><span class="star">*</span> 샘플 이미지를 1개 이상 선택하세요.</h5>
+									<input type="button" id="addFile" class="b" value="이미지 추가">
+									<h5 style="user-select:none; display: inline-block;"><span class="star">*</span> 샘플 이미지를 1개 이상 선택하세요. 최대 8개까지 추가됩니다.</h5>
 								</div>
 								
 							<div id="fileBox">
-								<c:if test="${form eq 'Update' }">
-									<c:forEach items="${one.fileNames }" var="file" varStatus="f">
-										<div class="upPreviewBox" id="upImgDel${f.index }">
-											<div title="upImgDel${f.index }" id="${file.fnum }" class="upImgDel" style="position: absolute;">
-												<a href="javascpript:void(0)"  style="position: relative; left: 178px; top: 15px;">
-													<img alt="" src="${pageContext.request.contextPath }/resources/images/tradeBoard/x.png" class="x">
-												</a>
-											</div>
-												<div class="preview" id="upPreview${f.index }">
-													<img src="${pageContext.request.contextPath }/resources/upload/${file.fileName}" style="width: 170px; height: 130px;">
-												</div>
-											</div>
-									</c:forEach>
-								</c:if>
+							
+								<div class="previewBox">
+										<label for="imgInput0">
+									<div class="preview" id="preview0">
+										<img src="${pageContext.request.contextPath }/resources/images/tradeBoard/image+.png" style="width: 170px; height: 130px;">
+									</div>
+									<div class="move">
+											<div class="b">이미지 선택</div>
+											<input type="file" name="img" class="files" id="imgInput0" title="0" accept=".jpg,.png,.jpeg,.pmp" required="required">
+									</div>
+										</label>
+								</div>
+			
 							</div>
 						</div>
 						
@@ -488,7 +435,7 @@ $(function(){
 								<div class="in">
 									<div>
 										<label for="phone" class="lb">연락처 <span class="star">*</span></label>
-										<input type="tel"  id="phone" name="corporate_phone" value="${one.corporate_phone }" placeholder="ex) 01056807909">
+										<input type="tel"  id="phone" name="corporate_phone" placeholder="ex) 01056807909">
 										<input type="button" id="pc" value="번호인증" class="pb b">
 									</div>
 								</div>
@@ -496,28 +443,21 @@ $(function(){
 								<div class="in">
 									<div style="display: inline-block; float: left;">
 										<label for="min_price" class="lb">최소 경매가 <span class="star">*</span></label>
-										<input type="text" name="min_price" id="min_price" value="${one.min_price }" placeholder="ex) 1300000" required="required">
+										<input type="text" name="min_price" id="min_price" placeholder="ex) 1300000" required="required">
 									</div>
 									
 									<div style="display: inline-block; float: right;">
 										<label for="closing_date" class="lb">마감일 <span class="star">*</span></label>
-										<input type="date" name="closing_date" id="closing_date" value="${ one.closing_date}" required="required">		
+										<input type="date" name="closing_date" id="closing_date" required="required">		
 									</div>
 								</div>
 								
 							</div>
 						</div>
 							<div id="buttonBox">
-								<button id="btn" ng-disabled="frm.$error.required" >
+								<button id="btn" ng-disabled="frm.$error.required">
 									<img src="${pageContext.request.contextPath }/resources/images/tradeBoard/v.png" id="v">
-									 <c:choose>
-									 	<c:when test="${form eq 'Update' }">
-									 		수정하기
-									 	</c:when>
-									 	<c:otherwise>
-									 		등록하기
-									 	</c:otherwise>
-									 </c:choose>
+									 등록하기
 								</button>
 							</div>
 				</form>

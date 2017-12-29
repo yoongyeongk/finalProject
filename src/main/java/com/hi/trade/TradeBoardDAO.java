@@ -33,12 +33,12 @@ public class TradeBoardDAO {
 	
 	public int update (TradeBoardDTO tradeBoardDTO) throws Exception {
 		
-		return 0;
+		return sqlSession.update(NAMESPACE+"update", tradeBoardDTO);
 	}
 	
-	public int delete(int num) throws Exception {
+	public int deleteAll(int num) throws Exception {
 		
-	return 0;
+	return sqlSession.delete(NAMESPACE+"deleteAll", num);
 	}
 	
 	public int getNum () throws Exception {

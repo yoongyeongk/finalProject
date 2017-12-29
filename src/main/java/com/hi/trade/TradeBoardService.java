@@ -44,13 +44,20 @@ public class TradeBoardService {
 	}
 	
 	public int update (TradeBoardDTO tradeBoardDTO,HttpSession session) throws Exception {
-		
-		return 0;
+			
+			tradeBoardDTO.setFileNames(fileService.insert(tradeBoardDTO, session));
+			tagService.insert(tradeBoardDTO);
+			
+		return tradeBoardDAO.update(tradeBoardDTO);
 	}
 	
-	public int delete(int num) throws Exception {
-		
-	return 0;
+	public int deleteAll(int num) throws Exception {
+		int result = 0;
+		result = fileService.deleteAll(num);
+		if(result > 0){
+			tagService.deleteAll(num);
+		}
+	return tradeBoardDAO.deleteAll(num);
 	}
 
 	

@@ -15,17 +15,25 @@
   	</select>
   	
   	<select id="selectTag" parameterType="Integer" resultType="tagDTO">
-  		select * from TAGS where num=#{num}
+  		select * from TAGS where num=#{num} order by tag_num asc
   	</select>
   	
   	<select id="selectFile" parameterType="Integer" resultType="fileDTO">
-  		select * from BOARDFILE where num=#{num}
+  		select * from BOARDFILE where num=#{num} order by fnum asc
   	</select>
-  	
   	
   	<select id="getNum" resultType="Integer">
   		select board_seq.nextval from dual
   	</select>
+  	
+  	<update id="update" parameterType="tradeBoardDTO">
+  		update TRADE_BOARD set title=#{title},contents=#{contents},closing_date=#{closing_date},
+  		corporate_phone=#{corporate_phone},min_price=#{min_price} where num=#{num}
+  	</update>
+  	
+  	<delete id="deleteAll">
+  		delete TRADE_BOARD where num=#{num}
+  	</delete>
   	
   	<resultMap type="tradeBoardDTO" id="tradeBoardResult">
   		<id property="num" column="num"/>

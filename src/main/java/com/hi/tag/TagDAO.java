@@ -18,12 +18,15 @@ public class TagDAO {
 		
 		return sqlSession.insert(NAMESPACE+"insert", tagDTO);
 	}
-<<<<<<< HEAD
-=======
+
 	
-	public int delete (int num) throws Exception {
+	public int deleteOne (int num) throws Exception {
 		
-		return sqlSession.delete(NAMESPACE+"delete",num);
+		return sqlSession.delete(NAMESPACE+"deleteOne",num);
 	}
->>>>>>> dc18a591be59a68baccbc32bfcf30b5ac1e94976
+	
+	public int deleteAll (int num) throws Exception {
+		return sqlSession.delete(NAMESPACE+"deleteAll", num);
+	}
+
 }

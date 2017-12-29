@@ -4,6 +4,9 @@
 <head>
 	<title>Home</title>
 </head>
+<script type="text/javascript">
+
+</script>
 <body>
 <h1>
 	Hello world!  
@@ -24,10 +27,6 @@
 
 	<a href="./trade/tradeBoardList"> T List</a>
 	<a href="./trade/tradeBoardWrite">T Write</a>
-<<<<<<< HEAD
-	<a href="./trade/tradeBoardUpdate?num=11">T Update</a>
-=======
-	<a href="./trade/tradeBoardUpdate?num=7">T Update</a>
->>>>>>> dc18a591be59a68baccbc32bfcf30b5ac1e94976
+	
 </body>
 </html>

@@ -17,7 +17,7 @@ public class TagService {
 			TagDTO tagDTO = null;
 			String kind = "board";
 			
-			if(tradeBoardDTO != null){
+			if(tradeBoardDTO.getTag() != null){
 				tagDTO = new TagDTO();
 	
 				for (String t : tradeBoardDTO.getTag()) {
@@ -30,13 +30,15 @@ public class TagService {
 			}
 		return result;
 	}
-<<<<<<< HEAD
-=======
 	
-	public int delete (int num) throws Exception {
+	public int deleteOne (int num) throws Exception {
 		int result = 0;
-		result = tagDAO.delete(num);
+		result = tagDAO.deleteOne(num);
 		return result;
 	}
->>>>>>> dc18a591be59a68baccbc32bfcf30b5ac1e94976
+	
+	public int deleteAll(int num) throws Exception {
+		return tagDAO.deleteAll(num);
+	}
+
 }

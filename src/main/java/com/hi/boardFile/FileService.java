@@ -22,6 +22,7 @@ public class FileService {
 	public List<FileDTO> insert (TradeBoardDTO tradeBoardDTO,HttpSession session) throws Exception {
 		List<FileDTO> files = new ArrayList<FileDTO>();
 		FileDTO fileDTO = null;
+		System.out.println(tradeBoardDTO.getImg());
 		for (MultipartFile file : tradeBoardDTO.getImg()) {
 			fileDTO = new FileDTO();
 			fileDTO.setNum(tradeBoardDTO.getNum());
@@ -31,5 +32,15 @@ public class FileService {
 			fileDAO.insert(fileDTO);
 		}
 	return files;
+	}
+	
+	public int deleteOne (int num) throws Exception {
+		int result = 0;
+			result = fileDAO.deleteOne(num);
+		return result;
+	}
+	
+	public int deleteAll (int num) throws Exception {
+		return fileDAO.deleteAll(num);
 	}
 }

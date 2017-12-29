@@ -16,4 +16,14 @@ public class FileDAO {
 		
 		return sqlSession.insert(NAMESPACE+"insert",fileDTO);
 	}
+	
+	public int deleteOne (int num) throws Exception {
+		
+		return sqlSession.delete(NAMESPACE+"deleteOne", num);
+	}
+	
+	public int deleteAll (int num) throws Exception {
+		
+		return sqlSession.delete(NAMESPACE+"deleteAll", num);
+	}
 }
