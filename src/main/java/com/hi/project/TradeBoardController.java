@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -26,8 +27,8 @@ public class TradeBoardController {
 	}
 	
 	@RequestMapping(value="tradeBoardWrite" , method = RequestMethod.GET)
-	public String write () {
-		
+	public String write (Model model) {
+			model.addAttribute("form", "Write");
 		return "trade/tradeBoardWrite";
 	}
 	
@@ -43,5 +44,16 @@ public class TradeBoardController {
 		return "redirect:/";
 	}
 	
+	@RequestMapping(value="tradeBoardUpdate" , method = RequestMethod.GET)
+	public String update (Model model , int num)  {
+			model.addAttribute("form", "Update");
+			try {
+				model.addAttribute("one", tradeBoardService.selectOne(num));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return "trade/tradeBoardWrite";
+	}
 	
 }

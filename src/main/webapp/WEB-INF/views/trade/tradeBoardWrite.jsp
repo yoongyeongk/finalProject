@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -221,11 +222,8 @@
 		var index = 1;
 		var regNumber = /^[0-9]*$/;
 		
+		
 	$(function() {
-
-		$("#multi").change(function() {
-			alert($(this).val())
-		})
 		
 		$("#addTag").click(function() {
 			var tag = $("#addInput").val();
@@ -298,7 +296,12 @@
 <script type="text/javascript">
 $(function(){
 	$("#fileBox").on("change",".files",function(){
-		imgPreview(this)
+		if($(this).val() != ''){
+			imgPreview(this)
+		}else{
+			$("#preview"+this.title).html('<img src="${pageContext.request.contextPath }/resources/images/'
+					+'tradeBoard/image+.png" style="width: 170px; height: 130px;">');
+		}
 	})
 	
 function imgPreview(f){
@@ -334,19 +337,19 @@ function imgPreview(f){
 <body>
 	<contents>
 		<div class="all">
-					<form action="./tradeBoardWrite" method="post" enctype="multipart/form-data">
+					<form action="./tradeBoard${form }" method="post" enctype="multipart/form-data" name="frm">
 				
 				<div class="box" style="margin-top: 70px;">
 					<div id="titleBox">
 						<span class="star">*</span>
-						<input type="text" name="title" id="title" placeholder="매매할 프로젝트의 제목" style="padding-left: 12px">
-						<input type="hidden" name="writer" value="sson">
+						<input type="text" name="title" id="title" value="${one.title }" placeholder="매매할 프로젝트의 제목" style="padding-left: 12px">
+						<input type="hidden" name="writer" value="sson" required="required">
 					</div>
 				</div>
 				
 				<div id="con">
 					<div id="conBox">
-							<textarea style="width: 800px; height: 300px;  resize:vertical ;" name="contents" id="contents">&nbsp;&nbsp;</textarea>
+							<textarea style="width: 800px; height: 300px;  resize:vertical ;" name="contents" id="contents">${one.contents }</textarea>
 					</div>
 				</div>
 				
@@ -359,6 +362,17 @@ function imgPreview(f){
 									
 								<div id="tagBox">
 									<ul>
+										<c:if test="${form eq 'Update'}">
+											<c:forEach items="${one.tags }" var="t" varStatus="i">
+													<div class='tag'  id="del${i.index }">
+														<li>
+															<span class='tagColor'>${t.tag}</span>
+															<span class='tagDel' title='del${i.index }'>X</span>
+														</li>
+															<input type='hidden' name='tag' class='tags' value='${t.tag}'>
+													</div>
+											</c:forEach>
+										</c:if>
 									</ul>
 									</div>
 								
@@ -368,7 +382,7 @@ function imgPreview(f){
 						<div class="box" style="height:auto;">
 								<div id="but">
 									<input type="button" id="addFile" class="b" value="이미지 추가">
-									<h5 style="user-select:none; display: inline-block;"><span class="star">*</span> 샘플 이미지를 넣으세요. 최대 8개까지 추가됩니다.</h5>
+									<h5 style="user-select:none; display: inline-block;"><span class="star">*</span> 샘플 이미지를 1개 이상 선택하세요. 최대 8개까지 추가됩니다.</h5>
 								</div>
 								
 							<div id="fileBox">
@@ -380,7 +394,7 @@ function imgPreview(f){
 									</div>
 									<div class="move">
 											<div class="b">이미지 선택</div>
-											<input type="file" name="img" class="files" id="imgInput0" title="0" accept=".jpg,.png,.jpeg,.pmp">
+											<input type="file" name="img" class="files" id="imgInput0" title="0" accept=".jpg,.png,.jpeg,.pmp" required="required">
 									</div>
 										</label>
 								</div>
@@ -393,7 +407,7 @@ function imgPreview(f){
 								<div class="in">
 									<div>
 										<label for="phone" class="lb">연락처 <span class="star">*</span></label>
-										<input type="tel"  id="phone" placeholder="ex) 01056807909">
+										<input type="tel"  id="phone" name="corporate_phone" placeholder="ex) 01056807909">
 										<input type="button" id="pc" value="번호인증" class="pb b">
 									</div>
 								</div>
@@ -401,20 +415,19 @@ function imgPreview(f){
 								<div class="in">
 									<div style="display: inline-block; float: left;">
 										<label for="min_price" class="lb">최소 경매가 <span class="star">*</span></label>
-										<input type="text" name="min_price" id="min_price" placeholder="ex) 1300000">
-										<span id="p"></span>
+										<input type="text" name="min_price" id="min_price" placeholder="ex) 1300000" required="required">
 									</div>
 									
 									<div style="display: inline-block; float: right;">
 										<label for="closing_date" class="lb">마감일 <span class="star">*</span></label>
-										<input type="date" name="closing_date" id="closing_date">
+										<input type="date" name="closing_date" id="closing_date" required="required">		
 									</div>
 								</div>
 								
 							</div>
 						</div>
 							<div id="buttonBox">
-								<button id="btn">
+								<button id="btn" ng-disabled="frm.$error.required">
 									<img src="${pageContext.request.contextPath }/resources/images/tradeBoard/v.png" id="v">
 									 등록하기
 								</button>
