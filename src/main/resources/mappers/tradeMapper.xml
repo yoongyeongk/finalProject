@@ -7,7 +7,7 @@
   
   	<insert id="insert" parameterType="tradeBoardDTO">
   		insert into TRADE_BOARD 
-  		values(#{num},#{writer},#{title},#{contents},sysdate,#{closing_date},0,#{corporate_phone},#{min_price})
+  		values(#{num},#{writer},#{title},#{contents},sysdate,#{closing_date},0,#{corporate_phone},#{min_price},#{corporation})
   	</insert>
   	
   	<select id="selectOne" parameterType="Integer" resultMap="tradeBoardResult">
@@ -28,7 +28,7 @@
   	
   	<update id="update" parameterType="tradeBoardDTO">
   		update TRADE_BOARD set title=#{title},contents=#{contents},closing_date=#{closing_date},
-  		corporate_phone=#{corporate_phone},min_price=#{min_price} where num=#{num}
+  		corporate_phone=#{corporate_phone},min_price=#{min_price},corporation=#{corporation}where num=#{num}
   	</update>
   	
   	<delete id="deleteAll">

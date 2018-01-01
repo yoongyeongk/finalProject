@@ -214,11 +214,18 @@
 		padding-right: 20px;
 		width: 180px;
 		height: 50px;
-		
+	}
+	#corporation{
+		padding-left: 12px;
+		font-size: 16px;
 	}
 	#v{
 		width: 30px;
 		height: 30px;
+	}
+	.select{
+		padding: 3px 10px 3px 9px;
+		
 	}
 </style>
 
@@ -458,8 +465,8 @@ $(function(){
 								<div id="but">
 									<label for="f">
 									<div class="move">
-										<div class="b">이미지 선택</div>
-										<input type="file" id="f" name="img" multiple="multiple" style="display: none;">
+										<div class="select b">이미지 선택</div>
+										<input type="file" id="f" name="img" multiple="multiple" style="display: none;" required="required">
 									</div>
 									</label>
 									<h5 style="user-select:none; display: inline-block;"><span class="star">*</span> 샘플 이미지를 1개 이상 선택하세요.</h5>
@@ -483,8 +490,16 @@ $(function(){
 							</div>
 						</div>
 						
-						<div class="box">
+						<div class="box" style="height: auto">
 							<div id="infoBox">
+							
+								<div class="in">
+									<div>
+										<label for="corporation" class="lb">기업명 <span class="star">*</span></label>
+										<input type="text"  id="corporation" name="corporation" value="${one.corporation }" placeholder="ex) Together" required="required">
+									</div>
+								</div>
+							
 								<div class="in">
 									<div>
 										<label for="phone" class="lb">연락처 <span class="star">*</span></label>
@@ -507,6 +522,7 @@ $(function(){
 								
 							</div>
 						</div>
+						
 							<div id="buttonBox">
 								<button id="btn" ng-disabled="frm.$error.required" >
 									<img src="${pageContext.request.contextPath }/resources/images/tradeBoard/v.png" id="v">
