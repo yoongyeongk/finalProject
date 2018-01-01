@@ -28,5 +28,4 @@ public class TagDAO {
 	public int deleteAll (int num) throws Exception {
 		return sqlSession.delete(NAMESPACE+"deleteAll", num);
 	}
-
 }

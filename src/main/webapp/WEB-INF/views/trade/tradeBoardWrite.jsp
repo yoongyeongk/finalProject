@@ -447,10 +447,22 @@ $(function(){
 									<ul>
 										<c:if test="${form eq 'Update'}">
 											<c:forEach items="${one.tags }" var="t" varStatus="i">
+<<<<<<< HEAD
+=======
+													<div class='tag'  id="del${i.index }">
+														<li>
+															<span class='tagColor'>${t.tag}</span>
+															<span class='tagDel' title='del${i.index }'>X</span>
+
+>>>>>>> 399a9c67c154daac01384d2b8c856fe209b0dfca
 													<div class='tag'  id="uptag${i.index }">
 														<li>
 															<span class='upColor'>${t.tag}</span>
 															<span class='upDel' title='uptag${i.index }' id="${t.tag_num }">X</span>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 399a9c67c154daac01384d2b8c856fe209b0dfca
 														</li>
 													</div>
 											</c:forEach>
