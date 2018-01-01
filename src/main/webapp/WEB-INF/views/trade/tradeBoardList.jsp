@@ -63,7 +63,6 @@
    		text-overflow: ellipsis;
     	white-space: nowrap;
     	vertical-align: top;
-    
 	}
 	.co{
 		font-size: 14px;
@@ -165,17 +164,19 @@
 											</div>
 										</div>
 									</th>
-									<td class="title t"> <div class="loc"><a href="./tradeBoardView?num=${dto.num }">${dto.title }</a>
-										<div class="line"> 
-											<c:forEach items="${tags }" var="t">
-												<c:if test="${dto.num eq t.num}">
-													<a href="#" class="tags">
-														<span class="tagSet">${t.tag }</span>
-													</a>
-												</c:if>
-											</c:forEach>
+									
+									<td class="title t"> 
+										<div class="loc" style="margin-left: 10px;"><a href="./tradeBoardView?num=${dto.num }">${dto.title }</a>
+											<div class="line"> 
+												<c:forEach items="${tags }" var="t">
+													<c:if test="${dto.num eq t.num}">
+														<a href="#" class="tags">
+															<span class="tagSet">${t.tag }</span>
+														</a>
+													</c:if>
+												</c:forEach>
+											</div>
 										</div>
-									</div>
 									</td>
 									
 									<td class="ct price">
@@ -186,6 +187,7 @@
 									
 									<td class="ct date">
 										<div class="loc">
+											<div>~</div>
 											<fmt:formatDate dateStyle="long"  value="${dto.closing_date }"/>
 										</div>
 									</td>
