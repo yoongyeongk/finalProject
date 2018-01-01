@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.hi.tag.TagDTO;
+
 @Repository
 public class TradeBoardDAO {
 
@@ -22,8 +24,8 @@ public class TradeBoardDAO {
 	}
 	
 	public List<TradeBoardDTO> selectList() throws Exception{
-		List<TradeBoardDTO> ar = null;
-		return ar;
+	
+		return sqlSession.selectList(NAMESPACE+"selectList");
 	}
 	
 	public TradeBoardDTO selectOne(int num) throws Exception {
@@ -46,4 +48,8 @@ public class TradeBoardDAO {
 		return sqlSession.selectOne(NAMESPACE+"getNum");
 	}
 
+	public List<TagDTO> getTag () throws Exception {
+		
+		return sqlSession.selectList(NAMESPACE+"selectListTag");
+	}
 }

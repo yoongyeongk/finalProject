@@ -10,6 +10,14 @@
   		values(#{num},#{writer},#{title},#{contents},sysdate,#{closing_date},0,#{corporate_phone},#{min_price},#{corporation})
   	</insert>
   	
+  	<select id="selectList" resultType="tradeBoardDTO">
+  		select * from (select rowNum R,T.* from (select * from TRADE_BOARD order by num desc) T) where R between 1 and 10
+  	</select>
+  
+  	<select id="selectListTag" resultType="tagDTO">
+  		select * from TAGS
+  	</select>
+  
   	<select id="selectOne" parameterType="Integer" resultMap="tradeBoardResult">
   		select T.* from TRADE_BOARD T where num=#{num}
   	</select>
@@ -37,13 +45,9 @@
   	
   	<resultMap type="tradeBoardDTO" id="tradeBoardResult">
   		<id property="num" column="num"/>
-  		
   		<collection property="tags" column="num" ofType="tagDTO" select="selectTag">
-  		
   		</collection>
-  		
   		<collection property="fileNames"  column="num" ofType="fileDTO" select="selectFile">
-  		
   		</collection>
   	</resultMap>
   	

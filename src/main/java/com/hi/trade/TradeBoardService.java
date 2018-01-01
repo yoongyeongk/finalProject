@@ -7,11 +7,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.hi.boardFile.FileDAO;
 import com.hi.boardFile.FileDTO;
 import com.hi.boardFile.FileSaver;
 import com.hi.boardFile.FileService;
+import com.hi.tag.TagDTO;
 import com.hi.tag.TagService;
 
 @Service
@@ -32,9 +34,14 @@ public class TradeBoardService {
 		return tradeBoardDAO.insert(tradeBoardDTO);
 	}
 	
-	public List<TradeBoardDTO> selectList() throws Exception{
-		List<TradeBoardDTO> ar = null;
-		return ar;
+	public ModelAndView selectList() throws Exception{
+			ModelAndView view = new ModelAndView();
+			List<TradeBoardDTO> ar = tradeBoardDAO.selectList();
+			List<TagDTO> tag = tradeBoardDAO.getTag();
+			view.addObject("list", ar);
+			view.addObject("tags", tag);
+			view.setViewName("trade/tradeBoardList");
+		return view;
 	}
 	
 	public TradeBoardDTO selectOne(int num) throws Exception {
