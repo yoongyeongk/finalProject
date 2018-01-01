@@ -47,12 +47,12 @@ public class TestController {
 	
 	@RequestMapping("findMemberList")
 	public String findMemberList(){
-		return "community/memberList";
+		return "community/pmf_list";
 	}
 	
 	@RequestMapping(value="memberWrite", method=RequestMethod.GET)
 	public String memberWrite(){
-		return "community/memberWrite";
+		return "community/pmf_write";
 	}
 	
 	@RequestMapping("payTest")

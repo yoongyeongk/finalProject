@@ -12,4 +12,5 @@
 	</bean>
 	
 	<context:component-scan base-package="com.hi.boardFile"></context:component-scan>
+	<context:component-scan base-package="com.hi.project.pmf"></context:component-scan>
 </beans>
