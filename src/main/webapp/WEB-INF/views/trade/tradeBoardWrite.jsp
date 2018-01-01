@@ -393,10 +393,17 @@ function imgPreview(f){
 									<ul>
 										<c:if test="${form eq 'Update'}">
 											<c:forEach items="${one.tags }" var="t" varStatus="i">
+<<<<<<< HEAD
+													<div class='tag'  id="del${i.index }">
+														<li>
+															<span class='tagColor'>${t.tag}</span>
+															<span class='tagDel' title='del${i.index }'>X</span>
+=======
 													<div class='tag'  id="uptag${i.index }">
 														<li>
 															<span class='upColor'>${t.tag}</span>
 															<span class='upDel' title='uptag${i.index }' id="${t.tag_num }">X</span>
+>>>>>>> dc18a591be59a68baccbc32bfcf30b5ac1e94976
 														</li>
 															<input type='hidden' name='tag' class='tags' value='${t.tag}'>
 													</div>
