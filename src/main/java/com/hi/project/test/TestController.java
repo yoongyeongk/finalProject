@@ -30,7 +30,7 @@ public class TestController {
 		for(MultipartFile f: file){
 			FileDTO fileDTO = new FileDTO();
 			fileDTO.setOriname(f.getOriginalFilename());
-			fileDTO.setFilename(FileSaver.transperSave(f, session, "upload"));
+			fileDTO.setFilename(FileSaver.transperSave(f, session, "pmf_files"));
 			
 			System.out.println(fileDTO.getFilename());
 			System.out.println(fileDTO.getOriname());

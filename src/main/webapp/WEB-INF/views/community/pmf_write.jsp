@@ -264,13 +264,13 @@ textarea {
 	font-size: 12px;
 	/* same as #progressBar height if we want text middle aligned */
 	width: 0;
-	background-color: #0ba1b5;
+	background-color: rgb(26, 188, 156);
 	border-radius: 3px;
 }
 .statusbar {
 	border-top: 1px solid #A9CCD1;
 	min-height: 20px;
-	width: 99%;
+	width: 100%;
 	vertical-align: middle;
 }
 .statusbar:nth-child(odd) {

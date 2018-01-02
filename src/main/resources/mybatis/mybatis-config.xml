@@ -4,6 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
   <configuration>
   	<typeAliases>
-  	  	
+  	  	<typeAlias type="com.hi.project.pmf.PmfBoardDTO" alias="PmfBoardDTO"/>
+  	  	<typeAlias type="com.hi.project.pmf.PmfReplyDTO" alias="PmfReplyDTO"/>
   	</typeAliases>
   </configuration>

@@ -2,7 +2,26 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="testMapper">
+  <mapper namespace="pmfMapper">
   	
+  	<select id="selectList" resultType="PmfBoardDTO">
+  		select * from
+  		(select rownum r, N.* from
+  		(select * from pmf_board order by num desc) N)
+  		where r between 1 and 10
+  	</select>
+  	
+  	<insert id="insert" parameterType="PmfBoardDTO">
+  		<selectKey keyProperty="num" resultType="int" order="BEFORE">
+  			select pmf_board_seq.nextval from dual
+  		</selectKey>
+  		insert into pmf_board 
+  		values(#{num},#{title},#{writer},sysdate,0,
+  			   #{major_key},#{sub_key},#{works},#{project_name},#{start_date},#{end_date},#{project_detail},
+  			   #{work_kind},#{education_level},#{career},
+  			   #{firm_info},#{addr},#{addr_detail},
+  			   #{admin_id},#{admin_email},#{admin_phone},
+  			   #{duration_kind},#{duration_end})
+  	</insert>
   	
   </mapper>
