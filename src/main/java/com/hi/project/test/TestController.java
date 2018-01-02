@@ -44,10 +44,7 @@ public class TestController {
 	public String login(){
 		return "login/loginForm";
 	}
-	
-	
-	
-	
+
 	@RequestMapping("payTest")
 	public String pay(){
 		return "test/payTest";

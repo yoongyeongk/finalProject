@@ -137,17 +137,17 @@ $(function(){
 	
 	//CKEditor
 	//name 각 DB 항목에 맞게 변경하기
-	CKEDITOR.replace( 'editor1' );
-	CKEDITOR.replace( 'editor2' );
+	CKEDITOR.replace( 'project_detail' );
+	CKEDITOR.replace( 'works' );
 	CKEDITOR.replace( 'firm_info' );
-	CKEDITOR.replace( 'editor4' );
+	CKEDITOR.replace( 'document' );
 	
 	//form submit
 	
 	//임시저장
 	
 	//등록
-	$("#submit").click(function(){
+	$("#submit_btn").click(function(){
 		$("#frm").submit();
 	});
 });
@@ -434,7 +434,7 @@ textarea {
 				</tr>
 				<tr>
 					<td colspan="2">
-						<textarea name="editor1" rows="10" draggable="false" class="form-control" id="project_detail" name="project_detail"></textarea>
+						<textarea name="project_detail" rows="10" draggable="false" class="form-control" id="project_detail"></textarea>
 					</td>
 				</tr>
 				<tr>
@@ -451,7 +451,7 @@ textarea {
 				<tr>
 					<td colspan="2">
 						<!-- 에디터 추가 -->
-						<textarea name="editor2" rows="10" draggable="false" class="form-control" id="works" name="works"></textarea>
+						<textarea rows="10" draggable="false" class="form-control" id="works" name="works"></textarea>
 					</td>
 				</tr>	
 			</table>
@@ -528,13 +528,13 @@ textarea {
 					<td class="t_label label1" rowspan="2">지역 정보</td>
 					<td>
 						<!-- 주소 검색 API -->
-						<input type="text" id="addr" class="addr form-control"><input type="button" id="find_addr" value="주소 찾기">
+						<input type="text" id="addr" class="addr form-control" name="addr"><input type="button" id="find_addr" value="주소 찾기">
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<!-- 상세 주소 입력란 -->
-						<input type="text" id="addr_detail" class="addr_detail form-control" placeholder="상세 주소를 입력해 주세요.">
+						<input type="text" id="addr_detail" class="addr_detail form-control" name="addr_detail" placeholder="상세 주소를 입력해 주세요.">
 					</td>
 				</tr>
 			</table>
@@ -546,21 +546,21 @@ textarea {
 				<tr>
 					<td class="t_label label1">담당자 id</td>
 					<td>
-						<input type="text" name="contact_id" class="contact_form form-control">
+						<input type="text" name="admin_id" class="contact_form form-control">
 					</td>	
 				</tr>
 				<tr>
 					<td class="t_label label1">담당자 email</td>
 					<td>
 						<!-- 담당자 email - 클립보드 복사 기능  -->
-						<input type="text" class="contact_form form-control">
+						<input type="text" name="admin_email" class="contact_form form-control">
 					</td>
 				</tr>
 				<tr>
 					<td class="t_label label1">담당자 휴대번호</td>
 					<td>
 						<!-- 담당자 휴대번호 -->
-						<input type="text" class="contact_form form-control">
+						<input type="text" name="admin_phone" class="contact_form form-control">
 					</td>
 				</tr>
 			</table>	
@@ -572,11 +572,11 @@ textarea {
 				<tr>
 					<td class="t_label label1">기간 선택</td>
 					<td>
-						<select class="form-control selectBox" id="duration">
+						<select class="form-control selectBox" id="duration" name="duration_kind">
 							<option>마감일 선택</option><!-- 기간 선택 시 추가 창 띄우기 -->
 							<option>상시 모집</option>
 						</select>
-						<input type="date" class="date_select selectBox fRight form-control">
+						<input type="date" name="duration_end" class="date_select selectBox fRight form-control">
 					</td>
 				</tr>
 			</table>
@@ -586,11 +586,11 @@ textarea {
 				</tr>
 				<tr>
 					<td colspan="2">
-						<textarea name="editor4" rows="5" draggable="false" class="form-control" id="document"></textarea>
+						<textarea name="document" rows="5" draggable="false" class="form-control" id="document"></textarea>
 					</td>
 				</tr>
 			</table>
-			<input class="submit_btn" type="button" value="등록" id="submit">
+			<input class="submit_btn" type="button" value="등록" id="submit_btn">
 			<input class="reset_btn" type="reset" value="재작성">
 		</form>	
 		</section>
