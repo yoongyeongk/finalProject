@@ -86,7 +86,6 @@
 <body>
 	<div id="main" class="wrapper">
 		<c:import url="temp/header.jsp"></c:import>
-
 		<!-- contents -->
 		<div class="dashboard">
 			<div class="page-header">
