@@ -19,7 +19,7 @@
 <a href="test/pdfTest">pdf view</a>
 <a href="test/googleTest">google drive</a>
 <a href="test/login">login</a>
-<a href="test/findMemberList">find member</a>
+<a href="pmf/pmfList">find member</a>
 
 </body>
 </html>

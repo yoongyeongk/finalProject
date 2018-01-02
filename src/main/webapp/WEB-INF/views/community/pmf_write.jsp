@@ -139,8 +139,17 @@ $(function(){
 	//name 각 DB 항목에 맞게 변경하기
 	CKEDITOR.replace( 'editor1' );
 	CKEDITOR.replace( 'editor2' );
-	CKEDITOR.replace( 'editor3' );
+	CKEDITOR.replace( 'firm_info' );
 	CKEDITOR.replace( 'editor4' );
+	
+	//form submit
+	
+	//임시저장
+	
+	//등록
+	$("#submit").click(function(){
+		$("#frm").submit();
+	});
 });
 </script>
 <style type="text/css">
@@ -364,6 +373,11 @@ textarea {
 .date_select{
 	margin-right: 2px;
 }
+
+.des{
+	float: right;
+	font-size: 10px;
+}
 </style>
 </head>
 <body>
@@ -376,10 +390,12 @@ textarea {
 	
 		<!-- 게시판 내용 -->	
 		<section id="board_sec">
-		<form action="" method="post">
-			<input class="title form-control" type="text" placeholder="프로젝트 내용를 설명할 수 있는 제목을 등록해 주세요.">
+		<form action="./pmfWrite" method="post" id="frm">
+			<input class="title form-control" name="title" type="text" placeholder="프로젝트 내용를 설명할 수 있는 제목을 등록해 주세요.">
 			<input type="button" value="임시저장" id="tempSave">
+			<input type="hidden" value="writer" name="writer">
 			
+			<p class="des">* 표시된 항목은 필수항목입니다.</p>
 			<table class="t_project">
 				<tr>
 					<td class="t_title" colspan="2">* 프로젝트 정보</td>
@@ -407,18 +423,18 @@ textarea {
 				</tr>
 				<tr>
 					<td class="t_label label1">프로젝트 명</td>
-					<td><input type="text" id="project_name" class="project_name form-control"></td>
+					<td><input type="text" id="project_name" name="project_name" class="project_name form-control"></td>
 				</tr>
 				<tr>
 					<td class="t_label label1">작업 예상 기간</td>
-					<td><input type="date" id="" class="start_date form-control"> ~ <input type="date" id="" class="end_date form-control"></td>
+					<td><input type="date" name="start_date" class="start_date form-control"> ~ <input type="date" name="end_date" class="end_date form-control"></td>
 				</tr>
 				<tr>
 					<td class="t_label" colspan="2">프로젝트 내용</td>
 				</tr>
 				<tr>
 					<td colspan="2">
-						<textarea name="editor1" rows="10" draggable="false" class="form-control" id="project_detail"></textarea>
+						<textarea name="editor1" rows="10" draggable="false" class="form-control" id="project_detail" name="project_detail"></textarea>
 					</td>
 				</tr>
 				<tr>
@@ -435,7 +451,7 @@ textarea {
 				<tr>
 					<td colspan="2">
 						<!-- 에디터 추가 -->
-						<textarea name="editor2" rows="10" draggable="false" class="form-control" id="works"></textarea>
+						<textarea name="editor2" rows="10" draggable="false" class="form-control" id="works" name="works"></textarea>
 					</td>
 				</tr>	
 			</table>
@@ -447,7 +463,7 @@ textarea {
 				<tr>
 					<td class="t_label label1">* 근무유형</td>
 					<td>
-						<select class="form-control selectBox" id="work_kind">
+						<select class="form-control selectBox" id="work_kind"  name="work_kind">
 							<optgroup label="근무유형을 선택해 주세요"></optgroup>
 							<option>정규직</option>
 							<option>계약직</option>
@@ -461,7 +477,7 @@ textarea {
 				<!-- 학력/경력 필요시만 창 추가할 수 있도록 버튼 만들기 -->
 					<td class="t_label label1">학력</td>
 					<td>
-						<select class="form-control selectBox" id="education_level">
+						<select class="form-control selectBox" id="education_level" name="education_level">
 							<option selected="selected">필요 학력을 선택해 주세요.</option>
 							<option>무관</option>
 							<option>초대졸</option>
@@ -472,7 +488,7 @@ textarea {
 				<tr>
 					<td class="t_label label1">경력</td>
 					<td>
-						<select class="form-control selectBox" id="career">
+						<select class="form-control selectBox" id="career" name="career">
 							<option>필요 경력을 선택해 주세요.</option>
 							<option>무관</option>
 							<option>경력</option>
@@ -482,14 +498,14 @@ textarea {
 				<tr>
 					<td class="t_label label1">* 급여</td>
 					<td style="font-size: 12px">
-						<select class="form-control selectBox" id="pay">
+						<select class="form-control selectBox" id="pay_kind" name="pay_kind">
 							<option>협의</option>
 							<!-- 월/일 선택할 경우 input 창 뜨게 하기 -->
 							<option>월</option>
 							<option>일</option>
 						</select>
 						<!-- 금액 조건 걸기 - 최대 / 최소값 -->
-						<input class="form-control payValue" type="number" id="pay_value" maxlength="10" max="99999999999" min="1"> 원
+						<input class="form-control payValue" type="number" id="pay_value" name="pay_value"> 원
 					</td>
 				</tr>
 			</table>
@@ -504,7 +520,7 @@ textarea {
 				</tr>
 				<tr>
 					<td colspan="2">
-						<textarea name="editor3" rows="10" draggable="false" class="form-control" id="firm_detail"></textarea>
+						<textarea name="firm_info" rows="10" draggable="false" class="form-control" id="firm_detail"></textarea>
 					</td>
 				</tr>
 				<tr>

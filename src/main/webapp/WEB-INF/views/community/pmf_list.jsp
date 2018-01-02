@@ -5,9 +5,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
+<script type="text/javascript">
+	$(function(){
+		var message = ${message};
+		if(message != ""){
+			alert(message);
+		}
+	});
+</script>
 </head>
 <body>
-	<a href="./memberWrite">새 글 등록</a>
+	<a href="./pmfWrite">새 글 등록</a>
 
 </body>
 </html>

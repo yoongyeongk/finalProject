@@ -1,19 +1,20 @@
 package com.hi.project.pmf;
 
 import java.sql.Date;
+import java.util.Calendar;
 
 import com.hi.boardFile.FileDTO;
 
 public class PmfBoardDTO {
 
-	//기본 데이터
+	//기본 데이터 - 필수
 	private int num;
 	private String title;
 	private String writer;
 	private Date reg_date;
 	private int hit;
 	
-	//프로젝트 관련 데이터
+	//프로젝트 관련 데이터- 필수
 	private String major_key;
 	private String sub_key;
 	private String works;
@@ -23,24 +24,24 @@ public class PmfBoardDTO {
 	private FileDTO fileDTO;	//파일 첨부 시
 	private String project_detail;
 	
-	//업무 관련 정보
-	private String work_kind;		//근무 유형
-	private String education_leval;	//학력
+	//업무 관련 정보 
+	private String work_kind;		//근무 유형 - 필수
+	private String education_level;	//학력
 	private String career;			//경력
-	private PmfPaymentDTO pmfPaymentDTO;	//급여
+	private PmfPaymentDTO pmfPaymentDTO;	//급여 - 필수
 	
 	//회사 정보
 	private String firm_info;		//회사소개
 	private String addr;			//주소1
 	private String addr_detail;		//주소2
 	
-	//담당자 정보
+	//담당자 정보 - 필수
 	private String admin_id;		//담당자 id
 	private String admin_email;		//담당자 email
 	private String admin_phone;		//담당자 전화번호
 	
 	//모집기간
-	private String duration_kind;	//상시모집,마감일 설정
+	private String duration_kind;	//상시모집,마감일 설정 필수
 	private Date duration_end;		//마감일 설정 - 마감일
 	
 	//제출 서류
@@ -89,6 +90,7 @@ public class PmfBoardDTO {
 		this.hit = hit;
 	}
 
+	/////////////////////////////////////////////////////
 	public String getMajor_key() {
 		return major_key;
 	}
@@ -137,6 +139,7 @@ public class PmfBoardDTO {
 		this.end_date = end_date;
 	}
 
+	///////////////////////////////////////////////////////////
 	public FileDTO getFileDTO() {
 		return fileDTO;
 	}
@@ -145,6 +148,7 @@ public class PmfBoardDTO {
 		this.fileDTO = fileDTO;
 	}
 
+	///////////////////////////////////////////////////////////
 	public String getProject_detail() {
 		return project_detail;
 	}
@@ -152,7 +156,8 @@ public class PmfBoardDTO {
 	public void setProject_detail(String project_detail) {
 		this.project_detail = project_detail;
 	}
-
+	
+	///////////////////////////////////////////////////////////
 	public String getWork_kind() {
 		return work_kind;
 	}
@@ -161,15 +166,29 @@ public class PmfBoardDTO {
 		this.work_kind = work_kind;
 	}
 
-	public String getEducation_leval() {
-		return education_leval;
+	//필수 아님
+	public String getEducation_level() {
+		String education_level = "";
+		
+		if(this.education_level != null) {
+			education_level = this.education_level;
+		}
+		
+		return education_level;
 	}
 
-	public void setEducation_leval(String education_leval) {
-		this.education_leval = education_leval;
+	public void setEducation_level(String education_level) {
+		this.education_level = education_level;
 	}
 
+	//필수 아님
 	public String getCareer() {
+		String career = "";
+		
+		if(this.career != null) {
+			career = this.career;
+		}
+		
 		return career;
 	}
 
@@ -186,6 +205,12 @@ public class PmfBoardDTO {
 	}
 
 	public String getFirm_info() {
+		String firm_info = "";
+		
+		if(this.firm_info != null) {
+			firm_info = this.firm_info;
+		}
+		
 		return firm_info;
 	}
 
@@ -194,6 +219,12 @@ public class PmfBoardDTO {
 	}
 
 	public String getAddr() {
+		String addr = "";
+		
+		if(this.addr != null) {
+			addr = this.addr;
+		}
+		
 		return addr;
 	}
 
@@ -202,6 +233,12 @@ public class PmfBoardDTO {
 	}
 
 	public String getAddr_detail() {
+		String addr_detail = "";
+		
+		if(this.addr_detail != null) {
+			addr_detail = this.addr_detail;
+		}
+		
 		return addr_detail;
 	}
 
@@ -242,6 +279,10 @@ public class PmfBoardDTO {
 	}
 
 	public Date getDuration_end() {
+		if(duration_kind.equals("상시 모집")) {
+			this.duration_end = new Date(Calendar.getInstance().getTimeInMillis());
+		}
+		
 		return duration_end;
 	}
 

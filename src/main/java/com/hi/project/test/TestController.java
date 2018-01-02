@@ -45,15 +45,8 @@ public class TestController {
 		return "login/loginForm";
 	}
 	
-	@RequestMapping("findMemberList")
-	public String findMemberList(){
-		return "community/pmf_list";
-	}
 	
-	@RequestMapping(value="memberWrite", method=RequestMethod.GET)
-	public String memberWrite(){
-		return "community/pmf_write";
-	}
+	
 	
 	@RequestMapping("payTest")
 	public String pay(){

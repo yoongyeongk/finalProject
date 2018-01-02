@@ -20,6 +20,7 @@ public class PmfBoardTest extends AbstractTest {
 	public void insert() throws Exception {
 		Calendar cal = Calendar.getInstance();
 		long date = cal.getTimeInMillis();
+		long date2 = date+(1000*60*60*60*24);
 		PmfBoardDTO pmfBoardDTO = new PmfBoardDTO();
 		pmfBoardDTO.setTitle("test");
 		pmfBoardDTO.setWriter("test");
@@ -31,8 +32,11 @@ public class PmfBoardTest extends AbstractTest {
 		pmfBoardDTO.setEnd_date(new Date(date));
 		pmfBoardDTO.setProject_detail("test");
 		pmfBoardDTO.setWork_kind("test");
-		pmfBoardDTO.setAddr("test");
-		
+		pmfBoardDTO.setAdmin_id("test");
+		pmfBoardDTO.setAdmin_email("test");
+		pmfBoardDTO.setAdmin_phone("test");
+		pmfBoardDTO.setDuration_kind("마감일 선택");
+		pmfBoardDTO.setDuration_end(new Date(date2));
 		
 		boardDAO.insert(pmfBoardDTO);
 		pmfBoardDTO.getNum();
