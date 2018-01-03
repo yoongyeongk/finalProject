@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.hi.tag.TagDTO;
+import com.hi.util.RowNum;
 
 @Repository
 public class TradeBoardDAO {
@@ -23,9 +24,10 @@ public class TradeBoardDAO {
 		return sqlSession.insert(NAMESPACE+"insert", tradeBoardDTO);
 	}
 	
-	public List<TradeBoardDTO> selectList() throws Exception{
-	
-		return sqlSession.selectList(NAMESPACE+"selectList");
+	public List<TradeBoardDTO> selectList(RowNum rowNum) throws Exception{
+		System.out.println(rowNum.getKind());
+		System.out.println(rowNum.getSearch());
+		return sqlSession.selectList(NAMESPACE+"selectList",rowNum);
 	}
 	
 	public TradeBoardDTO selectOne(int num) throws Exception {
@@ -51,5 +53,10 @@ public class TradeBoardDAO {
 	public List<TagDTO> getTag () throws Exception {
 		
 		return sqlSession.selectList(NAMESPACE+"selectListTag");
+	}
+	
+	public int getCount () throws Exception {
+		
+		return sqlSession.selectOne(NAMESPACE+"getCount");
 	}
 }

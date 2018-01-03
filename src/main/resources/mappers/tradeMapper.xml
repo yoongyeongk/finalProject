@@ -5,17 +5,29 @@
   
   <mapper namespace="tradeMapper">
   
+  	<select id="getCount" resultType="Integer">
+  		select nvl(count(num),0) from TRADE_BOARD
+  	</select>
+  
   	<insert id="insert" parameterType="tradeBoardDTO">
   		insert into TRADE_BOARD 
   		values(#{num},#{writer},#{title},#{contents},sysdate,#{closing_date},0,#{corporate_phone},#{min_price},#{corporation})
   	</insert>
   	
-  	<select id="selectList" resultType="tradeBoardDTO">
-  		select * from (select rowNum R,T.* from (select * from TRADE_BOARD order by num desc) T) where R between 1 and 10
+  	<select id="selectList" parameterType="com.hi.util.RowNum" resultType="tradeBoardDTO">
+  		select * from (select rowNum R,T.* from (select * from TRADE_BOARD 
+  		<if test='kind == "Title"'>
+  		 where #{kind} like '%'||#{search}||'%' 
+  		</if>
+  		<if test='kind == "Corporation"'>
+  		 where #{kind} like '%'||#{search}||'%' 
+  		</if>
+  		 order by num desc) T) 
+  		 where R between #{startRow} and #{lastRow}
   	</select>
   
   	<select id="selectListTag" resultType="tagDTO">
-  		select * from TAGS
+  		select * from TAGS order by tag_num asc
   	</select>
   
   	<select id="selectOne" parameterType="Integer" resultMap="tradeBoardResult">

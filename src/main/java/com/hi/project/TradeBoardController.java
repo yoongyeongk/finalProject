@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.hi.trade.TradeBoardDTO;
 import com.hi.trade.TradeBoardService;
+import com.hi.util.ListData;
 
 @Controller
 @RequestMapping(value="/trade/*")
@@ -24,10 +25,11 @@ public class TradeBoardController {
 	TradeBoardService tradeBoardService;
 	
 	@RequestMapping(value="tradeBoardList")
-	public ModelAndView selectList (Model model) {
+	public ModelAndView selectList (Model model,ListData listData) {
 		ModelAndView view = new ModelAndView();
 			try {
-				view = tradeBoardService.selectList();
+				view = tradeBoardService.selectList(listData);
+				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
