@@ -16,7 +16,7 @@
 *{
 	margin: 0;
 	padding: 0;
-	background-color: rgb(22, 160, 133);
+	background-image: url("../../resources/image/work.jpg");
 	font-family: HanSans;
 }
 .logo{

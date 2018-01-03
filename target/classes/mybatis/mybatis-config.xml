@@ -6,5 +6,6 @@
   	<typeAliases>
   	  	<typeAlias type="com.hi.project.pmf.PmfBoardDTO" alias="PmfBoardDTO"/>
   	  	<typeAlias type="com.hi.project.pmf.PmfReplyDTO" alias="PmfReplyDTO"/>
+  	  	<typeAlias type="com.hi.project.util.RowNum" alias="RowNum"/>
   	</typeAliases>
   </configuration>

@@ -19,6 +19,8 @@ public class PmfController {
 	
 	@RequestMapping("pmfList")
 	public String findMemberList(){
+		
+		
 		return "community/pmf_list";
 	}
 	
@@ -38,9 +40,11 @@ public class PmfController {
 			e.printStackTrace();
 		}
 		
+		String message = "게시글 등록에 실패했습니다.";
 		if(result>0) {
-			rd.addFlashAttribute("message", "게시글이 등록되었습니다.");
+			message = "게시글이 등록되었습니다.";
 		}
+		rd.addFlashAttribute("message", message);
 		
 		return "redirect:./pmf_list";
 	}

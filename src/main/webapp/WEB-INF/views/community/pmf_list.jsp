@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,13 +46,13 @@ body{
 	height: 30px;
 	float: right;
 	text-align: center;
-	line-height: 30px;
+	line-height: 27px;
 	font-size: 12px;
 	font-weight: 600;
 	color: white;
 	margin-bottom: 20px;
-	background-color: rgb(26, 188, 156);
-    border: solid 1px rgb(26, 188, 156);
+	background-color: rgb(22, 160, 133);
+    border: solid 1px rgb(22, 160, 133);
     border-radius: 4px;
 }
 a:hover{
@@ -73,7 +74,8 @@ a:hover{
     width: 100px;
     padding: 10px;
     transition: 0.3s;
-    font-size: 17px;
+    font-size: 15px;
+    letter-spacing: -1px;
     font-weight: 600;
     border: 1px solid #cccccc38;
     border-bottom: none;
@@ -108,6 +110,31 @@ a:hover{
 #search_bar{
 	text-align: center;
     margin-top: 30px;
+    margin-bottom: 30px;
+}
+#search_bar select{
+	width: 60px;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+}
+.search{
+	width: 300px;
+    height: 30px;
+    border-radius: 3px;
+    border: solid 1px #ccc;
+}
+.search_btn{
+	width: 60px;
+    height: 27px;
+    text-align: center;
+    line-height: 13px;
+    border-radius: 3px;
+    background-color: rgb(22, 160, 133);
+    border: solid 1px rgb(22, 160, 133);
+    color: white;
+}
 }
 #listCall{
 	padding-top: 30px;
@@ -117,9 +144,10 @@ a:hover{
 	border: solid 1px #ccc;
 	border-left: none;
 	border-right: none;
-	width: 900px;
+	width: 950px;
 	margin: 0 auto;
 	border-collapse: collapse;
+	letter-spacing: -1px;
 }
 .t_list th,.t_list td{
 	border: solid 1px #ccc;
@@ -157,7 +185,7 @@ a:hover{
 	width: 90px;
 }
 .td_8{
-	width: 50px;
+	width: 60px;
 }
 /* myMenu div */
 #btn_wrap{
@@ -225,6 +253,33 @@ a:hover{
 .tag_list{
 	font-size: 13px;
 }
+
+/* 페이징 */
+.paging{
+	text-decoration: none;
+    width: 600px;
+    margin: 0 auto;
+}
+.paging_move{
+	width: 45px;
+}
+.paging li{
+	list-style: none;
+    float: left;
+    padding: 4px;
+    width: 35px;
+    margin: 30px 3px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: rgb(244, 244, 244);
+    text-align: center;
+    font-size: 13px;
+}
+
+.paging li a{
+	color: black;
+}
+
 </style>
 </head>
 <body>
@@ -270,6 +325,7 @@ a:hover{
 										<th class="td_7">진행 수준</th>
 										<th class="td_8">조회수</th>
 									</tr>
+									<c:forEach begin="1" end="10">
 									<tr>
 										<td><input type="checkbox" class="save_ch"></td>
 										<td>프로젝트 명</td>
@@ -280,8 +336,16 @@ a:hover{
 										<td>진행 수준</td>
 										<td>조회수</td>
 									</tr>
+									</c:forEach>
 								</table>
 							<!-- 여기까지 -->
+								<ul class="paging">
+								<li class="paging_move"><a href="#"><</a></li>
+								<c:forEach begin="1" end="10" var="i">
+									<li class="paging_one"><a href="#">${i}</a></li>
+								</c:forEach>
+								<li class="paging_move"><a href="#">></a></li>
+								</ul>
 						</div>
 					</div>
 				</div>

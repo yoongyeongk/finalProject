@@ -179,7 +179,6 @@ td{
     margin-bottom: 40px;
     height: 45px;
     font-size: 18px;
-    
 }
 #tempSave{
 	width: 60px;
@@ -191,8 +190,8 @@ td{
     color: rgb(255, 255, 255);
     text-align: center;
     border-radius: 4px;
-    background-color: rgb(26, 188, 156);
-    border: solid 1px rgb(26, 188, 156);
+    background-color: rgb(22, 160, 133);
+    border: solid 1px rgb(22, 160, 133);
 }
 .t_title{
 	height: 40px;
@@ -355,8 +354,8 @@ textarea {
     color: rgb(255, 255, 255);
     text-align: center;
     border-radius: 4px;
-    background-color: rgb(26, 188, 156);
-    border: solid 1px rgb(26, 188, 156);
+    background-color: rgb(22, 160, 133);
+    border: solid 1px rgb(22, 160, 133);
 }
 .contact_form{
 	width: 99.5%;

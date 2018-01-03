@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -16,6 +17,16 @@ public class PmfBoardTest extends AbstractTest {
 
 	@Inject
 	private PmfBoardDAO boardDAO;
+	
+	public void selectList() throws Exception {
+		List<PmfBoardDTO> ar = boardDAO.selectList();
+		
+		for(PmfBoardDTO dto: ar){
+			System.out.print(dto.getTitle()+"  ");
+			System.out.print(dto.getWorks()+"  ");
+			System.out.println(dto.getProject_name());
+		}
+	}
 	
 	public void insert() throws Exception {
 		Calendar cal = Calendar.getInstance();
@@ -35,7 +46,7 @@ public class PmfBoardTest extends AbstractTest {
 		pmfBoardDTO.setAdmin_id("test");
 		pmfBoardDTO.setAdmin_email("test");
 		pmfBoardDTO.setAdmin_phone("test");
-		pmfBoardDTO.setDuration_kind("마감일 선택");
+		pmfBoardDTO.setDuration_kind("마감일 설정");
 		pmfBoardDTO.setDuration_end(new Date(date2));
 		
 		boardDAO.insert(pmfBoardDTO);
@@ -45,7 +56,7 @@ public class PmfBoardTest extends AbstractTest {
 	@Test
 	public void test() {
 		try {
-			this.insert();
+			this.selectList();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
