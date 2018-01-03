@@ -36,9 +36,9 @@ public class UsersController {
 	}
 	
 	@RequestMapping(value = "join", method = RequestMethod.POST)
-	public String join(UsersDTO usersDTO) {
+	public String join(UsersDTO usersDTO, HttpSession session) {
 		try {
-			usersService.join(usersDTO);
+			usersService.join(usersDTO, session);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

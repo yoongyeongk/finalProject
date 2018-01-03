@@ -2,6 +2,8 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias type="com.hi.users.UsersDTO" alias="usersDTO"/>
+		<typeAlias type="java.util.Map" alias="Map" />
+		<typeAlias type="com.hi.users.UsersDTO" alias="UsersDTO" />
+		<typeAlias type="com.hi.users.ProfileImgDTO" alias="ProfileImgDTO" />
 	</typeAliases>
 </configuration>

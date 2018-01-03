@@ -51,7 +51,7 @@
 		<c:import url="../temp/header.jsp"></c:import>
 		<div class="container">
 			<div class="col-md-8">			
-				<form class="form-horizontal" role="form" action="join" method="post">
+				<form class="form-horizontal" role="form" action="join" method="post" enctype="multipart/form-data">
 					<div class="form-inner">
 						<div class="form-group">
 				          <div class="col-md-8">
@@ -60,7 +60,7 @@
 										<img id="img" />
 										<img id="default-img" src="../resources/images/default-profile-img.png">
 									</div>
-				          		<input type="file" id="profile_img" name="profile_img">
+				          		<input type="file" id="profile_img" name="file">
 				          	</div>		          	
 				          </div>              
 				        </div>

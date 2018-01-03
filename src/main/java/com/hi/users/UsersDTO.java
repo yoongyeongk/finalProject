@@ -2,15 +2,18 @@ package com.hi.users;
 
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class UsersDTO {
-	
+
 	private String username;
 	private String password;
 	private String nickname;
 	private String phone;
 	private Date create_date;
 	private Date modify_date;
-	private String profile_img;
+	private ProfileImgDTO filename;
+	private MultipartFile file;
 
 	public String getUsername() {
 		return username;
@@ -60,12 +63,20 @@ public class UsersDTO {
 		this.modify_date = modify_date;
 	}
 
-	public String getProfile_img() {
-		return profile_img;
+	public ProfileImgDTO getFilename() {
+		return filename;
 	}
 
-	public void setProfile_img(String profile_img) {
-		this.profile_img = profile_img;
+	public void setFilename(ProfileImgDTO filename) {
+		this.filename = filename;
 	}
-	
+
+	public MultipartFile getFile() {
+		return file;
+	}
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
+
 }
