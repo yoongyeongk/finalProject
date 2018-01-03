@@ -20,7 +20,7 @@ public class PmfController {
 	private PmfBoardService pmfBoardService;
 	
 	@RequestMapping("pmfList")
-	public ModelAndView findMemberList(ListData listData){
+	public ModelAndView selectList(ListData listData){
 		ModelAndView mv = null;
 		try {
 			mv = pmfBoardService.selectList(listData);
@@ -37,13 +37,34 @@ public class PmfController {
 		return mv;
 	}
 	
+	@RequestMapping(value="pmfView")
+	public ModelAndView selectOne(int num) {
+		ModelAndView mv = new ModelAndView();
+		try {
+			PmfBoardDTO pmfBoardDTO = pmfBoardService.selectOne(num);
+			
+			if(pmfBoardDTO != null) {
+				mv.addObject("view", pmfBoardDTO);
+				mv.setViewName("community/pmf_view");
+			}else {
+				mv.addObject("message", "게시글이 존재하지 않습니다.");
+				mv.setViewName("community/pmf_list");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return mv;
+	}
+	
 	@RequestMapping(value="pmfWrite", method=RequestMethod.GET)
-	public String memberWrite(){
+	public String insert(){
 		return "community/pmf_write";
 	}
 	
 	@RequestMapping(value="pmfWrite", method=RequestMethod.POST)
-	public String memberWrite(PmfBoardDTO pmfBoardDTO, RedirectAttributes rd){
+	public String insert(PmfBoardDTO pmfBoardDTO, RedirectAttributes rd){
 		int result = 0;
 		
 		try {

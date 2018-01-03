@@ -31,8 +31,11 @@ public class PmfBoardService {
 		return mv;
 	}
 	
-	public void selectOne() throws Exception {
+	public PmfBoardDTO selectOne(int num) throws Exception {
+		PmfBoardDTO pmfBoardDTO = boardDAO.selectOne(num);
+		boardDAO.hitUpdate(num);
 		
+		return pmfBoardDTO;
 	}
 	
 	public int insert(PmfBoardDTO pmfBoardDTO) throws Exception {

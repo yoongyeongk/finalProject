@@ -328,7 +328,7 @@ a:hover{
 									<c:forEach items="${list}" var="dto">
 									<tr>
 										<td><input type="checkbox" class="save_ch"></td>
-										<td>${dto.project_name}</td>
+										<td><a href="./pmfView?num=${dto.num}">${dto.project_name}</a></td>
 										<td>${dto.title}</td>
 										<td>${dto.work_kind}</td>
 										<td>${dto.major_key} ${dto.sub_key}</td>
@@ -341,7 +341,7 @@ a:hover{
 							<!-- 여기까지 -->
 								<ul class="paging">
 								<li class="paging_move"><a href="#"><</a></li>
-								<c:forEach begin="1" end="10" var="i">
+								<c:forEach begin="1" end="5" var="i">
 									<li class="paging_one"><a href="#">${i}</a></li>
 								</c:forEach>
 								<li class="paging_move"><a href="#">></a></li>

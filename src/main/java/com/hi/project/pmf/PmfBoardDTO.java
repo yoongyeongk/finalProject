@@ -28,7 +28,8 @@ public class PmfBoardDTO {
 	private String work_kind;		//근무 유형 - 필수
 	private String education_level;	//학력
 	private String career;			//경력
-	private PmfPaymentDTO pmfPaymentDTO;	//급여 - 필수
+	private String payment_kind;	//급여 유형- 필수
+	private int payment_value;		//급여 - 월/일
 	
 	//회사 정보
 	private String firm_info;		//회사소개
@@ -196,12 +197,25 @@ public class PmfBoardDTO {
 		this.career = career;
 	}
 
-	public PmfPaymentDTO getPmfPaymentDTO() {
-		return pmfPaymentDTO;
+	public String getPayment_kind() {
+		return payment_kind;
 	}
 
-	public void setPmfPaymentDTO(PmfPaymentDTO pmfPaymentDTO) {
-		this.pmfPaymentDTO = pmfPaymentDTO;
+	public void setPayment_kind(String payment_kind) {
+		this.payment_kind = payment_kind;
+	}
+
+	public int getPayment_value() {
+		int payment_value = 0;
+		if(!payment_kind.equals("협의")) {
+			payment_value = this.payment_value;
+		}
+		
+		return payment_value;
+	}
+
+	public void setPayment_value(int payment_value) {
+		this.payment_value = payment_value;
 	}
 
 	public String getFirm_info() {

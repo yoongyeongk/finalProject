@@ -20,8 +20,8 @@ public class PmfBoardDAO {
 		return sqlSession.selectList(NAMESPACE+"selectList", rowNum);
 	}
 	
-	public void selectOne() throws Exception {
-		
+	public PmfBoardDTO selectOne(int num) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"selectOne", num);
 	}
 	
 	public int insert(PmfBoardDTO pmfBoardDTO) throws Exception {
@@ -36,8 +36,8 @@ public class PmfBoardDAO {
 		
 	}
 	
-	public void hitUpdate() throws Exception {
-		
+	public int hitUpdate(int num) throws Exception {
+		return sqlSession.update(NAMESPACE+"hitUpdate", num);
 	}
 	
 	public int getTotalCount(RowNum rowNum) throws Exception {

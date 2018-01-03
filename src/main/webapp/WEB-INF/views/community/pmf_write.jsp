@@ -45,12 +45,13 @@ $(function(){
 				return xhrobj;
 			},
 			type: 'POST',
-			url: './fileUpload',
+			url: '../test/fileUpload',
 			data: formdata,
 			contentType: false,
 			processData: false,
 			success: function(data){
 				status.setProgress(100);
+				alert(data);
 			}
 		});
 		

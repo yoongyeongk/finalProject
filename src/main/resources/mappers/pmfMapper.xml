@@ -4,12 +4,43 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="pmfMapper">
   	
+  	<resultMap type="PmfBoardDTO" id="viewResult">
+  		<id property="num" column="num"/>
+  		<collection property="fileDTO" column="num" ofType="FileDTO" select="selectFile">
+  			<id property="fnum" column="fnum"/>
+  		</collection>
+  		<collection property="pmfDocumentDTO" column="num" ofType="pmfDocumentDTO" select="selectDocument">
+  			<id property="docu_num" column="docu_num"/>
+  		</collection>
+  	</resultMap>
+  	
   	<select id="selectList" parameterType="RowNum" resultType="PmfBoardDTO">
   		select * from
   		(select rownum r, N.* from
   		(select * from pmf_board order by num desc) N)
   		where r between 1 and 10
   	</select>
+  	
+  	<!-- view에 필요한 내용들 불러오기 -->
+  	<select id="selectOne" parameterType="int" resultMap="viewResult">
+  		select * from pmf_board where num=#{num}
+  	</select>
+  	
+  	<!-- 파일 -->
+  	<select id="selectFile" parameterType="int" resultType="FileDTO">
+  		select * from pmf_files where num=#{num}
+  	</select>
+  	
+  	<!-- 문서 -->
+  	<select id="selectDocument" parameterType="int" resultType="com.hi.project.pmf.PmfDocumentDTO">
+  		select * from pmf_document where num=#{num}
+  	</select>
+  	
+  	<update id="hitUpdate" parameterType="int">
+  		update pmf_board set hit=hit+1 where num=#{num}
+  	</update>
+  	<!-- 여기까지 -->
+  	
   	
   	<insert id="insert" parameterType="PmfBoardDTO">
   		<selectKey keyProperty="num" resultType="int" order="BEFORE">
