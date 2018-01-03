@@ -23,9 +23,16 @@ public class TradeBoardDTO {
 	private List<TagDTO> tags;
 	private MultipartFile [] img;
 	private List<FileDTO> fileNames;
+	private String corporation; 
 	
 	
 
+	public String getCorporation() {
+		return corporation;
+	}
+	public void setCorporation(String corporation) {
+		this.corporation = corporation;
+	}
 	public List<TagDTO> getTags() {
 		return tags;
 	}

@@ -19,247 +19,7 @@
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.4.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 
-<style type="text/css">
-	html{
-		width: 100%;
-		height: 100%;
-	}
-	.all{
-		width: 1300px;
-		height: 1250px;
-		margin: 0 auto;
-	}
-	.box{
-		width: 900px;
-		height: 100px;
-		margin: 0 auto;
-		margin-bottom: 40px;
-	}
-	.tag{
-		list-style: none;
-		float: leftl;
-		margin-left: 15px;
-		display: inline-block;
-	}
-	.tagDel{
-		padding: 0px 0px 0px 6px;
-		cursor: pointer;
-	}
-	.upDel{
-		padding: 0px 0px 0px 6px;
-		cursor: pointer;
-	}
-	.tagColor{
-		color: #005fc1;
-		background-color: #f2f2f2;
-	}
-	.upColor{
-		color: salmon;
-		background-color: #f2f2f2;
-	}
-	#tagBox{
-		margin-top: 10px;
-		margin-left: 33px;
-	}
-	#title{
-		width: 700px;
-		height: 40px;
-		border: 2px solid powderblue;
-	}
-	#title:focus{
-		outline: 2px solid turquoise;
-		outline-offset:-2px;
-		outline-width: 3px;
-	}
-	#titleBox{
-		padding-top: 25px;
-		text-align: center;
-	}
-	#con{
-		width: 900px;
-		margin: 0 auto;
-		
-	}
-	#conBox{
-		margin: 0 auto;
-		width: 850px;
-	}
-	#conBox:hover{
-		outline: 2px solid #27b6ba;
-	}
-	#tagForm{
-		padding-top: 10px;
-		width: 800px;
-		margin: 0 auto;
-		margin-top:20px;
-		border: 1px solid #c9c9c9;
-	}
-	#tagForm:hover{
-		outline: 2px solid #27b6ba;
-	}
-	#addForm{
-		position: relative; top: -1px; left: 20px;
-	}
-	#addInput{
-		width: 350px;
-		padding-left: 20px;
-	}
-	#text1{
-		font-weight: bold; 
-		margin-left: 12px; 
-		margin-right: 30px;
-		user-select:none;
-	}
-	.b{
-		display: inline-block;
-   	 	border: 1px solid #dcdede;
-   	 	border-right: 1px solid #c0c3c6;
- 		border-bottom: 1px solid #c0c3c6;
- 		color: #606060;
-   		text-decoration: none;
-   		background-color: white;
-	}
-	#but{
-		width: 800px;
-		margin: 0 auto;
-	}
-	#fileBox{
-		width: 800px;
-		margin: 0 auto;
-		border: 1px solid #c9c9c9;
-	}
-	.previewBox{
-		width: 170px;
-		height: 165px;
-		display: inline-block;
-		margin-right: 10px;
-		margin-top:0;
-	}
-	.upPreviewBox{
-		width: 170px;
-		height: 165px;
-		display: inline-block;
-		margin-right: 10px;
-		margin-top:0;
-	}
-	.preview{
-		width: 170px;
-		height: 130px;
-		border: 1px solid powderblue;
-		margin-left: 34px;
-  		margin-top: 15px;
-	}
-	.imgs{
-		width: 170px;
-		height: 130px;
-	}
-	.x{
-		width: 25px;
-		height: 25px;
-	}
-	.preview:hover{
-		outline: 2px solid dodgerblue;
-	}
-	#infoBox{
-		width: 800px;
-		margin: 0 auto;
-		border: 1px solid #c9c9c9;
-	}
-	#infoBox:hover{
-		outline: 2px solid #27b6ba;
-	}
-	.in{
-	    width: 555px;
-  	 	margin: 0 auto;
-    	height: 45px;
-    	padding-top: 10px;
-	}
-	#min_price{
-		padding-left: 12px;
-		font-size: 16px;
-	}
-	#closing_date{
-		width: 150px; 
-		font-size: 16px;
-	}
-	.star{
-		font-size:16px;
-		color: orangered;
-	}
-	.lb{
-		user-select:none;
-		width: 90px;
-		text-align: center;
-	}
-	#phone{
-		padding-left: 12px;
-		font-size: 16px;
-		width: 280px;
-	}
-	.pb{
-		width: 150px;
-    	height: 30px;
-    	float: right;
-    	margin-right: 1px;
-	}
-	#buttonBox{
-		margin: 0 auto;
-		width: 500px;
-		text-align:center;
-	}
-	#btn{
-		background-color: #40a1ff;
-		color: white;
-		border: none;
-		padding-right: 20px;
-		width: 180px;
-		height: 50px;
-		
-	}
-	#v{
-		width: 30px;
-		height: 30px;
-	}
-</style>
-
-<script type="text/javascript">
-$(function() {
-	
-$("#pc").click(function() {
-	
-IMP.init('imp80639420');
-	IMP.certification({
-	    merchant_uid : '01056807909' + new Date().getTime() //본인인증과 연관된 가맹점 내부 주문번호가 있다면 넘겨주세요
-	}, function(rsp) {
-	    if ( rsp.success ) {
-	    	 // 인증성공
-	        console.log(rsp.imp_uid);
-	        console.log(rsp.merchant_uid);
-	        
-	        $.ajax({
-					type : 'POST',
-					url : '/certifications/confirm',
-					dataType : 'json',
-					data : {
-						imp_uid : rsp.imp_uid
-					}
-			 }).done(function(rsp) {
-			 		// 이후 Business Logic 처리하시면 됩니다.
-			 });
-	        	
-	    } else {
-	    	 // 인증취소 또는 인증실패
-	        var msg = '인증에 실패하였습니다.';
-	        msg += '에러내용 : ' + rsp.error_msg;
-
-	        alert(msg);
-	    }
-	});
-})
-
-})
-</script>
-
+<link href="${pageContext.request.contextPath }/resources/css/tradeBoard.css" rel="stylesheet">
 <script type="text/javascript">
 		var count = 0;
 		var regNumber = /^[0-9]*$/;
@@ -440,6 +200,10 @@ $(function(){
 									<ul>
 										<c:if test="${form eq 'Update'}">
 											<c:forEach items="${one.tags }" var="t" varStatus="i">
+													<div class='tag'  id="del${i.index }">
+														<li>
+															<span class='tagColor'>${t.tag}</span>
+															<span class='tagDel' title='del${i.index }'>X</span>
 													<div class='tag'  id="uptag${i.index }">
 														<li>
 															<span class='upColor'>${t.tag}</span>
@@ -458,8 +222,8 @@ $(function(){
 								<div id="but">
 									<label for="f">
 									<div class="move">
-										<div class="b">이미지 선택</div>
-										<input type="file" id="f" name="img" multiple="multiple" style="display: none;">
+										<div class="select b">이미지 선택</div>
+										<input type="file" id="f" name="img" multiple="multiple" style="display: none;" required="required">
 									</div>
 									</label>
 									<h5 style="user-select:none; display: inline-block;"><span class="star">*</span> 샘플 이미지를 1개 이상 선택하세요.</h5>
@@ -483,8 +247,16 @@ $(function(){
 							</div>
 						</div>
 						
-						<div class="box">
+						<div class="box" style="height: auto">
 							<div id="infoBox">
+							
+								<div class="in">
+									<div>
+										<label for="corporation" class="lb">기업명 <span class="star">*</span></label>
+										<input type="text"  id="corporation" name="corporation" value="${one.corporation }" placeholder="ex) Together" required="required">
+									</div>
+								</div>
+							
 								<div class="in">
 									<div>
 										<label for="phone" class="lb">연락처 <span class="star">*</span></label>
@@ -507,6 +279,7 @@ $(function(){
 								
 							</div>
 						</div>
+						
 							<div id="buttonBox">
 								<button id="btn" ng-disabled="frm.$error.required" >
 									<img src="${pageContext.request.contextPath }/resources/images/tradeBoard/v.png" id="v">

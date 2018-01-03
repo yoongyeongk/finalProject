@@ -36,6 +36,7 @@ public class TagService {
 		result = tagDAO.deleteOne(num);
 		return result;
 	}
+
 	
 	public int deleteAll(int num) throws Exception {
 		return tagDAO.deleteAll(num);

@@ -1,5 +1,7 @@
 package com.hi.project;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.hi.trade.TradeBoardDTO;
 import com.hi.trade.TradeBoardService;
@@ -21,9 +24,15 @@ public class TradeBoardController {
 	TradeBoardService tradeBoardService;
 	
 	@RequestMapping(value="tradeBoardList")
-	public String list () {
-		
-		return "trade/tradeBoardList";
+	public ModelAndView selectList (Model model) {
+		ModelAndView view = new ModelAndView();
+			try {
+				view = tradeBoardService.selectList();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return view;
 	}
 	
 	@RequestMapping(value="tradeBoardWrite" , method = RequestMethod.GET)
