@@ -22,20 +22,20 @@
 		height: 100%;
 	}
 	.all{
-		width: 1300px;
+		width: 1200px;
 		height: 1500px;
 		margin: 0 auto;
 	}
 	.box{
-		width: 1200px;
+		width: 1100px;
 		height: auto;
 		margin: 0 auto;
 	}
 	#listBox{
-		margin-top: 150px;
+		margin-top: 30px;
 	}
 	#tb{
-		width: 1100px;
+		width: 950px;
 		table-layout: fixed;
 		border-left: none;
 		border-right: none;
@@ -58,7 +58,7 @@
     	color: #888;
 	}
 	.cell>th,td{
-		height: 130px;
+		height: 110px;
 		overflow: hidden;
    		text-overflow: ellipsis;
     	white-space: nowrap;
@@ -126,16 +126,124 @@
 	.loc{
 		padding: 30px 0px 25px 0px;
 	}
+	.outBox{
+		width: 500px;
+	}
+	.searchBox {
+		position:relative;
+		display:inline-block;
+		width:150px;
+		height:40px;
+		background:url('${pageContext.request.contextPath}/resources/images/tradeBoard/ico_select_arrow.png') right center no-repeat;
+		background-color:#fff;
+		margin-top: 100px;
+		top:1px;
+	}
+	.searchBox .txt {
+		display:block;
+		width:150px;
+		height:40px;
+		padding-left:10px;
+		line-height:40px;
+		border:1px solid #ccc;
+		text-align:left;
+	}
+	.searchBox label {
+		overflow:hidden;
+		position:absolute;
+		width:0;
+		height:0;
+		line-height:0;
+		text-indent:-9999px;
+	}
+	.searchBox select {
+		appearance:none;
+		-webkit-appearance:none;
+		-moz-appearance:none;
+		-o-appearance:none;
+		position:absolute; left:0; top:0;
+		display:block;
+		width:150px;
+		padding-left:10px;
+		height:40px;
+		opacity:0;
+		filter: alpha(opacity=0);
+		z-index:10;
+	}
+	 
+	.searchBox.focus {
+		border: 1px solid #66afe9;
+		-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6); 
+		box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6); /* focus효과*/
+	}
+	#search{
+		width: 300px;
+		height: 38px;
+		padding-right: 43px;
+	}
+	.searchInput{
+		display: inline-block;
+		width: 310px;
+		height: 50px;
+		margin: 0 auto;
+	}
+	#s{
+		display: none;
+	}
+	.s_img{
+		position: relative;
+		top:-2;
+		right: 50;
+	}
 </style>
+
+<script type="text/javascript">
+$(function() {
+	
+
+	 $(".searchBox select").change(function () {
+		var changeTxt = $(this).find("option:selected").text();
+		$(this).parent().find(".txt").text(changeTxt);
+	 });
+	$(".searchBox select").focus(function () {
+		$(this).parent().addClass("focus");
+	});
+	$(".searchBox select").blur(function () {
+		$(this).parent().removeClass("focus");
+	});
+
+});
+</script>
 </head>
 <body>
 	<list>
 		<div class="all">
-		
-		
-		
-		
-		
+
+			<div class="box">
+				<div class="outBox">
+					<form action="/" method="post">
+						<div class="searchBox">
+							<span class="txt">Title</span>
+							<label for="kind" class="screen_out">검색분류선택</label>
+								<select name="kind" id="kind">
+									<option selected="selected">Title</option>
+									<option>Corporation</option>
+								</select>
+						</div>
+							<div class="searchInput">
+								<input type="text" name="search" id="search">
+							</div>
+							<span class="s_img">
+									<label for="s">
+										<img src="${pageContext.request.contextPath }/resources/images/tradeBoard/search.jpg"
+										style="width: 30px; height: 27px;">
+										<button id="s">검색</button>
+									</label>
+								</span>
+					</form>
+				</div>
+			</div>
+				
 			<div class="box">
 				<div id="listBox">
 					<table id="tb">
@@ -186,6 +294,7 @@
 									
 									<td class="ct date">
 										<div class="loc">
+											  <div>~</div>
 											<fmt:formatDate dateStyle="long"  value="${dto.closing_date }"/>
 										</div>
 									</td>

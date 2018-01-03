@@ -273,7 +273,7 @@ $(function(){
 									
 									<div style="display: inline-block; float: right;">
 										<label for="closing_date" class="lb">마감일 <span class="star">*</span></label>
-										<input type="date" name="closing_date" id="closing_date" value="${ one.closing_date}" required="required">		
+										<input type="date" name="closing_date" id="closing_date" value="${one.closing_date}" required="required">		
 									</div>
 								</div>
 								
