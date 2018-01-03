@@ -1,11 +1,16 @@
 package com.hi.project.pmf;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.hi.boardFile.FileDTO;
 import com.hi.boardFile.FileSaver;
+import com.hi.project.util.ListData;
+import com.hi.project.util.Pager;
 
 @Service
 public class PmfBoardService {
@@ -13,8 +18,17 @@ public class PmfBoardService {
 	@Inject
 	private PmfBoardDAO boardDAO;
 	
-	public void selectList() throws Exception {
+	public ModelAndView selectList(ListData listData) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		List<PmfBoardDTO> ar = boardDAO.selectList(listData.makeRow());
+		//페이징 처리
+		int totalCount = boardDAO.getTotalCount(listData.makeRow());
+		Pager pager = listData.makePage(totalCount);
+		mv.addObject("list", ar);
+		mv.addObject("pager", pager);
+		mv.setViewName("community/pmf_list");
 		
+		return mv;
 	}
 	
 	public void selectOne() throws Exception {

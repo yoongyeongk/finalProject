@@ -5,10 +5,12 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hi.project.pmf.PmfBoardDTO;
 import com.hi.project.pmf.PmfBoardService;
+import com.hi.project.util.ListData;
 
 @Controller
 @RequestMapping(value="/pmf/*")
@@ -18,10 +20,21 @@ public class PmfController {
 	private PmfBoardService pmfBoardService;
 	
 	@RequestMapping("pmfList")
-	public String findMemberList(){
+	public ModelAndView findMemberList(ListData listData){
+		ModelAndView mv = null;
+		try {
+			mv = pmfBoardService.selectList(listData);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+		//예외처리
+		if(mv.getModel().get("list") == null) {
+			mv.addObject("message", "리스트를 불러올 수 없습니다.");
+		}
 		
-		return "community/pmf_list";
+		return mv;
 	}
 	
 	@RequestMapping(value="pmfWrite", method=RequestMethod.GET)

@@ -16,9 +16,8 @@ public class PmfBoardDAO {
 	private SqlSession sqlSession;
 	private final String NAMESPACE = "pmfMapper.";
 	
-	//매개변수 수정하기
-	public List<PmfBoardDTO> selectList() throws Exception {
-		return sqlSession.selectList(NAMESPACE+"selectList");
+	public List<PmfBoardDTO> selectList(RowNum rowNum) throws Exception {
+		return sqlSession.selectList(NAMESPACE+"selectList", rowNum);
 	}
 	
 	public void selectOne() throws Exception {
@@ -39,6 +38,10 @@ public class PmfBoardDAO {
 	
 	public void hitUpdate() throws Exception {
 		
+	}
+	
+	public int getTotalCount(RowNum rowNum) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"getTotalCount", rowNum);
 	}
 	
 	public void key_value_list() throws Exception {

@@ -299,7 +299,7 @@ a:hover{
 
 			<div id="content_wrap">
 				<div id="pmfList" class="tabcontent">
-					<p>검색 / 멤버 모집 글 리스트 / 담기 버튼 / 페이징</p>
+					<p>검색 / 담기 버튼 / 페이징</p>
 					<div id="pmfList_sec">
 						<div id="search_bar">
 							<select name="kind">
@@ -325,16 +325,16 @@ a:hover{
 										<th class="td_7">진행 수준</th>
 										<th class="td_8">조회수</th>
 									</tr>
-									<c:forEach begin="1" end="10">
+									<c:forEach items="${list}" var="dto">
 									<tr>
 										<td><input type="checkbox" class="save_ch"></td>
-										<td>프로젝트 명</td>
-										<td>제목</td>
-										<td>지원요건</td>
-										<td>프로젝트 유형</td>
-										<td>마감일</td>
+										<td>${dto.project_name}</td>
+										<td>${dto.title}</td>
+										<td>${dto.work_kind}</td>
+										<td>${dto.major_key} ${dto.sub_key}</td>
+										<td>~ ${dto.end_date}</td>
 										<td>진행 수준</td>
-										<td>조회수</td>
+										<td>${dto.hit}</td>
 									</tr>
 									</c:forEach>
 								</table>

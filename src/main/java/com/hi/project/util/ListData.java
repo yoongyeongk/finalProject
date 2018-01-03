@@ -4,12 +4,12 @@ public class ListData {
 	private int curPage;
 	private String kind;
 	private String search;
-	private int perPage; //ê°?ë³?? ?œ¼ë¡? ?‚¬?š©?• ì§? ë§ì?ë¥? ? •?•´?„œ ì»¨íŠ¸ë¡¤ëŸ¬?—?„œ ë°›ì•„?˜¬ ì§? ë§ì? ê²°ì •
+	private int perPage; //ï¿½?ï¿½??ï¿½ï¿½?ï¿½ï¿½ï¿½? ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ï¿½? ë§ï¿½?ï¿½? ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ ì»¨íŠ¸ë¡¤ëŸ¬?ï¿½ï¿½?ï¿½ï¿½ ë°›ì•„?ï¿½ï¿½ ï¿½? ë§ï¿½? ê²°ì •
 	
 	public ListData() {
 		// TODO Auto-generated constructor stub
 		this.curPage = 1;
-		this.kind = "title";
+		this.kind = "ì „ì²´";
 		this.search = "";
 		this.perPage = 10;
 	}
@@ -28,31 +28,31 @@ public class ListData {
 	//page
 	public Pager makePage(int totalCount){
 		Pager pager = new Pager();
-		int perBlock = 5; //?´ê²ƒë„ ê°?ë³?/ê³ ì • ?—¬ë¶?ë¥? ê²°ì •?•˜?—¬ ë°›ì•„?˜¬ì§? ê²°ì •
+		int perBlock = 5; //?ï¿½ï¿½ê²ƒë„ ï¿½?ï¿½?/ê³ ì • ?ï¿½ï¿½ï¿½?ï¿½? ê²°ì •?ï¿½ï¿½?ï¿½ï¿½ ë°›ì•„?ï¿½ï¿½ï¿½? ê²°ì •
 		
-		//1. totalCountë¡? totalPage ê³„ì‚°
+		//1. totalCountï¿½? totalPage ê³„ì‚°
 		int totalPage = 0;
 		if(totalCount%perPage == 0){
 			totalPage = totalCount/perPage;
 		}else{
 			totalPage = totalCount/perPage+1;
 		}
-		//2. totalPageë¡? totalBlock ê³„ì‚°
+		//2. totalPageï¿½? totalBlock ê³„ì‚°
 		if(totalPage%perBlock == 0){
 			pager.setTotalBlock(totalPage/perBlock);
 		}else{
 			pager.setTotalBlock(totalPage/perBlock+1);
 		}
-		//3. curPageë¡? curBlock ê³„ì‚°
+		//3. curPageï¿½? curBlock ê³„ì‚°
 		if(curPage%perBlock == 0){
 			pager.setCurBlock(curPage/perBlock);
 		}else{
 			pager.setCurBlock(curPage/perBlock+1);
 		}
-		//4. curBlock?œ¼ë¡? startNum, lastNum ê³„ì‚°
+		//4. curBlock?ï¿½ï¿½ï¿½? startNum, lastNum ê³„ì‚°
 		pager.setStartNum((pager.getCurBlock()-1)*perBlock+1);
 		pager.setLastNum(pager.getCurBlock()*perBlock);
-		//5. curBlock?´ ë§ˆì?ë§? Block?¼ ?•Œ lastNum ì²˜ë¦¬
+		//5. curBlock?ï¿½ï¿½ ë§ˆï¿½?ï¿½? Block?ï¿½ï¿½ ?ï¿½ï¿½ lastNum ì²˜ë¦¬
 		if(pager.getCurBlock() == pager.getTotalBlock()){
 			pager.setLastNum(totalPage);
 		}

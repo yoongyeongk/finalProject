@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import com.hi.project.AbstractTest;
 import com.hi.project.pmf.PmfBoardDAO;
+import com.hi.project.util.ListData;
 
 public class PmfBoardTest extends AbstractTest {
 
@@ -19,7 +20,8 @@ public class PmfBoardTest extends AbstractTest {
 	private PmfBoardDAO boardDAO;
 	
 	public void selectList() throws Exception {
-		List<PmfBoardDTO> ar = boardDAO.selectList();
+		ListData listData = new ListData();
+		List<PmfBoardDTO> ar = boardDAO.selectList(listData.makeRow());
 		
 		for(PmfBoardDTO dto: ar){
 			System.out.print(dto.getTitle()+"  ");

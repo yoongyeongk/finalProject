@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="pmfMapper">
   	
-  	<select id="selectList" resultType="PmfBoardDTO">
+  	<select id="selectList" parameterType="RowNum" resultType="PmfBoardDTO">
   		select * from
   		(select rownum r, N.* from
   		(select * from pmf_board order by num desc) N)
@@ -23,5 +23,17 @@
   			   #{admin_id},#{admin_email},#{admin_phone},
   			   #{duration_kind},#{duration_end})
   	</insert>
+  	
+  	<select id="getTotalCount" parameterType="RowNum" resultType="int">
+  		select count(*) from pmf_board
+  		<if test="kind == '전체'">
+  		</if>
+  		<if test="kind == '제목'">
+  			where title like '%'||#{search}||'%'
+  		</if>
+  		<if test="kind == '프로젝트 유형'">
+  			where major_key like '%'||#{search}||'%' or sub_key like '%'||#{search}||'%'
+  		</if>
+  	</select>
   	
   </mapper>
