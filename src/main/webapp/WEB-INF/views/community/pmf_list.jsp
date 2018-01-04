@@ -257,7 +257,7 @@ a:hover{
 /* ∆‰¿Ã¬° */
 .paging{
 	text-decoration: none;
-    width: 600px;
+    width: 327px;
     margin: 0 auto;
 }
 .paging_move{

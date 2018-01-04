@@ -20,8 +20,8 @@ public class PmfBoardTest extends AbstractTest {
 	private PmfBoardDAO boardDAO;
 	
 	public void selectOne(int num) throws Exception {
-		PmfBoardDTO pmfBoardDTO = boardDAO.selectOne(7);
-		boardDAO.hitUpdate(7);
+		PmfBoardDTO pmfBoardDTO = boardDAO.selectOne(num);
+		boardDAO.hitUpdate(num);
 		
 		System.out.println("title:"+pmfBoardDTO.getTitle());
 		System.out.println("writer:"+pmfBoardDTO.getWriter());
@@ -36,7 +36,7 @@ public class PmfBoardTest extends AbstractTest {
 		System.out.println("files:"+pmfBoardDTO.getFileDTO().getFilename());
 		System.out.println("project_detail:"+pmfBoardDTO.getProject_detail());
 		System.out.println("work_kind:"+pmfBoardDTO.getWork_kind());
-		System.out.println("payment:"+pmfBoardDTO.getPmfPaymentDTO().getPay_kind());
+		System.out.println("payment:"+pmfBoardDTO.getPayment_kind());
 		System.out.println("firm_info:"+pmfBoardDTO.getFirm_info());
 		System.out.println("addr:"+pmfBoardDTO.getAddr());
 		System.out.println("addr_detail:"+pmfBoardDTO.getAddr_detail());
@@ -86,7 +86,7 @@ public class PmfBoardTest extends AbstractTest {
 	@Test
 	public void test() {
 		try {
-			this.selectOne(7);
+			this.selectOne(21);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

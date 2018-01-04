@@ -11,7 +11,27 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 <script type="text/javascript">
-
+	$(function(){
+		/* $(".clipboard_copy").click(function(event){
+			var copyValue = $("#email").text();
+			event.copyValue.select();
+			
+			try{
+				document.execCommand("copy");
+				alert("copy");
+			} catch(err){
+				alert("error");
+			}
+		}) */
+		
+	})
+	function selectElementText(event){
+		var range = document.createRange();
+		range.selectNodContents(event);
+		var selection = window.getSelection();
+		selection.removeAllRanges();
+		selection.addRange(range);
+	}
 </script>
 <style type="text/css">
 *{
@@ -72,6 +92,74 @@ td{
     border-radius: 4px;
     background-color: rgb(22, 160, 133);
     border: solid 1px rgb(22, 160, 133);
+}
+.line{
+	margin: 0 auto;
+	width: 100%;
+	border-top: 3px solid #eee;
+}
+
+/* reply section */
+#reply{
+	margin: 0 auto;
+    width: 800px;
+}
+.new_reply{
+	width: 800px;
+}
+.replyzone{
+	width: 715px;
+    padding: 10px;
+    margin: 0px;
+    display: inline-block;
+    height: 100px !important;
+    font-size: 12px;
+}
+.reply_btn{
+	width: 75px;
+    height: 100px;
+    float: right;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    color: white;
+    font-weight: 600;
+    background-color: #ccc;
+}
+.t_reply{
+	border: none;
+    margin-top: 30px;
+    font-size: 12px;
+}
+.td_r{
+	border: none;
+    border-top: solid #eee 1px;
+    border-bottom: solid #eee 1px;
+    text-align: center;
+}
+.t_1{
+	width: 100px;
+}
+.t_2{
+	width: 600px;
+}
+.t_3{
+	width: 100px;
+	text-align: right;
+	padding-right: 20px;
+}
+.reply_add{
+	width: 800px;
+    margin: 0 auto;
+    height: 40px;
+    background-color: #eee;
+    text-align: center;
+    line-height: 40px;
+    margin-bottom: 50px;
+    font-weight: 600;
+}
+.reply_add:HOVER {
+	border: 2px solid #ddd;
+	cursor: pointer;
 }
 </style>
 </head>
@@ -218,7 +306,7 @@ td{
 				</tr>
 				<tr>
 					<td class="t_label label1">담당자 email</td>
-					<td class="t_value">${view.admin_email}<input type="button" class="clipboard_copy" value="클립보드 복사"></td>
+					<td class="t_value"><span id="email">${view.admin_email}</span><input type="button" class="clipboard_copy" value="클립보드 복사"></td>
 				</tr>
 				<tr>
 					<td class="t_label label1">담당자 휴대번호</td>
@@ -263,49 +351,51 @@ td{
 		
 			<!-- 담기버튼 하트나 별 모양으로 바꾸기 -->
 			<input class="save_btn" type="button" value="담기" id="save_btn">
+		
+			<hr class="line">
 		</section>
 		<!-- 게시판 내용 끝 -->
+		
 		
 		<section id="reply">
 			<div class="new_reply">
 				<form action="../reply/pmfReplyWrite" method="post">
 					<input type="hidden" name="num" value="${view.num}">
 					<input type="hidden" name="writer" value="writer"><!-- 회원 아이디 정해지면 세션 사용 -->
-					<textarea name="contents" rows="5">궁금한 내용을 자유롭게 써 주세요.</textarea>
+					<textarea name="contents" class="replyzone form-control" draggable="false">궁금한 내용을 자유롭게 써 주세요.</textarea>
 					<input type="button" class="reply_btn" value="댓글 등록">
 				</form>
 			</div>
 			<div class="reply_list">
-				기존 댓글 리스트
-				<table>
+				<table class="t_reply">
 					<tr>
-						<td>writer</td>
-						<td>contents</td>
-						<td>OO분 전</td>
+						<td class="td_r t_1">writer</td>
+						<td class="td_r t_2">contents</td>
+						<td class="td_r t_3">OO분 전</td>
 					</tr>
 					<tr>
-						<td>writer</td>
-						<td>contents</td>
-						<td>OO분 전</td>
+						<td class="td_r t_1">writer</td>
+						<td class="td_r t_2">contents</td>
+						<td class="td_r t_3">OO분 전</td>
 					</tr>
 					<tr>
-						<td>writer</td>
-						<td>contents</td>
-						<td>OO분 전</td>
+						<td class="td_r t_1">writer</td>
+						<td class="td_r t_2">contents</td>
+						<td class="td_r t_3">OO분 전</td>
 					</tr>
 					<tr>
-						<td>writer</td>
-						<td>contents</td>
-						<td>OO분 전</td>
+						<td class="td_r t_1">writer</td>
+						<td class="td_r t_2">contents</td>
+						<td class="td_r t_3">OO분 전</td>
 					</tr>
 					<tr>
-						<td>writer</td>
-						<td>contents</td>
-						<td>OO분 전</td>
+						<td class="td_r t_1">writer</td>
+						<td class="td_r t_2">contents</td>
+						<td class="td_r t_3">OO분 전</td>
 					</tr>
 				</table>
 				
-				<div class="reply_add">더보기</div><!-- 무한 스크롤? -->
+				<div class="reply_add">더보기</div>
 			</div>
 		</section>
 		

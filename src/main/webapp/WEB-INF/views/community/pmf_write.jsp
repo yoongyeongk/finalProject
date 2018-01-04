@@ -8,6 +8,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdn.ckeditor.com/4.8.0/basic/ckeditor.js"></script>
+<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 <script type="text/javascript">
@@ -143,13 +144,19 @@ $(function(){
 	CKEDITOR.replace( 'firm_info' );
 	CKEDITOR.replace( 'document' );
 	
-	//form submit
+	//주소검색
+	$(".find_addr").postcodifyPopUp();
 	
+	//form submit
 	//임시저장
+	$("#tempSave").click(function(){
+		$("#temp_value").val(1);
+		$("#frm").submit();	//임시저장 시 테이블에 저장
+	});
 	
 	//등록
 	$("#submit_btn").click(function(){
-		$("#frm").submit();
+		$("#frm").submit();	//임시저장 되었는지 확인 후 seq 생성 여부 정하기
 	});
 });
 </script>
@@ -393,6 +400,7 @@ textarea {
 		<form action="./pmfWrite" method="post" id="frm">
 			<input class="title form-control" name="title" type="text" placeholder="프로젝트 내용를 설명할 수 있는 제목을 등록해 주세요.">
 			<input type="button" value="임시저장" id="tempSave">
+			<input type="hidden" value="0" name="temp" id="temp_value">
 			<input type="hidden" value="writer" name="writer">
 			
 			<p class="des">* 표시된 항목은 필수항목입니다.</p>
@@ -528,13 +536,13 @@ textarea {
 					<td class="t_label label1" rowspan="2">지역 정보</td>
 					<td>
 						<!-- 주소 검색 API -->
-						<input type="text" id="addr" class="addr form-control" name="addr"><input type="button" id="find_addr" value="주소 찾기">
+						<input type="text" id="addr" class="postcodify_address find_addr addr form-control" name="addr"><input type="button" id="find_addr" class="find_addr" value="주소 찾기">
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<!-- 상세 주소 입력란 -->
-						<input type="text" id="addr_detail" class="addr_detail form-control" name="addr_detail" placeholder="상세 주소를 입력해 주세요.">
+						<input type="text" id="addr_detail" class="postcodify_details addr_detail form-control" name="addr_detail" placeholder="상세 주소를 입력해 주세요.">
 					</td>
 				</tr>
 			</table>

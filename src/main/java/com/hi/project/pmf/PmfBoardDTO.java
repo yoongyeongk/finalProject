@@ -50,6 +50,8 @@ public class PmfBoardDTO {
 
 	//태그
 	
+	//임시저장
+	private int temp;				//1: 임시저장
 	
 	public int getNum() {
 		return num;
@@ -311,4 +313,13 @@ public class PmfBoardDTO {
 	public void setPmfDocumentDTO(PmfDocumentDTO pmfDocumentDTO) {
 		this.pmfDocumentDTO = pmfDocumentDTO;
 	}
+
+	public int getTemp() {
+		return temp;
+	}
+
+	public void setTemp(int temp) {
+		this.temp = temp;
+	}
+	
 }
