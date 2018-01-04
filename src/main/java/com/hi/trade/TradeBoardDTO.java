@@ -19,7 +19,7 @@ public class TradeBoardDTO {
 	private int hit;
 	private String corporate_phone;
 	private int min_price;
-	private List<String> tag;
+	private String [] tag;
 	private List<TagDTO> tags;
 	private MultipartFile [] img;
 	private List<FileDTO> fileNames;
@@ -52,10 +52,10 @@ public class TradeBoardDTO {
 		this.img = img;
 	}
 	
-	public List<String> getTag() {
+	public String[] getTag() {
 		return tag;
 	}
-	public void setTag(List<String> tag) {
+	public void setTag(String[] tag) {
 		this.tag = tag;
 	}
 	public int getNum() {

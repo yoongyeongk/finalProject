@@ -1,5 +1,6 @@
 package com.hi.trade;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -15,6 +16,9 @@ import com.hi.boardFile.FileSaver;
 import com.hi.boardFile.FileService;
 import com.hi.tag.TagDTO;
 import com.hi.tag.TagService;
+import com.hi.util.ListData;
+import com.hi.util.Pager;
+import com.hi.util.RowNum;
 
 @Service
 public class TradeBoardService {
@@ -34,10 +38,18 @@ public class TradeBoardService {
 		return tradeBoardDAO.insert(tradeBoardDTO);
 	}
 	
-	public ModelAndView selectList() throws Exception{
+	public ModelAndView selectList(ListData listData) throws Exception{
 			ModelAndView view = new ModelAndView();
-			List<TradeBoardDTO> ar = tradeBoardDAO.selectList();
+			int totalCount = tradeBoardDAO.getCount();
+			RowNum rowNum = listData.makeRow();
+			
+			Pager pager = listData.makePage(totalCount);
+			
+			
+			List<TradeBoardDTO> ar = tradeBoardDAO.selectList(rowNum);
 			List<TagDTO> tag = tradeBoardDAO.getTag();
+			
+			view.addObject("pager", pager);
 			view.addObject("list", ar);
 			view.addObject("tags", tag);
 			view.setViewName("trade/tradeBoardList");

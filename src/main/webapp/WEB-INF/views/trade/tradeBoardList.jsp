@@ -63,14 +63,14 @@
    		text-overflow: ellipsis;
     	white-space: nowrap;
     	vertical-align: top;
-    
+    	
 	}
 	.co{
 		font-size: 14px;
 		text-align: center;
 	}
 	.corporation{
-		width: 220px;
+		width: 191px;
 	}
 	.loc>a{
 		font-size: 16px;
@@ -103,8 +103,10 @@
 		border-radius:10px;
 		background : darkturquoise;
 		margin-right: 8px;
-		padding: 0px 5px; 0px 5px;
+		padding: 0px 3px 0px 3px;
 		text-decoration: none;
+		display: inline-block;
+    	margin-top: 5px;
 	}
 	.tags:hover{
 		border: 1px solid darkturquoise;
@@ -119,12 +121,93 @@
 		font-size:13px;
 		color: white;
 		margin-left: 1px;
+		margin-bottom: 5px;
 	}
 	.line{
 		margin-top: 15px;
+		white-space: normal;
 	}
 	.loc{
-		padding: 30px 0px 25px 0px;
+		padding: 27px 0px 25px 0px;
+	}
+	.outBox{
+		width: 500px;
+	}
+	.searchBox {
+		position:relative;
+		display:inline-block;
+		width:150px;
+		height:40px;
+		background:url('${pageContext.request.contextPath}/resources/images/tradeBoard/ico_select_arrow.png') right center no-repeat;
+		background-color:#fff;
+		margin-top: 100px;
+		top:1px;
+	}
+	.searchBox .txt {
+		display:block;
+		width:150px;
+		height:40px;
+		padding-left:10px;
+		line-height:40px;
+		border:1px solid #ccc;
+		text-align:left;
+	}
+	.searchBox label {
+		overflow:hidden;
+		position:absolute;
+		width:0;
+		height:0;
+		line-height:0;
+		text-indent:-9999px;
+	}
+	.searchBox select {
+		appearance:none;
+		-webkit-appearance:none;
+		-moz-appearance:none;
+		-o-appearance:none;
+		position:absolute; left:0; top:0;
+		display:block;
+		width:150px;
+		padding-left:10px;
+		height:40px;
+		opacity:0;
+		filter: alpha(opacity=0);
+		z-index:10;
+	}
+	 
+	.searchBox.focus {
+		border: 1px solid #66afe9;
+		-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6); 
+		box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6); /* focus효과*/
+	}
+	#search{
+		width: 300px;
+		height: 38px;
+		padding-right: 43px;
+		padding-left: 12px;
+	}
+	.searchInput{
+		display: inline-block;
+		width: 310px;
+		height: 50px;
+		margin: 0 auto;
+	}
+	#s{
+		display: none;
+	}
+	.s_img{
+		position: relative;
+		top:-2;
+		right: 50;
+	}
+	.pager{
+		margin: 0 auto;
+		background-color: red;
+	}
+	.list{
+		cursor: pointer;
+		display: inline-block;
+		border: 1px solid black;
 	}
 	.outBox{
 		width: 500px;
@@ -212,6 +295,18 @@ $(function() {
 		$(this).parent().removeClass("focus");
 	});
 
+
+	$(".list").click(function(){
+		var curPage = $(this).prop("title");
+		var kind = '${pager.kind}';
+		var search = '${pager.search}';
+		
+		$("#kind").val(kind);
+		$("#search").val(search);
+		$("#curPage").val(curPage);
+		
+		$("#f").submit();
+	});
 });
 </script>
 </head>
@@ -221,7 +316,8 @@ $(function() {
 
 			<div class="box">
 				<div class="outBox">
-					<form action="/" method="post">
+					<form action="tradeBoardList" method="get" id="f">
+						<input type="hidden" value="1" name="curPage"  id="curPage">
 						<div class="searchBox">
 							<span class="txt">Title</span>
 							<label for="kind" class="screen_out">검색분류선택</label>
@@ -231,7 +327,7 @@ $(function() {
 								</select>
 						</div>
 							<div class="searchInput">
-								<input type="text" name="search" id="search">
+								<input type="text" name="search" id="search" value="${pager.search }">
 							</div>
 							<span class="s_img">
 									<label for="s">
@@ -275,13 +371,15 @@ $(function() {
 									</th>
 									<td class="title t"> <div class="loc"><a href="./tradeBoardView?num=${dto.num }">${dto.title }</a>
 										<div class="line"> 
-											<c:forEach items="${tags }" var="t">
-												<c:if test="${dto.num eq t.num}">
-													<a href="#" class="tags">
-														<span class="tagSet">${t.tag }</span>
-													</a>
-												</c:if>
-											</c:forEach>
+											
+												<c:forEach items="${tags }" var="t">
+													<c:if test="${dto.num eq t.num}">
+														<a href="#" class="tags">
+															<span class="tagSet">${t.tag }</span>
+														</a>
+													</c:if>
+												</c:forEach>
+											
 										</div>
 									</div>
 									</td>
@@ -305,6 +403,20 @@ $(function() {
 					</table>
 				</div>
 			</div>
+			
+				<div class="pager">
+					<c:if test="${pager.curBlock gt 1}">
+						<span class="list" title="${pager.startNum-1 }">이전</span>
+					</c:if>
+				
+					<c:forEach  begin="${pager.startNum }" end="${pager.lastNum }" var="p">
+							<span class="list" title="${p }">${p }</span>
+					</c:forEach>
+					
+					<c:if test="${pager.curBlock lt pager.totalBlock }">
+						<span class="list" title="${pager.lastNum+1 }">다음</span>
+					</c:if>
+				</div>
 		</div>
 		
 	</list>
