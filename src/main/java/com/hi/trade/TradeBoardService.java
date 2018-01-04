@@ -63,9 +63,10 @@ public class TradeBoardService {
 	}
 	
 	public int update (TradeBoardDTO tradeBoardDTO,HttpSession session) throws Exception {
+		System.out.println(tradeBoardDTO.getImg());
 			
-			tradeBoardDTO.setFileNames(fileService.insert(tradeBoardDTO, session));
-			tagService.insert(tradeBoardDTO);
+				tradeBoardDTO.setFileNames(fileService.insert(tradeBoardDTO, session));
+				tagService.insert(tradeBoardDTO);
 			
 		return tradeBoardDAO.update(tradeBoardDTO);
 	}

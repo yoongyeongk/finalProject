@@ -19,7 +19,7 @@
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.4.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 
-<link href="${pageContext.request.contextPath }/resources/css/tradeBoard.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath }/resources/css/tradeBoardWrite.css" rel="stylesheet">
 <script type="text/javascript">
 		var count = 0;
 		var regNumber = /^[0-9]*$/;
@@ -40,7 +40,7 @@
 						if($(".tag").length < 8){
 							var t = "<div class='tag'  id='del"+count+"'>"+"<li>";
 							t = t + "<span class='tagColor'>"+"#"+ar[i]+"</span>"+"<span class='tagDel' title='del"+count+"'>X</span></li>";
-							t = t + "<input type='hidden' name='tag' class='tags' value='#"+ar[i]+"'>"+"</div>";
+							t = t + "<input type='hidden' name='tag' class='tags' value="+ar[i]+">"+"</div>";
 							$("#tagBox ul").append(t)
 							$("#addInput").val("")
 							count++;
@@ -91,6 +91,15 @@
 				}
 		})
 		
+		
+		$("#btn").click(function(){
+			if($(".upPreviewBox").length > 0 || $(".previewBox").length > 0){
+				$(this).attr("type","")
+			}else{
+				$(this).attr("type","button")
+				alert("이미지 1개이상 선택해주세요")
+			}
+		})
 		
 	})
 </script>
@@ -200,13 +209,10 @@ $(function(){
 									<ul>
 										<c:if test="${form eq 'Update'}">
 											<c:forEach items="${one.tags }" var="t" varStatus="i">
-													<div class='tag'  id="del${i.index }">
-														<li>
-															<span class='tagColor'>${t.tag}</span>
-															<span class='tagDel' title='del${i.index }'>X</span>
+			
 													<div class='tag'  id="uptag${i.index }">
 														<li>
-															<span class='upColor'>${t.tag}</span>
+															<span class='upColor'>#${t.tag}</span>
 															<span class='upDel' title='uptag${i.index }' id="${t.tag_num }">X</span>
 														</li>
 													</div>
@@ -223,7 +229,7 @@ $(function(){
 									<label for="f">
 									<div class="move">
 										<div class="select b">이미지 선택</div>
-										<input type="file" id="f" name="img" multiple="multiple" style="display: none;" required="required">
+										<input type="file" id="f" name="img" multiple="multiple" style="display: none;">
 									</div>
 									</label>
 									<h5 style="user-select:none; display: inline-block;"><span class="star">*</span> 샘플 이미지를 1개 이상 선택하세요.</h5>
@@ -281,7 +287,7 @@ $(function(){
 						</div>
 						
 							<div id="buttonBox">
-								<button id="btn" ng-disabled="frm.$error.required" >
+								<button id="btn" >
 									<img src="${pageContext.request.contextPath }/resources/images/tradeBoard/v.png" id="v">
 									 <c:choose>
 									 	<c:when test="${form eq 'Update' }">
