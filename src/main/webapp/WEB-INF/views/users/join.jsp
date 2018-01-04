@@ -20,6 +20,7 @@
 	}
 </style>
 <script type="text/javascript">
+	/* 프로필 이미지 미리보기 */
 	var sel_file;
 
 	$(document).ready(function() {
@@ -45,6 +46,10 @@
 			reader.readAsDataURL(f);
 		});
 	}
+	
+	/* 유효성 검사 */
+	
+	
 </script>
 <body>
 	<div id="main" class="wrapper">

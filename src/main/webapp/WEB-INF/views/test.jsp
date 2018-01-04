@@ -36,7 +36,53 @@
 .page-contents {
 	height: inherit;
 }
+
+.task {
+	width: 295px;
+	display: inline-block;
+	background-color: #e0e0e0;
+}
+
+.task #important {
+	margin-left: 5px;
+}
+
+.task #title {
+	width: 80%;
+	display: inline-block;
+}
+
+.task-header {
+	margin: 5px;
+}
+
+.task-header #new-task {
+	background-color: transparent;
+	border-color: transparent;
+	color: white;
+	font-size: 20px;
+}
+
+.task-input textarea {
+	width: 96%;
+	margin: 0 5px;
+	resize: vertical;
+    min-height: 50px;
+}
+
+.task-input button {
+	float: right;
+	margin: 5px 5px 5px 0;
+}
 </style>
+<script type="text/javascript">
+	$(function() {
+		$(".draggable").draggable({
+			/* axis : "x", */
+			containment : "parent"
+		});
+	});
+</script>
 <body>
 	<div id="main" class="wrapper">
 		<c:import url="temp/header.jsp"></c:import>
@@ -44,12 +90,27 @@
 		<div class="dashboard">
 			<div class="page-header">
 				<button class="new-project btn btn-default">+새 프로젝트</button>
-				<input class="searchbar form-control" type="text"
-					placeholder="Search">
+				<input class="searchbar form-control" type="text" placeholder="Search">
 			</div>
 
 			<div class="page-contents">
+				<!-- task -->	
+				<div class="draggable task">
+					<div class="task-header">
+						<input id="complete" class="checkbox-inline" type="checkbox">
+						<input id="title" class="form-control" type="text" placeholder="업무 리스트 이름">
+						<button id="new-task">+</button>
+					</div>
+					
+					<div class="task-input">
+						<textarea class="form-control" placeholder="새 업무 작성"></textarea>
+						<button class="btn btn-default">작성</button>
+						<button class="btn btn-default">취소</button>
+					</div>
+				</div>
+				<!-- /task -->
 			</div>
+
 		</div>
 		<!-- /contents -->
 	</div> 

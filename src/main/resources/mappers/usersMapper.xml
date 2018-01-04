@@ -4,14 +4,14 @@
 	
 	<resultMap type="UsersDTO" id="usersResult">
 		<id property="username" column="username"/>
-		<collection property="profileImgDTO" column="img_id" javaType="ProfileImgDTO" ofType="ProfileImgDTO" select="selectImg"></collection>	
+		<collection property="filename" column="username" javaType="ProfileImgDTO" ofType="ProfileImgDTO" select="selectImg"></collection>	
 	</resultMap>
 
 	<insert id="join" parameterType="UsersDTO">
 		insert into users values (#{username}, #{password}, #{nickname}, #{phone}, sysdate, sysdate)
 	</insert>
 	
-	<select id="login" parameterType="Map" resultMap="usersResult">
+	<select id="login" parameterType="UsersDTO" resultMap="usersResult">
 		select * from users where username=#{username} and password=#{password}
 	</select>
 
@@ -30,8 +30,8 @@
 	</delete>
 	
 	<!-- profile_img -->
-	<select id="selectImg" parameterType="int" resultType="ProfileImgDTO">
-		select * from profile_img where img_id=#{img_id}
+	<select id="selectImg" parameterType="UsersDTO" resultType="ProfileImgDTO">
+		select * from profile_img where username=#{username}
 	</select>
 	
 	<insert id="insertImg" parameterType="profileImgDTO">

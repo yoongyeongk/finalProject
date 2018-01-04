@@ -19,7 +19,6 @@ public class UsersService {
 	
 	public int join(UsersDTO usersDTO, HttpSession session) throws Exception {
 		MultipartFile file = usersDTO.getFile();
-		System.out.println("file : "+file.getOriginalFilename());
 		ProfileImgDTO imgDTO = new ProfileImgDTO();
 		imgDTO.setFile_name(fileSaver.fileSave(file, session, "upload"));
 		imgDTO.setOriginal_name(file.getOriginalFilename());
@@ -29,8 +28,8 @@ public class UsersService {
 		return usersDAO.join(usersDTO);
 	}
 	
-	public UsersDTO login(String username, String password) {
-		return usersDAO.login(username, password);
+	public UsersDTO login(UsersDTO usersDTO) {
+		return usersDAO.login(usersDTO);
 	}
 	
 	public int update(UsersDTO usersDTO) {

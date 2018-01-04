@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <!-- header -->
 <header class="nav-header">
@@ -33,14 +34,15 @@
 
 			<li class="nav navbar-nav">
 				<div class="dropdown">
-					<a href="#" class="dropdown-toggle" type="button"
-						data-toggle="dropdown"> <img class="user-image"
-						src="${pageContext.request.contextPath}/resources/images/user2-160x160.jpg"> <span>user</span>
+					<a href="#" class="dropdown-toggle" type="button" data-toggle="dropdown">
+						<img class="profile-img img-circle" src="${pageContext.request.contextPath}/resources/upload/${user.filename.file_name}">
 					</a>
 					<ul class="dropdown-menu">
-						<li class="header">user</li>
+						<li class="header">${user.username}</li>
 						<li><a href="#">나의 정보</a></li>
-						<li><a href="#">로그아웃</a></li>
+						<c:if test="${user ne null}">
+							<li><a href="users/logout">로그아웃</a></li>
+						</c:if>
 					</ul>
 				</div>
 			</li>

@@ -12,6 +12,5 @@
 	</bean>
 
 	<bean id="fileSaver" class="com.hi.util.FileSaver" />
-	<bean id="naverLoginBO" class="com.hi.users.NaverLoginBO"></bean>
 	
 </beans>

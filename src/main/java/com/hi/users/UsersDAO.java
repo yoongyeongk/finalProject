@@ -1,8 +1,5 @@
 package com.hi.users;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -19,11 +16,8 @@ public class UsersDAO {
 		return sqlSession.insert(NAMESPACE + "join", usersDTO);
 	}
 
-	public UsersDTO login(String username, String password) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("username", username);
-		map.put("password", password);
-		return sqlSession.selectOne(NAMESPACE + "login", map);
+	public UsersDTO login(UsersDTO usersDTO) {
+		return sqlSession.selectOne(NAMESPACE + "login", usersDTO);
 	}
 
 	public int update(UsersDTO usersDTO) {

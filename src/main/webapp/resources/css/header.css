@@ -101,10 +101,8 @@ body {
 	width: 180px;
 }
 
-.user-image {
-	width: 25px;
-	margin-right: 5px;
-	border-radius: 50%;
+.profile-img {
+	width: 50px;
 }
 
 .navbar-menu {
