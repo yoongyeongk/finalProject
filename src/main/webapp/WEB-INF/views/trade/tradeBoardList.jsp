@@ -281,8 +281,14 @@
 </style>
 
 <script type="text/javascript">
+
 $(function() {
 	
+	if("${pager.kind}" == "Title") {
+		$("#kind option:eq(0)").prop("selected", true);
+	}else{
+		$("#kind option:eq(1)").prop("selected", true);
+	}
 
 	 $(".searchBox select").change(function () {
 		var changeTxt = $(this).find("option:selected").text();
@@ -295,7 +301,6 @@ $(function() {
 		$(this).parent().removeClass("focus");
 	});
 
-
 	$(".list").click(function(){
 		var curPage = $(this).prop("title");
 		var kind = '${pager.kind}';
@@ -307,6 +312,8 @@ $(function() {
 		
 		$("#f").submit();
 	});
+	
+	
 });
 </script>
 </head>
@@ -319,10 +326,10 @@ $(function() {
 					<form action="tradeBoardList" method="get" id="f">
 						<input type="hidden" value="1" name="curPage"  id="curPage">
 						<div class="searchBox">
-							<span class="txt">Title</span>
+							<span class="txt">${pager.kind }</span>
 							<label for="kind" class="screen_out">검색분류선택</label>
 								<select name="kind" id="kind">
-									<option selected="selected">Title</option>
+									<option>Title</option>
 									<option>Corporation</option>
 								</select>
 						</div>

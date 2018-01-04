@@ -1,6 +1,11 @@
 package com.hi.trade;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -10,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import com.hi.tag.TagDTO;
 import com.hi.util.RowNum;
+import com.hi.util.DBConnector;
 
 @Repository
 public class TradeBoardDAO {
@@ -20,14 +26,13 @@ public class TradeBoardDAO {
 	
 	
 	public int insert(TradeBoardDTO tradeBoardDTO) throws Exception {
-			
+		
 		return sqlSession.insert(NAMESPACE+"insert", tradeBoardDTO);
 	}
 	
 	public List<TradeBoardDTO> selectList(RowNum rowNum) throws Exception{
-		System.out.println(rowNum.getKind());
-		System.out.println(rowNum.getSearch());
-		return sqlSession.selectList(NAMESPACE+"selectList",rowNum);
+
+		return sqlSession.selectList(NAMESPACE+"selectList", rowNum);
 	}
 	
 	public TradeBoardDTO selectOne(int num) throws Exception {
@@ -55,8 +60,8 @@ public class TradeBoardDAO {
 		return sqlSession.selectList(NAMESPACE+"selectListTag");
 	}
 	
-	public int getCount () throws Exception {
+	public int getCount (RowNum rowNum) throws Exception {
 		
-		return sqlSession.selectOne(NAMESPACE+"getCount");
+		return sqlSession.selectOne(NAMESPACE+"getCount",rowNum);
 	}
 }

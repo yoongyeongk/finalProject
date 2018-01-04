@@ -19,7 +19,7 @@ public class TagService {
 			
 			if(tradeBoardDTO.getTag() != null){
 				tagDTO = new TagDTO();
-	
+				
 				for (String t : tradeBoardDTO.getTag()) {
 					tagDTO.setKind(kind);
 					tagDTO.setNum(tradeBoardDTO.getNum());
@@ -36,7 +36,7 @@ public class TagService {
 		result = tagDAO.deleteOne(num);
 		return result;
 	}
-
+	
 	
 	public int deleteAll(int num) throws Exception {
 		return tagDAO.deleteAll(num);

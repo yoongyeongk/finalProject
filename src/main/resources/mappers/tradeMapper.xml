@@ -5,8 +5,19 @@
   
   <mapper namespace="tradeMapper">
   
-  	<select id="getCount" resultType="Integer">
+  	<sql id="kind">
+  		like '%'||#{search}||'%'
+  	</sql>
+  
+  	<select id="getCount" resultType="Integer" parameterType="com.hi.util.RowNum">
   		select nvl(count(num),0) from TRADE_BOARD
+  		<if test='kind == "Title"'>
+  			where Title <include refid="kind"></include>
+  		</if>
+  		
+  		<if test='kind == "Corporation"'>
+  			where Corporation <include refid="kind"></include>
+  		</if>
   	</select>
   
   	<insert id="insert" parameterType="tradeBoardDTO">
@@ -17,10 +28,13 @@
   	<select id="selectList" parameterType="com.hi.util.RowNum" resultType="tradeBoardDTO">
   		select * from (select rowNum R,T.* from (select * from TRADE_BOARD 
   		<if test='kind == "Title"'>
-  		 where #{kind} like '%'||#{search}||'%' 
+  		 where Title
+  		 <include refid="kind"></include>
   		</if>
+  		
   		<if test='kind == "Corporation"'>
-  		 where #{kind} like '%'||#{search}||'%' 
+  		 where Corporation
+  		 <include refid="kind"></include>
   		</if>
   		 order by num desc) T) 
   		 where R between #{startRow} and #{lastRow}

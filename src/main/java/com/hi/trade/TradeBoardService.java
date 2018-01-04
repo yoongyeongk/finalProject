@@ -40,8 +40,8 @@ public class TradeBoardService {
 	
 	public ModelAndView selectList(ListData listData) throws Exception{
 			ModelAndView view = new ModelAndView();
-			int totalCount = tradeBoardDAO.getCount();
 			RowNum rowNum = listData.makeRow();
+			int totalCount = tradeBoardDAO.getCount(rowNum);
 			
 			Pager pager = listData.makePage(totalCount);
 			
