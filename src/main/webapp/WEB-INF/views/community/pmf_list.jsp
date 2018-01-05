@@ -113,7 +113,7 @@ a:hover{
     margin-bottom: 30px;
 }
 #search_bar select{
-	width: 60px;
+	width: 100px;
     height: 30px;
     border: 1px solid #ccc;
     border-radius: 3px;
@@ -186,6 +186,9 @@ a:hover{
 }
 .td_8{
 	width: 60px;
+}
+.t_font{
+	font-size: 12px;
 }
 /* myMenu div */
 #btn_wrap{
@@ -307,7 +310,7 @@ a:hover{
 								<!-- tags, title, major_key, sub_key, works... -->
 								<option>제목</option>
 								<!-- title -->
-								<option>프로젝트 유형</option>
+								<option>프로젝트 분야</option>
 								<!-- major_key -->
 							</select> <input type="text" class="search" name="search"> <input
 								type="button" class="search_btn" value="검색">
@@ -320,7 +323,7 @@ a:hover{
 										<th class="td_2">프로젝트 명</th>
 										<th class="td_3">제목</th>
 										<th class="td_4">지원요건</th>
-										<th class="td_5">프로젝트 유형</th>
+										<th class="td_5">프로젝트 분야</th>
 										<th class="td_6">마감일</th>
 										<th class="td_7">진행 수준</th>
 										<th class="td_8">조회수</th>
@@ -328,11 +331,19 @@ a:hover{
 									<c:forEach items="${list}" var="dto">
 									<tr>
 										<td><input type="checkbox" class="save_ch"></td>
-										<td><a href="./pmfView?num=${dto.num}">${dto.project_name}</a></td>
-										<td>${dto.title}</td>
+										<td>${dto.project_name}</td>
+										<td><a href="./pmfView?num=${dto.num}">${dto.title}</a></td>
 										<td>${dto.work_kind}</td>
-										<td>${dto.major_key} ${dto.sub_key}</td>
-										<td>~ ${dto.end_date}</td>
+										<td class="t_font">
+											<c:forTokens items="${dto.major_key}" delims="/" var="key">
+											${key}
+											</c:forTokens>
+											<br>
+											<c:forTokens items="${dto.sub_key}" delims="/" var="key">
+											${key}
+											</c:forTokens>
+											</td>
+										<td class="t_font">~ ${dto.end_date}</td>
 										<td>진행 수준</td>
 										<td>${dto.hit}</td>
 									</tr>

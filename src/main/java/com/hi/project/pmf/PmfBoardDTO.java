@@ -3,6 +3,8 @@ package com.hi.project.pmf;
 import java.sql.Date;
 import java.util.Calendar;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.hi.boardFile.FileDTO;
 
 public class PmfBoardDTO {
@@ -17,12 +19,13 @@ public class PmfBoardDTO {
 	//프로젝트 관련 데이터- 필수
 	private String major_key;
 	private String sub_key;
-	private String works;
 	private String project_name;
 	private Date start_date;
 	private Date end_date;
-	private FileDTO fileDTO;	//파일 첨부 시
 	private String project_detail;
+	private MultipartFile [] files;
+	private FileDTO fileDTO;		//view page file
+	private String works;
 	
 	//업무 관련 정보 
 	private String work_kind;		//근무 유형 - 필수
@@ -46,12 +49,17 @@ public class PmfBoardDTO {
 	private Date duration_end;		//마감일 설정 - 마감일
 	
 	//제출 서류
-	private PmfDocumentDTO pmfDocumentDTO; //서류
+	private PmfDocumentDTO pmfDocumentDTO;
 
 	//태그
 	
 	//임시저장
 	private int temp;				//1: 임시저장
+	
+	public PmfBoardDTO() {
+		// TODO Auto-generated constructor stub
+		this.temp = 0;
+	}
 	
 	public int getNum() {
 		return num;
@@ -146,11 +154,20 @@ public class PmfBoardDTO {
 	public FileDTO getFileDTO() {
 		return fileDTO;
 	}
-
+	
 	public void setFileDTO(FileDTO fileDTO) {
 		this.fileDTO = fileDTO;
 	}
+	
+	public MultipartFile[] getFiles() {
+		return files;
+	}
+	
 
+	public void setFiles(MultipartFile[] files) {
+		this.files = files;
+	}
+	
 	///////////////////////////////////////////////////////////
 	public String getProject_detail() {
 		return project_detail;
@@ -171,12 +188,6 @@ public class PmfBoardDTO {
 
 	//필수 아님
 	public String getEducation_level() {
-		String education_level = "";
-		
-		if(this.education_level != null) {
-			education_level = this.education_level;
-		}
-		
 		return education_level;
 	}
 
@@ -185,13 +196,7 @@ public class PmfBoardDTO {
 	}
 
 	//필수 아님
-	public String getCareer() {
-		String career = "";
-		
-		if(this.career != null) {
-			career = this.career;
-		}
-		
+	public String getCareer() {		
 		return career;
 	}
 
@@ -313,10 +318,11 @@ public class PmfBoardDTO {
 	public void setPmfDocumentDTO(PmfDocumentDTO pmfDocumentDTO) {
 		this.pmfDocumentDTO = pmfDocumentDTO;
 	}
-
+	
 	public int getTemp() {
 		return temp;
 	}
+
 
 	public void setTemp(int temp) {
 		this.temp = temp;

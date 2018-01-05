@@ -1,13 +1,21 @@
 package com.hi.project.test;
 
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.hi.project.pmf.PmfBoardDAO;
 import com.hi.project.pmf.PmfBoardDTO;
 import com.hi.project.pmf.PmfBoardService;
 import com.hi.project.util.ListData;
@@ -19,6 +27,7 @@ public class PmfController {
 	@Inject
 	private PmfBoardService pmfBoardService;
 	
+	//list
 	@RequestMapping("pmfList")
 	public ModelAndView selectList(ListData listData){
 		ModelAndView mv = null;
@@ -37,6 +46,7 @@ public class PmfController {
 		return mv;
 	}
 	
+	//view
 	@RequestMapping(value="pmfView")
 	public ModelAndView selectOne(int num) {
 		ModelAndView mv = new ModelAndView();
@@ -58,15 +68,26 @@ public class PmfController {
 		return mv;
 	}
 	
+	//글쓰기 폼 이동
 	@RequestMapping(value="pmfWrite", method=RequestMethod.GET)
-	public String insert(){
-		return "community/pmf_write";
+	public ModelAndView insert(){
+		ModelAndView mv = null;
+		try {
+			mv = pmfBoardService.insert();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return mv;
 	}
 	
+	//글쓰기
 	@RequestMapping(value="pmfWrite", method=RequestMethod.POST)
 	public String insert(PmfBoardDTO pmfBoardDTO, RedirectAttributes rd){
 		int result = 0;
-		
+		System.out.println(pmfBoardDTO.getDuration_end());
+		System.out.println(pmfBoardDTO.getDuration_kind());
 		try {
 			result = pmfBoardService.insert(pmfBoardDTO);
 		} catch (Exception e) {
@@ -80,6 +101,21 @@ public class PmfController {
 		}
 		rd.addFlashAttribute("message", message);
 		
-		return "redirect:./pmf_list";
+		return "redirect:./pmfList";
+	}
+	
+	//sub_key list 불러오기
+	@RequestMapping("subKey")
+	@ResponseBody
+	public List<String> subKey(String major_key){
+		List<String> keys = new ArrayList<String>();
+		try {
+			keys = pmfBoardService.sub_key_list(major_key);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return keys;
 	}
 }

@@ -33,7 +33,7 @@ public class PmfBoardTest extends AbstractTest {
 		System.out.println("project_name:"+pmfBoardDTO.getProject_name());
 		System.out.println("start_date:"+pmfBoardDTO.getStart_date());
 		System.out.println("end_date:"+pmfBoardDTO.getEnd_date());
-		System.out.println("files:"+pmfBoardDTO.getFileDTO().getFilename());
+		//System.out.println("files:"+pmfBoardDTO.getFileDTO().getFilename());
 		System.out.println("project_detail:"+pmfBoardDTO.getProject_detail());
 		System.out.println("work_kind:"+pmfBoardDTO.getWork_kind());
 		System.out.println("payment:"+pmfBoardDTO.getPayment_kind());
@@ -83,10 +83,17 @@ public class PmfBoardTest extends AbstractTest {
 		pmfBoardDTO.getNum();
 	}
 	
+	public void majorKey() throws Exception {
+		List<String> keys = boardDAO.major_key_list();
+		for(String key:keys){
+			System.out.println(key);
+		}
+	}
+	
 	@Test
 	public void test() {
 		try {
-			this.selectOne(21);
+			this.majorKey();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

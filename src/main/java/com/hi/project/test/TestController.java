@@ -1,5 +1,8 @@
 package com.hi.project.test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.hi.boardFile.FileDTO;
 import com.hi.boardFile.FileSaver;
+import com.hi.project.pmf.PmfBoardDAO;
 
 @Controller
 @RequestMapping(value="/test/*")
@@ -63,4 +67,6 @@ public class TestController {
 	public String google(){
 		return "test/googleDriveTest";
 	}
+	
+	
 }

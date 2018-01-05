@@ -1,15 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html> 
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdn.ckeditor.com/4.8.0/basic/ckeditor.js"></script>
 <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<link rel="stylesheet" href="../resources/css/pmf/pmf_write_css.css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
 $(function(){
@@ -18,9 +20,9 @@ $(function(){
 		var formdata = new FormData();
 		
 		for(var i=0; i<files.length; i++){
-			formdata.append('file',files[i]);	//formdata¿¡ ¹ŞÀº ÆÄÀÏÀ» ÇÏ³ª¾¿ Ãß°¡ÇÏ±â(name,value)
+			formdata.append('file',files[i]);	//formdataì— ë°›ì€ íŒŒì¼ì„ í•˜ë‚˜ì”© ì¶”ê°€í•˜ê¸°(name,value)
 		
-		//progress bar »ı¼º
+		//progress bar ìƒì„±
 		var status = new createStatusbar(drop_sec);
 		status.setFileNameSize(files[i].name, files[i].size);
 		sendFileToServer(formdata,status);
@@ -28,7 +30,7 @@ $(function(){
 	}
 	
 	function sendFileToServer(formdata,status){
-		//ÆÄÀÏ ¼­¹ö·Î Àü¼Û ¹× ÀúÀå
+		//íŒŒì¼ ì„œë²„ë¡œ ì „ì†¡ ë° ì €ì¥
 		var jqxhr = $.ajax({
 			xhr: function(){
 				var xhrobj = $.ajaxSettings.xhr();
@@ -51,7 +53,7 @@ $(function(){
 			contentType: false,
 			processData: false,
 			success: function(data){
-				alert(data);
+				alert(data.filename);
 				status.setProgress(100);
 			}
 		});
@@ -71,16 +73,16 @@ $(function(){
 		this.filename = $("<div class='filename'></div>").appendTo(this.statusbar);
 		this.size = $("<div class='filesize'></div>").appendTo(this.statusbar);
 		this.progressBar = $("<div class='progressBar'><div></div></div>").appendTo(this.statusbar);
-		this.abort = $("<div class='abort'>ÁßÁö</div>").appendTo(this.statusbar);
+		this.abort = $("<div class='abort'>ì¤‘ì§€</div>").appendTo(this.statusbar);
 		
 		drop_sec.after(this.statusbar);
 		
-		//ÆÄÀÏ ÀÌ¸§°ú »çÀÌÁî¸¦ ±¸ÇÏ´Â ¸Ş¼­µå
+		//íŒŒì¼ ì´ë¦„ê³¼ ì‚¬ì´ì¦ˆë¥¼ êµ¬í•˜ëŠ” ë©”ì„œë“œ
 		this.setFileNameSize = function(name,size){
 			var sizeStr = "";
 			var sizeKB = size/1024;
 			if(parseInt(sizeKB) > 1024){
-				var sizeMB = sizeKB/1024;	//1024KBº¸´Ù Å¬ ¶§ MB·Î ÀüÈ¯ÇÏ±â
+				var sizeMB = sizeKB/1024;	//1024KBë³´ë‹¤ í´ ë•Œ MBë¡œ ì „í™˜í•˜ê¸°
 				sizeStr = sizeMB.toFixed(2)+" MB";
 			}else{
 				sizeStr = sizeKB.toFixed(2)+" KB";
@@ -90,7 +92,7 @@ $(function(){
 			this.size.html(sizeStr);
 		}
 		
-		//progress bar¸¦ »ı¼ºÇÏ´Â ¸Ş¼­µå
+		//progress barë¥¼ ìƒì„±í•˜ëŠ” ë©”ì„œë“œ
 		this.setProgress = function(progress){
 			var progressBarWidth = progress*this.progressBar.width()/100;
 			this.progressBar.find('div').animate({ width: progressBarWidth }, 10).html(progress + "% ");
@@ -99,7 +101,7 @@ $(function(){
 			}
 		}
 		
-		//ÆÄÀÏ Àü¼ÛÀ» ÁßÁöÇÏ´Â ¸Ş¼­µå
+		//íŒŒì¼ ì „ì†¡ì„ ì¤‘ì§€í•˜ëŠ” ë©”ì„œë“œ
 		this.setAbort = function(jqxhr){
 			var sb = this.statusbar;
 			this.abort.click(function(){
@@ -126,7 +128,7 @@ $(function(){
 			event.preventDefault();
 		},
 		drop: function(event){
-			event.preventDefault();	//ÀÚµ¿À¸·Î ÆÄÀÏ ½ÇÇàÇÏ´Â °Í ¾ø¾Ö±â
+			event.preventDefault();	//ìë™ìœ¼ë¡œ íŒŒì¼ ì‹¤í–‰í•˜ëŠ” ê²ƒ ì—†ì• ê¸°
 			$(this).css("border","1px solid #ddd");
 			var files = event.originalEvent.dataTransfer.files;
 			
@@ -139,307 +141,119 @@ $(function(){
 	})
 	
 	//CKEditor
-	//name °¢ DB Ç×¸ñ¿¡ ¸Â°Ô º¯°æÇÏ±â
+	//name ê° DB í•­ëª©ì— ë§ê²Œ ë³€ê²½í•˜ê¸°
 	CKEDITOR.replace( 'project_detail' );
 	CKEDITOR.replace( 'works' );
 	CKEDITOR.replace( 'firm_info' );
 	CKEDITOR.replace( 'document' );
 	
-	//ÁÖ¼Ò°Ë»ö
+	//ì£¼ì†Œê²€ìƒ‰
 	$(".find_addr").postcodifyPopUp();
 	
-	//form submit
-	//ÀÓ½ÃÀúÀå
-	$("#tempSave").click(function(){
-		$("#temp_value").val(1);
-		$("#frm").submit();	//ÀÓ½ÃÀúÀå ½Ã Å×ÀÌºí¿¡ ÀúÀå
+	//select box option
+	var major_key = "IT/ì¸í„°ë„·";
+	$("#major_key").on({
+		change: function(){
+			major_key = $(this).val();
+			$("#sub_key").html('<option disabled="disabled">ì†Œë¶„ë¥˜</option>')
+			$.ajax({
+				type:'POST',
+				url: '../pmf/subKey',
+				dataType: 'json',
+				data: {
+					major_key: major_key
+				},
+				success: function(data){
+					for(var i=0; i<data.length; i++){
+						$("#sub_key").append('<option>'+data[i]+'</option>');
+					}
+				}
+			});
+		}
+	});
+
+	//pay value
+	$("#payment_kind").change(function(){
+		var payKind = $("#payment_kind").val();
+		if(payKind != "í˜‘ì˜"){
+			$("#pay_value").html('<input class="form-control payValue" type="number" id="payment_value" name="payment_value"> ì›');
+		}else{
+			$("#pay_value").html('');
+		}
 	});
 	
-	//µî·Ï
+	//ë§ˆê°ì¼
+	$("#duration").change(function(){
+		var dKind = $("#duration").val();
+		if(dKind != "ìƒì‹œ ëª¨ì§‘"){
+			$("#dura_end").html('<input type="date" name="duration_end" class="date_select selectBox fRight form-control">');
+		}else{
+			$("#dura_end").html('');
+		}
+	});
+	
+	//form submit
+	//ì„ì‹œì €ì¥
+	$("#tempSave").click(function(){
+		$("#temp_value").val(1);
+		$("#frm").submit();	//ì„ì‹œì €ì¥ ì‹œ í…Œì´ë¸”ì— ì €ì¥
+	});
+	
+	//ë“±ë¡
 	$("#submit_btn").click(function(){
-		$("#frm").submit();	//ÀÓ½ÃÀúÀå µÇ¾ú´ÂÁö È®ÀÎ ÈÄ seq »ı¼º ¿©ºÎ Á¤ÇÏ±â
+		$("#frm").submit();	//ì„ì‹œì €ì¥ ë˜ì—ˆëŠ”ì§€ í™•ì¸ í›„ seq ìƒì„± ì—¬ë¶€ ì •í•˜ê¸°
 	});
 });
 </script>
-<style type="text/css">
-*{
-	font-family: HanSans;
-}
-table{
-	border: solid #ccc 1px;
-	border-collapse: collapse;
-	margin-bottom: 30px;
-    width: 800px;
-}
-td{
-	border: solid #ccc 1px;
-	height: 35px;
-}
-#board_sec{
-	width: 800px;
-    margin: 0 auto;
-    margin-top: 25px;
-    margin-bottom: 25px;
-}
-.title{
-	width: 720px;
-    display: inline-block;
-    margin-right: 15px;
-    margin-bottom: 40px;
-    height: 45px;
-    font-size: 18px;
-}
-#tempSave{
-	width: 60px;
-    height: 30px;
-    font-size: 12px;
-    font-weight: 600;
-    float: right;
-    margin: 5px 0;
-    color: rgb(255, 255, 255);
-    text-align: center;
-    border-radius: 4px;
-    background-color: rgb(22, 160, 133);
-    border: solid 1px rgb(22, 160, 133);
-}
-.t_title{
-	height: 40px;
-    text-align: center;
-    font-size: 14px;
-    font-weight: 600;
-    background-color: #eaeaea;
-}
-.t_label{
-	text-align: center;
-    height: 35px;
-    margin: 10px 0;
-    font-size: 13px;
-}
-.label1{
-	width: 150px;
-}
-.selectBox{
-	width: 300px;
-	height: 30px;
-	margin-left: 2px;
-    font-size: 12px;
-    display: inline-block;
-}
-.fRight{
-	float: right;
-}
-.start_date{
-	width: 300px;
-	height: 30px;
-    font-size: 12px;
-    display: inline-block;
-    margin-right: 15px;
-    margin-left: 2px;
-}
-.end_date{
-	width: 300px;
-    height: 30px;
-    font-size: 12px;
-    display: inline-block;
-    float: right;
-    margin-right: 2px;
-}
-textarea {
-	width: 800px;
-	font-size: 12px;
-}
-
-/* drag and drop */
-#dropzone {
-	width: 600px;
-	height: 100px;
-	border: 1px solid #ddd;
-	border-radius: 4px;
-	color: gray;
-	text-align: center;
-	line-height: 100px;
-	font-size: 15px;
-	margin: 0 auto;
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
-.progressBar {
-	width: 200px;
-	height: 20px;
-	border: 1px solid #ddd;
-	border-radius: 5px;
-	overflow: hidden;
-	display: inline-block;
-	margin: 10px;
-	vertical-align: middle;
-}
-.progressBar div {
-	height: 100%;
-	color: #fff;
-	text-align: right;
-	line-height: 20px;
-	font-size: 12px;
-	/* same as #progressBar height if we want text middle aligned */
-	width: 0;
-	background-color: rgb(26, 188, 156);
-	border-radius: 3px;
-}
-.statusbar {
-	border-top: 1px solid #A9CCD1;
-	min-height: 20px;
-	width: 100%;
-	vertical-align: middle;
-}
-.statusbar:nth-child(odd) {
-	background: #EBEFF0;
-}
-.filename {
-	display: inline-block;
-	vertical-align: middle;
-	width: 300px;
-	font-size: 12px;
-	text-align: center;
-}
-.filesize {
-	display: inline-block;
-	vertical-align: middle;
-	font-size: 12px;
-	text-align: center;
-	color: #30693D;
-	width: 100px;
-	margin-left: 10px;
-	margin-right: 40px;
-}
-.abort {
-	background-color: #A8352F;
-	-moz-border-radius: 4px;
-	-webkit-border-radius: 4px;
-	border-radius: 4px;
-	display: inline-block;
-	color: #fff;
-	font-family: HanSans;
-	font-size: 12px;
-	font-weight: normal;
-	padding: 4px 15px;
-	cursor: pointer;
-	vertical-align: middle;
-}
-
-/* --------------------------------------- */
-.payValue{
-	margin-left: 20px;
-	width: 300px;
-    height: 30px;
-    font-size: 12px;
-	display: inline-block;
-}
-
-.addr{
-	width: 550px;
-    display: inline-block;
-    height: 30px;
-    margin-left: 2px;
-}
-#find_addr{
-	float: right;
-    margin: 5px 0;
-    width: 90px;
-    font-size: 12px;
-}
-.addr_detail{
-	width: 550px;
-	height: 30px;
-	margin-left: 2px;
-	font-size: 12px;
-}
-
-.submit_btn, .reset_btn{
-	width: 100px;
-    height: 35px;
-    font-size: 14px;
-    font-weight: 600;
-    float: right;
-    margin: 0 0 50px 10px;
-    color: rgb(255, 255, 255);
-    text-align: center;
-    border-radius: 4px;
-    background-color: rgb(22, 160, 133);
-    border: solid 1px rgb(22, 160, 133);
-}
-.contact_form{
-	width: 99.5%;
-	height: 30px;
-	font-size: 12px;
-	margin-left: 2px;
-}
-.project_name{
-	width: 99.5%;
-	height: 30px;
-	font-size: 12px;
-	margin-left: 2px;
-}
-.date_select{
-	margin-right: 2px;
-}
-
-.des{
-	float: right;
-	font-size: 10px;
-}
-</style>
 </head>
 <body>
 	<h1>member find board</h1>
 	<!-- header -->
 	
-	<!-- header ³¡ -->
+	<!-- header ë -->
 	
 	<section id="main">
 	
-		<!-- °Ô½ÃÆÇ ³»¿ë -->	
+		<!-- ê²Œì‹œíŒ ë‚´ìš© -->	
 		<section id="board_sec">
-		<form action="./pmfWrite" method="post" id="frm">
-			<input class="title form-control" name="title" type="text" placeholder="ÇÁ·ÎÁ§Æ® ³»¿ë¸¦ ¼³¸íÇÒ ¼ö ÀÖ´Â Á¦¸ñÀ» µî·ÏÇØ ÁÖ¼¼¿ä.">
-			<input type="button" value="ÀÓ½ÃÀúÀå" id="tempSave">
+		<form action="./pmfWrite" method="post" id="frm" enctype="multipart/form-data">
+			<input class="title form-control" name="title" type="text" placeholder="í”„ë¡œì íŠ¸ ë‚´ìš©ë¥¼ ì„¤ëª…í•  ìˆ˜ ìˆëŠ” ì œëª©ì„ ë“±ë¡í•´ ì£¼ì„¸ìš”.">
+			<input type="button" value="ì„ì‹œì €ì¥" id="tempSave">
 			<input type="hidden" value="0" name="temp" id="temp_value">
 			<input type="hidden" value="writer" name="writer">
 			
-			<p class="des">* Ç¥½ÃµÈ Ç×¸ñÀº ÇÊ¼öÇ×¸ñÀÔ´Ï´Ù.</p>
+			<p class="des">* í‘œì‹œëœ í•­ëª©ì€ í•„ìˆ˜í•­ëª©ì…ë‹ˆë‹¤.</p>
 			<table class="t_project">
 				<tr>
-					<td class="t_title" colspan="2">* ÇÁ·ÎÁ§Æ® Á¤º¸</td>
+					<td class="t_title" colspan="2">* í”„ë¡œì íŠ¸ ì •ë³´</td>
 				</tr>
 				<tr>
-				<!-- ´ëºĞ·ù ¼±ÅÃ ½Ã ¼ÒºĞ·ù ³»¿ë ³ª¿Àµµ·Ï ¸¸µé±â -->
-					<td class="t_label label1">ÇÁ·ÎÁ§Æ® ºĞ¾ß</td>
+				<!-- ëŒ€ë¶„ë¥˜ ì„ íƒ ì‹œ ì†Œë¶„ë¥˜ ë‚´ìš© ë‚˜ì˜¤ë„ë¡ ë§Œë“¤ê¸° -->
+					<td class="t_label label1">í”„ë¡œì íŠ¸ ë¶„ì•¼</td>
 					<td>
-						<select class="form-control selectBox" name="major_key">
-							<optgroup label="´ëºĞ·ù"></optgroup>
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
+						<select class="form-control selectBox" name="major_key" id="major_key">
+							<c:forEach items="${major_key}" var="key">
+								<option>${key}</option>
+							</c:forEach>
 						</select>
-						<select class="form-control selectBox fRight" name="sub_key">
-							<optgroup label="¼ÒºĞ·ù"></optgroup>
-							<option>a</option>
-							<option>b</option>
-							<option>c</option>
-							<option>d</option>
+						<select class="form-control selectBox fRight" name="sub_key" id="sub_key">
+							<c:forEach items="${sub_key}" var="key">
+								<option disabled="disabled">ì†Œë¶„ë¥˜</option>
+								<option>${key}</option>
+							</c:forEach>
 						</select>
 					</td>
 				</tr>
 				<tr>
-					<td class="t_label label1">ÇÁ·ÎÁ§Æ® ¸í</td>
+					<td class="t_label label1">í”„ë¡œì íŠ¸ ëª…</td>
 					<td><input type="text" id="project_name" name="project_name" class="project_name form-control"></td>
 				</tr>
 				<tr>
-					<td class="t_label label1">ÀÛ¾÷ ¿¹»ó ±â°£</td>
+					<td class="t_label label1">ì‘ì—… ì˜ˆìƒ ê¸°ê°„</td>
 					<td><input type="date" name="start_date" class="start_date form-control"> ~ <input type="date" name="end_date" class="end_date form-control"></td>
 				</tr>
 				<tr>
-					<td class="t_label" colspan="2">ÇÁ·ÎÁ§Æ® ³»¿ë</td>
+					<td class="t_label" colspan="2">í”„ë¡œì íŠ¸ ë‚´ìš©</td>
 				</tr>
 				<tr>
 					<td colspan="2">
@@ -447,100 +261,101 @@ textarea {
 					</td>
 				</tr>
 				<tr>
-					<td class="t_label" colspan="2">ÆÄÀÏ Ã·ºÎ</td><!-- µå·¡±×¾Øµå·Ó ºÎºĞ css, js Ãß°¡ÇÏ±â -->
+					<td class="t_label" colspan="2">íŒŒì¼ ì²¨ë¶€</td><!-- ë“œë˜ê·¸ì•¤ë“œë¡­ ë¶€ë¶„ css, js ì¶”ê°€í•˜ê¸° -->
 			
 				</tr>
 				<tr>
 					<td colspan="2">
-						<div id="dropContainer">¾÷·ÎµåÇÒ ÆÄÀÏÀ» µå·¡±×ÇØ ÁÖ¼¼¿ä.</div>
+						<div id="dropzone">ì—…ë¡œë“œí•  íŒŒì¼ì„ ë“œë˜ê·¸í•´ ì£¼ì„¸ìš”.</div>
 						<!-- id="dropContainer"  -->
 						<input type="file" name="files" id="fileInput" multiple="multiple">
-					</td>
-				</tr>
-				<tr>
-					<td class="t_label" colspan="2">´ã´ç¾÷¹«</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<!-- ¿¡µğÅÍ Ãß°¡ -->
-						<textarea rows="10" draggable="false" class="form-control" id="works" name="works"></textarea>
-					</td>
-				</tr>	
-			</table>
-							<script type="text/javascript">
+						
+						<script type="text/javascript">
 						$(function(){
-							dropContainer.ondragover = dropContainer.ondragenter = function(evt) {
+							dropzone.ondragover = dropzone.ondragenter = function(evt) {
 								  evt.preventDefault();
 								};
 
-								dropContainer.ondrop = function(evt) {
+								dropzone.ondrop = function(evt) {
 								  // pretty simple -- but not for IE :(
 								  fileInput.files = evt.dataTransfer.files;
 								  evt.preventDefault();
 								};
 						});
 					</script>
+					
+					</td>
+				</tr>
+				<tr>
+					<td class="t_label" colspan="2">ë‹´ë‹¹ì—…ë¬´</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<!-- ì—ë””í„° ì¶”ê°€ -->
+						<textarea rows="10" draggable="false" class="form-control" id="works" name="works"></textarea>
+					</td>
+				</tr>	
+			</table>
+			
 			<table class="t_workCondition">
 				<tr>
-					<td class="t_title" colspan="2">±Ù¹« Á¶°Ç</td>
+					<td class="t_title" colspan="2">ê·¼ë¬´ ì¡°ê±´</td>
 				</tr>
 				<tr>
-					<td class="t_label label1">* ±Ù¹«À¯Çü</td>
+					<td class="t_label label1">* ê·¼ë¬´ìœ í˜•</td>
 					<td>
 						<select class="form-control selectBox" id="work_kind"  name="work_kind">
-							<optgroup label="±Ù¹«À¯ÇüÀ» ¼±ÅÃÇØ ÁÖ¼¼¿ä"></optgroup>
-							<option>Á¤±ÔÁ÷</option>
-							<option>°è¾àÁ÷</option>
-							<option>ÆÄ°ß</option>
-							<option>ÇÁ¸®·£¼­</option>
-							<option>±âÅ¸</option>
+							<optgroup label="ê·¼ë¬´ìœ í˜•ì„ ì„ íƒí•´ ì£¼ì„¸ìš”"></optgroup>
+							<option>ì •ê·œì§</option>
+							<option>ê³„ì•½ì§</option>
+							<option>íŒŒê²¬</option>
+							<option>í”„ë¦¬ëœì„œ</option>
+							<option>ê¸°íƒ€</option>
 						</select>
 					</td>
 				</tr>
 				<tr>
-				<!-- ÇĞ·Â/°æ·Â ÇÊ¿ä½Ã¸¸ Ã¢ Ãß°¡ÇÒ ¼ö ÀÖµµ·Ï ¹öÆ° ¸¸µé±â -->
-					<td class="t_label label1">ÇĞ·Â</td>
+				<!-- í•™ë ¥/ê²½ë ¥ í•„ìš”ì‹œë§Œ ì°½ ì¶”ê°€í•  ìˆ˜ ìˆë„ë¡ ë²„íŠ¼ ë§Œë“¤ê¸° -->
+					<td class="t_label label1">í•™ë ¥</td>
 					<td>
 						<select class="form-control selectBox" id="education_level" name="education_level">
-							<option selected="selected">ÇÊ¿ä ÇĞ·ÂÀ» ¼±ÅÃÇØ ÁÖ¼¼¿ä.</option>
-							<option>¹«°ü</option>
-							<option>ÃÊ´ëÁ¹</option>
-							<option>´ëÁ¹</option>
+							<option>ë¬´ê´€</option>
+							<option>ì´ˆëŒ€ì¡¸</option>
+							<option>ëŒ€ì¡¸</option>
 						</select>
 					</td>
 				</tr>
 				<tr>
-					<td class="t_label label1">°æ·Â</td>
+					<td class="t_label label1">ê²½ë ¥</td>
 					<td>
 						<select class="form-control selectBox" id="career" name="career">
-							<option>ÇÊ¿ä °æ·ÂÀ» ¼±ÅÃÇØ ÁÖ¼¼¿ä.</option>
-							<option>¹«°ü</option>
-							<option>°æ·Â</option>
+							<option>ë¬´ê´€</option>
+							<option>ê²½ë ¥</option>
 						</select>
 					</td>
 				</tr>
 				<tr>
-					<td class="t_label label1">* ±Ş¿©</td>
+					<td class="t_label label1">* ê¸‰ì—¬</td>
 					<td style="font-size: 12px">
-						<select class="form-control selectBox" id="pay_kind" name="pay_kind">
-							<option>ÇùÀÇ</option>
-							<!-- ¿ù/ÀÏ ¼±ÅÃÇÒ °æ¿ì input Ã¢ ¶ß°Ô ÇÏ±â -->
-							<option>¿ù</option>
-							<option>ÀÏ</option>
+						<select class="form-control selectBox" id="payment_kind" name="payment_kind">
+							<option>í˜‘ì˜</option>
+							<!-- ì›”/ì¼ ì„ íƒí•  ê²½ìš° input ì°½ ëœ¨ê²Œ í•˜ê¸° -->
+							<option>ì›”</option>
+							<option>ì¼</option>
 						</select>
-						<!-- ±İ¾× Á¶°Ç °É±â - ÃÖ´ë / ÃÖ¼Ò°ª -->
-						<input class="form-control payValue" type="number" id="pay_value" name="pay_value"> ¿ø
+						<!-- ê¸ˆì•¡ ì¡°ê±´ ê±¸ê¸° - ìµœëŒ€ / ìµœì†Œê°’ -->
+						<span id="pay_value"></span>
 					</td>
 				</tr>
 			</table>
 			
 			<table class="t_firmInfo">
 				<tr>
-					<!-- ÇÊ¿ä ½Ã Ãß°¡ -->
-					<td class="t_title" colspan="2">È¸»ç/´ÜÃ¼ Á¤º¸</td>
+					<!-- í•„ìš” ì‹œ ì¶”ê°€ -->
+					<td class="t_title" colspan="2">íšŒì‚¬/ë‹¨ì²´ ì •ë³´</td>
 				</tr>
 				<tr>
-					<td class="t_label" colspan="2">»ó¼¼ Á¤º¸</td>
+					<td class="t_label" colspan="2">ìƒì„¸ ì •ë³´</td>
 				</tr>
 				<tr>
 					<td colspan="2">
@@ -548,42 +363,42 @@ textarea {
 					</td>
 				</tr>
 				<tr>
-					<!-- ÁÖ¼Ò Ã£±â -->
-					<td class="t_label label1" rowspan="2">Áö¿ª Á¤º¸</td>
+					<!-- ì£¼ì†Œ ì°¾ê¸° -->
+					<td class="t_label label1" rowspan="2">ì§€ì—­ ì •ë³´</td>
 					<td>
-						<!-- ÁÖ¼Ò °Ë»ö API -->
-						<input type="text" id="addr" class="postcodify_address find_addr addr form-control" name="addr"><input type="button" id="find_addr" class="find_addr" value="ÁÖ¼Ò Ã£±â">
+						<!-- ì£¼ì†Œ ê²€ìƒ‰ API -->
+						<input type="text" id="addr" class="postcodify_address find_addr addr form-control" name="addr"><input type="button" id="find_addr" class="find_addr" value="ì£¼ì†Œ ì°¾ê¸°">
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<!-- »ó¼¼ ÁÖ¼Ò ÀÔ·Â¶õ -->
-						<input type="text" id="addr_detail" class="postcodify_details addr_detail form-control" name="addr_detail" placeholder="»ó¼¼ ÁÖ¼Ò¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä.">
+						<!-- ìƒì„¸ ì£¼ì†Œ ì…ë ¥ë€ -->
+						<input type="text" id="addr_detail" class="postcodify_details addr_detail form-control" name="addr_detail" placeholder="ìƒì„¸ ì£¼ì†Œë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš”.">
 					</td>
 				</tr>
 			</table>
 				
 			<table class="t_contactInfo">
 				<tr>
-					<td class="t_title" colspan="2">* ´ã´çÀÚ Á¤º¸</td>
+					<td class="t_title" colspan="2">* ë‹´ë‹¹ì ì •ë³´</td>
 				</tr>
 				<tr>
-					<td class="t_label label1">´ã´çÀÚ id</td>
+					<td class="t_label label1">ë‹´ë‹¹ì id</td>
 					<td>
 						<input type="text" name="admin_id" class="contact_form form-control">
 					</td>	
 				</tr>
 				<tr>
-					<td class="t_label label1">´ã´çÀÚ email</td>
+					<td class="t_label label1">ë‹´ë‹¹ì email</td>
 					<td>
-						<!-- ´ã´çÀÚ email - Å¬¸³º¸µå º¹»ç ±â´É  -->
+						<!-- ë‹´ë‹¹ì email - í´ë¦½ë³´ë“œ ë³µì‚¬ ê¸°ëŠ¥  -->
 						<input type="text" name="admin_email" class="contact_form form-control">
 					</td>
 				</tr>
 				<tr>
-					<td class="t_label label1">´ã´çÀÚ ÈŞ´ë¹øÈ£</td>
+					<td class="t_label label1">ë‹´ë‹¹ì íœ´ëŒ€ë²ˆí˜¸</td>
 					<td>
-						<!-- ´ã´çÀÚ ÈŞ´ë¹øÈ£ -->
+						<!-- ë‹´ë‹¹ì íœ´ëŒ€ë²ˆí˜¸ -->
 						<input type="text" name="admin_phone" class="contact_form form-control">
 					</td>
 				</tr>
@@ -591,22 +406,22 @@ textarea {
 			
 			<table class="duration_sec">
 				<tr>
-					<td class="t_title" colspan="2">* ¸ğÁı ±â°£</td>
+					<td class="t_title" colspan="2">* ëª¨ì§‘ ê¸°ê°„</td>
 				</tr>
 				<tr>
-					<td class="t_label label1">±â°£ ¼±ÅÃ</td>
+					<td class="t_label label1">ê¸°ê°„ ì„ íƒ</td>
 					<td>
 						<select class="form-control selectBox" id="duration" name="duration_kind">
-							<option>¸¶°¨ÀÏ ¼±ÅÃ</option><!-- ±â°£ ¼±ÅÃ ½Ã Ãß°¡ Ã¢ ¶ç¿ì±â -->
-							<option>»ó½Ã ¸ğÁı</option>
+							<option>ìƒì‹œ ëª¨ì§‘</option>
+							<option>ë§ˆê°ì¼ ì„ íƒ</option>
 						</select>
-						<input type="date" name="duration_end" class="date_select selectBox fRight form-control">
+						<span id="dura_end"></span>
 					</td>
 				</tr>
 			</table>
 			<table class="document_sec">
 				<tr>
-					<td class="t_title" colspan="2">Á¦Ãâ ¼­·ù</td>
+					<td class="t_title" colspan="2">ì œì¶œ ì„œë¥˜</td>
 				</tr>
 				<tr>
 					<td colspan="2">
@@ -614,15 +429,15 @@ textarea {
 					</td>
 				</tr>
 			</table>
-			<input class="submit_btn" type="button" value="µî·Ï" id="submit_btn">
-			<input class="reset_btn" type="reset" value="ÀçÀÛ¼º">
+			<input class="submit_btn" type="button" value="ë“±ë¡" id="submit_btn">
+			<input class="reset_btn" type="reset" value="ì¬ì‘ì„±">
 		</form>	
 		</section>
-		<!-- °Ô½ÃÆÇ ³»¿ë ³¡ -->
+		<!-- ê²Œì‹œíŒ ë‚´ìš© ë -->
 		
 	</section>
 	
 	<!-- footer -->
-	<!-- footer ³¡ -->
+	<!-- footer ë -->
 </body>
 </html>

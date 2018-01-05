@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../resources/css/pmf/pmf_view_css.css">
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 <script type="text/javascript">
@@ -32,135 +33,6 @@
 	});
 
 </script>
-<style type="text/css">
-*{
-	font-family: HanSans;
-}
-.title{
-	text-align: center;
-    margin-bottom: 20px;
-}
-table{
-	border: solid #ccc 1px;
-	border-collapse: collapse;
-	margin-bottom: 30px;
-    width: 800px;
-}
-td{
-	border: solid #ccc 1px;
-	height: 35px;
-}
-#board_sec{
-	width: 800px;
-    margin: 0 auto;
-    margin-top: 25px;
-    margin-bottom: 25px;
-}
-.t_title{
-	height: 40px;
-    text-align: center;
-    font-size: 14px;
-    font-weight: 600;
-    background-color: #eaeaea;
-}
-.t_label{
-	text-align: center;
-    height: 35px;
-    margin: 10px 0;
-    font-size: 13px;
-}
-.label1{
-	width: 150px;
-}
-.t_value{
-	padding-left: 20px;
-	font-size: 13px;
-}
-.clipboard_copy{
-	margin-left: 15px;
-}
-.update_btn, .delete_btn{
-	width: 100px;
-    height: 35px;
-    font-size: 14px;
-    font-weight: 600;
-    float: right;
-    margin: 0 0 50px 10px;
-    color: rgb(255, 255, 255);
-    text-align: center;
-    border-radius: 4px;
-    background-color: rgb(22, 160, 133);
-    border: solid 1px rgb(22, 160, 133);
-}
-.line{
-	margin: 0 auto;
-	width: 100%;
-	border-top: 3px solid #eee;
-}
-
-/* reply section */
-#reply{
-	margin: 0 auto;
-    width: 800px;
-}
-.new_reply{
-	width: 800px;
-}
-.replyzone{
-	width: 715px;
-    padding: 10px;
-    margin: 0px;
-    display: inline-block;
-    height: 100px !important;
-    font-size: 12px;
-}
-.reply_btn{
-	width: 75px;
-    height: 100px;
-    float: right;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    color: white;
-    font-weight: 600;
-    background-color: #ccc;
-}
-.t_reply{
-	border: none;
-    margin-top: 30px;
-    font-size: 12px;
-}
-.td_r{
-	border: none;
-    border-top: solid #eee 1px;
-    border-bottom: solid #eee 1px;
-    text-align: center;
-}
-.t_1{
-	width: 100px;
-}
-.t_2{
-	width: 600px;
-}
-.t_3{
-	width: 100px;
-	text-align: right;
-	padding-right: 20px;
-}
-.reply_add{
-	width: 800px;
-    margin: 0 auto;
-    height: 40px;
-    background-color: #eee;
-    text-align: center;
-    line-height: 40px;
-    margin-bottom: 50px;
-    font-weight: 600;
-}
-.reply_add:HOVER {
-	border: 2px solid #ddd;
-	cursor: pointer;
-}
-</style>
 </head>
 <body>
 	<h1>pmf board view</h1>
@@ -195,7 +67,7 @@ td{
 					<td class="t_label" colspan="2">프로젝트 내용</td>
 				</tr>
 				<tr>
-					<td colspan="2">
+					<td class="t_text" colspan="2">
 						${view.project_detail}
 					</td>
 				</tr>
@@ -218,7 +90,7 @@ td{
 					<td class="t_label" colspan="2">담당업무</td>
 				</tr>
 				<tr>
-					<td colspan="2">
+					<td class="t_text" colspan="2">
 						${view.works}
 					</td>
 				</tr>	
@@ -271,7 +143,7 @@ td{
 						<td class="t_label" colspan="2">상세 정보</td>
 					</tr>
 					<tr>
-						<td colspan="2">
+						<td class="t_text" colspan="2">
 							${view.firm_info}
 						</td>
 					</tr>
@@ -345,8 +217,8 @@ td{
 			</c:if>
 			
 			<!-- 조건 걸기: 아이디와 글쓴이가 같을 때만 보이도록 -->
-				<input class="update_btn" type="button" value="수정" id="update_btn">
 				<input class="delete_btn" type="button" value="삭제" id="delete_btn">
+				<input class="update_btn" type="button" value="수정" id="update_btn">
 		
 			<!-- 담기버튼 하트나 별 모양으로 바꾸기 -->
 			<input class="save_btn" type="button" value="담기" id="save_btn">

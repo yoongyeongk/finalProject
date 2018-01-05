@@ -25,6 +25,7 @@ public class PmfBoardDAO {
 	}
 	
 	public int insert(PmfBoardDTO pmfBoardDTO) throws Exception {
+		System.out.println(pmfBoardDTO.getDuration_end());
 		return sqlSession.insert(NAMESPACE+"insert", pmfBoardDTO);
 	}
 	
@@ -44,7 +45,11 @@ public class PmfBoardDAO {
 		return sqlSession.selectOne(NAMESPACE+"getTotalCount", rowNum);
 	}
 	
-	public void key_value_list() throws Exception {
-		
+	public List<String> major_key_list() throws Exception {
+		return sqlSession.selectList(NAMESPACE+"selectMajorKeys");
+	}
+	
+	public List<String> sub_key_list(String major_key) throws Exception {
+		return sqlSession.selectList(NAMESPACE+"selectSubKeys", major_key);
 	}
 }

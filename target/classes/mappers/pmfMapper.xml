@@ -49,10 +49,10 @@
   		insert into pmf_board 
   		values(#{num},#{title},#{writer},sysdate,0,
   			   #{major_key},#{sub_key},#{works},#{project_name},#{start_date},#{end_date},#{project_detail},
-  			   #{work_kind},#{education_level},#{career},
+  			   #{work_kind},#{education_level},#{career},#{payment_kind},#{payment_value},
   			   #{firm_info},#{addr},#{addr_detail},
   			   #{admin_id},#{admin_email},#{admin_phone},
-  			   #{duration_kind},#{duration_end})
+  			   #{duration_kind},#{duration_end},#{temp})
   	</insert>
   	
   	<select id="getTotalCount" parameterType="RowNum" resultType="int">
@@ -67,4 +67,11 @@
   		</if>
   	</select>
   	
+  	<select id="selectMajorKeys" resultType="java.lang.String">
+  		select distinct(major_key) from pmf_key_value ORDER BY major_key
+  	</select>
+  	
+  	<select id="selectSubKeys" parameterType="java.lang.String" resultType="java.lang.String">
+  		select sub_key from pmf_key_value where major_key=#{major_key}  order by sub_key
+  	</select>
   </mapper>
