@@ -22,14 +22,15 @@ public class FileService {
 	public List<FileDTO> insert (TradeBoardDTO tradeBoardDTO,HttpSession session) throws Exception {
 		List<FileDTO> files = new ArrayList<FileDTO>();
 		FileDTO fileDTO = null;
-		System.out.println(tradeBoardDTO.getImg());
 		for (MultipartFile file : tradeBoardDTO.getImg()) {
-			fileDTO = new FileDTO();
-			fileDTO.setNum(tradeBoardDTO.getNum());
-			fileDTO.setFileName(fileSaver.transperSave(file, session, "upload"));
-			fileDTO.setOriName(file.getOriginalFilename());
-			files.add(fileDTO);
-			fileDAO.insert(fileDTO);
+			if(file.getOriginalFilename() != ""){
+				fileDTO = new FileDTO();
+				fileDTO.setNum(tradeBoardDTO.getNum());
+				fileDTO.setFileName(fileSaver.transperSave(file, session, "upload"));
+				fileDTO.setOriName(file.getOriginalFilename());
+				files.add(fileDTO);
+				fileDAO.insert(fileDTO);
+			}
 		}
 	return files;
 	}
