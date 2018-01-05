@@ -64,4 +64,13 @@ public class TradeBoardDAO {
 		
 		return sqlSession.selectOne(NAMESPACE+"getCount",rowNum);
 	}
+	
+	public int getTagCount (RowNum rowNum) throws Exception {
+		
+		return sqlSession.selectOne(NAMESPACE+"getTagCount", rowNum);
+	}
+	
+	public List<TradeBoardDTO> selectTagSearch (RowNum rowNum) throws Exception {
+		return sqlSession.selectList(NAMESPACE+"selectTagSearch", rowNum);
+	}
 }

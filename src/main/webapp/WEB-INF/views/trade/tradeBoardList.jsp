@@ -39,10 +39,14 @@ $(function() {
 	});
 
 	$(".list").click(function(){
+		var search ="";
 		var curPage = $(this).prop("title");
 		var kind = '${pager.kind}';
-		var search = '${pager.search}';
-		
+		if('${pager.kind}' == 'Tag'){
+			search = '#${pager.search}';
+		}else{
+			search = '${pager.search}';
+		}
 		$("#kind").val(kind);
 		$("#search").val(search);
 		$("#curPage").val(curPage);
@@ -51,11 +55,18 @@ $(function() {
 	});
 	
 	$(".tags").on("click",function(){
-		alert($(this).children(".tagSet").text())
+		$("#kind").val(kind);
+		$("#search").val($(this).children(".tagSet").prop("title"));
+		$("#curPage").val("1");
+		$("#f").submit();
 	})
 	
-	$("#s").click(function(){
-	})
+	if('${pager.kind}' == 'Tag'){
+		$("#kind option:eq(0)").prop("selected", true);
+		$("#search").val("#${pager.search}")
+		}
+	
+	
 });
 </script>
 </head>
@@ -118,14 +129,25 @@ $(function() {
 											</div>
 										</div>
 									</th>
-									<td class="title t"> <div class="loc"><a href="./tradeBoardView?num=${dto.num }">${dto.title }</a>
+									<td class="title t"> <div class="loc"><a href="./tradeBoardView?num=${dto.num }" on>${dto.title }</a>
 										<div class="line"> 
 											
-												<c:forEach items="${tags }" var="t">
+												<c:forEach items="${tags }" var="t" varStatus="i">
 													<c:if test="${dto.num eq t.num}">
-														<a href="#" class="tags">
-															#<span class="tagSet">${t.tag }</span>
+														<a href="javascript:void(0)" class="tags" id="i${i.count }">
+															#<span class="tagSet" title="#${t.tag }">${t.tag }</span>
 														</a>
+														<c:if test="${pager.search eq t.tag and pager.kind eq 'Tag'}">
+															<script type="text/javascript">
+																$("#i${i.count}").css("background-color","salmon")
+																$("#i${i.count}").on("mouseover",function(){
+																	$(this).css({"color":"salmon","background-color":"white" ,"border-color":"salmon"})
+																});
+																$("#i${i.count}").on("mouseout",function(){
+																	$(this).css({"color":"white","background-color":"salmon"})
+																});
+															</script>
+														</c:if>
 													</c:if>
 												</c:forEach>
 											

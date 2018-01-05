@@ -91,7 +91,6 @@
 				}
 		})
 		
-		
 		$("#btn").click(function(){
 			if($(".upPreviewBox").length > 0 || $(".previewBox").length > 0){
 				$(this).attr("type","")
