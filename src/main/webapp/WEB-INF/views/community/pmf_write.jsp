@@ -51,8 +51,8 @@ $(function(){
 			contentType: false,
 			processData: false,
 			success: function(data){
-				status.setProgress(100);
 				alert(data);
+				status.setProgress(100);
 			}
 		});
 		
@@ -134,6 +134,7 @@ $(function(){
 				//fileUpload
 				fileUpload(files, drop_sec);
 			}
+		
 		}
 	})
 	
@@ -447,10 +448,13 @@ textarea {
 				</tr>
 				<tr>
 					<td class="t_label" colspan="2">파일 첨부</td><!-- 드래그앤드롭 부분 css, js 추가하기 -->
+			
 				</tr>
 				<tr>
 					<td colspan="2">
-						<div id="dropzone">업로드할 파일을 드래그해 주세요.</div>
+						<div id="dropContainer">업로드할 파일을 드래그해 주세요.</div>
+						<!-- id="dropContainer"  -->
+						<input type="file" name="files" id="fileInput" multiple="multiple">
 					</td>
 				</tr>
 				<tr>
@@ -463,7 +467,19 @@ textarea {
 					</td>
 				</tr>	
 			</table>
-					
+							<script type="text/javascript">
+						$(function(){
+							dropContainer.ondragover = dropContainer.ondragenter = function(evt) {
+								  evt.preventDefault();
+								};
+
+								dropContainer.ondrop = function(evt) {
+								  // pretty simple -- but not for IE :(
+								  fileInput.files = evt.dataTransfer.files;
+								  evt.preventDefault();
+								};
+						});
+					</script>
 			<table class="t_workCondition">
 				<tr>
 					<td class="t_title" colspan="2">근무 조건</td>

@@ -12,26 +12,25 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 	$(function(){
-		/* $(".clipboard_copy").click(function(event){
-			var copyValue = $("#email").text();
-			event.copyValue.select();
+		//clipboard copy
+		function copyText(){
+			var range = document.createRange();			//range 설정
+			var referenceNode = document.getElementById("email");
+			range.selectNode(referenceNode);					//selectNode
+			window.getSelection().addRange(range);		//getSelection에 범위 추가
 			
-			try{
-				document.execCommand("copy");
-				alert("copy");
-			} catch(err){
-				alert("error");
-			}
-		}) */
+			document.execCommand('copy');
+		}
 		
-	})
-	function selectElementText(event){
-		var range = document.createRange();
-		range.selectNodContents(event);
-		var selection = window.getSelection();
-		selection.removeAllRanges();
-		selection.addRange(range);
-	}
+		$(".clipboard_copy").click(function(event){
+			copyText();
+		});
+		
+		
+		//map
+		
+	});
+
 </script>
 <style type="text/css">
 *{

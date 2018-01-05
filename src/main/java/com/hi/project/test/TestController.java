@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.hi.boardFile.FileDTO;
@@ -25,19 +26,14 @@ public class TestController {
 	}
 	
 	@RequestMapping(value="fileUpload", method=RequestMethod.POST)
-	public String fileUpload(MultipartFile [] file, HttpSession session, Model model) throws Exception {
+	@ResponseBody
+	public FileDTO fileUpload(MultipartFile file, HttpSession session, Model model) throws Exception {
 		
-		for(MultipartFile f: file){
-			FileDTO fileDTO = new FileDTO();
-			fileDTO.setOriname(f.getOriginalFilename());
-			fileDTO.setFilename(FileSaver.transperSave(f, session, "pmf_files"));
-			
-			System.out.println(fileDTO.getFilename());
-			System.out.println(fileDTO.getOriname());
-			model.addAttribute("file", fileDTO);
-		}
+		FileDTO fileDTO = new FileDTO();
+		fileDTO.setOriname(file.getOriginalFilename());
+		fileDTO.setFilename(FileSaver.transperSave(file, session, "pmf_files"));
 
-		return "test/fileResult";
+		return fileDTO;
 	}
 	
 	@RequestMapping("login")
@@ -52,6 +48,14 @@ public class TestController {
 	
 	@RequestMapping("pdfTest")
 	public String pdf(){
+		return "test/pdfViewTest";
+	}
+	
+	@RequestMapping(value="pdfTest",method=RequestMethod.POST)
+	public String pdf(String editor1, Model model){
+		System.out.println(editor1);
+		model.addAttribute("result", editor1);
+		
 		return "test/pdfViewTest";
 	}
 	
