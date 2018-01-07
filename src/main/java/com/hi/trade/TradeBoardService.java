@@ -40,15 +40,29 @@ public class TradeBoardService {
 	
 	public ModelAndView selectList(ListData listData) throws Exception{
 			ModelAndView view = new ModelAndView();
-			RowNum rowNum = listData.makeRow();
-			int totalCount = tradeBoardDAO.getCount(rowNum);
+			int totalCount = 0;
+			Pager pager = null;
+			List<TradeBoardDTO> ar = null;
 			
-			Pager pager = listData.makePage(totalCount);
 			
-			
-			List<TradeBoardDTO> ar = tradeBoardDAO.selectList(rowNum);
+				if(listData.getSearch() != "" && listData.getSearch().charAt(0) == '#'){
+					listData.setSearch(listData.getSearch().substring(1));
+					listData.setKind("Tag");
+					RowNum rowNum = listData.makeRow();
+					totalCount = tradeBoardDAO.getTagCount(rowNum);
+					pager = listData.makePage(totalCount);
+					ar = tradeBoardDAO.selectTagSearch(rowNum);
+					String s = "#"+pager.getSearch();
+					
+				}
+				else{
+					RowNum rowNum = listData.makeRow();
+					totalCount = tradeBoardDAO.getCount(rowNum);
+					pager = listData.makePage(totalCount);
+					ar = tradeBoardDAO.selectList(rowNum);
+				}
+
 			List<TagDTO> tag = tradeBoardDAO.getTag();
-			
 			view.addObject("pager", pager);
 			view.addObject("list", ar);
 			view.addObject("tags", tag);
