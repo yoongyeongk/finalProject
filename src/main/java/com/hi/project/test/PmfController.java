@@ -86,8 +86,6 @@ public class PmfController {
 	@RequestMapping(value="pmfWrite", method=RequestMethod.POST)
 	public String insert(PmfBoardDTO pmfBoardDTO, RedirectAttributes rd){
 		int result = 0;
-		System.out.println(pmfBoardDTO.getDuration_end());
-		System.out.println(pmfBoardDTO.getDuration_kind());
 		try {
 			result = pmfBoardService.insert(pmfBoardDTO);
 		} catch (Exception e) {
@@ -103,6 +101,56 @@ public class PmfController {
 		
 		return "redirect:./pmfList";
 	}
+	
+	//update 폼 이동
+	@RequestMapping(value="pmfUpdate", method=RequestMethod.GET)
+	public ModelAndView update(int num) {
+		ModelAndView mv = null;
+		
+		try {
+			mv = pmfBoardService.update(num);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(!mv.isEmpty()) {
+			mv.setViewName("community/pmf_update");
+		}else {
+			mv.addObject("message", "게시글을 수정할 수 없습니다.");
+			mv.setViewName("redirect:./pmfList");
+		}
+		
+		return mv;
+	}
+	
+	//update
+	@RequestMapping(value="pmfUpdate", method=RequestMethod.POST)
+	public String update(PmfBoardDTO pmfBoardDTO) {
+		
+		return "redirect:./pmfView?num="+pmfBoardDTO.getNum();
+	}
+	
+	//delete
+	@RequestMapping(value="pmfDelete")
+	public String delete(int num, RedirectAttributes rd) {
+		int result = 0;
+		try {
+			result = pmfBoardService.delete(num);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String message = "게시글을 삭제할 수 없습니다.";
+		if(result>0) {
+			message = "게시글이 삭제되었습니다.";
+		}
+		rd.addFlashAttribute("message", message);
+		
+		return "redirect:./pmfList";
+	}
+	
 	
 	//sub_key list 불러오기
 	@RequestMapping("subKey")

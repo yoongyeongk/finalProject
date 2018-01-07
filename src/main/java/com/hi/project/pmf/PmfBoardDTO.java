@@ -49,7 +49,7 @@ public class PmfBoardDTO {
 	private Date duration_end;		//마감일 설정 - 마감일
 	
 	//제출 서류
-	private PmfDocumentDTO pmfDocumentDTO;
+	private String document;		//제출서류
 
 	//태그
 	
@@ -311,14 +311,19 @@ public class PmfBoardDTO {
 		this.duration_end = duration_end;
 	}
 
-	public PmfDocumentDTO getPmfDocumentDTO() {
-		return pmfDocumentDTO;
+	public String getDocument() {
+		String document = "";
+		
+		if(this.document != null) {
+			document = this.document;
+		}
+		return document;
 	}
 
-	public void setPmfDocumentDTO(PmfDocumentDTO pmfDocumentDTO) {
-		this.pmfDocumentDTO = pmfDocumentDTO;
+	public void setDocument(String document) {
+		this.document = document;
 	}
-	
+
 	public int getTemp() {
 		return temp;
 	}

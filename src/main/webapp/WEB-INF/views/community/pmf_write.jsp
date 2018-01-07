@@ -16,6 +16,13 @@
 <script type="text/javascript">
 $(function(){
 	
+	var fileDTO = {
+		filename: "",
+		oriname: ""
+	}
+	
+	var files = new Array();
+	
 	function fileUpload(files, drop_sec){
 		var formdata = new FormData();
 		
@@ -27,6 +34,7 @@ $(function(){
 		status.setFileNameSize(files[i].name, files[i].size);
 		sendFileToServer(formdata,status);
 		}
+
 	}
 	
 	function sendFileToServer(formdata,status){
@@ -53,8 +61,17 @@ $(function(){
 			contentType: false,
 			processData: false,
 			success: function(data){
+				//fileDTO 객체에 값 넣기
+				fileDTO.filename = data.filename;
+				fileDTO.oriname = data.oriname;
+				files.push(fileDTO);				//배열에 추가
+				
+				//확인
+				alert(fileDTO.filename);
+				alert(oriname.oriname);
 				alert(data.filename);
-				status.setProgress(100);
+				
+				status.setProgress(100);			//상태 100으로 설정
 			}
 		});
 		
@@ -232,13 +249,14 @@ $(function(){
 					<td class="t_label label1">프로젝트 분야</td>
 					<td>
 						<select class="form-control selectBox" name="major_key" id="major_key">
+							<option disabled="disabled">대분류</option>
 							<c:forEach items="${major_key}" var="key">
 								<option>${key}</option>
 							</c:forEach>
 						</select>
 						<select class="form-control selectBox fRight" name="sub_key" id="sub_key">
+							<option disabled="disabled">소분류</option>
 							<c:forEach items="${sub_key}" var="key">
-								<option disabled="disabled">소분류</option>
 								<option>${key}</option>
 							</c:forEach>
 						</select>

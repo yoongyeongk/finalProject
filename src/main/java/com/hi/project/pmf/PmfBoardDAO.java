@@ -29,12 +29,12 @@ public class PmfBoardDAO {
 		return sqlSession.insert(NAMESPACE+"insert", pmfBoardDTO);
 	}
 	
-	public void update() throws Exception {
-		
+	public int update(PmfBoardDTO pmfBoardDTO) throws Exception {
+		return sqlSession.update(NAMESPACE+"update", pmfBoardDTO);
 	}
 	
-	public void delete() throws Exception {
-		
+	public int delete(int num) throws Exception {
+		return sqlSession.delete(NAMESPACE+"delete", num);
 	}
 	
 	public int hitUpdate(int num) throws Exception {

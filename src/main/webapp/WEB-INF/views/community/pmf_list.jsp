@@ -15,9 +15,51 @@
 		if(message != ""){
 			alert(message);
 		}
-	});
 	
-	function openList(evt, cityName) {
+		//전체선택, 해제
+		var totalCh = $("#total_ch");
+		$(totalCh).click(function(){
+			if($(totalCh).prop("checked")){
+				$(".ch_one").prop("checked",true);
+			}else{
+				$(".ch_one").prop("checked",false);
+			}
+		});
+		
+		var scrap_num = new Array();
+		var ch = $(".save_ch");
+		$(ch).click(function(){
+			ch = $(this);
+			scrapCheck(ch, scrap_num);
+		});
+	});
+
+	function scrapCheck(ch, scrap_num) {
+		if($(ch).attr("id") != "total_ch"){
+			var num = $(ch).attr("title")*1;
+			
+			if($(ch).prop("checked")){
+				scrap_num.push(num);
+			}else if(!$(ch).prop("checked")){
+				var index = scrap_num.indexOf(num);
+				scrap_num.splice(index,1);
+			}
+		}else{
+			if($(ch).prop("checked")){
+				//체크박스(class명)들의 title값과 배열 내의 title값 비교
+				//배열 내에 값이 있으면 추가하지 않고, 값이 없다면 배열에 추가하도록 하기
+			}else{
+				scrap_num.splice(0,scrap_num.length);
+			}
+		}
+		
+		
+	 	for(var i=0; i<scrap_num.length; i++){
+			alert(scrap_num[i]);
+		} 
+	}
+	
+	function openList(evt, menuName) {
 	    var i, tabcontent, tablinks;
 	    tabcontent = document.getElementsByClassName("tabcontent");
 	    for (i = 0; i < tabcontent.length; i++) {
@@ -27,7 +69,7 @@
 	    for (i = 0; i < tablinks.length; i++) {
 	        tablinks[i].className = tablinks[i].className.replace(" active", "");
 	    }
-	    document.getElementById(cityName).style.display = "block";
+	    document.getElementById(menuName).style.display = "block";
 	    evt.currentTarget.className += " active";
 	}
 </script>
@@ -330,7 +372,7 @@ a:hover{
 									</tr>
 									<c:forEach items="${list}" var="dto">
 									<tr>
-										<td><input type="checkbox" class="save_ch"></td>
+										<td><input type="checkbox" class="save_ch ch_one" title="${dto.num}"></td>
 										<td>${dto.project_name}</td>
 										<td><a href="./pmfView?num=${dto.num}">${dto.title}</a></td>
 										<td>${dto.work_kind}</td>

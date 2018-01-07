@@ -1,70 +1,172 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="../resources/css/pmf/pmf_view_css.css">
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- Naver Map -->
+	<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=ux0BJ4MhrCheRnITqW_y&submodules=geocoder"></script>
+<!-- BootStrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- CSS -->
+	<link rel="stylesheet" href="../resources/css/pmf/pmf_view_css.css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
-	$(function(){
-		//clipboard copy
-		function copyText(){
-			var range = document.createRange();			//range ¼³Á¤
-			var referenceNode = document.getElementById("email");
-			range.selectNode(referenceNode);					//selectNode
-			window.getSelection().addRange(range);		//getSelection¿¡ ¹üÀ§ Ãß°¡
+	
+	function copyText(){
+		var range = document.createRange();			//range ì„¤ì •
+		var referenceNode = document.getElementById("email");
+		range.selectNode(referenceNode);					//selectNode
+		window.getSelection().addRange(range);		//getSelectionì— ë²”ìœ„ ì¶”ê°€
 			
-			document.execCommand('copy');
-		}
-		
-		$(".clipboard_copy").click(function(event){
-			copyText();
+		document.execCommand('copy');
+	}
+
+
+	$(function() {
+		//ìˆ˜ì •
+		$("#update_btn").click(function(){
+			location.href = "./pmfUpdate?num="+${view.num};
 		});
 		
+		//ì‚­ì œ
+		$("#delete_btn").click(function(){
+			location.href = "./pmfDelete?num="+${view.num};
+		});
 		
-		//map
-		
-	});
+		//clipboard copy
+		$(".clipboard_copy").click(function() {
+			copyText();
+		});
 
+		//ëŒ“ê¸€
+		var num = ${view.num};
+
+		//1. list
+		$.ajax({
+			url : "../reply/pmfReplyList?num=" + num,
+			type : "GET",
+			success : function(data) {
+				alert(data);
+				
+			}
+		});
+
+		//2. write
+		$(".reply_btn").click(function() {
+			var writer = 'writer'; //'${member.nickname}';
+			var contents = $(".replyzone").val();
+
+			$.ajax({
+				type : "POST",
+				url : "../reply/pmfReplyWrite",
+				data : {
+					num : num,
+					writer : writer,
+					contents : contents
+				},
+				success : function(data) {
+					alert(data.trim());
+					$(".replyzone").val("ê¶ê¸ˆí•œ ë‚´ìš©ì„ ììœ ë¡­ê²Œ ì¨ ì£¼ì„¸ìš”.");
+				}
+			});
+		})
+
+		//3. update
+
+		//4. delete
+
+		//map
+
+		if ('${view.addr}' != '') {
+			var addr = '${view.addr}';
+			var addrResult;
+			var etc;
+
+			function addressParsing(addr) {
+				var addrArray = addr.split(" ");
+				for (var i = 0; i < addrArray.length; i++) {
+					if (addrArray[i].endsWith("ë¡œ")) {
+						addrResult = addrArray[i];
+						if (i != addrArray.length - 1) {
+							etc = addrArray[i + 1];
+						}
+					}
+				}
+				addrResult = addrResult + " " + etc;
+				return addrResult;
+			}
+
+			var map = new naver.maps.Map('map');
+			var myaddress = 'ì—¬ê¸°ì‚°ë¡œ 54';// ë„ë¡œëª… ì£¼ì†Œë‚˜ ì§€ë²ˆ ì£¼ì†Œë§Œ ê°€ëŠ¥ (ê±´ë¬¼ëª… ë¶ˆê°€!!!!)
+			naver.maps.Service.geocode({
+				address : myaddress
+				},function(status, response) {
+					if (status !== naver.maps.Service.Status.OK) {
+						return alert(myaddress + 'ì˜ ê²€ìƒ‰ ê²°ê³¼ê°€ ì—†ê±°ë‚˜ ê¸°íƒ€ ë„¤íŠ¸ì›Œí¬ ì—ëŸ¬');
+					}
+				var result = response.result;
+				// ê²€ìƒ‰ ê²°ê³¼ ê°¯ìˆ˜: result.total
+				// ì²«ë²ˆì§¸ ê²°ê³¼ ê²°ê³¼ ì£¼ì†Œ: result.items[0].address
+				// ì²«ë²ˆì§¸ ê²€ìƒ‰ ê²°ê³¼ ì¢Œí‘œ: result.items[0].point.y, result.items[0].point.x
+				var myaddr = new naver.maps.Point(result.items[0].point.x,result.items[0].point.y);map.setCenter(myaddr); // ê²€ìƒ‰ëœ ì¢Œí‘œë¡œ ì§€ë„ ì´ë™
+				// ë§ˆì»¤ í‘œì‹œ
+				var marker = new naver.maps.Marker({
+					position : myaddr,
+					map : map
+				});
+				// ë§ˆì»¤ í´ë¦­ ì´ë²¤íŠ¸ ì²˜ë¦¬
+				naver.maps.Event.addListener(marker, "click", function(e) {
+					if (infowindow.getMap()) {
+						infowindow.close();
+					} else {
+						infowindow.open(map, marker);
+					}
+				});
+				// ë§ˆí¬ í´ë¦­ì‹œ ì¸í¬ìœˆë„ìš° ì˜¤í”ˆ
+				var infowindow = new naver.maps.InfoWindow({
+						content : '<h4> [ë„¤ì´ë²„ ê°œë°œìì„¼í„°]</h4><a href="https://developers.naver.com" target="_blank"><img src="https://developers.naver.com/inc/devcenter/images/nd_img.png"></a>'
+					});
+			});
+		}
+	});
 </script>
 </head>
 <body>
 	<h1>pmf board view</h1>
 	<!-- header -->
 	
-	<!-- header ³¡ -->
+	<!-- header ë -->
 	
 	<section id="main">
 	
-		<!-- °Ô½ÃÆÇ ³»¿ë -->	
+		<!-- ê²Œì‹œíŒ ë‚´ìš© -->	
 		<section id="board_sec">
 			<h1 class="title">${view.title}</h1>
 			
 			<table class="t_project">
 				<tr>
-					<td class="t_title" colspan="2">ÇÁ·ÎÁ§Æ® Á¤º¸</td>
+					<td class="t_title" colspan="2">í”„ë¡œì íŠ¸ ì •ë³´</td>
 				</tr>
 				<tr>
-				<!-- ´ëºĞ·ù ¼±ÅÃ ½Ã ¼ÒºĞ·ù ³»¿ë ³ª¿Àµµ·Ï ¸¸µé±â -->
-					<td class="t_label label1">ÇÁ·ÎÁ§Æ® ºĞ¾ß</td>
+				<!-- ëŒ€ë¶„ë¥˜ ì„ íƒ ì‹œ ì†Œë¶„ë¥˜ ë‚´ìš© ë‚˜ì˜¤ë„ë¡ ë§Œë“¤ê¸° -->
+					<td class="t_label label1">í”„ë¡œì íŠ¸ ë¶„ì•¼</td>
 					<td class="t_value">${view.major_key} > ${view.sub_key}</td>
 				</tr>
 				<tr>
-					<td class="t_label label1">ÇÁ·ÎÁ§Æ® ¸í</td>
+					<td class="t_label label1">í”„ë¡œì íŠ¸ ëª…</td>
 					<td class="t_value">${view.project_name}</td>
 				</tr>
 				<tr>
-					<td class="t_label label1">ÀÛ¾÷ ¿¹»ó ±â°£</td>
+					<td class="t_label label1">ì‘ì—… ì˜ˆìƒ ê¸°ê°„</td>
 					<td class="t_value">${view.start_date} ~ ${view.end_date}</td>
 				</tr>
 				<tr>
-					<td class="t_label" colspan="2">ÇÁ·ÎÁ§Æ® ³»¿ë</td>
+					<td class="t_label" colspan="2">í”„ë¡œì íŠ¸ ë‚´ìš©</td>
 				</tr>
 				<tr>
 					<td class="t_text" colspan="2">
@@ -73,7 +175,7 @@
 				</tr>
 				<c:if test="${not empty view.fileDTO}">
 				<tr>
-					<td class="t_label" colspan="2">Ã·ºÎ ÆÄÀÏ</td>
+					<td class="t_label" colspan="2">ì²¨ë¶€ íŒŒì¼</td>
 				</tr>
 				<tr>
 					<td colspan="2">
@@ -87,7 +189,7 @@
 				</c:if>
 				
 				<tr>
-					<td class="t_label" colspan="2">´ã´ç¾÷¹«</td>
+					<td class="t_label" colspan="2">ë‹´ë‹¹ì—…ë¬´</td>
 				</tr>
 				<tr>
 					<td class="t_text" colspan="2">
@@ -98,35 +200,35 @@
 					
 			<table class="t_workCondition">
 				<tr>
-					<td class="t_title" colspan="2">±Ù¹« Á¶°Ç</td>
+					<td class="t_title" colspan="2">ê·¼ë¬´ ì¡°ê±´</td>
 				</tr>
 				<tr>
-					<td class="t_label label1">±Ù¹«À¯Çü</td>
+					<td class="t_label label1">ê·¼ë¬´ìœ í˜•</td>
 					<td class="t_value">${view.work_kind}</td>
 				</tr>
 				
 				<c:if test="${view.education_level ne ''}">
 				<tr>
-					<td class="t_label label1">ÇĞ·Â</td>
+					<td class="t_label label1">í•™ë ¥</td>
 					<td class="t_value">${view.education_level}</td>
 				</tr>
 				</c:if>
 				
 				<c:if test="${view.career ne ''}">
 				<tr>
-					<td class="t_label label1">°æ·Â</td>
+					<td class="t_label label1">ê²½ë ¥</td>
 					<td class="t_value">${view.career}</td>
 				</tr>
 				</c:if>
 				
 				<tr>
-					<td class="t_label label1">±Ş¿©</td>
+					<td class="t_label label1">ê¸‰ì—¬</td>
 					<td class="t_value">
-						<c:if test="${view.payment_kind ne 'ÇùÀÇ'}">
-							${view.payment_kind} ${view.payment_value} ¿ø
+						<c:if test="${view.payment_kind ne 'í˜‘ì˜'}">
+							${view.payment_kind} ${view.payment_value} ì›
 						</c:if>
-						<c:if test="${view.payment_kind eq 'ÇùÀÇ'}">
-							ÇùÀÇ ÈÄ °áÁ¤
+						<c:if test="${view.payment_kind eq 'í˜‘ì˜'}">
+							í˜‘ì˜ í›„ ê²°ì •
 						</c:if>
 					</td>
 				</tr>
@@ -135,12 +237,12 @@
 			<c:if test="${not empty view.firm_info || not empty view.addr || not empty view.addr_detail}">
 			<table class="t_firmInfo">
 				<tr>
-					<!-- ÇÊ¿ä ½Ã Ãß°¡ -->
-					<td class="t_title" colspan="2">È¸»ç/´ÜÃ¼ Á¤º¸</td>
+					<!-- í•„ìš” ì‹œ ì¶”ê°€ -->
+					<td class="t_title" colspan="2">íšŒì‚¬/ë‹¨ì²´ ì •ë³´</td>
 				</tr>
 				<c:if test="${not empty view.firm_info}">
 					<tr>
-						<td class="t_label" colspan="2">»ó¼¼ Á¤º¸</td>
+						<td class="t_label" colspan="2">ìƒì„¸ ì •ë³´</td>
 					</tr>
 					<tr>
 						<td class="t_text" colspan="2">
@@ -151,13 +253,13 @@
 				
 				<c:if test="${not empty view.addr}">
 					<tr>
-						<!-- ÁÖ¼Ò Ã£±â -->
-						<td class="t_label label1" rowspan="2">Áö¿ª Á¤º¸</td>
+						<!-- ì£¼ì†Œ ì°¾ê¸° -->
+						<td class="t_label label1" rowspan="2">ì§€ì—­ ì •ë³´</td>
 						<td class="t_value">${view.addr} ${view.addr_detail}</td>
 					</tr>
 					<tr>
 						<td>
-							<div class="map_sec">Áöµµ³Ö±â<!-- map --></div>
+							ì§€ë„ <div id="map"></div>
 						</td>
 					</tr>
 				</c:if>
@@ -166,113 +268,95 @@
 				
 			<table class="t_contactInfo">
 				<tr>
-					<td class="t_title" colspan="2">´ã´çÀÚ Á¤º¸</td>
+					<td class="t_title" colspan="2">ë‹´ë‹¹ì ì •ë³´</td>
 				</tr>
 				<tr>
-					<td class="t_label label1">´ã´çÀÚ id</td>
+					<td class="t_label label1">ë‹´ë‹¹ì id</td>
 					<td class="t_value">
-						<!-- ¾ÆÀÌµğ ¼±ÅÃ ½Ã ¸Ş½ÃÁö º¸³»±â / ÁÖ¼Ò·Ï¿¡ ÀúÀå -->
+						<!-- ì•„ì´ë”” ì„ íƒ ì‹œ ë©”ì‹œì§€ ë³´ë‚´ê¸° / ì£¼ì†Œë¡ì— ì €ì¥ -->
 						<a href="#">${view.admin_id}</a>
 					</td>	
 				</tr>
 				<tr>
-					<td class="t_label label1">´ã´çÀÚ email</td>
-					<td class="t_value"><span id="email">${view.admin_email}</span><input type="button" class="clipboard_copy" value="Å¬¸³º¸µå º¹»ç"></td>
+					<td class="t_label label1">ë‹´ë‹¹ì email</td>
+					<td class="t_value">
+						<span id="email">${view.admin_email}</span>
+						<input type="button" class="clipboard_copy" value="í´ë¦½ë³´ë“œ ë³µì‚¬">
+					</td>
 				</tr>
 				<tr>
-					<td class="t_label label1">´ã´çÀÚ ÈŞ´ë¹øÈ£</td>
+					<td class="t_label label1">ë‹´ë‹¹ì íœ´ëŒ€ë²ˆí˜¸</td>
 					<td class="t_value">${view.admin_phone}</td>
 				</tr>
 			</table>	
 			
 			<table class="duration_sec">
 				<tr>
-					<td class="t_label label1">¸ğÁı ±â°£</td>
+					<td class="t_label label1">ëª¨ì§‘ ê¸°ê°„</td>
 					<td class="t_value">
-						<c:if test="${view.duration_kind eq '»ó½Ã ¸ğÁı'}">
+						<c:if test="${view.duration_kind eq 'ìƒì‹œ ëª¨ì§‘'}">
 							${view.duration_kind}
 						</c:if>
-						<c:if test="${view.duration_kind ne '»ó½Ã ¸ğÁı'}">
+						<c:if test="${view.duration_kind ne 'ìƒì‹œ ëª¨ì§‘'}">
 							${view.duration_end}
 						</c:if>
 					</td>
 				</tr>
 			</table>
 			
-			<c:if test="${not empty view.pmfDocumentDTO}">
+			<c:if test="${not empty view.document}">
 			<table class="document_sec">
 				<tr>
-					<td class="t_title" colspan="2">Á¦Ãâ ¼­·ù</td>
+					<td class="t_title" colspan="2">ì œì¶œ ì„œë¥˜</td>
 				</tr>
 				<tr>
 					<td colspan="2">
-						<ul>
-							<c:forEach items="${view.pmfDocumentDTO}" var="document">
-								<li>${document.contents}</li>
-							</c:forEach>
-						</ul>
+						${view.document}
 					</td>
 				</tr>
 			</table>
 			</c:if>
 			
-			<!-- Á¶°Ç °É±â: ¾ÆÀÌµğ¿Í ±Û¾´ÀÌ°¡ °°À» ¶§¸¸ º¸ÀÌµµ·Ï -->
-				<input class="delete_btn" type="button" value="»èÁ¦" id="delete_btn">
-				<input class="update_btn" type="button" value="¼öÁ¤" id="update_btn">
+			<!-- ì¡°ê±´ ê±¸ê¸°: ì•„ì´ë””ì™€ ê¸€ì“´ì´ê°€ ê°™ì„ ë•Œë§Œ ë³´ì´ë„ë¡ -->
+				<input class="delete_btn" type="button" value="ì‚­ì œ" id="delete_btn">
+				<input class="update_btn" type="button" value="ìˆ˜ì •" id="update_btn">
 		
-			<!-- ´ã±â¹öÆ° ÇÏÆ®³ª º° ¸ğ¾çÀ¸·Î ¹Ù²Ù±â -->
-			<input class="save_btn" type="button" value="´ã±â" id="save_btn">
+			<!-- ë‹´ê¸°ë²„íŠ¼ í•˜íŠ¸ë‚˜ ë³„ ëª¨ì–‘ìœ¼ë¡œ ë°”ê¾¸ê¸° -->
+			<input class="save_btn" type="button" value="ë‹´ê¸°" id="save_btn">
 		
 			<hr class="line">
 		</section>
-		<!-- °Ô½ÃÆÇ ³»¿ë ³¡ -->
+		<!-- ê²Œì‹œíŒ ë‚´ìš© ë -->
 		
 		
 		<section id="reply">
 			<div class="new_reply">
-				<form action="../reply/pmfReplyWrite" method="post">
-					<input type="hidden" name="num" value="${view.num}">
-					<input type="hidden" name="writer" value="writer"><!-- È¸¿ø ¾ÆÀÌµğ Á¤ÇØÁö¸é ¼¼¼Ç »ç¿ë -->
-					<textarea name="contents" class="replyzone form-control" draggable="false">±Ã±İÇÑ ³»¿ëÀ» ÀÚÀ¯·Ó°Ô ½á ÁÖ¼¼¿ä.</textarea>
-					<input type="button" class="reply_btn" value="´ñ±Û µî·Ï">
-				</form>
+				<textarea class="replyzone form-control" draggable="false">ê¶ê¸ˆí•œ ë‚´ìš©ì„ ììœ ë¡­ê²Œ ì¨ ì£¼ì„¸ìš”.</textarea>
+				<input type="button" class="reply_btn" value="ëŒ“ê¸€ ë“±ë¡">
 			</div>
 			<div class="reply_list">
 				<table class="t_reply">
 					<tr>
-						<td class="td_r t_1">writer</td>
-						<td class="td_r t_2">contents</td>
-						<td class="td_r t_3">OOºĞ Àü</td>
+						<td class="td_r t_1">ì‘ì„±ì</td>
+						<td class="td_r t_2">ë‚´ìš©</td>
+						<td class="td_r t_3">ì‘ì„± ì‹œê°„</td>
 					</tr>
+					<div id="reply_sec">
 					<tr>
-						<td class="td_r t_1">writer</td>
-						<td class="td_r t_2">contents</td>
-						<td class="td_r t_3">OOºĞ Àü</td>
+						<td class="td_r t_1">ì‘ì„±ì</td>
+						<td class="td_r t_2">ë‚´ìš©</td>
+						<td class="td_r t_3">ì‘ì„± ì‹œê°„</td>
 					</tr>
-					<tr>
-						<td class="td_r t_1">writer</td>
-						<td class="td_r t_2">contents</td>
-						<td class="td_r t_3">OOºĞ Àü</td>
-					</tr>
-					<tr>
-						<td class="td_r t_1">writer</td>
-						<td class="td_r t_2">contents</td>
-						<td class="td_r t_3">OOºĞ Àü</td>
-					</tr>
-					<tr>
-						<td class="td_r t_1">writer</td>
-						<td class="td_r t_2">contents</td>
-						<td class="td_r t_3">OOºĞ Àü</td>
-					</tr>
+					</div>
 				</table>
 				
-				<div class="reply_add">´õº¸±â</div>
+				<div class="reply_add">ë”ë³´ê¸°</div>
 			</div>
 		</section>
 		
 	</section>
 	
 	<!-- footer -->
-	<!-- footer ³¡ -->
+	<!-- footer ë -->
 </body>
 </html>

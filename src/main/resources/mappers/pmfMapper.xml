@@ -9,16 +9,13 @@
   		<collection property="fileDTO" column="num" ofType="FileDTO" select="selectFile">
   			<id property="fnum" column="fnum"/>
   		</collection>
-  		<collection property="pmfDocumentDTO" column="num" ofType="pmfDocumentDTO" select="selectDocument">
-  			<id property="docu_num" column="docu_num"/>
-  		</collection>
   	</resultMap>
   	
   	<select id="selectList" parameterType="RowNum" resultType="PmfBoardDTO">
   		select * from
   		(select rownum r, N.* from
   		(select * from pmf_board order by num desc) N)
-  		where r between 1 and 10
+  		where r between #{startRow} and #{lastRow}
   	</select>
   	
   	<!-- view에 필요한 내용들 불러오기 -->
@@ -29,11 +26,6 @@
   	<!-- 파일 -->
   	<select id="selectFile" parameterType="int" resultType="FileDTO">
   		select * from pmf_files where num=#{num}
-  	</select>
-  	
-  	<!-- 문서 -->
-  	<select id="selectDocument" parameterType="int" resultType="com.hi.project.pmf.PmfDocumentDTO">
-  		select * from pmf_document where num=#{num}
   	</select>
   	
   	<update id="hitUpdate" parameterType="int">
@@ -52,7 +44,7 @@
   			   #{work_kind},#{education_level},#{career},#{payment_kind},#{payment_value},
   			   #{firm_info},#{addr},#{addr_detail},
   			   #{admin_id},#{admin_email},#{admin_phone},
-  			   #{duration_kind},#{duration_end},#{temp})
+  			   #{duration_kind},#{duration_end},#{document},#{temp})
   	</insert>
   	
   	<select id="getTotalCount" parameterType="RowNum" resultType="int">
@@ -66,6 +58,21 @@
   			where major_key like '%'||#{search}||'%' or sub_key like '%'||#{search}||'%'
   		</if>
   	</select>
+  	
+  	<update id="update" parameterType="PmfBoardDTO">
+  		update pmf_board set title=#{title}, reg_date=sysdate,
+  		major_key=#{major_key}, sub_key=#{sub_key}, 
+  		project_name=#{project_name}, start_date=#{start_date}, end_date=#{end_date}, project_detail=#{project_detail}, works=#{works},
+		work_kind=#{work_kind}, education_level=#{education_level}, career=#{career}, payment_kind=#{payment_kind}, payment_value=#{payment_value},
+		firm_info=#{firm_info}, addr=#{addr}, addr_detail=#{addr_detail},
+		admin_id=#{admin_id}, admin_email=#{admin_email}, admin_phone=#{admin_phone},
+		duration_kind=#{duration_kind}, duration_end=#{duration_end}, document=#{document}
+		where num=#{num}
+  	</update>
+  	
+  	<delete id="delete" parameterType="int">
+  		delete pmf_board where num=#{num}
+  	</delete>
   	
   	<select id="selectMajorKeys" resultType="java.lang.String">
   		select distinct(major_key) from pmf_key_value ORDER BY major_key

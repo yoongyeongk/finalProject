@@ -5,7 +5,7 @@
 
 	<error-page>
 		<error-code>404</error-code>
-		<location>/WEB-INF/views/common/notFount.jsp</location>
+		<location>/WEB-INF/views/common/notFound.jsp</location>
 	</error-page>
 
 	<filter>
@@ -21,7 +21,8 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring/root-context.xml
-					/WEB-INF/spring/mybatis-context.xml</param-value>
+					 /WEB-INF/spring/mybatis-context.xml
+		</param-value>
 	</context-param>
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->

@@ -5,10 +5,13 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hi.boardFile.FileDTO;
 import com.hi.boardFile.FileSaver;
+import com.hi.project.pmfReply.PmfReplyDAO;
 import com.hi.project.util.ListData;
 import com.hi.project.util.Pager;
 
@@ -17,6 +20,8 @@ public class PmfBoardService {
 
 	@Inject
 	private PmfBoardDAO boardDAO;
+	@Inject
+	private PmfReplyDAO pmfReplyDAO;
 	
 	//list
 	public ModelAndView selectList(ListData listData) throws Exception {
@@ -33,6 +38,7 @@ public class PmfBoardService {
 	}
 	
 	//view
+	@Transactional
 	public PmfBoardDTO selectOne(int num) throws Exception {
 		PmfBoardDTO pmfBoardDTO = boardDAO.selectOne(num);
 		boardDAO.hitUpdate(num);
@@ -54,6 +60,7 @@ public class PmfBoardService {
 	}
 	
 	//write 2 - insert
+	@Transactional
 	public int insert(PmfBoardDTO pmfBoardDTO) throws Exception {
 		int result = boardDAO.insert(pmfBoardDTO);
 		
@@ -63,13 +70,36 @@ public class PmfBoardService {
 		return result;
 	}
 	
-	
-	public void update() throws Exception {
+	//update 1 - form
+	public ModelAndView update(int num) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		PmfBoardDTO pmfBoardDTO = boardDAO.selectOne(num);
+		List<String> major_key = boardDAO.major_key_list();
+		List<String> sub_key = boardDAO.sub_key_list(pmfBoardDTO.getMajor_key());
 		
+		mv.addObject("major_key", major_key);
+		mv.addObject("sub_key", sub_key);
+		mv.addObject("view", pmfBoardDTO);
+		
+		return mv;
 	}
 	
-	public void delete() throws Exception {
+	//update 2 - update
+	@Transactional
+	public void update(PmfBoardDTO pmfBoardDTO) throws Exception {
+		System.out.println(pmfBoardDTO.getNum());
+	}
+	
+	//delete
+	@Transactional
+	public int delete(int num) throws Exception {
+		int result = boardDAO.delete(num);
+		//파일 삭제
 		
+		//댓글 삭제
+		pmfReplyDAO.delete(num);
+		
+		return result;
 	}
 	
 	public List<String> major_key_list() throws Exception {
