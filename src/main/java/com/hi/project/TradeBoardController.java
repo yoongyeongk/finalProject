@@ -3,6 +3,7 @@ package com.hi.project;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import java.util.List;
+import java.util.Random;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -11,8 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hi.trade.Config;
+import com.hi.trade.SendSMS;
 import com.hi.trade.TradeBoardDTO;
 import com.hi.trade.TradeBoardService;
 import com.hi.util.ListData;
@@ -23,6 +27,26 @@ public class TradeBoardController {
 
 	@Inject
 	TradeBoardService tradeBoardService;
+	
+	@RequestMapping(value="tradeBoardCheck")
+	@ResponseBody
+	public int check (String phone) {
+		int rd = 0;
+		Random random = new Random();
+		rd = random.nextInt(50000);
+		if(rd < 11111){
+			for(int i=0;rd<11111;i++){
+				rd = random.nextInt(50000);
+			}
+		}
+		Config config = new Config();
+		config.setContent("인증 번호는 ["+rd+"]입니다");
+		config.setReceiver(phone);
+		
+		SendSMS.send(config);
+		
+		return rd;
+	}
 	
 	@RequestMapping(value="tradeBoardList")
 	public ModelAndView selectList (Model model,ListData listData) {

@@ -153,6 +153,10 @@
     	height: 45px;
     	padding-top: 10px;
 	}
+	#check{
+		padding-left: 12px;
+    	font-size: 16px;
+	}
 	#min_price{
 		padding-left: 12px;
 		font-size: 16px;

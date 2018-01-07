@@ -34,7 +34,6 @@ public class TradeBoardService {
 			tradeBoardDTO.setNum(tradeBoardDAO.getNum());
 			tradeBoardDTO.setFileNames(fileService.insert(tradeBoardDTO, session));
 			tagService.insert(tradeBoardDTO);
-			
 		return tradeBoardDAO.insert(tradeBoardDTO);
 	}
 	

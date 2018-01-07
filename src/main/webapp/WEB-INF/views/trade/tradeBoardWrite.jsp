@@ -91,13 +91,50 @@
 				}
 		})
 		
+		var rd = 0;
+		var check = false;
+		$("#pc").click(function(){
+			
+			if($("#phone").val().length == 11){
+				$("#checkBox").css("display","block")
+				var phone = $("#phone").val()
+				$.ajax({
+					type:"POST",
+					url:"./tradeBoardCheck",
+					data:{
+						phone:phone
+					},success : function(data){
+						alert(data)
+						rd = data
+					}
+				})
+			}else{
+				alert("올바른 번호를 입력해주세요")
+			}
+		})
+		
+		$("#checkButton").click(function(){
+			if($("#check").val() == rd){
+				alert("인증되었습니다")
+				check = true;
+				$("#check").attr("readonly","readonly")
+				$("#phone").attr("readonly","readonly")
+			}else{
+				alert("번호가 틀렸습니다")
+			}
+		})
+		
 		$("#btn").click(function(){
-			if($(".upPreviewBox").length > 0 || $(".previewBox").length > 0){
+			if($(".upPreviewBox").length > 0 || $(".previewBox").length > 0 && check == true){
 				$(this).attr("type","")
+			}else if (!check){
+				$(this).attr("type","button")
+				alert("번호 인증이 필요합니다")
 			}else{
 				$(this).attr("type","button")
 				alert("이미지 1개이상 선택해주세요")
 			}
+			
 		})
 		
 	})
@@ -256,18 +293,20 @@ $(function(){
 							<div id="infoBox">
 							
 								<div class="in">
-									<div>
 										<label for="corporation" class="lb">기업명 <span class="star">*</span></label>
 										<input type="text"  id="corporation" name="corporation" value="${one.corporation }" placeholder="ex) Together" required="required">
-									</div>
 								</div>
-							
+								
 								<div class="in">
-									<div>
 										<label for="phone" class="lb">연락처 <span class="star">*</span></label>
 										<input type="tel"  id="phone" name="corporate_phone" value="${one.corporate_phone }" placeholder="ex) 01056807909">
 										<input type="button" id="pc" value="번호인증" class="pb b">
-									</div>
+								</div>
+								
+								<div class="in" id="checkBox" style="display: none;">
+									<label for="check" class="lb">인증번호입력</label>
+									<input type="text" id="check">
+									<input type="button" id="checkButton" class="b" value="확인">
 								</div>
 								
 								<div class="in">
