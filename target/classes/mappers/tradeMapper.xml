@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="tradeMapper">
+  
+  	<sql id="search">
+  		like '%'||#{search}||'%'
+  	</sql>
+  
+  	<select id="getTagCount" resultType="Integer" parameterType="com.hi.util.RowNum" >
+  		 select COUNT(num) from (select DISTINCT TG.num from TAGS TG where TG.tag=#{search} and 
+  		 REGEXP_LIKE(TG.tag,#{search},'i'))
+  	</select>
+  
+  	<select id="selectTagSearch" parameterType="com.hi.util.RowNum" resultType="tradeBoardDTO">
+
+  		 select * from (select rowNum R,T.* from (select DISTINCT T.* from TRADE_BOARD T,TAGS TG where T.num=TG.num and 
+  		 TG.tag=#{search} and REGEXP_LIKE(TG.tag,#{search},'i') order by T.num desc) T) where R BETWEEN #{startRow} and #{lastRow}
+  	</select>
+  
+  	<select id="getCount" resultType="Integer" parameterType="com.hi.util.RowNum">
+  		select nvl(count(num),0) from TRADE_BOARD
+  		<if test='kind == "Title"'>
+  			where Title <include refid="search"></include>
+  		</if>
+  		
+  		<if test='kind == "Corporation"'>
+  			where Corporation <include refid="search"></include>
+  		</if>
+  	</select>
+  
+  	<insert id="insert" parameterType="tradeBoardDTO">
+  		insert into TRADE_BOARD 
+  		values(#{num},#{writer},#{title},#{contents},sysdate,#{closing_date},0,#{corporate_phone},#{min_price},#{corporation})
+  	</insert>
+  	
+  	<select id="selectList" parameterType="com.hi.util.RowNum" resultType="tradeBoardDTO">
+  		select * from (select rowNum R,T.* from (select * from TRADE_BOARD 
+  		<if test='kind == "Title"'>
+  		 where Title
+  		 <include refid="search"></include>
+  		</if>
+  		
+  		<if test='kind == "Corporation"'>
+  		 where Corporation
+  		 <include refid="search"></include>
+  		</if>
+  		 order by num desc) T) 
+  		 where R between #{startRow} and #{lastRow}
+  	</select>
+  
+  	<select id="selectListTag" resultType="tagDTO">
+  		select * from TAGS order by tag_num asc
+  	</select>
+  
+  	<select id="selectOne" parameterType="Integer" resultMap="tradeBoardResult">
+  		select T.* from TRADE_BOARD T where num=#{num}
+  	</select>
+  	
+  	<select id="selectTag" parameterType="Integer" resultType="tagDTO">
+  		select * from TAGS where num=#{num} order by tag_num asc
+  	</select>
+  	
+  	<select id="selectFile" parameterType="Integer" resultType="fileDTO">
+  		select * from BOARDFILE where num=#{num} order by fnum asc
+  	</select>
+  	
+  	<select id="getNum" resultType="Integer">
+  		select board_seq.nextval from dual
+  	</select>
+  	
+  	<update id="update" parameterType="tradeBoardDTO">
+  		update TRADE_BOARD set title=#{title},contents=#{contents},closing_date=#{closing_date},
+  		corporate_phone=#{corporate_phone},min_price=#{min_price},corporation=#{corporation}where num=#{num}
+  	</update>
+  	
+  	<delete id="deleteAll">
+  		delete TRADE_BOARD where num=#{num}
+  	</delete>
+  	
+  	<resultMap type="tradeBoardDTO" id="tradeBoardResult">
+  		<id property="num" column="num"/>
+  		<collection property="tags" column="num" ofType="tagDTO" select="selectTag">
+  		</collection>
+  		<collection property="fileNames"  column="num" ofType="fileDTO" select="selectFile">
+  		</collection>
+  	</resultMap>
+  	
+  </mapper>

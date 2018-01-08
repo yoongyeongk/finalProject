@@ -23,9 +23,31 @@
 <script type="text/javascript">
 		var count = 0;
 		var regNumber = /^[0-9]*$/;
+		var timecheck = true;
 		
+		function timeout() {
+			if(timecheck == true){
+				timecheck = false;
+				fnc = setTimeout(function() {
+					  timecheck = true;
+						$.ajax({
+						  
+					  })
+				}, 5000);
+			}
+			
+		}
 		
 	$(function() {
+	
+		var editor = CKEDITOR.replace( 'contents' );
+
+		// The "change" event is fired whenever a change is made in the editor.
+		editor.on( 'change', function( evt ) {
+		    timeout();
+		});
+		
+		
 		
 		$("#tagForm").on("click","#addTag",function(){
 			var tag = $("#addInput").val();
@@ -37,7 +59,7 @@
 			}else if($(".tag").length < 8){
 				var ar = tag.split(",");
 					for(var i=0;i<ar.length;i++){
-						if($(".tag").length < 8){
+						if($(".tag").length < 8 && ar[i] != ""){
 							var t = "<div class='tag'  id='del"+count+"'>"+"<li>";
 							t = t + "<span class='tagColor'>"+"#"+ar[i]+"</span>"+"<span class='tagDel' title='del"+count+"'>X</span></li>";
 							t = t + "<input type='hidden' name='tag' class='tags' value="+ar[i]+">"+"</div>";
@@ -92,7 +114,7 @@
 		})
 		
 		var rd = 0;
-		var check = false;
+		var check = true;
 		$("#pc").click(function(){
 			
 			if($("#phone").val().length == 11){
@@ -221,7 +243,7 @@ $(function(){
 				<div class="box" style="margin-top: 70px;">
 					<div id="titleBox">
 						<span class="star">*</span>
-						<input type="text" name="title" id="title" value="${one.title }" placeholder="매매할 프로젝트의 제목" style="padding-left: 12px">
+						<input type="text" name="title" id="title" value="${one.title }" placeholder="매매할 프로젝트의 제목"  onkeyup="timeout()" style="padding-left: 12px">
 						<input type="hidden" name="writer" value="sson" required="required">
 					</div>
 				</div>
@@ -238,7 +260,7 @@ $(function(){
 						<div id="tagForm">
 							<span id="text1">태그</span>
 							<span id="addForm" style="color: #969696;">#</span>
-								<input type="text" placeholder="태그를 추가하세요 (최대 8개)" id="addInput">
+								<input type="text" placeholder="태그와 태그는 쉼표로 구분합니다. (최대 8개)" id="addInput">
 									<input type="button" id="addTag" class="b" value="추가">
 									
 								<div id="tagBox">
@@ -340,9 +362,6 @@ $(function(){
 				</form>
 		</div>
 	</contents>
-	<script>
-		CKEDITOR.replace( 'contents' );
-	</script>
 
 </body>
 </html>

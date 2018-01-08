@@ -98,6 +98,12 @@ $(function() {
 								</span>
 					</form>
 				</div>
+				
+				<div class="outBox" style="vertical-align: middle;">
+					<a href="./tradeBoardWrite" class="b" id="write">
+					<img src="${pageContext.request.contextPath }/resources/images/tradeBoard/ico-btn-write.gif" >
+					 글쓰기</a>
+				</div>
 			</div>
 				
 			<div class="box">
@@ -134,20 +140,18 @@ $(function() {
 											
 												<c:forEach items="${tags }" var="t" varStatus="i">
 													<c:if test="${dto.num eq t.num}">
-														<a href="javascript:void(0)" class="tags" id="i${i.count }">
-															#<span class="tagSet" title="#${t.tag }">${t.tag }</span>
-														</a>
-														<c:if test="${pager.search eq t.tag and pager.kind eq 'Tag'}">
-															<script type="text/javascript">
-																$("#i${i.count}").css("background-color","salmon")
-																$("#i${i.count}").on("mouseover",function(){
-																	$(this).css({"color":"salmon","background-color":"white" ,"border-color":"salmon"})
-																});
-																$("#i${i.count}").on("mouseout",function(){
-																	$(this).css({"color":"white","background-color":"salmon"})
-																});
-															</script>
-														</c:if>
+														<c:choose>
+															<c:when test="${pager.search eq t.tag and pager.kind eq 'Tag'}">
+																<a href="javascript:void(0)" class="tags scolor" id="i${i.count }">
+																	#<span class="tagSet" title="#${t.tag }">${t.tag }</span>
+																</a>
+														</c:when>
+															<c:otherwise>
+																<a href="javascript:void(0)" class="tags" id="i${i.count }">
+																	#<span class="tagSet" title="#${t.tag }">${t.tag }</span>
+																</a>
+															</c:otherwise>
+														</c:choose>
 													</c:if>
 												</c:forEach>
 											
