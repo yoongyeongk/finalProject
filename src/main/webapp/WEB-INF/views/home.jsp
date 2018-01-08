@@ -37,6 +37,18 @@
 	height: inherit;
 }
 </style>
+<script type="text/javascript">
+	$(function() {
+		var nickname = '${user.nickname}';
+		$.ajax({
+			type : 'POST',
+			url : "project/list",
+			success : function(data) {
+				alert(JSON.stringify(data));
+			}
+		});
+	});
+</script>
 <body>
 	<div id="main" class="wrapper">
 		<c:import url="temp/header.jsp"></c:import>

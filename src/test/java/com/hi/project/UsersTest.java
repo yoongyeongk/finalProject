@@ -21,9 +21,14 @@ public class UsersTest extends AbstractTest {
 		System.out.println(usersDTO.getFilename().getOriginal_name());
 	}
 	
+	public void idCheck() {
+		String username = "t@ru.com";
+		System.out.println(usersService.idCheck(username));
+	}
+	
 	@Test
 	public void test() {
-		this.view();
+		this.idCheck();
 	}
 
 }

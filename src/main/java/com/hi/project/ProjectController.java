@@ -1,15 +1,49 @@
 package com.hi.project;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import java.util.List;
 
-@Controller
-@RequestMapping(value="/project/*")
+import javax.inject.Inject;
+
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.hi.task.ProjectDTO;
+import com.hi.task.ProjectService;
+
+@RestController
+@RequestMapping(value = "/project/*")
 public class ProjectController {
 
-	@RequestMapping(value="projectList")
-	public String list() {
-		return  "project/projectList";
+	@Inject
+	private ProjectService projectService;
+
+	@RequestMapping(value = "list")
+	@ResponseBody
+	public List<ProjectDTO> list(Model model) {
+		List<ProjectDTO> list = projectService.list();
+		return list;
 	}
-	
+
+	@RequestMapping(value = "task")
+	public void view() {
+
+	}
+
+	@RequestMapping(value = "create")
+	public void create() {
+
+	}
+
+	@RequestMapping(value = "update")
+	public void update() {
+
+	}
+
+	@RequestMapping(value = "delete")
+	public void delete() {
+
+	}
+
 }

@@ -11,6 +11,10 @@
 		insert into users values (#{username}, #{password}, #{nickname}, #{phone}, sysdate, sysdate)
 	</insert>
 	
+	<select id="idCheck" parameterType="String" resultType="int">
+		select count(*) from users where username=#{username}
+	</select>
+	
 	<select id="login" parameterType="UsersDTO" resultMap="usersResult">
 		select * from users where username=#{username} and password=#{password}
 	</select>
@@ -35,7 +39,7 @@
 	</select>
 	
 	<insert id="insertImg" parameterType="profileImgDTO">
-		insert into profile_img values (img_seq.nextval, #{file_name}, #{original_name}, #{username})
+		insert into profile_img values (#{file_name}, #{original_name}, #{username})
 	</insert>
 	
 </mapper>

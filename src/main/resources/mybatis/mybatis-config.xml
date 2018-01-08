@@ -5,5 +5,10 @@
 		<typeAlias type="java.util.Map" alias="Map" />
 		<typeAlias type="com.hi.users.UsersDTO" alias="UsersDTO" />
 		<typeAlias type="com.hi.users.ProfileImgDTO" alias="ProfileImgDTO" />
+		<typeAlias type="com.hi.task.ProjectDTO" alias="ProjectDTO" />
+		<typeAlias type="com.hi.task.TaskDTO" alias="TaskDTO" />
+		<typeAlias type="com.hi.checklist.ChecklistDTO" alias="ChecklistDTO" />
+		<typeAlias type="com.hi.comment.CommentDTO" alias="CommentDTO" />
+		<typeAlias type="com.hi.file.FileDTO" alias="FileDTO" />
 	</typeAliases>
 </configuration>

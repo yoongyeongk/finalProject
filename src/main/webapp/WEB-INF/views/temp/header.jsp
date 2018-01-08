@@ -35,7 +35,12 @@
 			<li class="nav navbar-nav">
 				<div class="dropdown">
 					<a href="#" class="dropdown-toggle" type="button" data-toggle="dropdown">
-						<img class="profile-img img-circle" src="${pageContext.request.contextPath}/resources/upload/${user.filename.file_name}">
+						<c:if test="${user.filename.file_name ne null}">
+							<img class="profile-img img-circle" src="${pageContext.request.contextPath}/resources/upload/${user.filename.file_name}">
+						</c:if>
+						<c:if test="${user.filename.file_name eq null}">
+							<img class="profile-img img-circle" src="${pageContext.request.contextPath}/resources/images/default-profile-img.png">
+						</c:if>
 					</a>
 					<ul class="dropdown-menu">
 						<li class="header">${user.username}</li>

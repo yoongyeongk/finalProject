@@ -16,6 +16,10 @@ public class UsersDAO {
 		return sqlSession.insert(NAMESPACE + "join", usersDTO);
 	}
 
+	public int idCheck(String username) {
+		return sqlSession.selectOne(NAMESPACE + "idCheck", username);
+	}
+
 	public UsersDTO login(UsersDTO usersDTO) {
 		return sqlSession.selectOne(NAMESPACE + "login", usersDTO);
 	}
