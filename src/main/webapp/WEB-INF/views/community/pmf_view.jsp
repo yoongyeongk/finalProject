@@ -26,6 +26,20 @@
 		document.execCommand('copy');
 	}
 
+	//list function
+	function replyList(num,curPage){
+		$.ajax({
+			url : "../reply/pmfReplyList",
+			type : "POST",
+			data: {
+				num: num,
+				curPage: curPage
+			},
+			success : function(data) {
+				$("#reply_sec").html(data);
+			}
+		});
+	}
 
 	$(function() {
 		//수정
@@ -47,14 +61,7 @@
 		var num = ${view.num};
 
 		//1. list
-		$.ajax({
-			url : "../reply/pmfReplyList?num=" + num,
-			type : "GET",
-			success : function(data) {
-				alert(data);
-				
-			}
-		});
+		replyList(num,1);
 
 		//2. write
 		$(".reply_btn").click(function() {
@@ -72,13 +79,10 @@
 				success : function(data) {
 					alert(data.trim());
 					$(".replyzone").val("궁금한 내용을 자유롭게 써 주세요.");
+					replyList(num);
 				}
 			});
-		})
-
-		//3. update
-
-		//4. delete
+		});
 
 		//map
 
@@ -101,37 +105,39 @@
 				return addrResult;
 			}
 
-			var map = new naver.maps.Map('map');
-			var myaddress = '여기산로 54';// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
-			naver.maps.Service.geocode({
-				address : myaddress
-				},function(status, response) {
-					if (status !== naver.maps.Service.Status.OK) {
-						return alert(myaddress + '의 검색 결과가 없거나 기타 네트워크 에러');
-					}
-				var result = response.result;
-				// 검색 결과 갯수: result.total
-				// 첫번째 결과 결과 주소: result.items[0].address
-				// 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
-				var myaddr = new naver.maps.Point(result.items[0].point.x,result.items[0].point.y);map.setCenter(myaddr); // 검색된 좌표로 지도 이동
-				// 마커 표시
-				var marker = new naver.maps.Marker({
-					position : myaddr,
-					map : map
-				});
-				// 마커 클릭 이벤트 처리
-				naver.maps.Event.addListener(marker, "click", function(e) {
-					if (infowindow.getMap()) {
-						infowindow.close();
-					} else {
-						infowindow.open(map, marker);
-					}
-				});
-				// 마크 클릭시 인포윈도우 오픈
-				var infowindow = new naver.maps.InfoWindow({
-						content : '<h4> [네이버 개발자센터]</h4><a href="https://developers.naver.com" target="_blank"><img src="https://developers.naver.com/inc/devcenter/images/nd_img.png"></a>'
-					});
-			});
+			 var map = new naver.maps.Map('map',{
+				 w: 800,
+				 h: 350
+			 });
+		      var myaddress = addressParsing(addr);// 도로0명 주소나 지번 주소만 가능 (건물명 불가!!!!)
+		      naver.maps.Service.geocode({address: myaddress}, function(status, response) {
+		          if (status !== naver.maps.Service.Status.OK) {
+		              return alert(myaddress + '의 검색 결과가 없거나 기타 네트워크 에러');
+		          }
+		          var result = response.result;
+		          // 검색 결과 갯수: result.total
+		          // 첫번째 결과 결과 주소: result.items[0].address
+		          // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
+		          var myaddr = new naver.maps.Point(result.items[0].point.x, result.items[0].point.y);
+		          map.setCenter(myaddr); // 검색된 좌표로 지도 이동
+		          // 마커 표시=
+		          var marker = new naver.maps.Marker({
+		            position: myaddr,
+		            map: map
+		          });
+		          // 마커 클릭 이벤트 처리
+		          naver.maps.Event.addListener(marker, "click", function(e) {
+		            if (infowindow.getMap()) {
+		                infowindow.close();
+		            } else {
+		                infowindow.open(map, marker);
+		            }
+		          });
+		          // 마크 클릭시 인포윈도우 오픈
+		          var infowindow = new naver.maps.InfoWindow({
+		              content: '<h4> [네이버 개발자센터]</h4><a href="https://developers.naver.com" target="_blank"><img src="https://developers.naver.com/inc/devcenter/images/nd_img.png"></a>'
+		          });
+		      });
 		}
 	});
 </script>
@@ -259,7 +265,7 @@
 					</tr>
 					<tr>
 						<td>
-							지도 <div id="map"></div>
+							<div id="map" style="width: 670px; height: 350px;"></div>
 						</td>
 					</tr>
 				</c:if>
@@ -327,7 +333,7 @@
 			<hr class="line">
 		</section>
 		<!-- 게시판 내용 끝 -->
-		
+		<span id="test"></span>
 		
 		<section id="reply">
 			<div class="new_reply">
@@ -335,22 +341,16 @@
 				<input type="button" class="reply_btn" value="댓글 등록">
 			</div>
 			<div class="reply_list">
-				<table class="t_reply">
-					<tr>
-						<td class="td_r t_1">작성자</td>
-						<td class="td_r t_2">내용</td>
-						<td class="td_r t_3">작성 시간</td>
-					</tr>
-					<div id="reply_sec">
-					<tr>
-						<td class="td_r t_1">작성자</td>
-						<td class="td_r t_2">내용</td>
-						<td class="td_r t_3">작성 시간</td>
-					</tr>
-					</div>
-				</table>
-				
-				<div class="reply_add">더보기</div>
+			<table class="t_reply">
+				<tr>
+					<td class="td_r t_1">작성자</td>
+					<td class="td_r t_2">내용</td>
+					<td class="td_r t_3">작성 시간</td>
+					<td class="td_r t_4"></td>
+				</tr>
+				<div id="reply_sec"></div>
+			</table>
+			<div id="reply_add" class="reply_add">더보기</div>
 			</div>
 		</section>
 		

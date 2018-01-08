@@ -24,7 +24,7 @@ public class PmfBoardDTO {
 	private Date end_date;
 	private String project_detail;
 	private MultipartFile [] files;
-	private FileDTO fileDTO;		//view page file
+	private FileDTO [] fileDTO;		//view page file
 	private String works;
 	
 	//업무 관련 정보 
@@ -151,18 +151,18 @@ public class PmfBoardDTO {
 	}
 
 	///////////////////////////////////////////////////////////
-	public FileDTO getFileDTO() {
-		return fileDTO;
-	}
-	
-	public void setFileDTO(FileDTO fileDTO) {
-		this.fileDTO = fileDTO;
-	}
-	
 	public MultipartFile[] getFiles() {
 		return files;
 	}
 	
+
+	public FileDTO[] getFileDTO() {
+		return fileDTO;
+	}
+
+	public void setFileDTO(FileDTO[] fileDTO) {
+		this.fileDTO = fileDTO;
+	}
 
 	public void setFiles(MultipartFile[] files) {
 		this.files = files;

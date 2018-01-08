@@ -10,9 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.hi.project.pmfReply.PmfReplyDTO;
 import com.hi.project.pmfReply.PmfReplyService;
+import com.hi.project.util.ListData;
 
 @Controller
 @RequestMapping(value="/reply/*")
@@ -45,18 +47,18 @@ public class PmfReplyController {
 	}
 	
 	@RequestMapping(value="pmfReplyList")
-	@ResponseBody
-	public List<PmfReplyDTO> selectList(int num) {
+	public ModelAndView selectList(int num, ListData listData) {
 		//게시글 번호에 해당되는 댓글 불러오기
-		List<PmfReplyDTO> ar = null;
+		ModelAndView mv = null;
 		try {
-			ar = pmfReplyService.selectList(num);
+			mv = pmfReplyService.selectList(num, listData);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(mv.getModel().get("curPage"));
 		
-		return ar;
+		return mv;
 	}
 	
 	@RequestMapping(value="pmfReplyUpdate", method=RequestMethod.GET)

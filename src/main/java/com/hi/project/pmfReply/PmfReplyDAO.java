@@ -7,6 +7,8 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.hi.project.util.RowNum;
+
 @Repository
 public class PmfReplyDAO {
 
@@ -14,8 +16,8 @@ public class PmfReplyDAO {
 	private SqlSession sqlSession;
 	private final String NAMESPACE = "pmfReplyMapper.";
 	
-	public List<PmfReplyDTO> selectList(int num) throws Exception {
-		return sqlSession.selectList(NAMESPACE+"selectList", num);
+	public List<PmfReplyDTO> selectList(RowNum rowNum) throws Exception {
+		return sqlSession.selectList(NAMESPACE+"selectList", rowNum);
 	}
 	
 	public int insert(PmfReplyDTO pmfReplyDTO) throws Exception {

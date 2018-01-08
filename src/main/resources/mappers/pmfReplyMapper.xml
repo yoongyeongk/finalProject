@@ -4,8 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="pmfReplyMapper">
   	
-  	<select id="selectList" parameterType="int" resultType="PmfReplyDTO">
-		select * from pmf_reply where num=#{num} order by rnum desc 	
+  	<select id="selectList" parameterType="RowNum" resultType="PmfReplyDTO">
+		select * from
+		(select rownum r, RE.* from
+		(select * from pmf_reply where num=#{num} order by rnum desc) RE)
+		where r between #{startRow} and #{lastRow}	
   	</select>
   	
   	<insert id="insert" parameterType="PmfReplyDTO">

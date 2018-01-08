@@ -6,6 +6,9 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.hi.project.util.ListData;
 
 @Service
 public class PmfReplyService {
@@ -13,8 +16,18 @@ public class PmfReplyService {
 	@Inject
 	private PmfReplyDAO pmfReplyDAO;
 	
-	public List<PmfReplyDTO> selectList(int num) throws Exception {
-		return pmfReplyDAO.selectList(num);
+	public ModelAndView selectList(int num, ListData listData) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		List<PmfReplyDTO> ar = pmfReplyDAO.selectList(listData.makeRow(num));
+		System.out.println(listData.getCurPage());
+		int curPage = listData.getCurPage();
+		
+		mv.addObject("list", ar);
+		mv.addObject("curPage", curPage);
+		mv.setViewName("community/replyResult");
+		
+		return mv;
 	}
 	
 	public int insert(PmfReplyDTO pmfReplyDTO) throws Exception {

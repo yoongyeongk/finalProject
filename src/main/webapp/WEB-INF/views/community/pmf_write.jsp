@@ -16,12 +16,12 @@
 <script type="text/javascript">
 $(function(){
 	
-	var fileDTO = {
+	var file = {
 		filename: "",
 		oriname: ""
 	}
 	
-	var files = new Array();
+	var fileDTO = new Array();
 	
 	function fileUpload(files, drop_sec){
 		var formdata = new FormData();
@@ -62,13 +62,12 @@ $(function(){
 			processData: false,
 			success: function(data){
 				//fileDTO 객체에 값 넣기
-				fileDTO.filename = data.filename;
-				fileDTO.oriname = data.oriname;
-				files.push(fileDTO);				//배열에 추가
+				file.filename = data.filename;
+				file.oriname = data.oriname;
+				fileDTO.push(file);				//배열에 추가
 				
 				//확인
-				alert(fileDTO.filename);
-				alert(oriname.oriname);
+				alert(fileDTO.length);
 				alert(data.filename);
 				
 				status.setProgress(100);			//상태 100으로 설정
@@ -212,8 +211,15 @@ $(function(){
 	//form submit
 	//임시저장
 	$("#tempSave").click(function(){
-		$("#temp_value").val(1);
-		$("#frm").submit();	//임시저장 시 테이블에 저장
+		alert($(".start_date").val());
+		alert($(".end_date").val());
+		/* if($(".start_date").val() != "" && $(".end_date").val() != ""){
+			alert("click");
+		}else{
+			alert(false);
+		} */
+		/* $("#temp_value").val(1);
+		$("#frm").submit();	//임시저장 시 테이블에 저장 */
 	});
 	
 	//등록

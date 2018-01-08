@@ -14,13 +14,26 @@ public class ListData {
 		this.perPage = 10;
 	}
 	
-	//row
+	//row 1
 	public RowNum makeRow(){
 		RowNum rowNum = new RowNum();
 		rowNum.setStartRow((curPage-1)*perPage+1);
 		rowNum.setLastRow(curPage*perPage);
 		rowNum.setKind(kind);
 		rowNum.setSearch(search);
+		
+		return rowNum;
+	}
+	
+	//row 2 - reply
+	public RowNum makeRow(int num){
+		RowNum rowNum = new RowNum();
+		int perPage = 5;
+		rowNum.setStartRow((curPage-1)*perPage+1);
+		rowNum.setLastRow(curPage*perPage);
+		rowNum.setKind(kind);
+		rowNum.setSearch(search);
+		rowNum.setNum(num);
 		
 		return rowNum;
 	}
