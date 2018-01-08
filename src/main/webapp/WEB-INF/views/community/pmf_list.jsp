@@ -30,33 +30,51 @@
 		var ch = $(".save_ch");
 		$(ch).click(function(){
 			ch = $(this);
-			scrapCheck(ch, scrap_num);
+			scrap_num = scrapCheck(ch, scrap_num);
 		});
+	
+		//담기 버튼 클릭 이벤트
+		$(".scrap_btn").click(function(){
+			$.ajax({
+				url:"../scrap/pmfAdd",
+				type: "POST",
+				data: {
+					scrapNum: scrap_num
+				},
+				success: function(data){
+					alert("success");
+				}
+			});
+		});
+	
 	});
 
+	//체크박스 관련
 	function scrapCheck(ch, scrap_num) {
 		if($(ch).attr("id") != "total_ch"){
 			var num = $(ch).attr("title")*1;
 			
 			if($(ch).prop("checked")){
 				scrap_num.push(num);
+				
 			}else if(!$(ch).prop("checked")){
 				var index = scrap_num.indexOf(num);
 				scrap_num.splice(index,1);
 			}
 		}else{
 			if($(ch).prop("checked")){
-				//체크박스(class명)들의 title값과 배열 내의 title값 비교
-				//배열 내에 값이 있으면 추가하지 않고, 값이 없다면 배열에 추가하도록 하기
+				//배열 전부 비우고 값 전부 넣기
+				scrap_num.splice(0,scrap_num.length);
+				var chs = document.getElementsByClassName("ch_one");
+				for(var i=0; i<chs.length; i++){
+					scrap_num.push(chs[i].title*1);
+				}
 			}else{
 				scrap_num.splice(0,scrap_num.length);
 			}
 		}
 		
-		
-	 	for(var i=0; i<scrap_num.length; i++){
-			alert(scrap_num[i]);
-		} 
+	return scrap_num;
 	}
 	
 	function openList(evt, menuName) {
@@ -325,6 +343,17 @@ a:hover{
 	color: black;
 }
 
+.scrap_btn{
+	font-size: 12px;
+    margin-left: 15px;
+    width: 45px;
+    padding: 2px 0;
+    color: #2eaa91;
+    background-color: #f5f5f5;
+    border: solid 1px #ccc;
+    border-radius: 3px;
+    margin-top: 10px;
+}
 </style>
 </head>
 <body>
@@ -344,7 +373,7 @@ a:hover{
 
 			<div id="content_wrap">
 				<div id="pmfList" class="tabcontent">
-					<p>검색 / 담기 버튼 / 페이징</p>
+					<p>검색  / 페이징</p>
 					<div id="pmfList_sec">
 						<div id="search_bar">
 							<select name="kind">
@@ -391,6 +420,8 @@ a:hover{
 									</tr>
 									</c:forEach>
 								</table>
+								<button class="scrap_btn"><span class="glyphicon glyphicon-star"></span>담기</button>
+								
 							<!-- 여기까지 -->
 								<ul class="paging">
 								<li class="paging_move"><a href="#"><</a></li>

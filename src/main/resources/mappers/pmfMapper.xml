@@ -14,7 +14,7 @@
   	<select id="selectList" parameterType="RowNum" resultType="PmfBoardDTO">
   		select * from
   		(select rownum r, N.* from
-  		(select * from pmf_board order by num desc) N)
+  		(select * from pmf_board where temp=0 order by num desc) N)
   		where r between #{startRow} and #{lastRow}
   	</select>
   	

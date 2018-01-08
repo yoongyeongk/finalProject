@@ -34,7 +34,6 @@ $(function(){
 		status.setFileNameSize(files[i].name, files[i].size);
 		sendFileToServer(formdata,status);
 		}
-
 	}
 	
 	function sendFileToServer(formdata,status){
@@ -65,12 +64,7 @@ $(function(){
 				file.filename = data.filename;
 				file.oriname = data.oriname;
 				fileDTO.push(file);				//배열에 추가
-				
-				//확인
-				alert(fileDTO.length);
-				alert(data.filename);
-				
-				status.setProgress(100);			//상태 100으로 설정
+				status.setProgress(100);		//상태 100으로 설정
 			}
 		});
 		
@@ -152,7 +146,6 @@ $(function(){
 				//fileUpload
 				fileUpload(files, drop_sec);
 			}
-		
 		}
 	})
 	
@@ -208,23 +201,28 @@ $(function(){
 		}
 	});
 	
+	//작업예상기간 end_date 설정
+	$(".start_date").change(function(){
+		var start_date = $(this).val();
+		$(".end_date").attr("min",start_date);
+	});
+	
 	//form submit
 	//임시저장
 	$("#tempSave").click(function(){
-		alert($(".start_date").val());
-		alert($(".end_date").val());
-		/* if($(".start_date").val() != "" && $(".end_date").val() != ""){
-			alert("click");
+		var sDate = $(".start_date").val();
+		var eDate = $(".end_date").val();
+		if(!sDate || !eDate){
+			alert("작업예상기간은 필수사항입니다.");
 		}else{
-			alert(false);
-		} */
-		/* $("#temp_value").val(1);
-		$("#frm").submit();	//임시저장 시 테이블에 저장 */
+			$("#temp_value").val(1);
+			$("#frm").submit();	//임시저장 시 테이블에 저장
+		}
 	});
 	
 	//등록
 	$("#submit_btn").click(function(){
-		$("#frm").submit();	//임시저장 되었는지 확인 후 seq 생성 여부 정하기
+		$("#frm").submit();
 	});
 });
 </script>
@@ -285,7 +283,7 @@ $(function(){
 					</td>
 				</tr>
 				<tr>
-					<td class="t_label" colspan="2">파일 첨부</td><!-- 드래그앤드롭 부분 css, js 추가하기 -->
+					<td class="t_label" colspan="2">파일 첨부</td>
 			
 				</tr>
 				<tr>

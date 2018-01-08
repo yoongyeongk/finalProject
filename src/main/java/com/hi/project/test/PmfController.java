@@ -1,7 +1,9 @@
 package com.hi.project.test;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -94,12 +96,23 @@ public class PmfController {
 		}
 		
 		String message = "게시글 등록에 실패했습니다.";
+		String path = "";
 		if(result>0) {
-			message = "게시글이 등록되었습니다.";
+			if(pmfBoardDTO.getTemp() == 0) {
+				message = "게시글이 등록되었습니다.";
+				path = "redirect:./pmfList";
+			}else {
+				Calendar cal = Calendar.getInstance();
+				SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+				Date date = new Date(cal.getTimeInMillis());
+				
+				message = "임시저장됨 "+fmt.format(date);
+				path = "redirect:./pmfList";
+			}
 		}
 		rd.addFlashAttribute("message", message);
 		
-		return "redirect:./pmfList";
+		return path;
 	}
 	
 	//update 폼 이동
