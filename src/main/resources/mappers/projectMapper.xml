@@ -19,8 +19,8 @@
 	
 	</select>
 
-	<insert id="create">
-
+	<insert id="create" parameterType="ProjectDTO">
+		insert into project values (project_seq.nextval, #{title}, #{privacy}, #{status}, sysdate, null, 0, #{manager})
 	</insert>
 
 	<update id="update">

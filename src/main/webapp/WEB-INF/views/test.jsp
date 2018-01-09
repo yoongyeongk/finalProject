@@ -14,67 +14,6 @@
 <script src="resources/js/sidebar.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="resources/css/header.css">
-<style>
-.searchbar {
-	float: right;
-	width: 20%;
-	padding-left: 30px;
-	background-image: url("resources/images/search-icon.png");
-	background-size: 10px;
-	background-position: 10px 12px;
-	background-repeat: no-repeat;
-}
-
-.new-project {
-	display: inline-block;
-}
-
-.dashboard {
-	margin: 100px;
-	height: inherit;
-}
-.page-contents {
-	height: inherit;
-}
-
-.task {
-	width: 295px;
-	display: inline-block;
-	background-color: #e0e0e0;
-}
-
-.task #important {
-	margin-left: 5px;
-}
-
-.task #title {
-	width: 80%;
-	display: inline-block;
-}
-
-.task-header {
-	margin: 5px;
-}
-
-.task-header #new-task {
-	background-color: transparent;
-	border-color: transparent;
-	color: white;
-	font-size: 20px;
-}
-
-.task-input textarea {
-	width: 96%;
-	margin: 0 5px;
-	resize: vertical;
-    min-height: 50px;
-}
-
-.task-input button {
-	float: right;
-	margin: 5px 5px 5px 0;
-}
-</style>
 <script type="text/javascript">
 	$(function() {
 		$(".draggable").draggable({

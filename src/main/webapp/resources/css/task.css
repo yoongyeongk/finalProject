@@ -1,0 +1,39 @@
+@CHARSET "UTF-8";
+
+.task {
+	width: 305px;
+	display: inline-block;
+	background-color: #e0e0e0;
+}
+
+.task #important {
+	margin-left: 5px;
+}
+
+.task #title {
+	width: 80%;
+	display: inline-block;
+}
+
+.task-header {
+	margin: 5px;
+}
+
+.task-header #new-task {
+	background-color: transparent;
+	border-color: transparent;
+	color: white;
+	font-size: 20px;
+}
+
+.task-input textarea {
+	width: 96%;
+	margin: 0 5px;
+	resize: vertical;
+	min-height: 50px;
+}
+
+.task-input button {
+	float: right;
+	margin: 5px 5px 5px 0;
+}

@@ -13,7 +13,7 @@ public class ProjectDTO {
 	private String star;
 	private Date start_date;
 	private Date close_date;
-	private UsersDTO manager;
+	private String manager;
 	private List<UsersDTO> members;
 
 	public int getProject_id() {
@@ -32,12 +32,28 @@ public class ProjectDTO {
 		this.title = title;
 	}
 
+	public String getPrivacy() {
+		return privacy;
+	}
+
+	public void setPrivacy(String privacy) {
+		this.privacy = privacy;
+	}
+
 	public String getStatus() {
 		return status;
 	}
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getStar() {
+		return star;
+	}
+
+	public void setStar(String star) {
+		this.star = star;
 	}
 
 	public Date getStart_date() {
@@ -56,27 +72,11 @@ public class ProjectDTO {
 		this.close_date = close_date;
 	}
 
-	public String getStar() {
-		return star;
-	}
-
-	public void setStar(String star) {
-		this.star = star;
-	}
-
-	public String getPrivacy() {
-		return privacy;
-	}
-
-	public void setPrivacy(String privacy) {
-		this.privacy = privacy;
-	}
-
-	public UsersDTO getManager() {
+	public String getManager() {
 		return manager;
 	}
 
-	public void setManager(UsersDTO manager) {
+	public void setManager(String manager) {
 		this.manager = manager;
 	}
 

@@ -25,15 +25,15 @@ public class ProjectController {
 		List<ProjectDTO> list = projectService.list();
 		return list;
 	}
+	
+	@RequestMapping(value = "create")
+	public int create(ProjectDTO projectDTO) {
+		return projectService.create(projectDTO);
+	}
 
 	@RequestMapping(value = "task")
 	public void view() {
-
-	}
-
-	@RequestMapping(value = "create")
-	public void create() {
-
+		
 	}
 
 	@RequestMapping(value = "update")

@@ -23,4 +23,8 @@ public class ProjectDAO {
 	public String member(UsersDTO usersDTO) {
 		return sqlSession.selectOne(NAMESPACE + "manager", usersDTO);
 	}
+
+	public int create(ProjectDTO projectDTO) {
+		return sqlSession.insert(NAMESPACE + "create", projectDTO);
+	}
 }

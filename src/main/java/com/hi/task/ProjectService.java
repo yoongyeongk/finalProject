@@ -15,4 +15,8 @@ public class ProjectService {
 	public List<ProjectDTO> list() {
 		return projectDAO.list();
 	}
+	
+	public int create(ProjectDTO projectDTO) {
+		return projectDAO.create(projectDTO);
+	}
 }
