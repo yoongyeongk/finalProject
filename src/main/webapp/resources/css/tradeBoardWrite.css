@@ -208,5 +208,9 @@
 	}
 	.select{
 		padding: 3px 10px 3px 9px;
-		
+	}
+	#tempBox{
+		width: 850px;
+		margin: 0 auto;
+		height: 35px;
 	}

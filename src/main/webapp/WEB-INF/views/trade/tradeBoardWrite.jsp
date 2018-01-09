@@ -22,25 +22,68 @@
 <link href="${pageContext.request.contextPath }/resources/css/tradeBoardWrite.css" rel="stylesheet">
 <script type="text/javascript">
 		var count = 0;
+		var saveCount = 0;
 		var regNumber = /^[0-9]*$/;
 		var timecheck = true;
+		var url = "../tradeSave/tradeSaveInsert";
+		var save_num = 0;
 		
 		function timeout() {
+			 var writer = $("#writer").val();
+			 var title = "";
+			 var contents = "";
 			if(timecheck == true){
 				timecheck = false;
-				fnc = setTimeout(function() {
-					  timecheck = true;
-						$.ajax({
-						  
-					  })
-				}, 5000);
+				
+				if(saveCount < 1){
+					fnc = setTimeout(function() {
+						  saveCount++;
+						  timecheck = true;
+						  title = $("#title").val();
+						  contents = CKEDITOR.instances.contents.getData();
+	
+							$.ajax({
+							  type:"POST",
+							  url:url,
+							  data: {
+								  writer:writer,
+								  title:title,
+								  contents:contents
+							  }, success : function(data) {
+								save_num = data.save_num
+								if(save_num == 0){
+									alert("저장되지 않았습니다. 임시저장은 최대 50개까지 입니다.");
+								}
+							}
+						  })
+					}, 1000);
+				}else{
+					fnc = setTimeout(function() {
+						  timecheck = true;
+						  title = $("#title").val();
+						  contents = CKEDITOR.instances.contents.getData();
+						  url = "../tradeSave/tradeSaveUpdate";
+							$.ajax({
+							  type:"POST",
+							  url:url,
+							  data: {
+								  save_num:save_num,
+								  writer:writer,
+								  title:title,
+								  contents:contents
+							  }, success : function(data) {
+								  
+							}
+						  })
+					}, 1000);
+				}
 			}
 			
 		}
 		
 	$(function() {
 	
-		var editor = CKEDITOR.replace( 'contents' );
+		var editor = CKEDITOR.replace( 'contents' ,{height:'310px'});
 
 		// The "change" event is fired whenever a change is made in the editor.
 		editor.on( 'change', function( evt ) {
@@ -84,7 +127,7 @@
 				var num = parseInt(this.id);
 				$.ajax({
 					type:"POST",
-					url:"${pageContext.request.contextPath}/tag/tagDelete",
+					url:"../tag/tagDelete",
 					data:{
 						num:num
 					}, success : function(){
@@ -114,7 +157,8 @@
 		})
 		
 		var rd = 0;
-		var check = true;
+		var check = true; //번호인증체크. 현재 일부러 true로 설정함. 나중에 if ${form}이 Update일경우 true 아니면false
+		
 		$("#pc").click(function(){
 			
 			if($("#phone").val().length == 11){
@@ -178,9 +222,7 @@ $(function(){
 	$("#fileBox").on("click",".upImgDel",function(){
 		if(confirm("기존 이미지를 삭제하시겠습니까? 게시글에서도 삭제됩니다") == true){
 			var fnum = this.id
-			$.post("../file/fileDelete?num="+fnum,function(){
-				
-			})
+			$.post("../file/fileDelete?num="+fnum);
 			var id = $(this).attr("title");
 			$("#"+id).remove();
 		}
@@ -235,7 +277,7 @@ $(function(){
 	<contents>
 		<div class="all">
 					<form action="./tradeBoard${form }" method="post" enctype="multipart/form-data" name="frm">
-				
+					
 				<c:if test="${form eq 'Update'}">
 					<input type="hidden" name="num" value="${param.num }">
 				</c:if>
@@ -244,18 +286,31 @@ $(function(){
 					<div id="titleBox">
 						<span class="star">*</span>
 						<input type="text" name="title" id="title" value="${one.title }" placeholder="매매할 프로젝트의 제목"  onkeyup="timeout()" style="padding-left: 12px">
-						<input type="hidden" name="writer" value="sson" required="required">
+						<input type="hidden" name="writer" id="writer" value="sson" required="required">
 					</div>
 				</div>
 				
-				<div class="box" style="height: auto;">
-				<div id="con">
-					<div id="conBox">
-							<textarea style="width: 800px; height: 300px;  resize:vertical ;" name="contents" id="contents">${one.contents }</textarea>
+					<div class="box" style="height: auto;">
+							<div id="tempBox">
+								<div style="float: right;">
+									<a href="javascript:void(0)">임시 저장된 글<span>(3)</span></a>
+								</div>
+							</div>
+							
+					<div id="con">	
+						<div id="conBox">
+						<div id="over" style="position: relative; width: 100%; z-index: 100" >
+					<div style="width: 385px;height: 400px; float:right; position: relative; background-color: blue;">
+					
 					</div>
-				</div>
-				</div>
-				
+					</div>
+								<textarea style="width: 800px; height: 450px;  resize:vertical ;" name="contents" id="contents">${one.contents }</textarea>
+								
+						</div>
+					</div>
+					</div>
+					
+						
 					<div class="box" style="margin-bottom: 20px;">
 						<div id="tagForm">
 							<span id="text1">태그</span>

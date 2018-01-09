@@ -143,6 +143,9 @@
 	#write:hover{
 		text-decoration: none;
 	}
+	#write>img{
+		margin-right: 4px;
+	}
 	.pager{
 		margin: 0 auto;
 		background-color: red;

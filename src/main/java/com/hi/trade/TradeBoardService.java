@@ -62,10 +62,13 @@ public class TradeBoardService {
 				}
 
 			List<TagDTO> tag = tradeBoardDAO.getTag();
-			view.addObject("pager", pager);
+			if(ar.size() == 0){
+				pager.setLastNum(1);
+			}
 			view.addObject("list", ar);
 			view.addObject("tags", tag);
-			view.setViewName("trade/tradeBoardList");
+			view.addObject("pager", pager);
+			view.setViewName("trade/tradeBoardList");				
 		return view;
 	}
 	

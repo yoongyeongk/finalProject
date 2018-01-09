@@ -80,16 +80,23 @@ public class TradeBoardController {
 	}
 	
 	@RequestMapping(value="tradeBoardUpdate" , method = RequestMethod.GET)
-	public String update (Model model , int num)  {
-	
-			model.addAttribute("form", "Update");
+	public ModelAndView update (Model model , int num)  {
+			ModelAndView view = new ModelAndView();
+			view.addObject("form", "Update");
 			try {
-				model.addAttribute("one", tradeBoardService.selectOne(num));
+				TradeBoardDTO tradeBoardDTO =  tradeBoardService.selectOne(num);
+				if(tradeBoardDTO != null){
+					view.addObject("one", tradeBoardDTO);
+					view.setViewName("trade/tradeBoardWrite");
+				}else{
+					view.addObject("message"	, "업데이트를 실패했습니다");
+					view.setViewName("redirect:/");
+				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		return "trade/tradeBoardWrite";
+		return view;
 	}
 	
 	@RequestMapping(value="tradeBoardUpdate" , method = RequestMethod.POST)
