@@ -4,6 +4,7 @@ import java.util.Enumeration;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -36,6 +37,22 @@ public class PmfScrapController {
 		return mv;
 	}
 	
+	@RequestMapping(value="pmfCheck")
+	public ModelAndView scrapCheck(int num, HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		int result = 0;
+		try {
+			result = pmfScrapService.scrapCheck(num, session);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		mv.addObject("data", result);
+		mv.setViewName("common/ajax");
+		
+		return mv;
+	}
+	
 	@RequestMapping(value="pmfViews")
 	public ModelAndView selectOne(int [] snums) {
 		ModelAndView mv = null;
@@ -51,19 +68,17 @@ public class PmfScrapController {
 	}
 	
 	@RequestMapping(value="pmfAdd", method=RequestMethod.POST)
-	public String insert(HttpServletRequest request, Model model) {
-		System.out.println(11);
-		
-		/*int result = 0;
+	public String insert(String scrapNum, Model model, HttpSession session) {
+		int result = 0;
 		try {
-			result = pmfScrapService.insert(pmfScrapDTO);
+			result = pmfScrapService.insert(scrapNum, session);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		model.addAttribute("data", result);		//0: 실패 - alert창 , 1: 성공 - confirm창
-		*/
+		
 		return "common/ajax";
 	}
 	

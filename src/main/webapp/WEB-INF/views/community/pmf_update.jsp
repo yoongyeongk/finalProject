@@ -211,6 +211,7 @@ $(function(){
 		<!-- 게시판 내용 -->	
 		<section id="board_sec">
 		<form action="./pmfUpdate" method="post" id="frm" enctype="multipart/form-data">
+			<input type="hidden" name="num" value="${view.num}">
 			<input class="title form-control" name="title" type="text" value="${view.title}" style="width: 100%">
 			
 			<p class="des">* 표시된 항목은 필수항목입니다.</p>

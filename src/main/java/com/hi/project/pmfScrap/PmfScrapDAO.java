@@ -24,6 +24,11 @@ public class PmfScrapDAO {
 		return sqlSession.selectOne(NAMESPACE+"selectOne", snum);
 	}
 	
+	//scrapCheck
+	public PmfScrapDTO scrapCheck(PmfScrapDTO pmfScrapDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"scrapCheck", pmfScrapDTO);
+	}
+	
 	//insert
 	public int insert(PmfScrapDTO pmfScrapDTO) throws Exception {
 		return sqlSession.insert(NAMESPACE+"insert", pmfScrapDTO);

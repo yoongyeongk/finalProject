@@ -39,10 +39,15 @@
 				url:"../scrap/pmfAdd",
 				type: "POST",
 				data: {
-					scrapNum: scrap_num
+					scrapNum: scrap_num.toString()
 				},
 				success: function(data){
-					alert("success");
+					if(data == 1){
+						alert("게시글이 스크랩되었습니다.");
+					}else{
+						alert("일시적인 오류로 스크랩 할 수 없습니다. 잠시 후 다시 시도하세요.");
+					}
+					$(".ch_one").prop("checked",false);
 				}
 			});
 		});

@@ -20,12 +20,22 @@ public class PmfReplyService {
 		ModelAndView mv = new ModelAndView();
 		
 		List<PmfReplyDTO> ar = pmfReplyDAO.selectList(listData.makeRow(num));
-		System.out.println(listData.getCurPage());
+		//System.out.println(listData.getCurPage());
 		int curPage = listData.getCurPage();
 		
 		mv.addObject("list", ar);
 		mv.addObject("curPage", curPage);
 		mv.setViewName("community/replyResult");
+		
+		return mv;
+	}
+	
+	public ModelAndView selectOne(int rnum) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		PmfReplyDTO pmfReplyDTO = pmfReplyDAO.selectOne(rnum);
+		mv.addObject("view", pmfReplyDTO);
+		mv.setViewName("community/replyForm");
 		
 		return mv;
 	}

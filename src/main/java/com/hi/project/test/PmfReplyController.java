@@ -56,15 +56,22 @@ public class PmfReplyController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(mv.getModel().get("curPage"));
+		//System.out.println(mv.getModel().get("curPage"));
 		
 		return mv;
 	}
 	
 	@RequestMapping(value="pmfReplyUpdate", method=RequestMethod.GET)
-	public String update() {
-		//수정 폼 불러오기
-		return "community/replyForm";
+	public ModelAndView update(int rnum) {
+		ModelAndView mv = null;
+		try {
+			mv = pmfReplyService.selectOne(rnum);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return mv;
 	}
 	
 	@RequestMapping(value="pmfReplyUpdate", method=RequestMethod.POST)

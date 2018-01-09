@@ -64,6 +64,7 @@ $(function(){
 				file.filename = data.filename;
 				file.oriname = data.oriname;
 				fileDTO.push(file);				//배열에 추가
+				alert(fileDTO);
 				status.setProgress(100);		//상태 100으로 설정
 			}
 		});

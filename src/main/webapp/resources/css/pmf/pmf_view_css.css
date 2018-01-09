@@ -66,7 +66,26 @@ td{
 	width: 100%;
 	border-top: 3px solid #eee;
 }
-
+#scrap_btn{
+	font-size: 14px;
+    width: 70px;
+    height: 35px;
+    padding: 2px 0;
+    color: #2eaa91;
+    background-color: #f5f5f5;
+    border: solid 1px #ccc;
+    border-radius: 3px;
+}
+.color-change{
+	font-size: 14px;
+    width: 70px;
+    height: 35px;
+    padding: 2px 0;
+    color: white;
+    background-color: #2eaa91;
+    border: solid 1px #ccc;
+    border-radius: 3px;
+}
 /* reply section */
 #reply{
 	margin: 0 auto;
@@ -96,7 +115,13 @@ td{
 .t_reply{
 	border: none;
     margin-top: 30px;
+    margin-bottom: 0;
     font-size: 12px;
+}
+.t_reply1{
+	border: none;
+    font-size: 12px;
+    margin-bottom: 30px;
 }
 .td_r{
 	border: none;

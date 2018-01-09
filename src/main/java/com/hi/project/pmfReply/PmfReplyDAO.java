@@ -20,6 +20,10 @@ public class PmfReplyDAO {
 		return sqlSession.selectList(NAMESPACE+"selectList", rowNum);
 	}
 	
+	public PmfReplyDTO selectOne(int rnum) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"selectOne", rnum);
+	}
+	
 	public int insert(PmfReplyDTO pmfReplyDTO) throws Exception {
 		return sqlSession.insert(NAMESPACE+"insert", pmfReplyDTO);
 	}

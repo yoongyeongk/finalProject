@@ -86,8 +86,14 @@ public class PmfBoardService {
 	
 	//update 2 - update
 	@Transactional
-	public void update(PmfBoardDTO pmfBoardDTO) throws Exception {
+	public int update(PmfBoardDTO pmfBoardDTO) throws Exception {
 		System.out.println(pmfBoardDTO.getNum());
+		int result = boardDAO.update(pmfBoardDTO);
+		
+		//파일 업로드
+		
+		
+		return result;
 	}
 	
 	//delete

@@ -30,6 +30,10 @@
   		select * from pmf_scrap where snum=#{snum}
   	</select>
   	
+  	<select id="scrapCheck" parameterType="PmfScrapDTO" resultType="PmfScrapDTO">
+  		select * from pmf_scrap where num=#{num} and nickname=#{nickname}
+  	</select>
+  	
   	<insert id="insert" parameterType="PmfScrapDTO">
   		insert into pmf_scrap values(pmf_scrap_seq.nextval,#{nickname},#{num})
   	</insert>

@@ -139,7 +139,20 @@ public class PmfController {
 	
 	//update
 	@RequestMapping(value="pmfUpdate", method=RequestMethod.POST)
-	public String update(PmfBoardDTO pmfBoardDTO) {
+	public String update(PmfBoardDTO pmfBoardDTO, RedirectAttributes rd) {
+		int result = 0;
+		try {
+			result = pmfBoardService.update(pmfBoardDTO);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String message = "게시글 수정에 실패했습니다.";
+		if(result>0){
+			message = "게시글이 수정되었습니다.";
+		}
+		rd.addFlashAttribute("message", message);
 		
 		return "redirect:./pmfView?num="+pmfBoardDTO.getNum();
 	}

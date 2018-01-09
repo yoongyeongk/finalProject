@@ -5,7 +5,14 @@
 	$(function(){
 		//3. update
 		$(".r_update").click(function(){
-			alert("update");
+			var rnum = $(this).parent().attr("title");
+			$.ajax({
+				type: "GET",
+				url: "../reply/pmfReplyUpdate?rnum="+rnum,
+				success: function(data){
+					$(".n_"+rnum).html(data);
+				}
+			});
 		});
 
 		//4. delete
@@ -15,11 +22,9 @@
 		
 		//5. paging
 		var curPage = ${curPage};
-		//$(".t_reply").attr("id",curPage);
 		
 		//paging
 		$(".reply_add").click(function() {
-			//var curPage = $(".t_reply").attr("id")*1;
 			alert(curPage);
 			curPage = curPage + 1*1;
 			$.ajax({
@@ -37,10 +42,11 @@
 	});
 </script>
 <c:if test="${not empty list}">
+<table class="t_reply1">
 	<c:forEach items="${list}" var="dto">
 		<tr>
 			<td class="td_r t_1">${dto.writer}</td>
-			<td class="td_r t_2">${dto.contents}</td>
+			<td class="td_r t_2 n_${dto.num}">${dto.contents}</td>
 			<td class="td_r t_3">${dto.reg_date}</td>
 			<td class="td_r t_4" title="${dto.num}">
 				<span class="r_update r_btn glyphicon glyphicon-pencil"></span>
@@ -48,10 +54,13 @@
 			</td>
 		</tr>
 	</c:forEach>
+</table>
 </c:if>
 <c:if test="${empty list}">
+<table class="t_reply1">
 	<tr>
 		<td class="td_r" colspan="4">댓글이 존재하지 않습니다. 댓글을 등록해주세요.</td>
 	</tr>
+</table>
 </c:if>
 

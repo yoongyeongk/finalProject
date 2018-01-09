@@ -25,7 +25,7 @@
 			
 		document.execCommand('copy');
 	}
-
+	
 	//list function
 	function replyList(num,curPage){
 		$.ajax({
@@ -41,7 +41,57 @@
 		});
 	}
 
+	function scrapStatus(){
+		var ch;
+		$.ajax({
+			url: "../scrap/pmfCheck?num=${view.num}",
+			type: "GET",
+			async: false,
+			success: function(data){
+				if(data.trim != 0){
+					ch = true;
+					$("#scrap_btn").addClass("color-change");
+				}else{
+					ch = false;
+				}
+			}
+		});
+		
+		return ch;
+	}
+	
+	function scrapAdd(){
+		$.ajax({
+			url: "../scrap/pmfAdd",
+			type: "POST",
+			data: {
+				scrapNum: '${view.num}'
+			},
+			success: function(data){
+				if(data == 1){
+					alert("게시글이 저장되었습니다.");
+				}
+			}
+		});
+	}
+	
+	function scrapRemove(){
+		$.ajax({
+			url: "../scrap/pmfDelete?num=${view.num}",
+			type: "GET",
+			success: function(data){
+				alert(data);
+			}
+		});
+	}
+	
 	$(function() {
+		//알림창	
+		var message = '${message}';
+		if(message != ""){
+			alert(message);
+		}
+	
 		//수정
 		$("#update_btn").click(function(){
 			location.href = "./pmfUpdate?num="+${view.num};
@@ -57,6 +107,21 @@
 			copyText();
 		});
 
+		//scrap
+		var scrap = $(".scrap_btn");
+		$(scrap).click(function(){
+			//스크랩 여부 확인 후 목록에 추가 혹은 목록에서 제거
+			var ch = scrapStatus();
+			if(ch){
+				scrapAdd();
+			}else{
+				scrapRemove();
+			}
+		});
+		
+		//scrap 상태 표시
+		scrapStatus();
+		
 		//댓글
 		var num = ${view.num};
 
@@ -328,7 +393,7 @@
 				<input class="update_btn" type="button" value="수정" id="update_btn">
 		
 			<!-- 담기버튼 하트나 별 모양으로 바꾸기 -->
-			<input class="save_btn" type="button" value="담기" id="save_btn">
+			<button class="scrap_btn" id="scrap_btn"><span class="star glyphicon glyphicon-star"></span> 담기</button>
 		
 			<hr class="line">
 		</section>
@@ -348,8 +413,8 @@
 					<td class="td_r t_3">작성 시간</td>
 					<td class="td_r t_4"></td>
 				</tr>
-				<div id="reply_sec"></div>
 			</table>
+			<div id="reply_sec"></div>
 			<div id="reply_add" class="reply_add">더보기</div>
 			</div>
 		</section>

@@ -11,8 +11,15 @@
 		where r between #{startRow} and #{lastRow}	
   	</select>
   	
+  	<select id="selectOne" parameterType="int" resultType="PmfReplyDTO">
+  		select * from pmf_reply where rnum=#{rnum}
+  	</select>
+  	
   	<insert id="insert" parameterType="PmfReplyDTO">
-  		insert into pmf_reply values(pmf_reply_seq.nextval,#{num},#{writer},#{contents},sysdate,0,0,0)
+		<selectKey keyProperty="rnum" resultType="int" order="BEFORE">
+			select pmf_reply_seq.nextval from dual
+		</selectKey>
+  		insert into pmf_reply values(#{rnum},#{num},#{writer},#{contents},sysdate,#{rnum},0,0)
   	</insert>
   	
   	<update id="update" parameterType="PmfReplyDTO">
