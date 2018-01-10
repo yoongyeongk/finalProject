@@ -27,6 +27,7 @@ public class ProjectController {
 	}
 	
 	@RequestMapping(value = "create")
+	@ResponseBody
 	public int create(ProjectDTO projectDTO) {
 		return projectService.create(projectDTO);
 	}

@@ -12,41 +12,11 @@
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="//cdn.ckeditor.com/4.8.0/basic/ckeditor.js"></script>
 <script src="resources/js/sidebar.js"></script>
+<script src="resources/js/project.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="https://use.fontawesome.com/releases/v5.0.3/css/all.css" rel="stylesheet">
 <link rel="stylesheet" href="resources/css/header.css">
 <link rel="stylesheet" href="resources/css/main.css">
-<script type="text/javascript">
-	$(function() {
-		$("#create-project").click(function() {
-			var param = $("#frm").serialize();
-			$.ajax({
-				type : 'POST',
-				url : "/project/create",
-				data : param,
-				success : function(data) {
-					if (data == 0)
-						alert("프로젝트 생성에 실패하였습니다.");
-				}
-			});
-		});
-		list();
-	});
-
-	function list() {
-		$.ajax({
-			type : 'POST',
-			url : "project/list",
-			success : function(data) {
-				var html = '';
-				// alert(JSON.stringify(data));
-				$.each(data, function(key, value) {
-					html += '<h4>' + value.title + '</h4>';
-				});
-				// $(".project-box").html(html);
-			}
-		});
-	}
-</script>
 <body>
 	<div id="main" class="wrapper">
 		<c:import url="temp/header.jsp"></c:import>
@@ -58,23 +28,44 @@
 				<input class="searchbar form-control" type="text"
 					placeholder="Search">
 			</div>
-
+			
 			<div class="page-contents">
 				<div class="project-box">
-					<div>
-						<span class="glyphicon glyphicon-lock"></span>
-						<span class="glyphicon glyphicon-global"></span>
+					<div class="project-header">
+						<c:choose>
+							<c:when test="${list.privacy eq 'private'}">
+								<i class="fas fa-lock"></i>
+								<!-- <span class="glyphicon glyphicon-lock"></span> -->
+							</c:when>
+							<c:otherwise>
+								<i class="fas fa-globe"></i>
+								<!-- <span class="glyphicon glyphicon-globe"></span> -->
+							</c:otherwise>
+						</c:choose>
 						<span>프로젝트명</span>
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<span class="glyphicon glyphicon-star"></span>
-						<span class="glyphicons glyphicons-cogwheel"></span>
-						<select>
-							<option>상태 없음</option>
-							<option>계획됨</option>
-							<option>상태없음</option>
-							<option>상태없음</option>
-							<option>상태없음</option>
-							<option>상태없음</option>
+						<!-- <span class="glyphicon glyphicon-cogwheel"></span> -->
+					</div>
+					<div class="project-side">
+						<c:choose>
+							<c:when test="${list.star eq 0}">
+								<i class="far fa-star"></i>
+								<!-- <span class="glyphicon glyphicon-star-empty"></span> -->
+							</c:when>
+							<c:otherwise>
+								<i class="fas fa-star"></i>
+								<!-- <span class="glyphicon glyphicon-star"></span> -->
+							</c:otherwise>
+						</c:choose>
+						<i class="fas fa-cog"></i>
+					</div>
+					<div class="project-footer">
+						<select class="status" name="status">
+							<option value="">상태 없음</option>
+							<option value="계획됨">계획됨</option>
+							<option value="진행중">진행중</option>
+							<option value="완료됨">완료됨</option>
+							<option value="보류">보류</option>
+							<option value="취소">취소</option>
 						</select>
 					</div>
 				</div>
@@ -97,7 +88,7 @@
 
 								<div>
 									<label for="privacy" class="control-label">공개</label> <input
-										type="radio" class="privacy" name="privacy" value="public">
+										type="radio" class="privacy" name="privacy" value="public" checked="checked">
 									<label for="privacy" class="control-label">비공개</label> <input
 										type="radio" class="privacy" name="privacy" value="private">
 									<input type="hidden" name="status"> <input

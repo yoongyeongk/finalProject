@@ -12,7 +12,7 @@
 	</select>
 
 	<select id="list" resultMap="projectResult">
-		select * from project
+		select * from project order by start_date desc
 	</select>
 
 	<select id="view">
