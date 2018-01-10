@@ -118,14 +118,18 @@ td{
     margin-bottom: 0;
     font-size: 12px;
 }
+.t_reply_tr{
+	border-top: 2px solid #eee;
+    border-bottom: 2px solid #eee;
+}
 .t_reply1{
 	border: none;
     font-size: 12px;
-    margin-bottom: 30px;
+    margin-bottom: 0px;
 }
 .td_r{
 	border: none;
-    border-top: solid #eee 1px;
+    /* border-top: solid #eee 1px; */
     border-bottom: solid #eee 1px;
     text-align: center;
 }
@@ -154,10 +158,23 @@ td{
     background-color: #eee;
     text-align: center;
     line-height: 40px;
+    margin-top: 30px;
     margin-bottom: 50px;
     font-weight: 600;
 }
 .reply_add:HOVER {
 	border: 2px solid #ddd;
 	cursor: pointer;
+}
+.re_update_form{
+	width: 80%;
+    border: solid 1px #ccc;
+    border-radius: 3px;
+    height: 25px;
+}
+.re_reply{
+	vertical-align: middle;
+}
+.re_reply td{
+	background-color: #ddd;
 }

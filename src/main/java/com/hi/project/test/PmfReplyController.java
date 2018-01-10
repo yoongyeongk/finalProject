@@ -23,7 +23,7 @@ public class PmfReplyController {
 	@Inject
 	private PmfReplyService pmfReplyService;
 	
-	//AJAX처리
+	//AJAX처리 , 서비스로 옮기고 ModelAndView 형식으로 리턴
 	@RequestMapping(value="pmfReplyWrite", method=RequestMethod.POST)
 	public String insert(PmfReplyDTO pmfReplyDTO, Model model) {
 		//insert 처리
@@ -75,18 +75,43 @@ public class PmfReplyController {
 	}
 	
 	@RequestMapping(value="pmfReplyUpdate", method=RequestMethod.POST)
-	public void update(PmfReplyDTO pmfReplyDTO) {
-		//댓글 수정
+	public ModelAndView update(PmfReplyDTO pmfReplyDTO) {
+		ModelAndView mv = null;
+		try {
+			mv = pmfReplyService.update(pmfReplyDTO);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return mv;
 	}
 	
 	@RequestMapping(value="pmfReplyDelete")
-	public void delete(int rnum) {
-		//댓글 삭제
+	public ModelAndView delete(int rnum) {
+		ModelAndView mv = null;
+		
+		try {
+			mv = pmfReplyService.delete(rnum);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return mv;
 	}
 	
-	@Transactional
+	
 	@RequestMapping(value="pmfReReply", method=RequestMethod.POST)
-	public void reply(PmfReplyDTO pmfReplyDTO) {
-		//대댓글 달기
+	public ModelAndView reply(PmfReplyDTO pmfReplyDTO) {
+		ModelAndView mv = null;
+		try {
+			mv = pmfReplyService.reply(pmfReplyDTO);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return mv;
 	}
 }

@@ -36,7 +36,7 @@
 				curPage: curPage
 			},
 			success : function(data) {
-				$("#reply_sec").html(data);
+				$("#reply_sec").append(data);
 			}
 		});
 	}
@@ -149,6 +149,24 @@
 			});
 		});
 
+		//3. paging
+		var curPage = $(".reply_add").attr("title")*1;
+		$(".reply_add").click(function() {
+			curPage = curPage + 1*1;
+			$.ajax({
+				url: "../reply/pmfReplyList",
+				type: "POST",
+				data: {
+					num: num,
+					curPage: curPage
+				},
+				success: function(data){
+					$("#reply_sec").append(data);
+					$(".reply_add").attr("title",curPage);
+				}
+			});
+		});
+		
 		//map
 
 		if ('${view.addr}' != '') {
@@ -407,7 +425,7 @@
 			</div>
 			<div class="reply_list">
 			<table class="t_reply">
-				<tr>
+				<tr class="t_reply_tr">
 					<td class="td_r t_1">작성자</td>
 					<td class="td_r t_2">내용</td>
 					<td class="td_r t_3">작성 시간</td>
@@ -415,7 +433,7 @@
 				</tr>
 			</table>
 			<div id="reply_sec"></div>
-			<div id="reply_add" class="reply_add">더보기</div>
+			<div id="reply_add" class="reply_add" title="1">더보기</div>
 			</div>
 		</section>
 		

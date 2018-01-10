@@ -44,19 +44,56 @@ public class PmfReplyService {
 		return pmfReplyDAO.insert(pmfReplyDTO);
 	}
 	
-	public int update(PmfReplyDTO pmfReplyDTO) throws Exception {
-		return pmfReplyDAO.update(pmfReplyDTO);
+	public ModelAndView update(PmfReplyDTO pmfReplyDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		int result = pmfReplyDAO.update(pmfReplyDTO);
+		
+		if(result>0){
+			mv.addObject("data", "댓글이 수정되었습니다.");
+		}else{
+			mv.addObject("data", "댓글을 수정할 수 없습니다.");
+		}
+		mv.setViewName("common/ajax");
+	
+		return mv;
 	}
 	
-	public int delete(int rnum) throws Exception {
-		return pmfReplyDAO.delete(rnum);
+	public ModelAndView delete(int rnum) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		int result = pmfReplyDAO.delete(rnum);
+		
+		if(result>0){
+			mv.addObject("data", "댓글이 삭제되었습니다.");
+		}else{
+			mv.addObject("data", "댓글을 삭제할 수 없습니다.");
+		}
+		mv.setViewName("common/ajax");
+		
+		return mv;
 	}
 	
 	@Transactional
-	public int reply(PmfReplyDTO pmfReplyDTO) throws Exception {
-		int result = pmfReplyDAO.reply(pmfReplyDTO);
-		pmfReplyDAO.stepUpdate(pmfReplyDTO);
+	public ModelAndView reply(PmfReplyDTO pmfReplyDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		PmfReplyDTO pmfReplyDTO2 = pmfReplyDAO.selectOne(pmfReplyDTO.getRnum());
+		pmfReplyDTO.setNum(pmfReplyDTO2.getNum());
+		pmfReplyDTO.setStep(pmfReplyDTO2.getStep());
+		System.out.println(pmfReplyDTO2.getDepth());
+		pmfReplyDTO.setDepth(pmfReplyDTO2.getDepth());
 		
-		return result;
+		
+		pmfReplyDAO.stepUpdate(pmfReplyDTO);
+		int result = pmfReplyDAO.reply(pmfReplyDTO);
+		
+		if(result>0){
+			mv.addObject("data", "댓글이 등록되었습니다.");
+		}else{
+			mv.addObject("data", "댓글 등록에 실패했습니다.");
+		}
+		mv.setViewName("common/ajax");
+		
+		return mv;
 	}
 }

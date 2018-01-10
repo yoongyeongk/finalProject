@@ -7,7 +7,7 @@
   	<select id="selectList" parameterType="RowNum" resultType="PmfReplyDTO">
 		select * from
 		(select rownum r, RE.* from
-		(select * from pmf_reply where num=#{num} order by rnum desc) RE)
+		(select * from pmf_reply where num=#{num} order by ref desc, step asc) RE)
 		where r between #{startRow} and #{lastRow}	
   	</select>
   	
