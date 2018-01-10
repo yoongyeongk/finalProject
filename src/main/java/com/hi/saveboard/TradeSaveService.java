@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hi.util.ListData;
@@ -22,8 +23,15 @@ public class TradeSaveService {
 		totalCount = tradeSaveDAO.getCount(writer);
 		RowNum rowNum = listData.makeRow();
 		Pager pager = listData.makePage(totalCount);
-		tradeSaveDAO.selectList(writer, rowNum);
-		return null;
+		List<TradeSaveDTO> ar = tradeSaveDAO.selectList(writer, rowNum);
+		
+		ModelAndView view = new ModelAndView();
+		
+		view.addObject("count", totalCount);
+		view.addObject("list", ar);
+		view.addObject("pager", pager);
+		view.setViewName("common/saveList");
+		return view;
 	}
 	
 	public int insert (TradeSaveDTO tradeSaveDTO) throws Exception {
@@ -44,6 +52,18 @@ public class TradeSaveService {
 		int result = 0;
 		result = tradeSaveDAO.update(tradeSaveDTO);
 		
+		return result;
+	}
+	
+	public int delete (int save_num) throws Exception{
+		int result = 0;
+		result = tradeSaveDAO.delete(save_num);
+		return result;
+	}
+	
+	public int getTotalCount (String writer) throws Exception{
+		int result = 0;
+		result = tradeSaveDAO.getCount(writer);
 		return result;
 	}
 }

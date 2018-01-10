@@ -18,6 +18,10 @@ public class TradeSaveDAO {
 	SqlSession sqlSession;
 	private static String NAMESPACE = "tradeSaveMapper.";
 	
+	public int delete (int save_num) throws Exception {
+		return sqlSession.delete(NAMESPACE+"delete", save_num);
+	}
+	
 	public int insert (TradeSaveDTO tradeSaveDTO) throws Exception {
 		
 		return sqlSession.insert(NAMESPACE+"insert",tradeSaveDTO);

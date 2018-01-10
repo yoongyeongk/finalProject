@@ -68,15 +68,7 @@
 		$("#tagBox").on("click",".upDel",function(){
 			if(confirm("기존 태그를 삭제하시겠습니까? 게시글에서도 삭제됩니다") == true){
 				var num = parseInt(this.id);
-				$.ajax({
-					type:"POST",
-					url:"../tag/tagDelete",
-					data:{
-						num:num
-					}, success : function(){
-						
-					}
-				})
+				$.post("../tag/tagDelete?num="+num)
 					var id = $(this).attr("title")
 					$("#"+id).remove();
 			}
@@ -153,7 +145,15 @@
 var timecheck = true;
 var url = "../tradeSave/tradeSaveInsert";
 var save_num = 0;
+var list = {
+			call : function(id,curPage) {
+				$.post("../tradeSave/saveList?writer="+id+"&curPage="+curPage,function(data){
+				$(".list").html(data)
+			})	
+		}
+	}
 
+	
 function timeout() {
 	 var writer = $("#writer").val();
 	 var title = "";
@@ -184,9 +184,10 @@ function timeout() {
 						if(save_num == 0){
 							alert("저장되지 않았습니다. 임시저장은 최대 50개까지 입니다.");
 						}
+							list.call('sson',1)
 					}
 				  })
-			}, minute);
+			}, 1000);
 		}else{
 			fnc = setTimeout(function() {
 				  timecheck = true;
@@ -205,10 +206,10 @@ function timeout() {
 						  title:title,
 						  contents:contents
 					  }, success : function(data) {
-						  
+						  list.call('sson',1)
 					}
 				  })
-			}, minute);
+			}, 1000);
 		}
 	}
 	
@@ -216,9 +217,7 @@ function timeout() {
 
 $(function() {
 	
-	$.post("../tradeSave/saveList?writer=sson&curPage=1",function(data){
-		$(".list").html(data)
-	})
+	list.call('sson',1)
 	
 	$("#over").css("display","none")
 	$(".hideSet").css("display","none")
@@ -254,6 +253,21 @@ $(function() {
 			minute = 1000*60*10;
 		}
 	})
+	
+	$("#over").on("click",".list_x",function(){
+		var title = $(this).attr("title");
+		var num = this.id;
+
+			$.post("../tradeSave/saveDelete?save_num="+num)
+			$("#"+title).remove();
+			list.call('sson',1)
+	})
+	
+	$("#over").on("click",".page",function(){
+		var curPage = $(this).attr("title");
+		list.call('sson',curPage)
+	})
+	
 })
 
 </script>
@@ -349,7 +363,7 @@ $(function(){
 									<img src="${pageContext.request.contextPath }/resources/images/tradeBoard/btn_x_close.gif">
 								</span>
 								<div class="list">
-						
+									
 								</div>
 								<div class="time_setBox">
 									<div class="inBox">
@@ -383,12 +397,12 @@ $(function(){
 						</div>
 					</div>
 					
-					<div class="box" style="height: auto;">
 							<div id="tempBox">
 								<div class="listCall" style="float: right;">
-									<a href="javascript:void(0)">임시 저장된 글<span>(3)</span></a>
+									<a href="javascript:void(0)">임시 저장된 목록</a>
 								</div>
 							</div>
+					<div class="box" style="height: auto;">
 							
 					<div id="con">	
 						<div id="conBox">

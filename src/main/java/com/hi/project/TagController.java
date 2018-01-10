@@ -3,6 +3,7 @@ package com.hi.project;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hi.tag.TagService;
@@ -15,14 +16,14 @@ public class TagController {
 	TagService tagService;
 	
 	@RequestMapping(value="tagDelete")
-	public void deleteOne (int num){
-		int result = 0;
+	public String deleteOne (int num,Model model){
+		
 		try {
-			result = tagService.deleteOne(num);
+			 model.addAttribute("data", tagService.deleteOne(num));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		return "common/ajax	";
 	}
 }

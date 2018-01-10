@@ -53,10 +53,39 @@ public class TradeSaveController {
 	}
 	
 	@RequestMapping(value="saveList")
-	public String selectList (String writer,ListData listData) throws Exception {
-		
+	public ModelAndView selectList (String writer,ListData listData) {
+		ModelAndView view = new ModelAndView();
 		listData.setPerPage(5);
-		tradeSaveService.selectList(writer,listData);
-		return "common/saveList"; 
+		try {
+			view = tradeSaveService.selectList(writer,listData);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return view; 
+	}
+	
+	@RequestMapping(value="saveDelete")
+	public String delete (int save_num,Model model){
+		 try {
+			model.addAttribute("data", tradeSaveService.delete(save_num));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "common/ajax";
+	}
+	
+	@RequestMapping(value="getTotalCount")
+	@ResponseBody
+	public Map<String, Object> getTotalCount (String writer) {
+		Map<String, Object> map = new HashMap<String, Object>();
+			try {
+				map.put("count", tradeSaveService.getTotalCount(writer));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return map;
 	}
 }
