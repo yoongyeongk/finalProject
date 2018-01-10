@@ -1,5 +1,4 @@
 package com.hi.project.test;
-
 import java.util.Enumeration;
 
 import javax.inject.Inject;
@@ -18,7 +17,8 @@ import com.hi.project.pmfScrap.PmfScrapService;
 
 @Controller
 @RequestMapping(value="/scrap/*")
-public class PmfScrapController {
+public class PmfScrapController 
+{
 
 	@Inject
 	private PmfScrapService pmfScrapService;
