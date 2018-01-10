@@ -24,62 +24,6 @@
 		var count = 0;
 		var saveCount = 0;
 		var regNumber = /^[0-9]*$/;
-		var timecheck = true;
-		var url = "../tradeSave/tradeSaveInsert";
-		var save_num = 0;
-		
-		function timeout() {
-			 var writer = $("#writer").val();
-			 var title = "";
-			 var contents = "";
-			if(timecheck == true){
-				timecheck = false;
-				
-				if(saveCount < 1){
-					fnc = setTimeout(function() {
-						  saveCount++;
-						  timecheck = true;
-						  title = $("#title").val();
-						  contents = CKEDITOR.instances.contents.getData();
-	
-							$.ajax({
-							  type:"POST",
-							  url:url,
-							  data: {
-								  writer:writer,
-								  title:title,
-								  contents:contents
-							  }, success : function(data) {
-								save_num = data.save_num
-								if(save_num == 0){
-									alert("저장되지 않았습니다. 임시저장은 최대 50개까지 입니다.");
-								}
-							}
-						  })
-					}, 1000);
-				}else{
-					fnc = setTimeout(function() {
-						  timecheck = true;
-						  title = $("#title").val();
-						  contents = CKEDITOR.instances.contents.getData();
-						  url = "../tradeSave/tradeSaveUpdate";
-							$.ajax({
-							  type:"POST",
-							  url:url,
-							  data: {
-								  save_num:save_num,
-								  writer:writer,
-								  title:title,
-								  contents:contents
-							  }, success : function(data) {
-								  
-							}
-						  })
-					}, 1000);
-				}
-			}
-			
-		}
 		
 	$(function() {
 	
@@ -89,7 +33,6 @@
 		editor.on( 'change', function( evt ) {
 		    timeout();
 		});
-		
 		
 		
 		$("#tagForm").on("click","#addTag",function(){
@@ -134,10 +77,8 @@
 						
 					}
 				})
-					
 					var id = $(this).attr("title")
 					$("#"+id).remove();
-				
 			}
 		})
 		
@@ -160,22 +101,25 @@
 		var check = true; //번호인증체크. 현재 일부러 true로 설정함. 나중에 if ${form}이 Update일경우 true 아니면false
 		
 		$("#pc").click(function(){
-			
-			if($("#phone").val().length == 11){
-				$("#checkBox").css("display","block")
-				var phone = $("#phone").val()
-				$.ajax({
-					type:"POST",
-					url:"./tradeBoardCheck",
-					data:{
-						phone:phone
-					},success : function(data){
-						alert(data)
-						rd = data
-					}
-				})
+			if(!check){
+				if($("#phone").val().length == 11){
+					$("#checkBox").css("display","block")
+					var phone = $("#phone").val()
+					$.ajax({
+						type:"POST",
+						url:"./tradeBoardCheck",
+						data:{
+							phone:phone
+						},success : function(data){
+							alert(data)
+							rd = data
+						}
+					})
+				}else{
+					alert("올바른 번호를 입력해주세요")
+				}
 			}else{
-				alert("올바른 번호를 입력해주세요")
+				alert("인증되었습니다")
 			}
 		})
 		
@@ -186,7 +130,7 @@
 				$("#check").attr("readonly","readonly")
 				$("#phone").attr("readonly","readonly")
 			}else{
-				alert("번호가 틀렸습니다")
+				alert("번호가 틀렸습니다 다시 시도하세요")
 			}
 		})
 		
@@ -205,7 +149,114 @@
 		
 	})
 </script>
+<script type="text/javascript">
+var timecheck = true;
+var url = "../tradeSave/tradeSaveInsert";
+var save_num = 0;
 
+function timeout() {
+	 var writer = $("#writer").val();
+	 var title = "";
+	 var contents = "";
+	 var minute = 300000;
+	if(timecheck == true){
+		timecheck = false;
+		
+		if(saveCount < 1){
+			fnc = setTimeout(function() {
+				  saveCount++;
+				  timecheck = true;
+				  title = $("#title").val();
+				  if(title == ''){
+					  title="게시물 이름을 적어주세요";
+				  }
+				  contents = CKEDITOR.instances.contents.getData();
+
+					$.ajax({
+					  type:"POST",
+					  url:url,
+					  data: {
+						  writer:writer,
+						  title:title,
+						  contents:contents
+					  }, success : function(data) {
+						save_num = data.save_num
+						if(save_num == 0){
+							alert("저장되지 않았습니다. 임시저장은 최대 50개까지 입니다.");
+						}
+					}
+				  })
+			}, minute);
+		}else{
+			fnc = setTimeout(function() {
+				  timecheck = true;
+				  title = $("#title").val();
+				  if(title == ''){
+					  title="게시물 이름을 적어주세요";
+				  }
+				  contents = CKEDITOR.instances.contents.getData();
+				  url = "../tradeSave/tradeSaveUpdate";
+					$.ajax({
+					  type:"POST",
+					  url:url,
+					  data: {
+						  save_num:save_num,
+						  writer:writer,
+						  title:title,
+						  contents:contents
+					  }, success : function(data) {
+						  
+					}
+				  })
+			}, minute);
+		}
+	}
+	
+}
+
+$(function() {
+	
+	$.post("../tradeSave/saveList?writer=sson&curPage=1",function(data){
+		$(".list").html(data)
+	})
+	
+	$("#over").css("display","none")
+	$(".hideSet").css("display","none")
+	
+	$(".listCall").click(function() {
+		if($("#over").css("display") == 'block'){
+			$("#over").css("display","none")
+		}else{
+			$("#over").css("display","block ")
+		}
+	})
+	
+	$(".close").click(function() {
+		$("#over").css("display","none")
+	})
+	
+	$(".settingGUI").click(function() {
+		if($(".hideSet").css("display") == 'block'){
+			$(".hideSet").css("display","none")
+		}else{
+			$(".hideSet").css("display","block ")
+		}
+	})
+	
+	$("#minute").change(function() {
+		if(this.value == 1){
+			minute = 1000*60;
+		}else if(this.value == 3){
+			minute = 1000*60*3;
+		}else if(this.value == 5){
+			minute = 1000*60*5;
+		}else if(this.value == 10){
+			minute = 1000*60*10;
+		}
+	})
+})
+
+</script>
 <script type="text/javascript">
 
 	var sel_files = [];
@@ -290,22 +341,58 @@ $(function(){
 					</div>
 				</div>
 				
+					<div id="over">
+						<div class="listBox">
+							<div class="position">
+								<div class="guide">임시 저장된 글을 불러올 수 있습니다</div>
+								<span class="close">
+									<img src="${pageContext.request.contextPath }/resources/images/tradeBoard/btn_x_close.gif">
+								</span>
+								<div class="list">
+						
+								</div>
+								<div class="time_setBox">
+									<div class="inBox">
+										<a href="javascript:void(0)" class="settingGUI">
+											<img src="${pageContext.request.contextPath }/resources/images/tradeBoard/btn_editchange.gif">
+										</a>
+									</div>
+									
+									<div class="hideSet">
+										<div class="inBox txt">
+											<p class="save_guide">시간설정에따라 글이 자동 저장되며 최대 50개까지 저장 됩니다.</p>
+											<p class="save_guide sg">저장된 글은 저장일부터 한달 후에 삭제 됩니다.</p>
+										</div>
+										
+										<div class="inBox ts">
+											<div class="inner">
+												<span>작성중인 글을</span>
+													<select id="minute">
+														<option>1</option>
+														<option>3</option>
+														<option selected="selected">5</option>
+														<option>10</option>
+													</select>
+												<span>분마다 자동 저장</span>
+											</div>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+					
 					<div class="box" style="height: auto;">
 							<div id="tempBox">
-								<div style="float: right;">
+								<div class="listCall" style="float: right;">
 									<a href="javascript:void(0)">임시 저장된 글<span>(3)</span></a>
 								</div>
 							</div>
 							
 					<div id="con">	
 						<div id="conBox">
-						<div id="over" style="position: relative; width: 100%; z-index: 100" >
-					<div style="width: 385px;height: 400px; float:right; position: relative; background-color: blue;">
-					
-					</div>
-					</div>
 								<textarea style="width: 800px; height: 450px;  resize:vertical ;" name="contents" id="contents">${one.contents }</textarea>
-								
 						</div>
 					</div>
 					</div>

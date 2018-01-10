@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.hi.saveboard.TradeSaveDTO;
 import com.hi.saveboard.TradeSaveService;
+import com.hi.util.ListData;
 
 @Controller
 @RequestMapping(value="/tradeSave/*")
@@ -26,10 +27,9 @@ public class TradeSaveController {
 	public Map<String, Object> insert (TradeSaveDTO tradeSaveDTO) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		int result = 0;
+		
 		try {
-			if(tradeSaveDTO.getTitle() == ""){
-				tradeSaveDTO.setTitle("게시물 이름을 적어주세요");
-			}
+	
 			result =  tradeSaveService.insert(tradeSaveDTO);
 			map.put("save_num", result);
 
@@ -53,7 +53,10 @@ public class TradeSaveController {
 	}
 	
 	@RequestMapping(value="saveList")
-	public void selectList (String writer) throws Exception {
+	public String selectList (String writer,ListData listData) throws Exception {
 		
+		listData.setPerPage(5);
+		tradeSaveService.selectList(writer,listData);
+		return "common/saveList"; 
 	}
 }

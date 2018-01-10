@@ -6,6 +6,14 @@
   
   <mapper namespace="tradeSaveMapper">
 
+	<select id="getCount" resultType="Integer" parameterType="java.lang.String">
+		select nvl(count(save_num),0) from SAVE_BOARD where writer=#{writer}
+	</select>
+
+	<select id="selectList" resultType="tradeSaveDTO" parameterType="java.util.Map">
+		select * from SAVE_BOARD order by num desc
+	</select>
+	
 	<select id="getNum" resultType="Integer">
   		select save_board_seq.nextval from dual
   	</select>
