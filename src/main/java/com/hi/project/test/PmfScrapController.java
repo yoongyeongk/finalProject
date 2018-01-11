@@ -23,7 +23,7 @@ public class PmfScrapController
 	@Inject
 	private PmfScrapService pmfScrapService;
 	
-	@RequestMapping(value="pmfList")
+	@RequestMapping(value="pmfList", method=RequestMethod.POST)
 	public ModelAndView selectList(String nickname) {
 		ModelAndView mv = null;
 		

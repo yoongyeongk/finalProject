@@ -32,7 +32,7 @@ public class PmfBoardService {
 		Pager pager = listData.makePage(totalCount);
 		mv.addObject("list", ar);
 		mv.addObject("pager", pager);
-		mv.setViewName("community/pmf_list");
+		mv.setViewName("community/listTable");
 		
 		return mv;
 	}

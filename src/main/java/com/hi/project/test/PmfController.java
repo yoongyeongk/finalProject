@@ -10,6 +10,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.concurrent.ListenableFutureTask;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,7 +31,14 @@ public class PmfController {
 	private PmfBoardService pmfBoardService;
 	
 	//list
-	@RequestMapping("pmfList")
+	//1. 페이지 이동
+	@RequestMapping(value="pmfList", method=RequestMethod.GET)
+	public String selectList() {
+		return "community/pmf_list";
+	}
+	
+	//2. 리스트 불러오기
+	@RequestMapping(value="pmfList", method=RequestMethod.POST)
 	public ModelAndView selectList(ListData listData){
 		ModelAndView mv = null;
 		try {

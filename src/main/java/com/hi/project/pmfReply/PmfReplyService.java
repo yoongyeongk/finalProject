@@ -78,14 +78,12 @@ public class PmfReplyService {
 	public ModelAndView reply(PmfReplyDTO pmfReplyDTO) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		PmfReplyDTO pmfReplyDTO2 = pmfReplyDAO.selectOne(pmfReplyDTO.getRnum());
-		pmfReplyDTO.setNum(pmfReplyDTO2.getNum());
-		pmfReplyDTO.setStep(pmfReplyDTO2.getStep());
-		System.out.println(pmfReplyDTO2.getDepth());
-		pmfReplyDTO.setDepth(pmfReplyDTO2.getDepth());
-		
+
+		pmfReplyDTO2.setWriter(pmfReplyDTO.getWriter());
+		pmfReplyDTO2.setContents(pmfReplyDTO.getContents());
 		
 		pmfReplyDAO.stepUpdate(pmfReplyDTO);
-		int result = pmfReplyDAO.reply(pmfReplyDTO);
+		int result = pmfReplyDAO.reply(pmfReplyDTO2);
 		
 		if(result>0){
 			mv.addObject("data", "댓글이 등록되었습니다.");

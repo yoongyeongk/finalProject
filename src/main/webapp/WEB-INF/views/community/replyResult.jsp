@@ -66,7 +66,8 @@
 					type: "POST",
 					url: "../reply/pmfReReply",
 					data: {
-						ref: ref,
+						rnum: rnum,
+						ref: rnum,
 						writer: "writer",	//'${member}'
 						contents: contents
 					},

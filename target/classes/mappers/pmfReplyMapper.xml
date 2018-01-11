@@ -41,11 +41,9 @@
 	  </update>
 	  
 	  <insert id="reply" parameterType="PmfReplyDTO">
-	  <selectKey keyProperty="rnum" resultType="int" order="BEFORE">
-	  	select pmf_reply_seq.nextval from dual
-	  </selectKey>
+	  
 	  	insert into pmf_reply 
-	  	values(#{rnum},#{num},#{writer},#{contents},sysdate,
+	  	values(pmf_reply_seq.nextval,#{num},#{writer},#{contents},sysdate,
 	  	#{ref},#{step}+1,#{depth}+1)
 	  </insert>
 	  

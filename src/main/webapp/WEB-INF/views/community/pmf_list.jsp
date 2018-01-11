@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
 	$(function(){
@@ -15,73 +15,29 @@
 		if(message != ""){
 			alert(message);
 		}
-	
-		//ÀüÃ¼¼±ÅÃ, ÇØÁ¦
-		var totalCh = $("#total_ch");
-		$(totalCh).click(function(){
-			if($(totalCh).prop("checked")){
-				$(".ch_one").prop("checked",true);
-			}else{
-				$(".ch_one").prop("checked",false);
-			}
+		
+		var curPage = 1;
+		var kind = $("#kind").val();
+		var search = "";
+		callList(curPage,kind,search);
+		callScrap();
+		
+		//ê²€ìƒ‰
+		$(".search_btn").click(function(){
+			search = $("#search").val();
+			callList(curPage,kind,search);
 		});
 		
-		var scrap_num = new Array();
-		var ch = $(".save_ch");
-		$(ch).click(function(){
-			ch = $(this);
-			scrap_num = scrapCheck(ch, scrap_num);
+		//í˜ì´ì§•
+		$(".paging_one").click(function(){
+			curPage = $(this).html();
+			search = $("#search").val();
+			callList(curPage,kind,search);
 		});
-	
-		//´ã±â ¹öÆ° Å¬¸¯ ÀÌº¥Æ®
-		$(".scrap_btn").click(function(){
-			$.ajax({
-				url:"../scrap/pmfAdd",
-				type: "POST",
-				data: {
-					scrapNum: scrap_num.toString()
-				},
-				success: function(data){
-					if(data == 1){
-						alert("°Ô½Ã±ÛÀÌ ½ºÅ©·¦µÇ¾ú½À´Ï´Ù.");
-					}else{
-						alert("ÀÏ½ÃÀûÀÎ ¿À·ù·Î ½ºÅ©·¦ ÇÒ ¼ö ¾ø½À´Ï´Ù. Àá½Ã ÈÄ ´Ù½Ã ½ÃµµÇÏ¼¼¿ä.");
-					}
-					$(".ch_one").prop("checked",false);
-				}
-			});
-		});
-	
 	});
-
-	//Ã¼Å©¹Ú½º °ü·Ã
-	function scrapCheck(ch, scrap_num) {
-		if($(ch).attr("id") != "total_ch"){
-			var num = $(ch).attr("title")*1;
-			
-			if($(ch).prop("checked")){
-				scrap_num.push(num);
-				
-			}else if(!$(ch).prop("checked")){
-				var index = scrap_num.indexOf(num);
-				scrap_num.splice(index,1);
-			}
-		}else{
-			if($(ch).prop("checked")){
-				//¹è¿­ ÀüºÎ ºñ¿ì°í °ª ÀüºÎ ³Ö±â
-				scrap_num.splice(0,scrap_num.length);
-				var chs = document.getElementsByClassName("ch_one");
-				for(var i=0; i<chs.length; i++){
-					scrap_num.push(chs[i].title*1);
-				}
-			}else{
-				scrap_num.splice(0,scrap_num.length);
-			}
-		}
-		
-	return scrap_num;
-	}
 	
+	//functions
+	//tab function ìˆ˜ì •í•˜ê¸° - 'ë‚´ ê¸€ ë³´ê¸°' íƒ­ ì¶”ê°€
 	function openList(evt, menuName) {
 	    var i, tabcontent, tablinks;
 	    tabcontent = document.getElementsByClassName("tabcontent");
@@ -94,6 +50,34 @@
 	    }
 	    document.getElementById(menuName).style.display = "block";
 	    evt.currentTarget.className += " active";
+	}
+	
+	function callList(curPage,kind,search){	
+		$.ajax({
+			type: "POST",
+			url: "./pmfList",
+			data: {
+				kind: kind,
+				search: search,
+				curPage: curPage
+			},
+			success: function(data){
+				$("#listCall").html(data);
+			}
+		});
+	}
+	
+	function callScrap(){
+		$.ajax({
+			type: "POST",
+			url: "../scrap/pmfList",
+			data: {
+				nickname: "nickname"
+			},
+			success: function(data){
+				$("#scrapCall").html(data);
+			}
+		});
 	}
 </script>
 <style type="text/css">
@@ -322,7 +306,7 @@ a:hover{
 	font-size: 13px;
 }
 
-/* ÆäÀÌÂ¡ */
+/* í˜ì´ì§• */
 .paging{
 	text-decoration: none;
     width: 327px;
@@ -363,156 +347,54 @@ a:hover{
 </head>
 <body>
 <!-- header -->
-<!-- header ³¡ -->
+<!-- header ë -->
 
 	<section id="main">
 		<div class="list_wrap">
-			<a href="./pmfWrite" class="new">»õ ±Û µî·Ï</a>
+			<a href="./pmfWrite" class="new">ìƒˆ ê¸€ ë“±ë¡</a>
 
 			<div class="tab">
 				<button class="tablinks active"
-					onclick="openList(event, 'pmfList')">¸â¹ö ¸ğÁı</button>
-				<button class="tablinks" onclick="openList(event, 'myMenu')">¸¶ÀÌ
-					¸Ş´º</button>
+					onclick="openList(event, 'pmfList')">ë©¤ë²„ ëª¨ì§‘</button>
+				<button class="tablinks" onclick="openList(event, 'myMenu')">ë§ˆì´ ë©”ë‰´</button>
 			</div>
 
 			<div id="content_wrap">
 				<div id="pmfList" class="tabcontent">
-					<p>°Ë»ö  / ÆäÀÌÂ¡</p>
+					<p>ê²€ìƒ‰  / í˜ì´ì§•</p>
 					<div id="pmfList_sec">
 						<div id="search_bar">
-							<select name="kind">
-								<option>ÀüÃ¼</option>
+							<select id="kind" name="kind">
+								<option>ì „ì²´</option>
 								<!-- tags, title, major_key, sub_key, works... -->
-								<option>Á¦¸ñ</option>
+								<option>ì œëª©</option>
 								<!-- title -->
-								<option>ÇÁ·ÎÁ§Æ® ºĞ¾ß</option>
+								<option>í”„ë¡œì íŠ¸ ë¶„ì•¼</option>
 								<!-- major_key -->
-							</select> <input type="text" class="search" name="search"> <input
-								type="button" class="search_btn" value="°Ë»ö">
+							</select> 
+							<input type="text" id="search" class="search"> 
+							<input type="button" class="search_btn" value="ê²€ìƒ‰">
 						</div>
-						<div id="listCall">
-							<!-- È®ÀÎ¿ë - ·¹ÀÌ¾Æ¿ô È®ÀÎ ÈÄ listTable·Î ¿Å±â±â -->
-								<table class="t_list">
-									<tr>
-										<th class="td_1"><input type="checkbox" id="total_ch" class="save_ch"></th>
-										<th class="td_2">ÇÁ·ÎÁ§Æ® ¸í</th>
-										<th class="td_3">Á¦¸ñ</th>
-										<th class="td_4">Áö¿ø¿ä°Ç</th>
-										<th class="td_5">ÇÁ·ÎÁ§Æ® ºĞ¾ß</th>
-										<th class="td_6">¸¶°¨ÀÏ</th>
-										<th class="td_7">ÁøÇà ¼öÁØ</th>
-										<th class="td_8">Á¶È¸¼ö</th>
-									</tr>
-									<c:forEach items="${list}" var="dto">
-									<tr>
-										<td><input type="checkbox" class="save_ch ch_one" title="${dto.num}"></td>
-										<td>${dto.project_name}</td>
-										<td><a href="./pmfView?num=${dto.num}">${dto.title}</a></td>
-										<td>${dto.work_kind}</td>
-										<td class="t_font">
-											<c:forTokens items="${dto.major_key}" delims="/" var="key">
-											${key}
-											</c:forTokens>
-											<br>
-											<c:forTokens items="${dto.sub_key}" delims="/" var="key">
-											${key}
-											</c:forTokens>
-											</td>
-										<td class="t_font">~ ${dto.end_date}</td>
-										<td>ÁøÇà ¼öÁØ</td>
-										<td>${dto.hit}</td>
-									</tr>
-									</c:forEach>
-								</table>
-								<button class="scrap_btn"><span class="glyphicon glyphicon-star"></span>´ã±â</button>
-								
-							<!-- ¿©±â±îÁö -->
-								<ul class="paging">
-								<li class="paging_move"><a href="#"><</a></li>
-								<c:forEach begin="1" end="5" var="i">
-									<li class="paging_one"><a href="#">${i}</a></li>
-								</c:forEach>
-								<li class="paging_move"><a href="#">></a></li>
-								</ul>
-						</div>
+						
+						<div id="listCall"></div>
+						
+						<ul class="paging">
+							<li class="paging_move"><</li>
+							<c:forEach begin="1" end="5" var="i">
+								<li class="paging_one">${i}</li>
+							</c:forEach>
+							<li class="paging_move">></li>
+						</ul>
 					</div>
 				</div>
 
 				<div id="myMenu" class="tabcontent">
-					<p>¹«ÇÑ ½ºÅ©·Ñ</p>
+					<p>ë¬´í•œ ìŠ¤í¬ë¡¤</p>
 					<div id="myMenu_sec">
 						<div id="btn_wrap">
-							<input type="button" class="compare_btn" value="ºñ±³ÇÏ±â">
+							<input type="button" class="compare_btn" value="ë¹„êµí•˜ê¸°">
 						</div>
-						<div id="saveCall">
-						
-							<!-- È®ÀÎ¿ë - ·¹ÀÌ¾Æ¿ô È®ÀÎ ÈÄ listBox·Î ¿Å±â±â -->
-							<div class="wrap_total">
-								<div class="wrap_1">
-									<div class="image">ÀÌ¹ÌÁö</div>
-									<p class="d-day">D-O</p>
-								</div>
-								<div class="wrap_2">
-									<p class="project_title">project name</p>
-									<div class="works_list">
-										<ul>
-											<li>list1</li>
-											<li>list2</li>
-										</ul>
-									</div>
-									<div class="tags_list">
-										<%-- <c:forEach items="" var="tag"> --%>
-										<a href="#">#tag1</a> <a href="#">#tag2</a>
-										<%-- </c:forEach>  --%>
-									</div>
-								</div>
-							</div>
-							
-							<div class="wrap_total">
-								<div class="wrap_1">
-									<div class="image">ÀÌ¹ÌÁö</div>
-									<p class="d-day">D-O</p>
-								</div>
-								<div class="wrap_2">
-									<p class="project_title">project name</p>
-									<div class="works_list">
-										<ul>
-											<li>list1</li>
-											<li>list2</li>
-										</ul>
-									</div>
-									<div class="tags_list">
-										<%-- <c:forEach items="" var="tag"> --%>
-										<a href="#">#tag1</a> <a href="#">#tag2</a>
-										<%-- </c:forEach>  --%>
-									</div>
-								</div>
-							</div>
-							
-							<div class="wrap_total">
-								<div class="wrap_1">
-									<div class="image">ÀÌ¹ÌÁö</div>
-									<p class="d-day">D-O</p>
-								</div>
-								<div class="wrap_2">
-									<p class="project_title">project name</p>
-									<div class="works_list">
-										<ul>
-											<li>list1</li>
-											<li>list2</li>
-										</ul>
-									</div>
-									<div class="tags_list">
-										<%-- <c:forEach items="" var="tag"> --%>
-										<a href="#">#tag1</a> <a href="#">#tag2</a>
-										<%-- </c:forEach>  --%>
-									</div>
-								</div>
-							</div>
-							<!-- ¿©±â±îÁö -->
-							
-						</div>
+						<div id="scrapCall"></div>
 					</div>
 				</div>
 			</div>

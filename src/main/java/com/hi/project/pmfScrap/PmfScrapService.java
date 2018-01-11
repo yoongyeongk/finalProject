@@ -1,6 +1,8 @@
 package com.hi.project.pmfScrap;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -19,6 +21,15 @@ public class PmfScrapService {
 	public ModelAndView selectList(String nickname) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		List<PmfScrapDTO> ar = pmfScrapDAO.selectList(nickname);
+		for(PmfScrapDTO dto: ar) {
+			if(!dto.getPmfBoardDTO().getDuration_kind().equals("상시 모집")) {
+				Date end_date = dto.getPmfBoardDTO().getDuration_end();
+				Date today = new Date(Calendar.getInstance().getTimeInMillis());
+				System.out.println(end_date);
+				System.out.println(today);
+				System.out.println("-------------");
+			}
+		}
 		
 		mv.addObject("list", ar);
 		mv.setViewName("community/listBox");
