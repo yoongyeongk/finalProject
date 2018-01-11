@@ -34,11 +34,16 @@ public class TradeSaveService {
 		return view;
 	}
 	
+	public TradeSaveDTO selectOne (int save_num) throws Exception {
+
+		return tradeSaveDAO.selectOne(save_num);
+	}
+	
 	public int insert (TradeSaveDTO tradeSaveDTO) throws Exception {
 		int result = tradeSaveDAO.getNum();
 		int writers = 0;
 		writers = tradeSaveDAO.getWriters(tradeSaveDTO);
-		
+
 		if(writers < 50){
 			tradeSaveDTO.setSave_num(result);
 			tradeSaveDAO.insert(tradeSaveDTO);
@@ -61,9 +66,4 @@ public class TradeSaveService {
 		return result;
 	}
 	
-	public int getTotalCount (String writer) throws Exception{
-		int result = 0;
-		result = tradeSaveDAO.getCount(writer);
-		return result;
-	}
 }

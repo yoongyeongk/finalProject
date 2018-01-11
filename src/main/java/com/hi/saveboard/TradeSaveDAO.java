@@ -37,11 +37,6 @@ public class TradeSaveDAO {
 		return sqlSession.selectOne(NAMESPACE+"getNum");
 	}
 	
-	public int getWriters (TradeSaveDTO tradeSaveDTO) throws Exception {
-		
-		return sqlSession.selectOne(NAMESPACE+"getWriters", tradeSaveDTO);
-	}
-	
 	public List<TradeSaveDTO> selectList (String writer,RowNum rowNum) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("writer", writer);
@@ -49,10 +44,18 @@ public class TradeSaveDAO {
 		map.put("lastRow", rowNum.getLastRow());
 		return sqlSession.selectList(NAMESPACE+"selectList", map);
 	}
-
+	
+	public TradeSaveDTO selectOne (int save_num) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"selectOne", save_num);
+	}
+	
+	public int getWriters (TradeSaveDTO tradeSaveDTO) throws Exception {
+		
+		return sqlSession.selectOne(NAMESPACE+"getWriters", tradeSaveDTO);
+	}
+	
 	public int getCount (String writer) throws Exception {
 		
 		return sqlSession.selectOne(NAMESPACE+"getCount", writer);
 	}
-	
 }

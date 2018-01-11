@@ -10,14 +10,15 @@
 		delete SAVE_BOARD where save_num=#{save_num}
 	</delete>
 
-	<select id="getCount" resultType="Integer" parameterType="java.lang.String">
-		select nvl(count(save_num),0) from SAVE_BOARD where writer=#{writer}
-	</select>
 
 	<select id="selectList" resultType="tradeSaveDTO" parameterType="java.util.Map">
 		select * from (select rowNum R,S.* from 
 		(select * from SAVE_BOARD where writer=#{writer} order by save_num desc) S) 
 		where R BETWEEN #{startRow} and #{lastRow}
+	</select>
+	
+	<select id="selectOne" parameterType="Integer" resultType="tradeSaveDTO">
+		select * from SAVE_BOARD where save_num=#{save_num}
 	</select>
 	
 	<select id="getNum" resultType="Integer">
@@ -28,6 +29,9 @@
 		select count(WRITER) from SAVE_BOARD where writer=#{writer}
 	</select>
 	
+	<select id="getCount" resultType="Integer" parameterType="java.lang.String">
+		select nvl(count(save_num),0) from SAVE_BOARD where writer=#{writer}
+	</select>
   	<insert id="insert" parameterType="tradeSaveDTO">
   		insert into SAVE_BOARD values(#{save_num},#{writer},#{title},#{contents},sysdate)
   	</insert>

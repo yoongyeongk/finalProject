@@ -53,16 +53,31 @@ public class TradeSaveController {
 	}
 	
 	@RequestMapping(value="saveList")
-	public ModelAndView selectList (String writer,ListData listData) {
+	@ResponseBody
+	public ModelAndView selectList ( int save_num,String writer,ListData listData) {
 		ModelAndView view = new ModelAndView();
 		listData.setPerPage(5);
 		try {
 			view = tradeSaveService.selectList(writer,listData);
+			view.addObject("num_compare", save_num);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return view; 
+	}
+	
+	@RequestMapping(value="saveOne")
+	@ResponseBody
+	public TradeSaveDTO selectOne (int save_num) {
+		TradeSaveDTO tradeSaveDTO = null;
+		try {
+			tradeSaveDTO = tradeSaveService.selectOne(save_num);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return tradeSaveDTO;
 	}
 	
 	@RequestMapping(value="saveDelete")
@@ -76,16 +91,4 @@ public class TradeSaveController {
 		return "common/ajax";
 	}
 	
-	@RequestMapping(value="getTotalCount")
-	@ResponseBody
-	public Map<String, Object> getTotalCount (String writer) {
-		Map<String, Object> map = new HashMap<String, Object>();
-			try {
-				map.put("count", tradeSaveService.getTotalCount(writer));
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		return map;
-	}
 }

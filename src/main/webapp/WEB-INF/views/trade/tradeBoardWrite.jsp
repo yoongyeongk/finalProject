@@ -22,7 +22,6 @@
 <link href="${pageContext.request.contextPath }/resources/css/tradeBoardWrite.css" rel="stylesheet">
 <script type="text/javascript">
 		var count = 0;
-		var saveCount = 0;
 		var regNumber = /^[0-9]*$/;
 		
 	$(function() {
@@ -37,13 +36,14 @@
 		
 		$("#tagForm").on("click","#addTag",function(){
 			var tag = $("#addInput").val();
-			var regExp = /[\{\}\[\]\/.;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi
+			var regExp = /[\{\}\[\]\/.;:|\)*~`!^\-_+<>@\s\#$%&\\\=\(\'\"]/gi
 			
 			if(tag == '' || regExp.test(tag)){
-				tag = tag.replace(regExp, "")
-				alert("공백이나 특수문자는 입력할 수없습니다");
+				$("#addInput").val($("#addInput").val().replace(regExp, ""))
+				$("#addTag").click()
 			}else if($(".tag").length < 8){
 				var ar = tag.split(",");
+
 					for(var i=0;i<ar.length;i++){
 						if($(".tag").length < 8 && ar[i] != ""){
 							var t = "<div class='tag'  id='del"+count+"'>"+"<li>";
@@ -76,9 +76,11 @@
 		
 
 		$("#infoBox").on("keyup","#phone",function(){
+				var regPhone = /^[0-9]{3}[0-9]{4}[0-9]{4}$/
 				if(!regNumber.test($(this).val())) {
-				    alert('숫자만 입력해주세요.');
 				    $(this).val("")
+				}else if (this.value.length > 11){
+					$(this).val($(this).val().slice(0,-1))
 				}
 		})
 		
@@ -145,10 +147,16 @@
 var timecheck = true;
 var url = "../tradeSave/tradeSaveInsert";
 var save_num = 0;
+var saveCount = 'insert';
+var totalCount = 0;
+var minute = 300000;
+var fnc;
 var list = {
 			call : function(id,curPage) {
-				$.post("../tradeSave/saveList?writer="+id+"&curPage="+curPage,function(data){
-				$(".list").html(data)
+				$.post("../tradeSave/saveList?writer="+id+"&curPage="+curPage+"&save_num="+save_num,function(data){
+				$(".list").html(data.trim())
+				getCount();
+				$(".listCall span").html("("+totalCount+")")
 			})	
 		}
 	}
@@ -158,20 +166,18 @@ function timeout() {
 	 var writer = $("#writer").val();
 	 var title = "";
 	 var contents = "";
-	 var minute = 300000;
+	 
 	if(timecheck == true){
 		timecheck = false;
 		
-		if(saveCount < 1){
-			fnc = setTimeout(function() {
-				  saveCount++;
+		if(saveCount == 'insert'){
+			 fnc = setTimeout(function() {
 				  timecheck = true;
 				  title = $("#title").val();
 				  if(title == ''){
 					  title="게시물 이름을 적어주세요";
 				  }
 				  contents = CKEDITOR.instances.contents.getData();
-
 					$.ajax({
 					  type:"POST",
 					  url:url,
@@ -184,12 +190,13 @@ function timeout() {
 						if(save_num == 0){
 							alert("저장되지 않았습니다. 임시저장은 최대 50개까지 입니다.");
 						}
-							list.call('sson',1)
+							list.call('sson',1,save_num)
+							saveCount ='up';
 					}
 				  })
-			}, 1000);
+			}, minute);
 		}else{
-			fnc = setTimeout(function() {
+				 fnc = setTimeout(function() {
 				  timecheck = true;
 				  title = $("#title").val();
 				  if(title == ''){
@@ -206,18 +213,23 @@ function timeout() {
 						  title:title,
 						  contents:contents
 					  }, success : function(data) {
-						  list.call('sson',1)
+						  list.call('sson',1,save_num)
 					}
 				  })
-			}, 1000);
+			}, minute);
 		}
 	}
 	
 }
-
+	
+	function timeClear() {
+		timecheck = true;
+		clearTimeout(fnc);
+	}
+	
 $(function() {
 	
-	list.call('sson',1)
+	list.call('sson',1,save_num)
 	
 	$("#over").css("display","none")
 	$(".hideSet").css("display","none")
@@ -242,17 +254,22 @@ $(function() {
 		}
 	})
 	
-	$("#minute").change(function() {
-		if(this.value == 1){
-			minute = 1000*60;
-		}else if(this.value == 3){
-			minute = 1000*60*3;
-		}else if(this.value == 5){
-			minute = 1000*60*5;
-		}else if(this.value == 10){
-			minute = 1000*60*10;
-		}
-	})
+	 $("#minBtn").click(function() {
+			var minSet = $("#minute").val();
+			if(minSet == 1){
+				minute = 1000*60;
+				timeClear()
+			}else if(minSet == 3){
+				minute = 1000*60*3;
+				timeClear()
+			}else if(minSet == 5){
+				minute = 1000*60*5;
+				timeClear()
+			}else if(minSet == 10){
+				minute = 1000*60*10;
+				timeClear()
+			}
+		})
 	
 	$("#over").on("click",".list_x",function(){
 		var title = $(this).attr("title");
@@ -260,12 +277,22 @@ $(function() {
 
 			$.post("../tradeSave/saveDelete?save_num="+num)
 			$("#"+title).remove();
-			list.call('sson',1)
+			saveCount='insert';
+			url = "../tradeSave/tradeSaveInsert";
+			list.call('sson',1,save_num)
 	})
 	
 	$("#over").on("click",".page",function(){
 		var curPage = $(this).attr("title");
-		list.call('sson',curPage)
+		list.call('sson',curPage,save_num)
+	})
+	
+	$("#over").on("click",".viewLink",function(){
+		var getNum = this.title;
+		$.post("${pageContext.request.contextPath }/tradeSave/saveOne?save_num="+getNum,function(data){
+			$("#title").val(data.title)
+			CKEDITOR.instances.contents.setData(data.contents)
+		})
 	})
 	
 })
@@ -388,6 +415,7 @@ $(function(){
 														<option>10</option>
 													</select>
 												<span>분마다 자동 저장</span>
+												<input type="button" class="b" id="minBtn" value="확인">
 											</div>
 										</div>
 									</div>
@@ -399,7 +427,7 @@ $(function(){
 					
 							<div id="tempBox">
 								<div class="listCall" style="float: right;">
-									<a href="javascript:void(0)">임시 저장된 목록</a>
+									<a href="javascript:void(0)">임시 저장된 글<span></span></a>
 								</div>
 							</div>
 					<div class="box" style="height: auto;">

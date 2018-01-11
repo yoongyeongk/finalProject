@@ -1,14 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <c:choose>
 	<c:when test="${!empty list }">
 	<ul>
 	 <c:forEach items="${list }" var="dto">
 			<li class="save_li" id="save_li${dto.save_num}">
-				<a class="viewLink">${dto.title }</a>
-					<span class="w_date">${dto.reg_date }</span>
-					<span class="list_x" title="save_li${dto.save_num}" id="${dto.save_num }">
+				<a class="viewLink" href="javascript:void(0)" title="${dto.save_num }">
+					<c:if test="${dto.save_num eq num_compare }">
+						<span style="color:sienna;">[현재글]</span>
+					</c:if>${dto.title }
+				</a>
+						<span class="w_date">${dto.reg_date }</span>
+						<span class="list_x" title="save_li${dto.save_num}" id="${dto.save_num }">
 						<img src="${pageContext.request.contextPath }/resources/images/tradeBoard/btn_close.gif">
 					</span>
 				</li>
@@ -36,3 +41,8 @@
 		</div>
 	</c:otherwise>
 </c:choose>
+<script>
+	function getCount() {
+		totalCount = ${count}
+	}
+</script>

@@ -234,7 +234,6 @@
 		margin-top:15px;
 		margin-bottom: 10px;
 		width: 360px;
-		background-color: orange;
 	}
 	.list ul{
 		padding: 5px 0px 5px 5px;
@@ -290,7 +289,6 @@
 		font-size: 12px;
 	}
 	.time_setBox{
-		background-color: gold;
 		width: 360px;
 		margin-top:10px;
 		margin: 0 auto;
