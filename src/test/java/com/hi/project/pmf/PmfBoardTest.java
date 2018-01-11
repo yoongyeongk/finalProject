@@ -44,7 +44,6 @@ public class PmfBoardTest extends AbstractTest {
 		System.out.println("admin_email:"+pmfBoardDTO.getAdmin_email());
 		System.out.println("admin_phone:"+pmfBoardDTO.getAdmin_phone());
 		System.out.println("duration_kind:"+pmfBoardDTO.getDuration_kind());
-		System.out.println("document:"+pmfBoardDTO.getPmfDocumentDTO().getContents());
 	}
 	
 	public void selectList() throws Exception {

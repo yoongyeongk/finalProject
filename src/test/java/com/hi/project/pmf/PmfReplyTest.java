@@ -11,6 +11,7 @@ import org.junit.Test;
 import com.hi.project.AbstractTest;
 import com.hi.project.pmfReply.PmfReplyDAO;
 import com.hi.project.pmfReply.PmfReplyDTO;
+import com.hi.project.util.ListData;
 
 public class PmfReplyTest extends AbstractTest {
 
@@ -47,7 +48,8 @@ public class PmfReplyTest extends AbstractTest {
 	}
 	
 	public void selectList() throws Exception {
-		List<PmfReplyDTO> ar = pmfReplyDAO.selectList(10);
+		ListData listData = new ListData();
+		List<PmfReplyDTO> ar = pmfReplyDAO.selectList(listData.makeRow());
 		for(PmfReplyDTO dto: ar) {
 			System.out.print(dto.getWriter()+" ");
 			System.out.println(dto.getContents());
