@@ -24,9 +24,6 @@
 	
 	
 	
-	<!-- 성윤 -->
-	<context:component-scan base-package="com.hi.project" />
-	<context:component-scan base-package="com.hi.users" />
-	<context:component-scan base-package="com.hi.task" />
+	
 	
 </beans>
