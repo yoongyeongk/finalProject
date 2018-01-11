@@ -18,10 +18,13 @@
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
-	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<beans:bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
+	
+	<beans:bean id="login" class="com.hi.interceptor.LoginInterceptor" />
 	
 	<interceptors>
 		<interceptor>
@@ -29,5 +32,10 @@
 			<beans:ref bean="login"/>
 		</interceptor>
 	</interceptors>
+	
+	<!-- 성윤 -->
+	<context:component-scan base-package="com.hi.project" />
+	<context:component-scan base-package="com.hi.users" />
+	<context:component-scan base-package="com.hi.task" />
 	
 </beans:beans>
