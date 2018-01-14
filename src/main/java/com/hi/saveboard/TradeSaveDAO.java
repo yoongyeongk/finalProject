@@ -58,4 +58,9 @@ public class TradeSaveDAO {
 		
 		return sqlSession.selectOne(NAMESPACE+"getCount", writer);
 	}
+	
+	public List<TradeSaveDTO> getList() throws Exception {
+		
+		return sqlSession.selectList(NAMESPACE+"getList");
+	}
 }

@@ -10,7 +10,10 @@
 		delete SAVE_BOARD where save_num=#{save_num}
 	</delete>
 
-
+	<select id="getList" resultType="tradeSaveDTO">
+		select * from SAVE_BOARD
+	</select>
+	
 	<select id="selectList" resultType="tradeSaveDTO" parameterType="java.util.Map">
 		select * from (select rowNum R,S.* from 
 		(select * from SAVE_BOARD where writer=#{writer} order by save_num desc) S) 

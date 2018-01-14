@@ -1,5 +1,6 @@
 package com.hi.saveboard;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -27,6 +28,21 @@ public class TradeSaveService {
 		
 		ModelAndView view = new ModelAndView();
 		
+		List<TradeSaveDTO> list = tradeSaveDAO.getList();
+		Calendar sysdate = Calendar.getInstance();
+		String [] date = null;
+		for (TradeSaveDTO tradeSaveDTO2 : list) {
+			date = tradeSaveDTO2.getReg_date().toString().split("-");
+			Calendar rd = Calendar.getInstance();
+			rd.set(Integer.parseInt(date[0]), Integer.parseInt(date[1])-1, Integer.parseInt(date[2]));
+			long time = sysdate.getTimeInMillis() - rd.getTimeInMillis();
+			long day = time / (24*60*60*1000);
+
+			if(day > 31){
+				tradeSaveDAO.delete(tradeSaveDTO2.getSave_num());
+			}
+		}
+		
 		view.addObject("count", totalCount);
 		view.addObject("list", ar);
 		view.addObject("pager", pager);
@@ -43,7 +59,7 @@ public class TradeSaveService {
 		int result = tradeSaveDAO.getNum();
 		int writers = 0;
 		writers = tradeSaveDAO.getWriters(tradeSaveDTO);
-
+		
 		if(writers < 50){
 			tradeSaveDTO.setSave_num(result);
 			tradeSaveDAO.insert(tradeSaveDTO);
