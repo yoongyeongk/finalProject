@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -94,10 +95,11 @@ public class PmfController {
 	
 	//글쓰기
 	@RequestMapping(value="pmfWrite", method=RequestMethod.POST)
-	public String insert(PmfBoardDTO pmfBoardDTO, RedirectAttributes rd){
+	public String insert(PmfBoardDTO pmfBoardDTO, String [] filename, String [] oriname, RedirectAttributes rd){
+	
 		int result = 0;
 		try {
-			result = pmfBoardService.insert(pmfBoardDTO);
+			result = pmfBoardService.insert(pmfBoardDTO, filename, oriname);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -167,10 +169,10 @@ public class PmfController {
 	
 	//delete
 	@RequestMapping(value="pmfDelete")
-	public String delete(int num, RedirectAttributes rd) {
+	public String delete(int num, RedirectAttributes rd, HttpSession session) {
 		int result = 0;
 		try {
-			result = pmfBoardService.delete(num);
+			result = pmfBoardService.delete(num, session);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

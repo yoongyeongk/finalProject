@@ -16,13 +16,6 @@
 <script type="text/javascript">
 $(function(){
 	
-	var file = {
-		filename: "",
-		oriname: ""
-	}
-	
-	var fileDTO = new Array();
-	
 	function fileUpload(files, drop_sec){
 		var formdata = new FormData();
 		
@@ -36,6 +29,7 @@ $(function(){
 		}
 	}
 	
+	var cnt = 0;
 	function sendFileToServer(formdata,status){
 		//파일 서버로 전송 및 저장
 		var jqxhr = $.ajax({
@@ -61,10 +55,11 @@ $(function(){
 			processData: false,
 			success: function(data){
 				//fileDTO 객체에 값 넣기
-				file.filename = data.filename;
-				file.oriname = data.oriname;
-				fileDTO.push(file);				//배열에 추가
-				alert(fileDTO);
+				cnt++;
+				$("#fileSec").append('<div id="file'+cnt+'"></div>');
+				$("#file"+cnt).append('<input type="hidden" name="filename" value="'+data.filename+'">');
+				$("#file"+cnt).append('<input type="hidden" name="oriname" value="'+data.oriname+'">');
+				
 				status.setProgress(100);		//상태 100으로 설정
 			}
 		});
@@ -85,6 +80,8 @@ $(function(){
 		this.size = $("<div class='filesize'></div>").appendTo(this.statusbar);
 		this.progressBar = $("<div class='progressBar'><div></div></div>").appendTo(this.statusbar);
 		this.abort = $("<div class='abort'>중지</div>").appendTo(this.statusbar);
+		this.delF = $('<span class="delfile">삭제</span>').appendTo(this.statusbar);
+		this.delF.hide();
 		
 		drop_sec.after(this.statusbar);
 		
@@ -109,6 +106,7 @@ $(function(){
 			this.progressBar.find('div').animate({ width: progressBarWidth }, 10).html(progress + "% ");
 			if(parseInt(progress) >= 100){
 				this.abort.hide();
+				this.delF.show();
 			}
 		}
 		
@@ -150,6 +148,12 @@ $(function(){
 		}
 	})
 	
+ 	//업로드한 파일 삭제하기
+	$(".delF").click(function(){
+		var delFile = $(this);
+		
+	});
+
 	//CKEditor
 	//name 각 DB 항목에 맞게 변경하기
 	CKEDITOR.replace( 'project_detail' );
@@ -238,7 +242,7 @@ $(function(){
 	
 		<!-- 게시판 내용 -->	
 		<section id="board_sec">
-		<form action="./pmfWrite" method="post" id="frm" enctype="multipart/form-data">
+		<form action="./pmfWrite" method="post" id="frm">
 			<input class="title form-control" name="title" type="text" placeholder="프로젝트 내용를 설명할 수 있는 제목을 등록해 주세요.">
 			<input type="button" value="임시저장" id="tempSave">
 			<input type="hidden" value="0" name="temp" id="temp_value">
@@ -290,23 +294,7 @@ $(function(){
 				<tr>
 					<td colspan="2">
 						<div id="dropzone">업로드할 파일을 드래그해 주세요.</div>
-						<!-- id="dropContainer"  -->
-						<input type="file" name="files" id="fileInput" multiple="multiple">
-						
-						<script type="text/javascript">
-						$(function(){
-							dropzone.ondragover = dropzone.ondragenter = function(evt) {
-								  evt.preventDefault();
-								};
-
-								dropzone.ondrop = function(evt) {
-								  // pretty simple -- but not for IE :(
-								  fileInput.files = evt.dataTransfer.files;
-								  evt.preventDefault();
-								};
-						});
-					</script>
-					
+						<div id="fileSec"></div>
 					</td>
 				</tr>
 				<tr>

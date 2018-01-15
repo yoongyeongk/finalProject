@@ -163,6 +163,7 @@
 				success: function(data){
 					$("#reply_sec").append(data);
 					$(".reply_add").attr("title",curPage);
+					
 				}
 			});
 		});

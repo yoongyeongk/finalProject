@@ -4,5 +4,16 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="pmfFileMapper">
   	
+  	<insert id="insert" parameterType="FileDTO">
+  		insert into pmf_files values(pmf_files_seq.nextval, #{num}, #{filename}, #{oriname})
+  	</insert>
+  	
+  	<delete id="delete" parameterType="int">
+  		delete pmf_files where fnum=#{fnum}
+  	</delete>
+  	
+  	<delete id="deleteAll" parameterType="int">
+  		delete pmf_files where num=#{num}
+  	</delete>
   	
   </mapper>

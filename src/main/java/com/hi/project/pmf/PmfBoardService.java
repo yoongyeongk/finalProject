@@ -1,14 +1,17 @@
 package com.hi.project.pmf;
 
+import java.io.File;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hi.file.FileDTO;
+import com.hi.project.pmfFile.PmfFileDAO;
 import com.hi.project.pmfReply.PmfReplyDAO;
 import com.hi.project.util.ListData;
 import com.hi.project.util.Pager;
@@ -20,6 +23,8 @@ public class PmfBoardService {
 	private PmfBoardDAO boardDAO;
 	@Inject
 	private PmfReplyDAO pmfReplyDAO;
+	@Inject
+	private PmfFileDAO pmfFileDAO;
 	
 	//list
 	public ModelAndView selectList(ListData listData) throws Exception {
@@ -59,11 +64,17 @@ public class PmfBoardService {
 	
 	//write 2 - insert
 	@Transactional
-	public int insert(PmfBoardDTO pmfBoardDTO) throws Exception {
+	public int insert(PmfBoardDTO pmfBoardDTO, String [] filename, String [] oriname) throws Exception {
 		int result = boardDAO.insert(pmfBoardDTO);
 		
-		//file insert
-		
+		//fileDTO 생성 및 저장
+		FileDTO fileDTO = new FileDTO();
+		for(int i=0; i<filename.length; i++){
+			fileDTO.setNum(pmfBoardDTO.getNum());
+			fileDTO.setFilename(filename[i]);
+			fileDTO.setOriname(oriname[i]);
+			pmfFileDAO.insert(fileDTO);
+		}
 		
 		return result;
 	}
@@ -96,11 +107,20 @@ public class PmfBoardService {
 	
 	//delete
 	@Transactional
-	public int delete(int num) throws Exception {
-		int result = boardDAO.delete(num);
-		//파일 삭제
+	public int delete(int num, HttpSession session) throws Exception {
+		PmfBoardDTO pmfBoardDTO = boardDAO.selectOne(num);
 		
-		//댓글 삭제
+		for(FileDTO fileDTO: pmfBoardDTO.getFileDTO()){
+			String path = session.getServletContext().getRealPath("resources/pmf_file");
+			String fileName = fileDTO.getFilename();
+			File file = new File(path, fileName);
+			if(file.exists()){
+				file.delete();
+			}
+		}
+		
+		int result = boardDAO.delete(num);
+		pmfFileDAO.deleteAll(num);
 		pmfReplyDAO.delete(num);
 		
 		return result;

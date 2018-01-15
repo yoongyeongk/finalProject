@@ -23,7 +23,6 @@ public class PmfBoardDTO {
 	private Date start_date;
 	private Date end_date;
 	private String project_detail;
-	private MultipartFile [] files;
 	private FileDTO [] fileDTO;		//view page file
 	private String works;
 	
@@ -151,14 +150,6 @@ public class PmfBoardDTO {
 	}
 
 	///////////////////////////////////////////////////////////
-	public MultipartFile[] getFiles() {
-		return files;
-	}
-	
-	public void setFiles(MultipartFile[] files) {
-		this.files = files;
-	}
-	
 	public FileDTO[] getFileDTO() {
 		return fileDTO;
 	}

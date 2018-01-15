@@ -5,10 +5,12 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
 
 import com.hi.file.FileDAO;
 import com.hi.file.FileDTO;
 
+@Repository
 public class PmfFileDAO implements FileDAO{
 	
 	@Inject
@@ -29,8 +31,7 @@ public class PmfFileDAO implements FileDAO{
 
 	@Override
 	public int insert(FileDTO fileDTO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.insert(NAMESPACE+"insert", fileDTO);
 	}
 
 	@Override
@@ -41,12 +42,11 @@ public class PmfFileDAO implements FileDAO{
 
 	@Override
 	public int delete(int fnum) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.delete(NAMESPACE+"delete", fnum);
 	}
 
 	//deleteAll
 	public int deleteAll(int num) throws Exception {
-		return 0;
+		return sqlSession.delete(NAMESPACE+"deleteAll", num);
 	}
 }
