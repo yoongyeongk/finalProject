@@ -1,5 +1,6 @@
 package com.hi.trade;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import com.hi.boardFile.FileDAO;
 import com.hi.boardFile.FileDTO;
 import com.hi.boardFile.FileSaver;
 import com.hi.boardFile.FileService;
+import com.hi.boardFile.TradeBoardFileService;
 import com.hi.tag.TagDTO;
 import com.hi.tag.TagService;
 import com.hi.util.ListData;
@@ -26,13 +28,13 @@ public class TradeBoardService {
 	@Inject
 	TradeBoardDAO tradeBoardDAO;
 	@Inject
-	FileService fileService;
+	TradeBoardFileService tradeBoardFileService;
 	@Inject 
 	TagService tagService;
 	
 	public int insert(TradeBoardDTO tradeBoardDTO,HttpSession session) throws Exception {
 			tradeBoardDTO.setNum(tradeBoardDAO.getNum());
-			tradeBoardDTO.setFileNames(fileService.insert(tradeBoardDTO, session));
+			tradeBoardDTO.setFileNames(tradeBoardFileService.insert(tradeBoardDTO, session));
 			tagService.insert(tradeBoardDTO);
 		return tradeBoardDAO.insert(tradeBoardDTO);
 	}
@@ -42,7 +44,8 @@ public class TradeBoardService {
 			int totalCount = 0;
 			Pager pager = null;
 			List<TradeBoardDTO> ar = null;
-			
+			String [] date = null;
+			Calendar sysdate = Calendar.getInstance();
 			
 				if(listData.getSearch() != "" && listData.getSearch().charAt(0) == '#'){
 					listData.setSearch(listData.getSearch().substring(1));
@@ -52,7 +55,6 @@ public class TradeBoardService {
 					pager = listData.makePage(totalCount);
 					ar = tradeBoardDAO.selectTagSearch(rowNum);
 					String s = "#"+pager.getSearch();
-					
 				}
 				else{
 					RowNum rowNum = listData.makeRow();
@@ -60,11 +62,15 @@ public class TradeBoardService {
 					pager = listData.makePage(totalCount);
 					ar = tradeBoardDAO.selectList(rowNum);
 				}
-
 			List<TagDTO> tag = tradeBoardDAO.getTag();
-			if(ar.size() == 0){
-				pager.setLastNum(1);
+			
+			for (TradeBoardDTO tradeBoardDTO : ar) {
+				date = tradeBoardDTO.getClosing_date().toString().split("-");
+				Calendar c_d = Calendar.getInstance();
+				pa
+				c_d.set(year, month, date);
 			}
+			
 			view.addObject("list", ar);
 			view.addObject("tags", tag);
 			view.addObject("pager", pager);

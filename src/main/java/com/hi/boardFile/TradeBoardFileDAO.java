@@ -6,13 +6,13 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class FileDAO {
+public class TradeBoardFileDAO {
 
 	@Inject
 	SqlSession sqlSession;
 	private static String NAMESPACE = "fileMapper.";
 	
-	public int insert (FileDTO fileDTO) throws Exception {
+	public int insert (TradeBoardFileDTO fileDTO) throws Exception {
 		
 		return sqlSession.insert(NAMESPACE+"insert",fileDTO);
 	}

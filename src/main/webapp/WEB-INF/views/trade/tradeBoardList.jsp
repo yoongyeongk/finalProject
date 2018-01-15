@@ -135,7 +135,7 @@ $(function() {
 											</div>
 										</div>
 									</th>
-									<td class="title t"> <div class="loc"><a href="./tradeBoardView?num=${dto.num }" on>${dto.title }</a>
+									<td class="title t"> <div class="loc"><a href="./tradeBoardView?num=${dto.num }">${dto.title }</a>
 										<div class="line"> 
 											
 												<c:forEach items="${tags }" var="t" varStatus="i">
@@ -168,7 +168,7 @@ $(function() {
 									<td class="ct date">
 										<div class="loc">
 											  <div>~</div>
-											<fmt:formatDate dateStyle="long"  value="${dto.closing_date }"/>
+											<fmt:formatDate dateStyle="long"  value="${dto.closing_date}"/>
 										</div>
 									</td>
 								</tr>

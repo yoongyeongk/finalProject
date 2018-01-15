@@ -6,14 +6,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.hi.boardFile.FileService;
+import com.hi.boardFile.TradeBoardFileService;
 
 @Controller
 @RequestMapping(value="/file/*")
 public class FileController {
 
 	@Inject
-	FileService fileService;
+	TradeBoardFileService fileService;
 	
 	
 	@RequestMapping(value="fileDelete")

@@ -1,6 +1,6 @@
 package com.hi.boardFile;
 
-public class FileDTO {
+public class TradeBoardFileDTO {
 
 	private int fnum;
 	private int num;

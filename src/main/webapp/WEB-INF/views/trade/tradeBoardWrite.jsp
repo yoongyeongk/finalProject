@@ -258,17 +258,15 @@ $(function() {
 			var minSet = $("#minute").val();
 			if(minSet == 1){
 				minute = 1000*60;
-				timeClear()
 			}else if(minSet == 3){
 				minute = 1000*60*3;
-				timeClear()
 			}else if(minSet == 5){
 				minute = 1000*60*5;
-				timeClear()
 			}else if(minSet == 10){
 				minute = 1000*60*10;
-				timeClear()
 			}
+			timeClear();
+			alert("설정됐습니다")
 		})
 	
 	$("#over").on("click",".list_x",function(){

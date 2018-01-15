@@ -12,19 +12,19 @@ import org.springframework.web.multipart.MultipartFile;
 import com.hi.trade.TradeBoardDTO;
 
 @Service
-public class FileService {
+public class TradeBoardFileService {
 
 	@Inject
-	FileDAO fileDAO;
+	TradeBoardFileDAO fileDAO;
 	@Inject
 	FileSaver fileSaver;
 	
-	public List<FileDTO> insert (TradeBoardDTO tradeBoardDTO,HttpSession session) throws Exception {
-		List<FileDTO> files = new ArrayList<FileDTO>();
-		FileDTO fileDTO = null;
+	public List<TradeBoardFileDTO> insert (TradeBoardDTO tradeBoardDTO,HttpSession session) throws Exception {
+		List<TradeBoardFileDTO> files = new ArrayList<TradeBoardFileDTO>();
+		TradeBoardFileDTO fileDTO = null;
 		for (MultipartFile file : tradeBoardDTO.getImg()) {
 			if(file.getOriginalFilename() != ""){
-				fileDTO = new FileDTO();
+				fileDTO = new TradeBoardFileDTO();
 				fileDTO.setNum(tradeBoardDTO.getNum());
 				fileDTO.setFileName(fileSaver.transperSave(file, session, "upload"));
 				fileDTO.setOriName(file.getOriginalFilename());
