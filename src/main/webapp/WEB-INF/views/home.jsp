@@ -118,6 +118,6 @@
 <P>  The time on the server is ${serverTime}. </P>
 
 <a href="pmf/pmfList">find member</a>
-
+<a href="schedule/mainSchedule">your schedule</a>
 </body>
 </html>
