@@ -1,12 +1,17 @@
 package com.hi.project;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hi.users.UsersDTO;
 import com.hi.users.UsersService;
@@ -61,5 +66,14 @@ public class UsersController {
 		session.invalidate();
 		return "redirect:/users/login";
 	}
-
+//서연 추가 
+	@RequestMapping(value="usersNickCheck",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> nicknameCheck(HttpServletRequest request)throws Exception{
+	    String nickname = request.getParameter("nickname");
+	    String result =usersService.nicknameCheck(nickname);
+	    Map<String, Object> map = new HashMap<String, Object>();
+	    map.put("result", result);
+		return map;
+	}
 }

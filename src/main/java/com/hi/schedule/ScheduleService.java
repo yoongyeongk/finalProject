@@ -61,7 +61,7 @@ public class ScheduleService {
 			scheduleDTO.setStartday(request.getParameter("startday"));
 			scheduleDTO.setUsername(request.getParameter("username"));
 			String ah = scheduleDTO.getStartday();
-			System.out.println(ah);
+/*			System.out.println(ah);*/
 			
 			try {
 				List<ScheduleDTO> ar = scheduleDAO.jsonScheduleDayList(scheduleDTO);

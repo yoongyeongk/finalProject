@@ -128,7 +128,7 @@ $(document).ready(function() {
 				dataType : "json",
 				data: {
 					//나중에 멤버로 받아오기 
-					username: '${users.username}'
+					username: '${user.username}'
 					},
 				error: function(xhr,status,error){
 					alert(error);
@@ -155,7 +155,7 @@ $(document).ready(function() {
 				startday: day,
 				lastday : day,
 				//나중에 멤버로 받아오기 
-				username: '${users.username}',
+				username: '${user.username}',
 				type: 'list'
 			},
 			success: function(data){
@@ -303,8 +303,8 @@ border-color: rgb(22,160,133);
 
 	<form class="event_form" action="../schedule/ScheduleWrite" method="post">
 					<!-- 	//나중에 멤버로 받아오기  --> 
-			<input type="hidden" name="username" value="${users.username}">	
-		 			<input type="hidden" id="mynick" name="mynick" value="${users.nickname}">
+			<input type="hidden" name="username" value="${user.username}">	
+		 			<input type="hidden" id="mynick" name="mynick" value="${user.nickname}">
 				<table class="addT">
 							<tr>
 								<td class="label2">기한 설정</td></tr>

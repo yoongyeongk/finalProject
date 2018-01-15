@@ -35,5 +35,10 @@ public class UsersDAO {
 	public int insert(ProfileImgDTO imgDTO) {
 		return sqlSession.insert(NAMESPACE + "insertImg", imgDTO);
 	}
+	//서연 추가 
+	public String nicknameCheck(String nickname){
+		System.out.println("DAO ID : "+nickname);
+		return sqlSession.selectOne(NAMESPACE+"nicknameCheck", nickname);
+	}
 
 }
