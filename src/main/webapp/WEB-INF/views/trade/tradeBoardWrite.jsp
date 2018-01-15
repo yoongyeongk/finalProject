@@ -68,7 +68,7 @@
 		$("#tagBox").on("click",".upDel",function(){
 			if(confirm("기존 태그를 삭제하시겠습니까? 게시글에서도 삭제됩니다") == true){
 				var num = parseInt(this.id);
-				$.post("../tag/tagDelete?num="+num)
+				$.post("../tradeTag/tagDelete?num="+num)
 					var id = $(this).attr("title")
 					$("#"+id).remove();
 			}

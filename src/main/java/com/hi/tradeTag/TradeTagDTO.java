@@ -1,6 +1,6 @@
-package com.hi.tag;
+package com.hi.tradeTag;
 
-public class TagDTO {
+public class TradeTagDTO {
 
 	private int tag_num;
 	private int num;

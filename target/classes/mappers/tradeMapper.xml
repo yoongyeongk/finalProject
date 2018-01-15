@@ -51,7 +51,7 @@
   		 where R between #{startRow} and #{lastRow}
   	</select>
   
-  	<select id="selectListTag" resultType="tagDTO">
+  	<select id="selectListTag" resultType="tradeTagDTO">
   		select * from TAGS order by tag_num asc
   	</select>
   
@@ -59,7 +59,7 @@
   		select T.* from TRADE_BOARD T where num=#{num}
   	</select>
   	
-  	<select id="selectTag" parameterType="Integer" resultType="tagDTO">
+  	<select id="selectTag" parameterType="Integer" resultType="tradeTagDTO">
   		select * from TAGS where num=#{num} order by tag_num asc
   	</select>
   	
@@ -82,7 +82,7 @@
   	
   	<resultMap type="tradeBoardDTO" id="tradeBoardResult">
   		<id property="num" column="num"/>
-  		<collection property="tags" column="num" ofType="tagDTO" select="selectTag">
+  		<collection property="tags" column="num" ofType="tradeTagDTO" select="selectTag">
   		</collection>
   		<collection property="fileNames"  column="num" ofType="tradeBoardFileDTO" select="selectFile">
   		</collection>

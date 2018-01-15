@@ -6,24 +6,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.hi.tag.TagService;
+import com.hi.tradeTag.TradeTagService;
 
 @Controller
-@RequestMapping(value="/tag/*")
-public class TagController {
+@RequestMapping(value="/tradeTag/*")
+public class TradeTagController {
 
 	@Inject
-	TagService tagService;
+	TradeTagService tradeTagService;
 	
 	@RequestMapping(value="tagDelete")
 	public String deleteOne (int num,Model model){
 		
 		try {
-			 model.addAttribute("data", tagService.deleteOne(num));
+			 model.addAttribute("data", tradeTagService.deleteOne(num));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "common/ajax	";
+		return "common/ajax";
 	}
 }

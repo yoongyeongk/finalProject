@@ -1,4 +1,4 @@
-package com.hi.tag;
+package com.hi.tradeTag;
 
 import javax.inject.Inject;
 
@@ -8,13 +8,13 @@ import org.springframework.stereotype.Repository;
 import com.hi.trade.TradeBoardDTO;
 
 @Repository
-public class TagDAO {
+public class TradeTagDAO {
 
 	@Inject
 	SqlSession sqlSession;
-	private static String NAMESPACE  = "tagMapper.";
+	private static String NAMESPACE  = "tradeTagMapper.";
 	
-	public int insert (TagDTO tagDTO) throws Exception {
+	public int insert (TradeTagDTO tagDTO) throws Exception {
 		
 		return sqlSession.insert(NAMESPACE+"insert", tagDTO);
 	}

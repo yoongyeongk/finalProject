@@ -1,4 +1,4 @@
-package com.hi.tag;
+package com.hi.tradeTag;
 
 import javax.inject.Inject;
 
@@ -7,25 +7,25 @@ import org.springframework.stereotype.Service;
 import com.hi.trade.TradeBoardDTO;
 
 @Service
-public class TagService {
+public class TradeTagService {
 
 	@Inject
-	TagDAO tagDAO;
+	TradeTagDAO tradeTagDAO;
 	
 	public int insert (TradeBoardDTO tradeBoardDTO) throws Exception {
 			int result = 0;
-			TagDTO tagDTO = null;
+			TradeTagDTO tagDTO = null;
 			String kind = "board";
 			
 			if(tradeBoardDTO.getTag() != null){
-				tagDTO = new TagDTO();
+				tagDTO = new TradeTagDTO();
 				
 				for (String t : tradeBoardDTO.getTag()) {
 					tagDTO.setKind(kind);
 					tagDTO.setNum(tradeBoardDTO.getNum());
 					tagDTO.setTag(t);
 					
-					result = tagDAO.insert(tagDTO);
+					result = tradeTagDAO.insert(tagDTO);
 				}
 			}
 		return result;
@@ -33,13 +33,13 @@ public class TagService {
 	
 	public int deleteOne (int num) throws Exception {
 		int result = 0;
-		result = tagDAO.deleteOne(num);
+		result = tradeTagDAO.deleteOne(num);
 		return result;
 	}
 	
 	
 	public int deleteAll(int num) throws Exception {
-		return tagDAO.deleteAll(num);
+		return tradeTagDAO.deleteAll(num);
 	}
 
 }

@@ -13,8 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.hi.boardFile.FileSaver;
 import com.hi.boardFile.TradeBoardFileService;
-import com.hi.tag.TagDTO;
-import com.hi.tag.TagService;
+import com.hi.tradeTag.TradeTagDTO;
+import com.hi.tradeTag.TradeTagService;
 import com.hi.util.ListData;
 import com.hi.util.Pager;
 import com.hi.util.RowNum;
@@ -27,7 +27,7 @@ public class TradeBoardService {
 	@Inject
 	TradeBoardFileService tradeBoardFileService;
 	@Inject 
-	TagService tagService;
+	TradeTagService tagService;
 	
 	public int insert(TradeBoardDTO tradeBoardDTO,HttpSession session) throws Exception {
 			tradeBoardDTO.setNum(tradeBoardDAO.getNum());
@@ -59,7 +59,7 @@ public class TradeBoardService {
 					pager = listData.makePage(totalCount);
 					ar = tradeBoardDAO.selectList(rowNum);
 				}
-			List<TagDTO> tag = tradeBoardDAO.getTag();
+			List<TradeTagDTO> tag = tradeBoardDAO.getTag();
 			
 			for (TradeBoardDTO tradeBoardDTO : ar) {
 				date = tradeBoardDTO.getClosing_date().toString().split("-");

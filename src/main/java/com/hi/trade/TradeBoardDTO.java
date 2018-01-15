@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.hi.boardFile.TradeBoardFileDTO;
-import com.hi.tag.TagDTO;
+import com.hi.tradeTag.TradeTagDTO;
 
 public class TradeBoardDTO {
 
@@ -20,7 +20,7 @@ public class TradeBoardDTO {
 	private String corporate_phone;
 	private int min_price;
 	private String [] tag;
-	private List<TagDTO> tags;
+	private List<TradeTagDTO> tags;
 	private MultipartFile [] img;
 	private List<TradeBoardFileDTO> fileNames;
 	private String corporation; 
@@ -33,10 +33,10 @@ public class TradeBoardDTO {
 	public void setCorporation(String corporation) {
 		this.corporation = corporation;
 	}
-	public List<TagDTO> getTags() {
+	public List<TradeTagDTO> getTags() {
 		return tags;
 	}
-	public void setTags(List<TagDTO> tags) {
+	public void setTags(List<TradeTagDTO> tags) {
 		this.tags = tags;
 	}
 	public List<TradeBoardFileDTO> getFileNames() {

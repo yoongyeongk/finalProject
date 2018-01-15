@@ -13,8 +13,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.hi.tag.TagDTO;
 import com.hi.util.RowNum;
+import com.hi.tradeTag.TradeTagDTO;
 import com.hi.util.DBConnector;
 
 @Repository
@@ -55,7 +55,7 @@ public class TradeBoardDAO {
 		return sqlSession.selectOne(NAMESPACE+"getNum");
 	}
 
-	public List<TagDTO> getTag () throws Exception {
+	public List<TradeTagDTO> getTag () throws Exception {
 		
 		return sqlSession.selectList(NAMESPACE+"selectListTag");
 	}

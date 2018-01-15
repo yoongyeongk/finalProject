@@ -3,8 +3,8 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-  <mapper namespace="tagMapper">
-  	<insert id="insert" parameterType="tagDTO">
+  <mapper namespace="tradeTagMapper">
+  	<insert id="insert" parameterType="tradeTagDTO">
   		insert into TAGS values(tag_seq.nextval, #{num},#{tag},#{kind})
   	</insert>
   	
