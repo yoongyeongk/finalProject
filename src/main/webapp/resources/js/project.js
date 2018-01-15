@@ -1,6 +1,9 @@
 $(function() {
 	list();
 	create();
+	$(".page-contents").on("click", ".fa-cog", function() {
+		alert("sidebar");
+	});
 });
 
 function list() {
@@ -101,12 +104,26 @@ function create() {
 	$("#create-project").click(function() {
 		var param = $("#frm").serialize();
 		$.ajax({
-			type : "POST",
+			type : 'post',
 			url : "project/create",
 			data : param,
 			dataType : 'json',
 			success : function(data) {
 			}
 		});
+	});
+}
+
+function update() {
+	$.ajax({
+		type : 'post',
+		url : "project/update",
+		data : {
+			
+		},
+		dataType : 'json',
+		success : function(data) {
+			
+		}
 	});
 }

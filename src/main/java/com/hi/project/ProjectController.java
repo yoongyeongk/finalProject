@@ -3,6 +3,7 @@ package com.hi.project;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,20 +22,15 @@ public class ProjectController {
 
 	@RequestMapping(value = "list")
 	@ResponseBody
-	public List<ProjectDTO> list(Model model) {
-		List<ProjectDTO> list = projectService.list();
+	public List<ProjectDTO> list(Model model, HttpSession session) {
+		List<ProjectDTO> list = projectService.list(session);
 		return list;
 	}
 	
 	@RequestMapping(value = "create")
 	@ResponseBody
-	public int create(ProjectDTO projectDTO) {
-		return projectService.create(projectDTO);
-	}
-
-	@RequestMapping(value = "task")
-	public void view() {
-		
+	public int create(ProjectDTO projectDTO, HttpSession session) {
+		return projectService.create(projectDTO, session);
 	}
 
 	@RequestMapping(value = "update")
@@ -42,9 +38,14 @@ public class ProjectController {
 
 	}
 
+
 	@RequestMapping(value = "delete")
 	public void delete() {
 
 	}
 
+	@RequestMapping(value = "task")
+	public void view() {
+
+	}
 }

@@ -23,54 +23,42 @@
 		<!-- contents -->
 		<div class="dashboard">
 			<div class="page-header">
-				<button class="new-project btn btn-default" data-toggle="modal"
-					data-target=".project">새 프로젝트</button>
-				<input class="searchbar form-control" type="text"
-					placeholder="Search">
+				<button class="new-project btn btn-default" data-toggle="modal" data-target=".project">새 프로젝트</button>
+				<input class="searchbar form-control" type="text" placeholder="Search">
 			</div>
 			
 			<div class="page-contents">
-				<div class="project-box">
-					<div class="project-header">
-						<c:choose>
-							<c:when test="${list.privacy eq 'private'}">
-								<i class="fas fa-lock"></i>
-								<!-- <span class="glyphicon glyphicon-lock"></span> -->
-							</c:when>
-							<c:otherwise>
-								<i class="fas fa-globe"></i>
-								<!-- <span class="glyphicon glyphicon-globe"></span> -->
-							</c:otherwise>
-						</c:choose>
-						<span>프로젝트명</span>
-						<!-- <span class="glyphicon glyphicon-cogwheel"></span> -->
-					</div>
-					<div class="project-side">
-						<c:choose>
-							<c:when test="${list.star eq 0}">
-								<i class="far fa-star"></i>
-								<!-- <span class="glyphicon glyphicon-star-empty"></span> -->
-							</c:when>
-							<c:otherwise>
-								<i class="fas fa-star"></i>
-								<!-- <span class="glyphicon glyphicon-star"></span> -->
-							</c:otherwise>
-						</c:choose>
-						<i class="fas fa-cog"></i>
-					</div>
-					<div class="project-footer">
-						<select class="status" name="status">
-							<option value="">상태 없음</option>
-							<option value="계획됨">계획됨</option>
-							<option value="진행중">진행중</option>
-							<option value="완료됨">완료됨</option>
-							<option value="보류">보류</option>
-							<option value="취소">취소</option>
-						</select>
-					</div>
-				</div>
 			</div>
 
+			<!-- sidebar -->
+			<div class="project-properties">
+				<div class="project-properties-header">
+					<i class="far fa-star"></i>
+					<input class="form-control" type="text">
+				</div>
+					
+				<div class="project-properties-pane">
+					<label for="status" class="control-label">프로젝트 상태</label>
+					<select class="status" name="status">
+						<option value="">상태 없음</option>
+						<option value="">계획됨</option>
+						<option value="">진행중</option>
+						<option value="">계획됨</option>
+						<option value="">완료됨</option>
+						<option value="">보류</option>
+						<option value="">취소</option>
+					</select>
+					<label>시작일</label>
+					<input name="start-date" class="form-control" type="date"> 
+					<label>마감일</label>
+					<input name="close-date" class="form-control" type="date">
+					<label>프로젝트 관리자</label>
+					<label>공개 프로젝트</label>					
+				</div>
+			</div>
+			<!-- /sidebar -->
+
+			<!-- modal -->
 			<div class="modal fade project" role="dialog">
 				<div class="modal-dialog">
 					<div class="modal-content">
@@ -81,18 +69,17 @@
 						<form id="frm">
 							<div class="modal-body">
 								<div>
-									<label for="title" class="control-label">제목</label> <input
-										class="form-control" type="text" name="title"
-										placeholder="프로젝트 제목을 입력하세요.">
+									<label for="title" class="control-label">제목</label>
+									<input class="form-control" type="text" name="title" placeholder="프로젝트 제목을 입력하세요.">
 								</div>
 
 								<div>
-									<label for="privacy" class="control-label">공개</label> <input
-										type="radio" class="privacy" name="privacy" value="public" checked="checked">
-									<label for="privacy" class="control-label">비공개</label> <input
-										type="radio" class="privacy" name="privacy" value="private">
-									<input type="hidden" name="status"> <input
-										type="hidden" name="manager" value="${user.nickname}">
+									<label for="privacy" class="control-label">공개</label>
+									<input type="radio" class="privacy" name="privacy" value="public" checked="checked">
+									<label for="privacy" class="control-label">비공개</label>
+									<input type="radio" class="privacy" name="privacy" value="private">
+									<input type="hidden" name="status">
+									<input type="hidden" name="manager" value="${user.nickname}">
 								</div>
 
 								<div>
@@ -107,12 +94,12 @@
 						</form>
 
 					</div>
-
 				</div>
 			</div>
+			<!-- /modal -->
 		</div>
 		<!-- /contents -->
 	</div>
-
+	<a href="pmf/pmfList">find member</a>
 </body>
 </html>
