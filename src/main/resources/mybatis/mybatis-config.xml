@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
@@ -10,5 +11,12 @@
 		<typeAlias type="com.hi.checklist.ChecklistDTO" alias="ChecklistDTO" />
 		<typeAlias type="com.hi.comment.CommentDTO" alias="CommentDTO" />
 		<typeAlias type="com.hi.file.FileDTO" alias="FileDTO" />
-	</typeAliases>
-</configuration>
+
+  	  	<typeAlias type="com.hi.project.pmf.PmfBoardDTO" alias="PmfBoardDTO"/>
+  	  	<typeAlias type="com.hi.project.pmfReply.PmfReplyDTO" alias="PmfReplyDTO"/>
+  	  	<typeAlias type="com.hi.project.pmfScrap.PmfScrapDTO" alias="PmfScrapDTO"/>
+  	  	<typeAlias type="com.hi.boardFile.FileDTO" alias="FileDTO"/>
+  	  	<typeAlias type="com.hi.project.util.RowNum" alias="RowNum"/>
+  	</typeAliases>
+  </configuration>
+

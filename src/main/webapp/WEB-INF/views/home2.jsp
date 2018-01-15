@@ -114,5 +114,9 @@
 		<!-- /contents -->
 	</div>
 
+<P>  The time on the server is ${serverTime}. </P>
+
+<a href="pmf/pmfList">find member</a>
+
 </body>
 </html>
