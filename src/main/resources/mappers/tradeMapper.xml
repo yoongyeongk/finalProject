@@ -63,7 +63,7 @@
   		select * from TAGS where num=#{num} order by tag_num asc
   	</select>
   	
-  	<select id="selectFile" parameterType="Integer" resultType="fileDTO">
+  	<select id="selectFile" parameterType="Integer" resultType="tradeBoardFileDTO">
   		select * from BOARDFILE where num=#{num} order by fnum asc
   	</select>
   	
@@ -84,7 +84,7 @@
   		<id property="num" column="num"/>
   		<collection property="tags" column="num" ofType="tagDTO" select="selectTag">
   		</collection>
-  		<collection property="fileNames"  column="num" ofType="fileDTO" select="selectFile">
+  		<collection property="fileNames"  column="num" ofType="tradeBoardFileDTO" select="selectFile">
   		</collection>
   	</resultMap>
   	

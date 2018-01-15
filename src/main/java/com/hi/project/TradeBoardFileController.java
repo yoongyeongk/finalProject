@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.hi.boardFile.TradeBoardFileService;
 
 @Controller
-@RequestMapping(value="/file/*")
-public class FileController {
+@RequestMapping(value="/tradeBoardFile/*")
+public class TradeBoardFileController {
 
 	@Inject
-	TradeBoardFileService fileService;
+	TradeBoardFileService tradeBoardFileService;
 	
 	
 	@RequestMapping(value="fileDelete")
 	public String deleteOne (int num,Model model) {
 		try {
-			model.addAttribute("data", fileService.deleteOne(num));
+			model.addAttribute("data", tradeBoardFileService.deleteOne(num));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -312,7 +312,7 @@ $(function(){
 	$("#fileBox").on("click",".upImgDel",function(){
 		if(confirm("기존 이미지를 삭제하시겠습니까? 게시글에서도 삭제됩니다") == true){
 			var fnum = this.id
-			$.post("../file/fileDelete?num="+fnum);
+			$.post("../tradeBoardFile/fileDelete?num="+fnum);
 			var id = $(this).attr("title");
 			$("#"+id).remove();
 		}

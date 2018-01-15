@@ -11,10 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.hi.boardFile.FileDAO;
-import com.hi.boardFile.FileDTO;
 import com.hi.boardFile.FileSaver;
-import com.hi.boardFile.FileService;
 import com.hi.boardFile.TradeBoardFileService;
 import com.hi.tag.TagDTO;
 import com.hi.tag.TagService;
@@ -67,8 +64,7 @@ public class TradeBoardService {
 			for (TradeBoardDTO tradeBoardDTO : ar) {
 				date = tradeBoardDTO.getClosing_date().toString().split("-");
 				Calendar c_d = Calendar.getInstance();
-				pa
-				c_d.set(year, month, date);
+				c_d.set(Integer.parseInt(date[0]),Integer.parseInt(date[1]), Integer.parseInt(date[2]));
 			}
 			
 			view.addObject("list", ar);
@@ -87,7 +83,7 @@ public class TradeBoardService {
 	public int update (TradeBoardDTO tradeBoardDTO,HttpSession session) throws Exception {
 		System.out.println(tradeBoardDTO.getImg());
 			
-				tradeBoardDTO.setFileNames(fileService.insert(tradeBoardDTO, session));
+				tradeBoardDTO.setFileNames(tradeBoardFileService.insert(tradeBoardDTO, session));
 				tagService.insert(tradeBoardDTO);
 			
 		return tradeBoardDAO.update(tradeBoardDTO);
@@ -95,7 +91,7 @@ public class TradeBoardService {
 	
 	public int deleteAll(int num) throws Exception {
 		int result = 0;
-		result = fileService.deleteAll(num);
+		result = tradeBoardFileService.deleteAll(num);
 		if(result > 0){
 			tagService.deleteAll(num);
 		}

@@ -10,7 +10,7 @@ public class TradeBoardFileDAO {
 
 	@Inject
 	SqlSession sqlSession;
-	private static String NAMESPACE = "fileMapper.";
+	private static String NAMESPACE = "tradeBoardFileMapper.";
 	
 	public int insert (TradeBoardFileDTO fileDTO) throws Exception {
 		

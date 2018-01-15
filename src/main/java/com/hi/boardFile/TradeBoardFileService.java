@@ -15,7 +15,7 @@ import com.hi.trade.TradeBoardDTO;
 public class TradeBoardFileService {
 
 	@Inject
-	TradeBoardFileDAO fileDAO;
+	TradeBoardFileDAO tradeBoardFileDAO;
 	@Inject
 	FileSaver fileSaver;
 	
@@ -29,7 +29,7 @@ public class TradeBoardFileService {
 				fileDTO.setFileName(fileSaver.transperSave(file, session, "upload"));
 				fileDTO.setOriName(file.getOriginalFilename());
 				files.add(fileDTO);
-				fileDAO.insert(fileDTO);
+				tradeBoardFileDAO.insert(fileDTO);
 			}
 		}
 	return files;
@@ -37,11 +37,11 @@ public class TradeBoardFileService {
 	
 	public int deleteOne (int num) throws Exception {
 		int result = 0;
-			result = fileDAO.deleteOne(num);
+			result = tradeBoardFileDAO.deleteOne(num);
 		return result;
 	}
 	
 	public int deleteAll (int num) throws Exception {
-		return fileDAO.deleteAll(num);
+		return tradeBoardFileDAO.deleteAll(num);
 	}
 }
