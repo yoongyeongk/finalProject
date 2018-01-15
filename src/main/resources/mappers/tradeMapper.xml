@@ -15,9 +15,8 @@
   	</select>
   
   	<select id="selectTagSearch" parameterType="com.hi.util.RowNum" resultType="tradeBoardDTO">
-
   		 select * from (select rowNum R,T.* from (select DISTINCT T.* from TRADE_BOARD T,TAGS TG where T.num=TG.num and 
-  		 TG.tag=#{search} and REGEXP_LIKE(TG.tag,#{search},'i') order by T.num desc) T) where R BETWEEN #{startRow} and #{lastRow}
+  		 TG.tag=#{search} and REGEXP_LIKE(TG.tag,#{search},'i') order by T.num desc,) T) where R BETWEEN #{startRow} and #{lastRow}
   	</select>
   
   	<select id="getCount" resultType="Integer" parameterType="com.hi.util.RowNum">

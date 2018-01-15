@@ -124,7 +124,7 @@ $(function() {
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${list }" var="dto">
+							<c:forEach items="${list }" var="dto" varStatus="l">
 								<tr class="cell">
 									<th scope="row" class="co">
 										<div class="loc">
@@ -169,11 +169,23 @@ $(function() {
 										<div class="loc">
 											  <div>~</div>
 											<fmt:formatDate dateStyle="long"  value="${dto.closing_date}"/>
+												<c:forEach items="${date }" var="dt" varStatus="d">
+													<c:if test="${l.count eq  d.count}">
+														<c:choose>
+															<c:when test="${dt >= 0}">
+																<p>${dt }일 남음</p>
+															</c:when>
+															<c:otherwise>
+																<p>[마감]</p>
+															</c:otherwise>
+														</c:choose>
+													</c:if>
+												</c:forEach>
 										</div>
 									</td>
 								</tr>
 							</c:forEach>
-					
+								
 						</tbody>
 					</table>
 				</div>
