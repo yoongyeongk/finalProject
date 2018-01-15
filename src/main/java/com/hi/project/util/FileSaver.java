@@ -1,17 +1,20 @@
-package com.hi.util;
+package com.hi.project.util;
 
 import java.io.File;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+@Component
 public class FileSaver {
 	
 	public String fileSave(MultipartFile multipartFile, HttpSession session, String path) throws Exception {
 		// 업로드 경로
-		String filePath = session.getServletContext().getRealPath("resources/upload");
+		String filePath = session.getServletContext().getRealPath("resources/"+path);
+		System.out.println(filePath);
 		// 경로에 파일 생성
 		File file = new File(filePath);
 		

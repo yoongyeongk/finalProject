@@ -1,6 +1,6 @@
 package com.hi.boardFile;
 
-public class FileService {
+public class BoardFileService {
 
 	
 }

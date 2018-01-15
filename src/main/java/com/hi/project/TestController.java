@@ -1,7 +1,4 @@
-package com.hi.project.test;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.hi.project;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -13,16 +10,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.hi.boardFile.FileDTO;
-import com.hi.boardFile.FileSaver;
-import com.hi.project.pmf.PmfBoardDAO;
+import com.hi.file.FileDTO;
+import com.hi.project.util.FileSaver;
 
 @Controller
 @RequestMapping(value="/test/*")
 public class TestController {
 
 	@Inject
-	private FileSaver FileSaver;
+	private FileSaver fileSaver;
 	
 	@RequestMapping("dadTest")
 	public String dragAndDrop() {
@@ -35,7 +31,7 @@ public class TestController {
 		
 		FileDTO fileDTO = new FileDTO();
 		fileDTO.setOriname(file.getOriginalFilename());
-		fileDTO.setFilename(FileSaver.transperSave(file, session, "pmf_files"));
+		fileDTO.setFilename(fileSaver.fileSave(file, session, "pmf_files"));
 
 		return fileDTO;
 	}

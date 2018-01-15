@@ -1,4 +1,4 @@
-package com.hi.project.test;
+package com.hi.project;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;

@@ -1,61 +1,41 @@
 package com.hi.file;
 
-import java.sql.Date;
-
 public class FileDTO {
-	private int file_id;
-	private int task_id;
-	private String file_name;
-	private String original_name;
-	private String uploader;
-	private Date upload_date;
+	private int fnum;
+	private int num;
+	private String filename;
+	private String oriname;
 
-	public int getFile_id() {
-		return file_id;
+	public int getFnum() {
+		return fnum;
 	}
 
-	public void setFile_id(int file_id) {
-		this.file_id = file_id;
+	public void setFnum(int fnum) {
+		this.fnum = fnum;
 	}
 
-	public int getTask_id() {
-		return task_id;
+	public int getNum() {
+		return num;
 	}
 
-	public void setTask_id(int task_id) {
-		this.task_id = task_id;
+	public void setNum(int num) {
+		this.num = num;
 	}
 
-	public String getFile_name() {
-		return file_name;
+	public String getFilename() {
+		return filename;
 	}
 
-	public void setFile_name(String file_name) {
-		this.file_name = file_name;
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
 
-	public String getOriginal_name() {
-		return original_name;
+	public String getOriname() {
+		return oriname;
 	}
 
-	public void setOriginal_name(String original_name) {
-		this.original_name = original_name;
-	}
-
-	public String getUploader() {
-		return uploader;
-	}
-
-	public void setUploader(String uploader) {
-		this.uploader = uploader;
-	}
-
-	public Date getUpload_date() {
-		return upload_date;
-	}
-
-	public void setUpload_date(Date upload_date) {
-		this.upload_date = upload_date;
+	public void setOriname(String oriname) {
+		this.oriname = oriname;
 	}
 
 }

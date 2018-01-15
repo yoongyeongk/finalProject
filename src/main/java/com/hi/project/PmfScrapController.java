@@ -1,4 +1,4 @@
-package com.hi.project.test;
+package com.hi.project;
 import java.util.Enumeration;
 
 import javax.inject.Inject;

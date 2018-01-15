@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
+		<!-- util -->
 		<typeAlias type="java.util.Map" alias="Map" />
+		<typeAlias type="com.hi.file.FileDTO" alias="FileDTO" />
+  	  	<typeAlias type="com.hi.project.util.RowNum" alias="RowNum"/>
+
+		<!-- seongyun -->
 		<typeAlias type="com.hi.users.UsersDTO" alias="UsersDTO" />
 		<typeAlias type="com.hi.users.ProfileImgDTO" alias="ProfileImgDTO" />
 		<typeAlias type="com.hi.task.ProjectDTO" alias="ProjectDTO" />
 		<typeAlias type="com.hi.task.TaskDTO" alias="TaskDTO" />
 		<typeAlias type="com.hi.checklist.ChecklistDTO" alias="ChecklistDTO" />
 		<typeAlias type="com.hi.comment.CommentDTO" alias="CommentDTO" />
-		<typeAlias type="com.hi.file.FileDTO" alias="FileDTO" />
-	</typeAliases>
-</configuration>
+
+		<!-- yoongyeong -->
+  	  	<typeAlias type="com.hi.project.pmf.PmfBoardDTO" alias="PmfBoardDTO"/>
+  	  	<typeAlias type="com.hi.project.pmfReply.PmfReplyDTO" alias="PmfReplyDTO"/>
+  	  	<typeAlias type="com.hi.project.pmfScrap.PmfScrapDTO" alias="PmfScrapDTO"/>
+  	</typeAliases>
+  </configuration>
+

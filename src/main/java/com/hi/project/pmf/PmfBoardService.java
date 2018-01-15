@@ -9,8 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.hi.boardFile.FileDTO;
-import com.hi.boardFile.FileSaver;
 import com.hi.project.pmfReply.PmfReplyDAO;
 import com.hi.project.util.ListData;
 import com.hi.project.util.Pager;
