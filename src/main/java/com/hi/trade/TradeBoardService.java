@@ -1,5 +1,6 @@
 package com.hi.trade;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -60,13 +61,16 @@ public class TradeBoardService {
 					ar = tradeBoardDAO.selectList(rowNum);
 				}
 			List<TradeTagDTO> tag = tradeBoardDAO.getTag();
-			
+			List<Long> days = new ArrayList<Long>();
 			for (TradeBoardDTO tradeBoardDTO : ar) {
 				date = tradeBoardDTO.getClosing_date().toString().split("-");
 				Calendar c_d = Calendar.getInstance();
-				c_d.set(Integer.parseInt(date[0]),Integer.parseInt(date[1]), Integer.parseInt(date[2]));
+				c_d.set(Integer.parseInt(date[0]),Integer.parseInt(date[1])-1, Integer.parseInt(date[2]));
+				long time = c_d.getTimeInMillis() - sysdate.getTimeInMillis();
+				days.add(time / (24*60*60*1000));
 			}
 			
+			view.addObject("date", days);
 			view.addObject("list", ar);
 			view.addObject("tags", tag);
 			view.addObject("pager", pager);
