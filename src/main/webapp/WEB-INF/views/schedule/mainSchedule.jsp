@@ -204,10 +204,11 @@ $(document).ready(function() {
 	background-color: #f5f5f6;
 	font-size: 1.4em;
     color: #212121;
-    height: 28px;
     position: relative;
     top: 2px;
     width: 100%;
+    padding-bottom: 5px;
+	padding-top: 5px;
     margin-bottom: 20px;
     border-style: none;
 	}
@@ -266,6 +267,10 @@ margin-bottom: 20px;
     from {top:-300px; opacity:0}
     to {top:0; opacity:1}
 }
+.time_title{
+font-size:  1.3em;
+display: inline-block;
+}
 #startTime,#lastTime{
 	width: 100%;
 	padding: 7px;
@@ -276,14 +281,24 @@ margin-bottom: 20px;
 	padding-bottom: 7px;
 	font-size: 0.7em;
 }
-.sTime_box{
+.Time_box{
+margin-bottom: 20px;
 	display: inline-block;
 	width: 20%;
 	margin-right: 4px;
 }
-.lTime_box{
-	display: inline-block;
-	width: 20%
+.partner{
+border-style :none;
+background-color : rgb(22,160,133);
+padding-bottom: 7px;
+padding-top: 7px;
+color: white;
+}
+#partadd{
+background-color: rgb(22,160,133);
+color: white;
+height: 100%;
+border-style: none;
 }
 #submitBtn{
 	width: 50%;
@@ -293,12 +308,13 @@ margin-bottom: 20px;
 	border-radius: 5px;
 	margin-top: 10px;
 	margin-bottom : 10px;
-	margin : 0 auto;
 	display: block;
+	color: rgb(22,160,133);
 	background-color: #e7e7e7; 
 }
 #submitBtn:hover{
-	background: #ddd;
+	background: rgb(22,160,133);
+	color: white;
 }
 /* .fc-event, .fc-event:hover {
 background-color: rgb(22,160,133);
@@ -337,16 +353,16 @@ border-color: rgb(22,160,133);
 									name="pro_contents" placeholder="세부내용을 작성해주세요."></textarea></td>
 							</tr>
 								<tr>
-								<td>
-									<div id="sTimeBox" class="sTime_box">
-										<select id="startTime" name="start_time" required="required">
+								<td> <p class="time_title">일정시간</p>
+									<div id="sTimeBox" class="Time_box">
+										<select style="background-color:#f5f5f6; border-style: none;" id="startTime" name="start_time" required="required">
 											<c:forEach begin="9" end="21" var="i" varStatus="num">
 												<option id="sTime${num.count}" class="s_time">${i}:00</option>
 											</c:forEach>
 										</select>
 									</div>
-									<div id="lTimeBox" class="lTime_box">
-											<select id="lastTime" name="last_time" required="required">
+									<div id="lTimeBox" class="Time_box">
+											<select style="background-color:#f5f5f6; border-style: none;" id="lastTime" name="last_time" required="required">
 											<c:forEach begin="9" end="21" var="i" varStatus="num">
 												<option id="lTime${num.count}"  class="l_time">${i}:00</option>
 											</c:forEach>
@@ -355,7 +371,7 @@ border-color: rgb(22,160,133);
 								</td>
 							</tr>
 						<tr>
-							<td class="label2"><input type="text" id="partner"
+							<td class="label2"><input type="text" class="partner" id="partner"
 									name="nickinput" placeholder = "참석자 닉네임 입력">
 									<input id="partadd" type="button" value="추가"><br>
 							</td></tr>
@@ -363,7 +379,7 @@ border-color: rgb(22,160,133);
 							 <div id="nick" style="display: inline-block;"></div>						
 						<table>
 						<tr><td class="label2">일정 배경 색상</td><tr>
-						<tr><td>
+						<tr class="colorss"><td>
 						초록<input type="radio" name="color" checked="checked" value="rgb(22,160,133)">
 						빨강<input type="radio" name="color" value="rgb(255,0,0)">
 						노랑<input type="radio" name="color" value="rgb(225,225,54)">
