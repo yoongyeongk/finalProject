@@ -13,9 +13,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.hi.util.RowNum;
+import com.hi.project.util.RowNum;
 import com.hi.tradeTag.TradeTagDTO;
-import com.hi.util.DBConnector;
 
 @Repository
 public class TradeBoardDAO {

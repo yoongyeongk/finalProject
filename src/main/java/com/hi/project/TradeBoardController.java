@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hi.project.util.ListData;
 import com.hi.trade.Config;
 import com.hi.trade.SendSMS;
 import com.hi.trade.TradeBoardDTO;
 import com.hi.trade.TradeBoardService;
-import com.hi.util.ListData;
+
 
 @Controller
 @RequestMapping(value="/trade/*")

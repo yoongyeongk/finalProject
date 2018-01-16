@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hi.project.util.ListData;
 import com.hi.saveboard.TradeSaveDTO;
 import com.hi.saveboard.TradeSaveService;
-import com.hi.util.ListData;
+
 
 @Controller
 @RequestMapping(value="/tradeSave/*")

@@ -12,13 +12,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.hi.boardFile.FileSaver;
 import com.hi.boardFile.TradeBoardFileService;
+import com.hi.project.util.ListData;
+import com.hi.project.util.Pager;
+import com.hi.project.util.RowNum;
 import com.hi.tradeTag.TradeTagDTO;
 import com.hi.tradeTag.TradeTagService;
-import com.hi.util.ListData;
-import com.hi.util.Pager;
-import com.hi.util.RowNum;
+
 
 @Service
 public class TradeBoardService {

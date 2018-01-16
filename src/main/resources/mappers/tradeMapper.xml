@@ -9,18 +9,18 @@
   		like '%'||#{search}||'%'
   	</sql>
   
-  	<select id="getTagCount" resultType="Integer" parameterType="com.hi.util.RowNum" >
+  	<select id="getTagCount" resultType="Integer" parameterType="RowNum" >
   		 select COUNT(num) from (select DISTINCT TG.num from TAGS TG where TG.tag=#{search} and 
   		 REGEXP_LIKE(TG.tag,#{search},'i'))
   	</select>
   
-  	<select id="selectTagSearch" parameterType="com.hi.util.RowNum" resultType="tradeBoardDTO">
+  	<select id="selectTagSearch" parameterType="RowNum" resultType="tradeBoardDTO">
 
   		 select * from (select rowNum R,T.* from (select DISTINCT T.* from TRADE_BOARD T,TAGS TG where T.num=TG.num and 
   		 TG.tag=#{search} and REGEXP_LIKE(TG.tag,#{search},'i') order by T.num desc) T) where R BETWEEN #{startRow} and #{lastRow}
   	</select>
   
-  	<select id="getCount" resultType="Integer" parameterType="com.hi.util.RowNum">
+  	<select id="getCount" resultType="Integer" parameterType="RowNum">
   		select nvl(count(num),0) from TRADE_BOARD
   		<if test='kind == "Title"'>
   			where Title <include refid="search"></include>
@@ -33,10 +33,10 @@
   
   	<insert id="insert" parameterType="tradeBoardDTO">
   		insert into TRADE_BOARD 
-  		values(#{num},#{writer},#{title},#{contents},sysdate,#{closing_date},0,#{corporate_phone},#{min_price},#{corporation})
+  		values(#{num},#{writer},#{title},#{contents},sysdate,#{closing_date},0,#{corporate_phone},#{min_price},#{corporation},#{email})
   	</insert>
   	
-  	<select id="selectList" parameterType="com.hi.util.RowNum" resultType="tradeBoardDTO">
+  	<select id="selectList" parameterType="RowNum" resultType="tradeBoardDTO">
   		select * from (select rowNum R,T.* from (select * from TRADE_BOARD 
   		<if test='kind == "Title"'>
   		 where Title
@@ -73,7 +73,7 @@
   	
   	<update id="update" parameterType="tradeBoardDTO">
   		update TRADE_BOARD set title=#{title},contents=#{contents},closing_date=#{closing_date},
-  		corporate_phone=#{corporate_phone},min_price=#{min_price},corporation=#{corporation}where num=#{num}
+  		corporate_phone=#{corporate_phone},min_price=#{min_price},corporation=#{corporation} where num=#{num}
   	</update>
   	
   	<delete id="deleteAll">

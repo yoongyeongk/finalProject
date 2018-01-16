@@ -92,7 +92,7 @@
 		})
 		
 		var rd = 0;
-		var check = true; //번호인증체크. 현재 일부러 true로 설정함. 나중에 if ${form}이 Update일경우 true 아니면false
+		var check = true; //번호인증체크. 현재 일부러 true로 설정. 나중에 if ${form}이 Update일경우 true 아니면false
 		
 		$("#pc").click(function(){
 			if(!check){
@@ -105,7 +105,6 @@
 						data:{
 							phone:phone
 						},success : function(data){
-							alert(data)
 							rd = data
 						}
 					})
@@ -127,6 +126,11 @@
 				alert("번호가 틀렸습니다 다시 시도하세요")
 			}
 		})
+		
+		$("#phone").change(function() {
+			/* check = false; */
+		})
+		
 		
 		$("#btn").click(function(){
 			if($(".upPreviewBox").length > 0 || $(".previewBox").length > 0 && check == true){
@@ -499,6 +503,11 @@ $(function(){
 								<div class="in">
 										<label for="corporation" class="lb">기업명 <span class="star">*</span></label>
 										<input type="text"  id="corporation" name="corporation" value="${one.corporation }" placeholder="ex) Together" required="required">
+								</div>
+								
+								<div class="in">
+										<label for="email" class="lb">이메일 <span class="star">*</span></label>
+										<input type="email"  id="email" name="email" value="${one.email }" placeholder="" required="required">
 								</div>
 								
 								<div class="in">

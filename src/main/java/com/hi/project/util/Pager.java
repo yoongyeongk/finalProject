@@ -1,7 +1,8 @@
-package com.hi.util;
+package com.hi.project.util;
+
+import org.springframework.stereotype.Component;
 
 public class Pager {
-
 	private int startNum;
 	private int lastNum;
 	private int curBlock;
@@ -45,6 +46,4 @@ public class Pager {
 	public void setKind(String kind) {
 		this.kind = kind;
 	}
-	
-	
 }

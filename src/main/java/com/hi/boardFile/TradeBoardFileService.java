@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.hi.project.util.FileSaver;
 import com.hi.trade.TradeBoardDTO;
 
 @Service
@@ -26,7 +27,7 @@ public class TradeBoardFileService {
 			if(file.getOriginalFilename() != ""){
 				fileDTO = new TradeBoardFileDTO();
 				fileDTO.setNum(tradeBoardDTO.getNum());
-				fileDTO.setFileName(fileSaver.transperSave(file, session, "upload"));
+				fileDTO.setFileName(fileSaver.fileSave(file, session, "upload"));
 				fileDTO.setOriName(file.getOriginalFilename());
 				files.add(fileDTO);
 				tradeBoardFileDAO.insert(fileDTO);

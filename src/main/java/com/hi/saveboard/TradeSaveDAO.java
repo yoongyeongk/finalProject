@@ -9,7 +9,9 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.hi.util.RowNum;
+import com.hi.project.util.RowNum;
+
+
 
 @Repository
 public class TradeSaveDAO {

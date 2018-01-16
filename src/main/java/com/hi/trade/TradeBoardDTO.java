@@ -24,7 +24,7 @@ public class TradeBoardDTO {
 	private MultipartFile [] img;
 	private List<TradeBoardFileDTO> fileNames;
 	private String corporation; 
-	
+	private String email;
 	
 
 	public String getCorporation() {
@@ -111,6 +111,12 @@ public class TradeBoardDTO {
 	}
 	public void setMin_price(int min_price) {
 		this.min_price = min_price;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	
