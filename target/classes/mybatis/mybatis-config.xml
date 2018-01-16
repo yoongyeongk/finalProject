@@ -20,6 +20,12 @@
   	  	<typeAlias type="com.hi.project.pmf.PmfBoardDTO" alias="PmfBoardDTO"/>
   	  	<typeAlias type="com.hi.project.pmfReply.PmfReplyDTO" alias="PmfReplyDTO"/>
   	  	<typeAlias type="com.hi.project.pmfScrap.PmfScrapDTO" alias="PmfScrapDTO"/>
+  	  	
+  	  	<typeAlias type="com.hi.trade.TradeBoardDTO" alias="tradeBoardDTO" /> 
+		<typeAlias type="com.hi.boardFile.TradeBoardFileDTO" alias="tradeBoardFileDTO" /> 
+		<typeAlias type="com.hi.tradeTag.TradeTagDTO" alias="tradeTagDTO" /> 
+		<typeAlias type="com.hi.saveboard.TradeSaveDTO" alias="tradeSaveDTO" /> 
+  	  	
   	</typeAliases>
   </configuration>
 
