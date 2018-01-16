@@ -201,14 +201,15 @@ $(document).ready(function() {
 	}
 
 	#title{
-	font-size: 1.7em;
+	background-color: #f5f5f6;
+	font-size: 1.4em;
     color: #212121;
     height: 28px;
     position: relative;
     top: 2px;
     width: 100%;
     margin-bottom: 20px;
-    box-shadow: 0px 5px 10px rgb(213,213,213);
+    border-style: none;
 	}
 	.sch_input{
 	width: 45%;
@@ -216,10 +217,17 @@ border-style: none;
 background-color: #f5f5f6;
 padding-bottom: 10px;
 padding-top: 10px;
-margin-bottom: 10px;
+margin-bottom: 20px;
+}
+#contents{
+font-size: 1.2em;
+border-style: none;
+background-color: #f5f5f6;
+padding-bottom: 5px;
+padding-top: 10px;
+margin-bottom: 20px;
 }
 	.label2{
-	padding-top : 10px;
 	border-radius: 10px;
 	}
 	.addT{
@@ -260,14 +268,9 @@ margin-bottom: 10px;
 }
 #startTime,#lastTime{
 	width: 100%;
-	padding: 2px;
-	border-radius: 4px;
-	padding-top: 5px;
-	padding-bottom: 4px;
-	font-size: 0.7em;
+	padding: 7px;
 }
 #lTime{
-	width: 100%;
 	padding: 2px;
 	border-radius: 4px;
 	padding-bottom: 7px;
@@ -275,12 +278,12 @@ margin-bottom: 10px;
 }
 .sTime_box{
 	display: inline-block;
-	width: 45%;
+	width: 20%;
 	margin-right: 4px;
 }
 .lTime_box{
 	display: inline-block;
-	width: 45%;
+	width: 20%
 }
 #submitBtn{
 	width: 50%;
@@ -329,12 +332,10 @@ border-color: rgb(22,160,133);
 								<input type="date" class="sch_input" id="lastDay"	name="lastday"></td>
 							</tr>
 									<tr>
-								<td><textarea rows="3" cols="40"
+								<td><textarea rows="5" cols="35"
 								required="required" id="contents"
 									name="pro_contents" placeholder="세부내용을 작성해주세요."></textarea></td>
 							</tr>
-							<tr>
-								<td class="label2">일정 시간 </td></tr>
 								<tr>
 								<td>
 									<div id="sTimeBox" class="sTime_box">
