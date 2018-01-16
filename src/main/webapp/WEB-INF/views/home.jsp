@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="resources/css/header.css">
 <link rel="stylesheet" href="resources/css/main.css">
 <body>
+
 	<div id="main" class="wrapper">
 		<c:import url="temp/header.jsp"></c:import>
 		<!-- contents -->
@@ -118,6 +119,9 @@
 <P>  The time on the server is ${serverTime}. </P>
 
 <a href="pmf/pmfList">find member</a>
-
+<p></p>
+<a href="${pageContext.request.contextPath }/trade/tradeBoardWrite">wt</a>
+<a href="${pageContext.request.contextPath }/trade/tradeBoardList">lt</a>
+<a href="${pageContext.request.contextPath }/trade/tradeBoardUpdate?num=31">ut</a>
 </body>
 </html>

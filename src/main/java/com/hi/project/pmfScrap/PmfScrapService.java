@@ -21,6 +21,7 @@ public class PmfScrapService {
 	public ModelAndView selectList(String nickname) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		List<PmfScrapDTO> ar = pmfScrapDAO.selectList(nickname);
+		System.out.println();
 		for(PmfScrapDTO dto: ar) {
 			if(!dto.getPmfBoardDTO().getDuration_kind().equals("상시 모집")) {
 				Date end_date = dto.getPmfBoardDTO().getDuration_end();

@@ -104,4 +104,12 @@ public class ListData {
 			this.search = search;
 	}
 
+	public int getPerPage() {
+		return perPage;
+	}
+
+	public void setPerPage(int perPage) {
+		this.perPage = perPage;
+	}
+
 }
