@@ -42,4 +42,6 @@
 		insert into profile_img values (#{file_name}, #{original_name}, #{username})
 	</insert>
 	
+	<select parameterType="java.lang.String" resultType="java.lang.String" id="nicknameCheck"> 
+	select nickname from users where nickname=#{nickname} </select>
 </mapper>

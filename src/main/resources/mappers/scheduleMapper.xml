@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="scheduleMapper">
+  	
+  	  <resultMap type="com.hi.schedule.ScheduleDTO" id="scheduleResult">
+  		<id property="schnum" column="schnum"/>
+  		<collection property="partnicks" column="pnum" ofType="com.hi.partner.PartnerDTO" select="selectpartner"></collection>
+  	</resultMap>
+  	
+  	<select id="selectOne" parameterType="int" resultMap="scheduleResult">
+  		select * from schedule where schnum=#{schnum}
+  	</select>
+  	<select id="selectpartner" parameterType="int" resultType="com.hi.partner.PartnerDTO">
+  		select * from partner where schnum=#{schnum}
+  	</select>
+  	
+  	
+  	<insert id="write" parameterType="com.hi.schedule.ScheduleDTO">
+  	<selectKey keyProperty="schnum" resultType="int" order="BEFORE">
+  	select schedule_seq.nextval from dual
+  	</selectKey>
+  	insert into schedule values(#{schnum}, #{username}, #{title},
+  	#{pro_contents}, #{startday}, #{lastday}, #{start_time}, #{last_time},#{color})
+  	</insert>
+  	
+  	<insert id="memoInsert" parameterType="java.util.Map">
+  		insert into memo values(schedule_seq.nextval, #{username}, #{title},
+  	#{pro_contents}, #{startday}, #{lastday}, #{start_time}, #{last_time},#{color})
+  	</insert>
+  	
+<!-- 캘린더에 가져와야할 아이디별 전체값들 -->
+  	<select id="jsonScheduleList" parameterType="java.lang.String" resultType="com.hi.schedule.ScheduleDTO">
+  	select * from schedule where username=#{username}
+  	</select>
+  	<!-- 캘린더에 가져와야할 아이디별 하루당 일정값들 -->
+ <select id="jsonScheduleDayList" parameterType="com.hi.schedule.ScheduleDTO" 
+ resultType="com.hi.schedule.ScheduleDTO">select * from schedule where username=#{username} and 
+ (startday = #{startday} or lastday = #{lastday})</select> 
+
+  	<delete id="ScheduleDeleteOne" parameterType="int">delete schedule where schnum=#{schnum}</delete>
+  	
+  	 <select id="ScheduleUpdateGET" parameterType="int" resultType="com.hi.schedule.ScheduleDTO">
+  	 select * from schedule where schnum=#{schnum}</select> 
+  	 
+  <update id="ScheduleUpdatePOST" parameterType="com.hi.schedule.ScheduleDTO">
+  update schedule set title=#{title}, pro_contents=#{pro_contents},STARTDAY=#{startday},LASTDAY=#{lastday},
+  START_TIME=#{start_time}, LAST_TIME=#{last_time},color=#{color} WHERE schnum = #{schnum}</update> 
+  	
+  	
+  </mapper>

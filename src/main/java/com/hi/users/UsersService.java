@@ -43,5 +43,8 @@ public class UsersService {
 	public int delete(String username) {
 		return usersDAO.delete(username);
 	}
-
+	//서연 추가 
+	public String nicknameCheck(String nickname)throws Exception{
+		return usersDAO.nicknameCheck(nickname);
+	}
 }

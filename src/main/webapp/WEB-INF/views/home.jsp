@@ -123,5 +123,6 @@
 <a href="${pageContext.request.contextPath }/trade/tradeBoardWrite">wt</a>
 <a href="${pageContext.request.contextPath }/trade/tradeBoardList">lt</a>
 <a href="${pageContext.request.contextPath }/trade/tradeBoardUpdate?num=31">ut</a>
+<a href="schedule/mainSchedule">your schedule</a>
 </body>
 </html>
