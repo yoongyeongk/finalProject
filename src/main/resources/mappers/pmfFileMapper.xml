@@ -5,7 +5,7 @@
   <mapper namespace="pmfFileMapper">
   	
   	<insert id="insert" parameterType="FileDTO">
-  		insert into pmf_files values(pmf_files_seq.nextval, #{num}, #{filename}, #{oriname})
+  		insert into pmf_files values(pmf_files_seq.nextval, #{num}, #{filename}, #{oriname}, #{filesize})
   	</insert>
   	
   	<delete id="delete" parameterType="int">

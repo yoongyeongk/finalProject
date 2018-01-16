@@ -270,8 +270,12 @@
 				<tr>
 					<td colspan="2">
 						<div id="file_view">
-							<c:forEach items="${view.fileDTO}" var="file">
-							<a href="../../resources/pmf_file/${file.filename}">${file.oriname}</a>
+							<c:forEach items="${view.fileDTO}" var="file" varStatus="i">
+							<div class='statusbar odd'>
+								<div class='filename'>${file.oriname}</div>
+								<div class='filesize'>${file.filesize}</div>
+								<span id="delfile${i.count}" class="delfile">삭제</span>
+							</div>
 							</c:forEach>
 						</div>
 					</td>

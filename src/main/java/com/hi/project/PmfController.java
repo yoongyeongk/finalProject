@@ -95,11 +95,11 @@ public class PmfController {
 	
 	//글쓰기
 	@RequestMapping(value="pmfWrite", method=RequestMethod.POST)
-	public String insert(PmfBoardDTO pmfBoardDTO, String [] filename, String [] oriname, RedirectAttributes rd){
+	public String insert(PmfBoardDTO pmfBoardDTO, String [] filename, String [] oriname, String [] size, RedirectAttributes rd){
 	
 		int result = 0;
 		try {
-			result = pmfBoardService.insert(pmfBoardDTO, filename, oriname);
+			result = pmfBoardService.insert(pmfBoardDTO, filename, oriname, size);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

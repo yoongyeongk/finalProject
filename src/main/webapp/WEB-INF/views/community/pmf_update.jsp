@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html> 
 <html>
 <head>
@@ -53,7 +54,11 @@ $(function(){
 			contentType: false,
 			processData: false,
 			success: function(data){
-				alert(data.filename);
+				//fileDTO 객체에 값 넣기
+				cnt++;
+				$("#fileSec").append('<div id="file'+cnt+'"></div>');
+				$("#file"+cnt).append('<input type="hidden" name="filename" value="'+data.filename+'">');
+				$("#file"+cnt).append('<input type="hidden" name="oriname" value="'+data.oriname+'">');
 				status.setProgress(100);
 			}
 		});
@@ -61,19 +66,23 @@ $(function(){
 		status.setAbort(jqxhr);
 	}
 	
-	var rowCount = 0;
+	var rowCount = ${fn:length(view.fileDTO)};
 	function createStatusbar(drop_sec){
 		
 		rowCount++;
-		var row = "odd";
+		var row;
 		if(rowCount % 2 == 0){
 			row = "even";
+		}else{
+			row = "odd";
 		}
 		this.statusbar = $("<div class='statusbar "+row+"'></div>");
 		this.filename = $("<div class='filename'></div>").appendTo(this.statusbar);
 		this.size = $("<div class='filesize'></div>").appendTo(this.statusbar);
 		this.progressBar = $("<div class='progressBar'><div></div></div>").appendTo(this.statusbar);
 		this.abort = $("<div class='abort'>중지</div>").appendTo(this.statusbar);
+		this.delF = $('<span id="delfile'+rowCount+'" class="delfile">삭제</span>').appendTo(this.statusbar);
+		this.delF.hide();
 		
 		drop_sec.after(this.statusbar);
 		
@@ -98,6 +107,7 @@ $(function(){
 			this.progressBar.find('div').animate({ width: progressBarWidth }, 10).html(progress + "% ");
 			if(parseInt(progress) >= 100){
 				this.abort.hide();
+				this.delF.show();
 			}
 		}
 		
@@ -139,6 +149,12 @@ $(function(){
 		
 		}
 	})
+	
+	//업로드한 파일 삭제하기
+	$(".delfile").click(function(){
+		var delFile = $(this);
+		alert($(delFile).attr("id"));
+	});
 	
 	//CKEditor
 	//name 각 DB 항목에 맞게 변경하기
@@ -269,23 +285,16 @@ $(function(){
 				<tr>
 					<td colspan="2">
 						<div id="dropzone">업로드할 파일을 드래그해 주세요.</div>
-						<!-- id="dropContainer"  -->
-						<input type="file" name="files" id="fileInput" multiple="multiple">
-						
-						<script type="text/javascript">
-						$(function(){
-							dropzone.ondragover = dropzone.ondragenter = function(evt) {
-								  evt.preventDefault();
-								};
-
-								dropzone.ondrop = function(evt) {
-								  // pretty simple -- but not for IE :(
-								  fileInput.files = evt.dataTransfer.files;
-								  evt.preventDefault();
-								};
-						});
-					</script>
-					
+						<div id="fileSec">
+							<c:forEach items="${view.fileDTO}" var="file" varStatus="i">
+							<div class='statusbar odd'>
+								<div class='filename'>${file.oriname}</div>
+								<div class='filesize'>${file.filesize}</div>
+								<span id="delfile${i.count}" class="delfile">삭제</span>
+							</div>
+							</c:forEach>
+							
+						</div>
 					</td>
 				</tr>
 				<tr>

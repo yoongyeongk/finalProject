@@ -54,13 +54,13 @@ $(function(){
 			contentType: false,
 			processData: false,
 			success: function(data){
+				status.setProgress(100);		//상태 100으로 설정
 				//fileDTO 객체에 값 넣기
 				cnt++;
 				$("#fileSec").append('<div id="file'+cnt+'"></div>');
 				$("#file"+cnt).append('<input type="hidden" name="filename" value="'+data.filename+'">');
 				$("#file"+cnt).append('<input type="hidden" name="oriname" value="'+data.oriname+'">');
-				
-				status.setProgress(100);		//상태 100으로 설정
+				$("#file"+cnt).append('<input type="hidden" name="size" value="'+data.size+'">');
 			}
 		});
 		

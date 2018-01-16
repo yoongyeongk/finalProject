@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.hi.file.FileDTO;
 import com.hi.project.pmfFile.PmfFileDAO;
+import com.hi.project.pmfFile.PmfFileDTO;
 import com.hi.project.pmfReply.PmfReplyDAO;
 import com.hi.project.util.ListData;
 import com.hi.project.util.Pager;
@@ -64,15 +65,16 @@ public class PmfBoardService {
 	
 	//write 2 - insert
 	@Transactional
-	public int insert(PmfBoardDTO pmfBoardDTO, String [] filename, String [] oriname) throws Exception {
+	public int insert(PmfBoardDTO pmfBoardDTO, String [] filename, String [] oriname, String [] size) throws Exception {
 		int result = boardDAO.insert(pmfBoardDTO);
 		
 		//fileDTO 생성 및 저장
-		FileDTO fileDTO = new FileDTO();
+		PmfFileDTO fileDTO = new PmfFileDTO();
 		for(int i=0; i<filename.length; i++){
 			fileDTO.setNum(pmfBoardDTO.getNum());
 			fileDTO.setFilename(filename[i]);
 			fileDTO.setOriname(oriname[i]);
+			fileDTO.setFilesize(size[i]);
 			pmfFileDAO.insert(fileDTO);
 		}
 		
