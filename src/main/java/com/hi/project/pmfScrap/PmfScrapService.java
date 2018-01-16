@@ -21,22 +21,41 @@ public class PmfScrapService {
 	public ModelAndView selectList(String nickname) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		List<PmfScrapDTO> ar = pmfScrapDAO.selectList(nickname);
-		for(PmfScrapDTO dto: ar) {
-			if(!dto.getPmfBoardDTO().getDuration_kind().equals("상시 모집")) {
-				Date end_date = dto.getPmfBoardDTO().getDuration_end();
-				Date today = new Date(Calendar.getInstance().getTimeInMillis());
-				System.out.println(end_date);
-				System.out.println(today);
-				System.out.println("-------------");
+		for(PmfScrapDTO pmfScrapDTO: ar) {
+			int dDay = this.dDayCheck(pmfScrapDTO);
+			String fin = "";
+			if(dDay > 0) {
+				fin = "D-" + String.valueOf(dDay);
+			}else {
+				fin = "마감";
 			}
+			pmfScrapDTO.setFin(fin);
 		}
-		
-		mv.addObject("list", ar);
-		mv.setViewName("community/listBox");
-		
-		return mv;
+	
+	mv.addObject("list", ar);
+	mv.setViewName("community/listBox");
+
+	return mv;
 	}
 	
+	//D-Day 계산
+	private int dDayCheck(PmfScrapDTO pmfScrapDTO) {
+		int dDay = 0;
+		if(!pmfScrapDTO.getPmfBoardDTO().getDuration_kind().equals("상시 모집")) {
+			Date end_date = pmfScrapDTO.getPmfBoardDTO().getDuration_end();
+			
+			long today = Calendar.getInstance().getTimeInMillis();
+			long end = end_date.getTime()/(1000*60*60*24);
+			
+			long day = end - today/(1000*60*60*24);
+			
+			if(day>0) {
+				dDay = (int)day;
+			}
+		}
+		return dDay;
+	}
+
 	public int scrapCheck(int num, HttpSession session) throws Exception {
 		int result = 0;
 		String nickname = "nickname";

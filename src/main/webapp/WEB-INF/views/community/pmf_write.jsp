@@ -80,7 +80,7 @@ $(function(){
 		this.size = $("<div class='filesize'></div>").appendTo(this.statusbar);
 		this.progressBar = $("<div class='progressBar'><div></div></div>").appendTo(this.statusbar);
 		this.abort = $("<div class='abort'>중지</div>").appendTo(this.statusbar);
-		this.delF = $('<span class="delfile">삭제</span>').appendTo(this.statusbar);
+		this.delF = $('<span id="delfile'+rowCount+'" class="delfile">삭제</span>').appendTo(this.statusbar);
 		this.delF.hide();
 		
 		drop_sec.after(this.statusbar);
@@ -149,9 +149,9 @@ $(function(){
 	})
 	
  	//업로드한 파일 삭제하기
-	$(".delF").click(function(){
+	$(".delfile").click(function(){
 		var delFile = $(this);
-		
+		alert($(delFile).attr("id"));
 	});
 
 	//CKEditor
