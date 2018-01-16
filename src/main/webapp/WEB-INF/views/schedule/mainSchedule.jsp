@@ -289,7 +289,7 @@ margin-bottom: 20px;
 }
 .partner{
 border-style :none;
-background-color : rgb(22,160,133);
+background-color : #e7e7e7;
 padding-bottom: 7px;
 padding-top: 7px;
 color: white;
@@ -316,11 +316,6 @@ border-style: none;
 	background: rgb(22,160,133);
 	color: white;
 }
-/* .fc-event, .fc-event:hover {
-background-color: rgb(22,160,133);
-border-color: rgb(22,160,133);
-}
- */
 </style>
 </head>
 <body>
