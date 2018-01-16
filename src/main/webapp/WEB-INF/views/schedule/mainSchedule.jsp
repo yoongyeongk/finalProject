@@ -199,6 +199,25 @@ $(document).ready(function() {
 		height: 20px;
 		margin-bottom: 5px;
 	}
+
+	#title{
+	font-size: 1.7em;
+    color: #212121;
+    height: 28px;
+    position: relative;
+    top: 2px;
+    width: 100%;
+    margin-bottom: 20px;
+    box-shadow: 0px 5px 10px rgb(213,213,213);
+	}
+	.sch_input{
+	width: 45%;
+border-style: none;
+background-color: #f5f5f6;
+padding-bottom: 10px;
+padding-top: 10px;
+margin-bottom: 10px;
+}
 	.label2{
 	padding-top : 10px;
 	border-radius: 10px;
@@ -238,12 +257,6 @@ $(document).ready(function() {
 @keyframes animatetop {
     from {top:-300px; opacity:0}
     to {top:0; opacity:1}
-}
-#startDay,#lastDay{
-	width: 40%;
-	padding: 2px;
-	border-radius: 4px;
-	font-size: 0.7em;
 }
 #startTime,#lastTime{
 	width: 100%;
@@ -306,20 +319,14 @@ border-color: rgb(22,160,133);
 			<input type="hidden" name="username" value="${user.username}">	
 		 			<input type="hidden" id="mynick" name="mynick" value="${user.nickname}">
 				<table class="addT">
-							<tr>
-								<td class="label2">기한 설정</td></tr>
-								<tr>
-								<td><input required="required" type="date" id="startDay"
-									name="startday">
-								<input type="date" id="lastDay"
-									name="lastday"></td>
-							</tr>
-							<tr>
-								<td class="label2">프로젝트 명</td>
-								</tr>
-								<tr>
-								<td><input required="required" type="text" id="title" placeholder="명칭을 작성해주세요."
+								<tr colspan="4">
+								<td><input required="required" type="text" id="title" placeholder="프로젝트 명"
 									name="title"></td>
+							</tr>
+								<tr>
+								<td><input required="required" class="sch_input" type="date" id="startDay"
+									name="startday">
+								<input type="date" class="sch_input" id="lastDay"	name="lastday"></td>
 							</tr>
 									<tr>
 								<td><textarea rows="3" cols="40"
