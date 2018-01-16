@@ -66,13 +66,16 @@ public class ScheduleService {
 			try {
 				List<ScheduleDTO> ar = scheduleDAO.jsonScheduleDayList(scheduleDTO);
 				String type = request.getParameter("type");
+				List<PartnerDTO> part = new ArrayList<PartnerDTO>();
 				if(type.equals("list")){
 					System.out.println("success");
 					for(int i =0; i<ar.size();i++){
 						String st= scheduleDTO.getStartday();
 					}
+					mv.addObject("nick", part);
 					mv.addObject("list", ar);
 					mv.setViewName("/schedule/dayListSchedule");
+					System.out.println(part);
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -136,13 +139,10 @@ public class ScheduleService {
 		}
 		
 		public int write(ScheduleDTO scheduleDTO, String [] nickname ,HttpServletRequest request) throws Exception {
-			System.out.println("service1");
 			List<PartnerDTO> part = new ArrayList<PartnerDTO>();
 			int result = scheduleDAO.write(scheduleDTO);
-			System.out.println("service2");
 			for(String s: nickname){
 			PartnerDTO partnerDTO = new PartnerDTO();
-			System.out.println("service3");
 			partnerDTO.setNickname(s);
 			partnerDTO.setSchnum(scheduleDTO.getSchnum());
 			part.add(partnerDTO);

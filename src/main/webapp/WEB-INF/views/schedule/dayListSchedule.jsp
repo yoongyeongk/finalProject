@@ -55,6 +55,9 @@ $(function() {
     	<td><p>${dto.start_time}~${dto.last_time}</p>
     	</td></tr>
     	<tr><td>참석자</td>
+    	<td><c:forEach items="${nick}" var="nickname">
+		${nickname}
+	</c:forEach> </td>
     	<td>
     	</td></tr>
     		<tr><td colspan="2"></td></tr>

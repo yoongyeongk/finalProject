@@ -15,10 +15,18 @@ public class ScheduleDTO {
 	private String start_time;
 	private String last_time;
 	private String color;
-	private String []nickname;
+	private String [] nickname;
 	
 	public ScheduleDTO() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public String[] getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String[] nickname) {
+		this.nickname = nickname;
 	}
 
 	public String getColor() {
