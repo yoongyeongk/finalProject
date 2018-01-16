@@ -10,7 +10,7 @@
   	
   	<resultMap type="PmfBoardDTO" id="viewResult">
   		<id property="num" column="num"/>
-  		<collection property="fileDTO" column="num" ofType="FileDTO" select="selectFile">
+  		<collection property="FileDTO" column="num" ofType="FileDTO" select="selectFile">
   			<id property="fnum" column="fnum"/>
   		</collection>
   	</resultMap>
