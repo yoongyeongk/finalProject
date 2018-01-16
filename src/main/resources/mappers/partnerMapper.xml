@@ -26,4 +26,7 @@
   		insert into partner values(#{schnum},partner_seq.nextval,#{nickname})
   	</insert>
 
+	<select id="partnerList" parameterType="int" resultType="com.hi.partner.PartnerDTO">
+  		select * from partner where schnum=#{schnum}
+  	</select>
   </mapper>

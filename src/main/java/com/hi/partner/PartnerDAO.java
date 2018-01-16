@@ -19,5 +19,7 @@ public class PartnerDAO {
 	public int partnerinsert(PartnerDTO partnerDTO)throws Exception{
 		return sqlSession.insert(NAMESPACE+"partnerInsert", partnerDTO);
 	}
-	
+	public List<PartnerDTO> partnerList(int schnum)throws Exception{
+		return sqlSession.selectList(NAMESPACE+"partnerList", schnum);
+	}
 }

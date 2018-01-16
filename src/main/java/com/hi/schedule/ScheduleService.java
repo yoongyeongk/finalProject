@@ -60,13 +60,11 @@ public class ScheduleService {
 			ModelAndView mv = new ModelAndView();
 			scheduleDTO.setStartday(request.getParameter("startday"));
 			scheduleDTO.setUsername(request.getParameter("username"));
-			String ah = scheduleDTO.getStartday();
-/*			System.out.println(ah);*/
-			
+			String ah = scheduleDTO.getStartday();			
 			try {
 				List<ScheduleDTO> ar = scheduleDAO.jsonScheduleDayList(scheduleDTO);
-				String type = request.getParameter("type");
-				List<PartnerDTO> part = new ArrayList<PartnerDTO>();
+				String type = request.getParameter("type");				
+				List<PartnerDTO> part = partnerDAO.partnerList(scheduleDTO.getSchnum());
 				if(type.equals("list")){
 					System.out.println("success");
 					for(int i =0; i<ar.size();i++){
