@@ -53,8 +53,20 @@
 	box-shadow: 0 5px 6px 0 rgba(0, 0, 0, 0.15);
 	transform: translateY(-2px);
 }
-.project-side {
+
+.project-properties {
+	width: 20%;
+	display: inline-block;
+	background-color: gainsboro;
+	position: absolute;
+	top: 189px;
+	right: 0;
 }
+
+.project-properties label {
+	display: block;
+}
+
 .project-footer {
 	position: absolute;
 	bottom: 10px;

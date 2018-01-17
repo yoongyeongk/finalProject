@@ -48,12 +48,17 @@
 						<option value="">보류</option>
 						<option value="">취소</option>
 					</select>
+					<hr>
 					<label>시작일</label>
-					<input name="start-date" class="form-control" type="date"> 
+					<input name="start-date" class="form-control" type="date">
+					<hr> 
 					<label>마감일</label>
 					<input name="close-date" class="form-control" type="date">
+					<hr>
 					<label>프로젝트 관리자</label>
-					<label>공개 프로젝트</label>					
+					<hr>
+					<label>공개 프로젝트</label>
+					<hr>					
 				</div>
 			</div>
 			<!-- /sidebar -->

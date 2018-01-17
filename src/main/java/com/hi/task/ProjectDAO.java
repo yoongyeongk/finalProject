@@ -22,6 +22,10 @@ public class ProjectDAO {
 		return sqlSession.selectList(NAMESPACE + "list", usersDTO);
 	}
 
+	public ProjectDTO view(int project_id) {
+		return sqlSession.selectOne(NAMESPACE + "view", project_id);
+	}
+
 	public List<MemberDTO> member(int project_id) {
 		return sqlSession.selectList(NAMESPACE + "member", project_id);
 	}
@@ -29,9 +33,16 @@ public class ProjectDAO {
 	public int create(ProjectDTO projectDTO) {
 		return sqlSession.insert(NAMESPACE + "create", projectDTO);
 	}
-	
+
 	public int insert(Map<String, Object> map) {
 		return sqlSession.insert(NAMESPACE + "insert", map);
 	}
-}
 
+	public int update(ProjectDTO projectDTO) {
+		return sqlSession.update(NAMESPACE + "update", projectDTO);
+	}
+
+	public int delete(int project_id) {
+		return sqlSession.delete(NAMESPACE + "delete", project_id);
+	}
+}

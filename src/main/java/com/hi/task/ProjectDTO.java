@@ -1,9 +1,6 @@
 package com.hi.task;
 
 import java.sql.Date;
-import java.util.List;
-
-import com.hi.users.UsersDTO;
 
 public class ProjectDTO {
 	private int project_id;
@@ -13,8 +10,7 @@ public class ProjectDTO {
 	private String star;
 	private Date start_date;
 	private Date close_date;
-	private String manager;
-	private List<UsersDTO> members;
+	private Date reg_date;
 
 	public int getProject_id() {
 		return project_id;
@@ -72,20 +68,12 @@ public class ProjectDTO {
 		this.close_date = close_date;
 	}
 
-	public String getManager() {
-		return manager;
+	public Date getReg_date() {
+		return reg_date;
 	}
 
-	public void setManager(String manager) {
-		this.manager = manager;
-	}
-
-	public List<UsersDTO> getMembers() {
-		return members;
-	}
-
-	public void setMembers(List<UsersDTO> members) {
-		this.members = members;
+	public void setReg_date(Date reg_date) {
+		this.reg_date = reg_date;
 	}
 
 }

@@ -17,8 +17,8 @@
 		order by start_date desc
 	</select>
 
-	<select id="view">
-
+	<select id="view" parameterType="int" resultType="ProjectDTO">
+		select * from project where project_id = #{project_id}
 	</select>
 
 	<insert id="create" parameterType="ProjectDTO">
@@ -36,12 +36,21 @@
 		(select * from members where project_id = #{project_id} and username = #{username} and authority is not null)
 	</insert>
 
-	<update id="update">
-
+	<update id="update" parameterType="ProjectDTO">
+		update project
+		<set>
+			<if test="title != null">title = #{title},</if>
+			<if test="privacy != null">privacy = #{privacy},</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="start_date != null">start_date = #{start_date},</if>
+			<if test="close_date != null">close_date = #{close_date},</if>
+			<if test="star != null">star = #{star}</if>
+		</set>
+		where project_id = #{project_id}
 	</update>
 
-	<delete id="delete">
-
+	<delete id="delete" parameterType="int">
+		delete project where project_id = #{project_id}
 	</delete>
 
 </mapper>

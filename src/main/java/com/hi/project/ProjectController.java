@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,26 +27,34 @@ public class ProjectController {
 		List<ProjectDTO> list = projectService.list(session);
 		return list;
 	}
-	
-	@RequestMapping(value = "create")
+
+	@RequestMapping(value = "view")
+	@ResponseBody
+	public ProjectDTO view(int project_id) {
+		return projectService.view(project_id);
+	}
+
+	@RequestMapping(value = "create", method = RequestMethod.POST)
 	@ResponseBody
 	public int create(ProjectDTO projectDTO, HttpSession session) {
 		return projectService.create(projectDTO, session);
 	}
-
-	@RequestMapping(value = "update")
+/*
+	@RequestMapping(value = "update", method = RequestMethod.GET)
+	@ResponseBody
 	public void update() {
 
 	}
 
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	@ResponseBody
+	public void update() {
+
+	}*/
 
 	@RequestMapping(value = "delete")
-	public void delete() {
-
+	public int delete(int project_id) {
+		return projectService.delete(project_id);
 	}
 
-	@RequestMapping(value = "task")
-	public void view() {
-
-	}
 }

@@ -114,6 +114,14 @@ function create() {
 	});
 }
 
+function view() {
+	$.ajax({
+		type : 'get',
+		url : "project/view",
+		
+	});
+}
+
 function update() {
 	$.ajax({
 		type : 'post',
