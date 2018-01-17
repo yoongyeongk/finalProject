@@ -55,10 +55,15 @@ $(document).ready(function() {
 						plus.remove();
 						jbBtn.remove();
 					});
+					 var add=$(".addnick").val();
+					 alert('아래 추가된 닉네임 :' +add);
+					 alert('#partner :'+nickname);
                  }else if(data.result == mynick){
                 	 alert('본인닉네임입니다.');
-                 }
-                 else{
+                 }else if(add=nickname){
+                	 alert('asd');
+                 }else{
+                	 
                 	 alert('등록되어있지않은 닉네임입니다.');
                  }
              },
@@ -296,7 +301,6 @@ color: white;
 }
 #partadd{
 background-color: rgb(22,160,133);
-color: white;
 height: 100%;
 border-style: none;
 }
