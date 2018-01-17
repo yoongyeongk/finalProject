@@ -21,6 +21,7 @@ public class PmfScrapService {
 	public ModelAndView selectList(String nickname) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		List<PmfScrapDTO> ar = pmfScrapDAO.selectList(nickname);
+		
 		for(PmfScrapDTO pmfScrapDTO: ar) {
 			int dDay = this.dDayCheck(pmfScrapDTO);
 			String fin = "";
