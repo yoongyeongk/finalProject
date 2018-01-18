@@ -23,7 +23,7 @@ $(function() {
 	
 	if("${pager.kind}" == "Title") {
 		$("#kind option:eq(0)").prop("selected", true);
-	}else{
+	}else if("${pager.kind}" == "Update"){
 		$("#kind option:eq(1)").prop("selected", true);
 	}
 

@@ -29,6 +29,19 @@ public class TradeBoardController {
 	@Inject
 	TradeBoardService tradeBoardService;
 	
+	
+	@RequestMapping(value="tradeBoardView")
+	public Model selectOne (int num,Model model){
+			
+			try {
+				model.addAttribute("one", tradeBoardService.selectOne(num));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return model;
+	}
+	
 	@RequestMapping(value="tradeBoardCheck")
 	@ResponseBody
 	public int check (String phone) {

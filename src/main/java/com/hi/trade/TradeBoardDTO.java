@@ -25,6 +25,8 @@ public class TradeBoardDTO {
 	private List<TradeBoardFileDTO> fileNames;
 	private String corporation; 
 	private String email;
+	private String address;
+	private String address_detail;
 	
 
 	public String getCorporation() {
@@ -117,6 +119,18 @@ public class TradeBoardDTO {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getAddress_detail() {
+		return address_detail;
+	}
+	public void setAddress_detail(String address_detail) {
+		this.address_detail = address_detail;
 	}
 	
 	

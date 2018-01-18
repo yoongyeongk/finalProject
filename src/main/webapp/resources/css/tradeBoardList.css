@@ -56,9 +56,10 @@
 		width: 191px;
 	}
 	.loc>a{
-		font-size: 16px;
+		font-size: 15px;
 		text-decoration: none;
 		color: black;
+		font-family: NanumGothic;
 	}
 	.loc>a:hover{
 		color: black;
@@ -109,6 +110,7 @@
 		background : salmon;
 	}
 	.scolor:hover{
+		border: 1px solid salmon;
 		color: salmon;
 		background : white;
 	}
@@ -220,4 +222,10 @@
 		position: relative;
 		top:-2;
 		right: 50;
+	}
+	@FONT-FACE {
+	font-family: BMJUA;
+	src:url("../font/BMJUA_ttf.ttf");
+	font-family: :NanumGothic;
+	src:url("../font/NanumGothic.ttf")
 	}

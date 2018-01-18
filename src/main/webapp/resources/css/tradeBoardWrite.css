@@ -333,3 +333,31 @@
 	.page{
 		cursor: pointer;
 	}
+	.line{
+		width: 900px; 
+		height: 100px;
+		margin-top: 20px;
+		margin-bottom: 20px;
+		margin: 0 auto;
+	}
+	.addBox{
+		width: 800px;
+		height: 80px;
+		margin: 0 auto; 
+	}
+	.ad{
+		width: 95px;
+    	height: 27px;
+	}
+	#address{
+		width: 350px;
+		padding-left: 12px;
+    	font-size: 16px;
+    	height: 30px;
+	}
+	#address_detail{
+		padding-left: 12px;
+    	font-size: 16px;
+    	width: 220px;
+    	height: 30px;
+	}
