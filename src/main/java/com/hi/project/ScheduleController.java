@@ -94,7 +94,6 @@ public class ScheduleController {
 	public String ScheduleWrite(ScheduleDTO scheduleDTO, String [] nickname, RedirectAttributes rd, HttpSession session,HttpServletRequest request){
 		int result = 0;
 		try {
-			System.out.println("123");
 			result = ScheduleService.write(scheduleDTO, nickname, request);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

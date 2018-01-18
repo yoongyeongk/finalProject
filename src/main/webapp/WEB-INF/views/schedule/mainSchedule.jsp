@@ -26,19 +26,19 @@ $(document).ready(function() {
             	 nickname : nickname,
                  mynick : mynick
              },
-             success: function(data){
-                 if(data.result == nickname && data.result != mynick){
+             success: function(data){	          	 	
+                 if(data.result == nickname && data.result != mynick){               	 
                    alert('추가가능한 닉네임입니다.');
                 	var text = document.getElementById("partner").value;
                 	 var plusUl = document.createElement('input');
                 	 var plus = document.createElement('div');
                 	 var jbBtn= document.createElement("input");
-                	 
+                	 //컨트롤러에 넘겨서 닉네임 확인하는 부분 
                 	 plusUl.style.display="none";
                 	 plusUl.className="addnick";
                 	 plusUl.setAttribute("name", "nickname");
                 	 plusUl.setAttribute("value", text);
-                	 
+                	 //화면에 나타낼 부분
                 	 plus.style.display="inline-block";
                 	 plus.innerHTML = text;   
                 	 
@@ -55,9 +55,6 @@ $(document).ready(function() {
 						plus.remove();
 						jbBtn.remove();
 					});
-					 var add=$(".addnick").val();
-					 alert('아래 추가된 닉네임 :' +add);
-					 alert('#partner :'+nickname);
                  }else if(data.result == mynick){
                 	 alert('본인닉네임입니다.');
                  }else if(add=nickname){
@@ -297,7 +294,6 @@ border-style :none;
 background-color : #e7e7e7;
 padding-bottom: 7px;
 padding-top: 7px;
-color: white;
 }
 #partadd{
 background-color: rgb(22,160,133);

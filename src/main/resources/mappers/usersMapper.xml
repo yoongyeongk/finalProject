@@ -41,7 +41,7 @@
 	<insert id="insertImg" parameterType="profileImgDTO">
 		insert into profile_img values (#{file_name}, #{original_name}, #{username})
 	</insert>
-	
+	<!-- 서연 추가 -->
 	<select parameterType="java.lang.String" resultType="java.lang.String" id="nicknameCheck"> 
-	select nickname from users where nickname=#{nickname} </select>
+	select nickname from users where nickname=#{nickname} group by nickname </select>
 </mapper>

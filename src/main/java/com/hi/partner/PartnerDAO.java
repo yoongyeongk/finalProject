@@ -22,4 +22,7 @@ public class PartnerDAO {
 	public List<PartnerDTO> partnerList(int schnum)throws Exception{
 		return sqlSession.selectList(NAMESPACE+"partnerList", schnum);
 	}
+	public int partnerDelete(int schnum)throws Exception{
+		return sqlSession.delete(NAMESPACE+"partnerDelete",schnum);
+	}
 }
