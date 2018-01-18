@@ -34,7 +34,7 @@
 		font-family: NanumSquareEB;
 		src:url("${pageContext.request.contextPath}/resources/font/NanumSquareEB.ttf");
 	}
-		@FONT-FACE{
+	@FONT-FACE{
 		font-family: NanumSquareR;
 		src:url("${pageContext.request.contextPath}/resources/font/NanumSquareR.ttf");
 	}
