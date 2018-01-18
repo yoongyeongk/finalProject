@@ -47,7 +47,7 @@ public class ScheduleController {
 	}
 		
 	@RequestMapping(value="ScheduleUpdate",method=RequestMethod.GET)
-	public ModelAndView ScheduleUpdate(int schnum,HttpServletRequest request){		
+	public ModelAndView ScheduleUpdate(int schnum,HttpServletRequest request)throws Exception{		
 		ModelAndView mv = ScheduleService.ScheduleUpdateGET(schnum, request);
 		mv.setViewName("/schedule/ScheduleUpdate");
 		return mv;

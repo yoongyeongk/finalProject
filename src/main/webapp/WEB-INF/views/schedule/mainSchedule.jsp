@@ -19,6 +19,15 @@ $(document).ready(function() {
 	 $('#partadd').on('click', function(){
 		 var nickname = $('#partner').val();
 		 var mynick =$('#mynick').val();
+		 var check = true;
+		 $('.addnick').each(function() {
+			var i=$(this).val();
+			if(nickname==i){
+				check=false;
+				alert('중복이다');
+			}
+		});
+		 if(check){
          $.ajax({
              type: 'POST',
              url: '../users/usersNickCheck',
@@ -68,6 +77,7 @@ $(document).ready(function() {
                  alert("에러입니다");
          }
          });    //end ajax    
+		 }
      });    //end on    	
 	$(function(){
 		var message = '${message}';
@@ -157,8 +167,7 @@ $(document).ready(function() {
 				startday: day,
 				lastday : day,
 				//나중에 멤버로 받아오기 
-				username: '${user.username}',
-				type: 'list'
+				username: '${user.username}'
 			},
 			success: function(data){
 				$("#list_sec").html(data);

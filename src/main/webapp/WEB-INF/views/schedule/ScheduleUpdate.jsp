@@ -5,7 +5,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>일정 수정페이지</title>
 <style type="text/css">
@@ -53,15 +53,82 @@ display : inline-block;
 margin-bottom: 10px;
 } 
 </style>
+<script type="text/javascript">
+$(document).ready(function () {
+	$('#partadd').on('click', function(){
+		 var nickname = $('#partner').val();
+		 var mynick =$('#mynick').val();
+		 var check = true; 
+
+		 $('.addnick').each(function() {
+			var i=$(this).val();
+			if(nickname==i){
+				check=false;
+				alert('중복이다');
+			}
+		});
+		 if(check){
+         $.ajax({
+             type: 'POST',
+             url: '../users/usersNickCheck',
+             data: {
+            	 nickname : nickname,
+                 mynick : mynick
+             },
+             success: function(data){	          	 	
+                 if(data.result == nickname && data.result != mynick){               	 
+                   alert('추가가능한 닉네임입니다.');
+                	var text = document.getElementById("partner").value;
+                	 var plusUl = document.createElement('input');
+                	 var plus = document.createElement('div');
+                	 var jbBtn= document.createElement("input");
+                	 //컨트롤러에 넘겨서 닉네임 확인하는 부분 
+                	 plusUl.style.display="none";
+                	 plusUl.className="addnick";
+                	 plusUl.setAttribute("name", "nickname");
+                	 plusUl.setAttribute("value", text);
+                	 //화면에 나타낼 부분
+                	 plus.style.display="inline-block";
+                	 plus.innerHTML = text;   
+                	 
+                	 
+                	 jbBtn.type="button";
+                	 jbBtn.className = "delete";
+                	 jbBtn.value="X";
+                	 document.getElementById('nick').appendChild(plusUl);
+                	 document.getElementById('nick').appendChild(plus);
+                	 document.getElementById('nick').appendChild(jbBtn);
+                	 
+					$(".delete").click(function() {
+						plusUl.remove();
+						plus.remove();
+						jbBtn.remove();
+					});
+                 }else if(data.result == mynick){
+                	 alert('본인닉네임입니다.');
+                 }else{
+                	 
+                	 alert('등록되어있지않은 닉네임입니다.');
+                 }
+             },
+             error:function(){
+                 alert("에러입니다");
+         }
+         });    //end ajax 	 
+		 }
+	});
+});
+</script>
 </head>
 <body>
 <div class="cal_nav"></div>
 <div class="col-md-4"></div>
  <div class="updateform col-md-8">
 <h1>일정 수정게시판</h1>
-<form action="../schedule/scheduleUpdatePOST" method="post">
-			<input type="hidden" name="id" value="${view.username}">	
+<form action="../schedule/scheduleUpdatePOST" method="post">	
 			<input type="hidden" name="schnum" value="${view.schnum}">	
+				<input type="hidden" name="username" value="${user.username}">	
+		 			<input type="hidden" id="mynick" name="mynick" value="${user.nickname}">
 				<table class="addT">
 								<tr>
 								<td><input required="required" type="text" class="basic_input" id="sch_title"
@@ -101,22 +168,21 @@ margin-bottom: 10px;
 								required="required" id="sch_contents"
 									name="pro_contents">${view.pro_contents}</textarea></td>
 							</tr>
-						<tr><td class="sch_colors"> 일정 색상 
-						초록<input type="radio" name="color" checked="checked" value="rgb(22,160,133)">
-						빨강<input type="radio" name="color" value="rgb(255,0,0)">
-						노랑<input type="radio" name="color" value="rgb(225,225,54)">
-						파랑<input type="radio" name="color" value="rgb(3,0,102)">
-						갈색<input type="radio" name="color" value="rgb(130,0,0)">
-						검정<input type="radio" name="color" value="rgb(0,0,0)">
-						</td></tr>
-<!-- 							<tr>
-							<td class="label2">참석자 </td>
-							</tr>
 							<tr>
-							<td><input type="text" id="partner"
-									name="partner"></td>
-							</tr> -->
-						</table>
+							<td class="label2"><input type="text" class="partner" id="partner"
+									name="nickinput" placeholder = "참석자 닉네임 입력">
+									<input id="partadd" type="button" value="추가">
+									
+							</td></tr>
+							<tr><c:forEach items="${nick}" var="nickname">
+									<td><div class="nick_update" name="nick_update" style="display: inline-block;">${nickname.nickname}</div> <input type="button" class="delete2" value="삭제"></td>
+								</c:forEach></tr>
+								<tr><td><div id="nick" style="display: inline-block;"></div></td></tr>
+							<tr><td class="sch_colors"> 일정 색상 
+						초록<input type="radio" name="color" checked="checked" value="rgb(22,160,133)">
+						빨강<input type="radio" name="color" value="rgb(255,0,0)">노랑<input type="radio" name="color" value="rgb(225,225,54)">파랑<input type="radio" name="color" value="rgb(3,0,102)">
+						갈색<input type="radio" name="color" value="rgb(130,0,0)">검정<input type="radio" name="color" value="rgb(0,0,0)">
+						</td></tr></table>
 
 							<button id="submitBtn" class="btn">등록하기</button>
 </form>

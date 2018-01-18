@@ -54,10 +54,10 @@ $(function() {
 	<tr><td>시간</td>
     	<td><p>${dto.start_time}~${dto.last_time}</p>
     	</td></tr>
-    	<c:forEach items="${nick}" var="nickname"><tr>
-    	<td>참석자</td>
+    	<tr><td>참석자</td>
+    <c:forEach items="${nick}" var="nickname">
 		<td>${nickname.nickname}</td>
-	</tr></c:forEach>
+	</c:forEach></tr>
     		<tr><td colspan="2"></td></tr>
        	<tr><td colspan="2"><button id="updateBtn" onclick="location.href='./ScheduleUpdate?schnum=${dto.schnum}'">수정</button>
     	<button value="${dto.schnum}" id="deleteBtn">삭제</button> </td></tr>
