@@ -154,6 +154,17 @@ $(function(){
 	$(".delfile").click(function(){
 		var delFile = $(this);
 		alert($(delFile).attr("id"));
+		var fnum = $(delFile).attr("id");
+		$.ajax({
+			type: "POST",
+			url: "../pmfFile/deleteOne",
+			data: {
+				fnum: fnum
+			},
+			success: function(data){
+				
+			}
+		});
 	});
 	
 	//CKEditor
@@ -291,6 +302,7 @@ $(function(){
 								<div class='statusbar odd'>
 									<div class='filename'>${file.oriname}</div>
 									<div class='filesize'>${file.filesize}</div>
+									<div class='progressBar'></div>
 									<span id="delfile${i.count}" class="delfile">삭제</span>
 								</div>
 							</c:if>
@@ -298,6 +310,7 @@ $(function(){
 								<div class='statusbar even'>
 									<div class='filename'>${file.oriname}</div>
 									<div class='filesize'>${file.filesize}</div>
+									<div class='progressBar'></div>
 									<span id="delfile${i.count}" class="delfile">삭제</span>
 								</div>
 							</c:if>
