@@ -103,7 +103,6 @@ textarea {
 .progressBar {
 	width: 200px;
 	height: 20px;
-	border: 1px solid #ddd;
 	border-radius: 5px;
 	overflow: hidden;
 	display: inline-block;

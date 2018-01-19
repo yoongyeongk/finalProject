@@ -274,6 +274,7 @@
 							<div class='statusbar odd'>
 								<div class='filename'>${file.oriname}</div>
 								<div class='filesize'>${file.filesize}</div>
+								<div class='progressBar'></div>
 								<span id="delfile${i.count}" class="delfile">삭제</span>
 							</div>
 							</c:forEach>
