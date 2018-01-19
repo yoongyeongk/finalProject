@@ -15,4 +15,8 @@
   	<delete id="deleteAll" parameterType="Integer">
   		delete BOARDFILE where num=#{num}
    	</delete>
+   	
+   	<select id="selectFile" parameterType="Integer" resultType="tradeBoardFileDTO">
+  		select * from BOARDFILE where num=#{num} order by fnum asc
+  	</select>
   </mapper>

@@ -119,7 +119,7 @@ $(function() {
 							<tr id="top">
 								<th scope="col">기업명</th>
 								<th scope="col">프로젝트 제목</th>
-								<th scope="col">현재 경매가</th>
+								<th scope="col">최소<em>/현재 경매가</em></th>
 								<th scope="col">마감일</th>
 							</tr>
 						</thead>
@@ -161,8 +161,14 @@ $(function() {
 									
 									<td class="ct price">
 										<div class="loc">
-											<fmt:formatNumber value="1000" type="currency" currencySymbol="￦"/>
+											<fmt:formatNumber value="${dto.min_price }" type="currency" currencySymbol="￦"/> /
+											<div>
+												<em>
+													<fmt:formatNumber value="3000" type="currency" currencySymbol="￦"/>
+												</em>
+											</div>
 										</div>
+										
 									</td>
 									
 									<td class="ct date">

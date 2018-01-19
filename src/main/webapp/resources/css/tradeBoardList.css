@@ -60,6 +60,7 @@
 		text-decoration: none;
 		color: black;
 		font-family: NanumGothic;
+		letter-spacing:-1px;
 	}
 	.loc>a:hover{
 		color: black;

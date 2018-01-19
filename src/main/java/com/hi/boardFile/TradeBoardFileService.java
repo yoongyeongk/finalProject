@@ -36,6 +36,11 @@ public class TradeBoardFileService {
 	return files;
 	}
 	
+	public List<TradeBoardFileDTO> selectFile (int num) throws Exception {
+			
+		return tradeBoardFileDAO.selectFile(num);
+	}
+	
 	public int deleteOne (int num) throws Exception {
 		int result = 0;
 			result = tradeBoardFileDAO.deleteOne(num);

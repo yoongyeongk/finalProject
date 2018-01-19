@@ -11,13 +11,13 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sly/1.6.1/sly.min.js"></script>
+
 
 <title>Insert title here</title>
 
 <style type="text/css">
-	view{
-		width:100%;
-	}
 	@FONT-FACE {
 		font-family: BMJUA;
 		src:url("${pageContext.request.contextPath}/resources/font/BMJUA_ttf.ttf");
@@ -38,6 +38,14 @@
 		font-family: NanumSquareR;
 		src:url("${pageContext.request.contextPath}/resources/font/NanumSquareR.ttf");
 	}
+	@FONT-FACE{
+		font-family: NanumGothic;
+		src:url("${pageContext.request.contextPath}/resources/font/NanumGothic.ttf");
+	}
+	view{
+		width:100%;
+		font-family: NanumGothic;
+	}
 	p{
 		margin: 0;
 		padding: 0;
@@ -51,6 +59,9 @@
 		padding: 0;
 		margin: 0;
 		line-height: 50px;
+		border-bottom: 1px solid;
+		border-top: 1px solid;
+		font-weight: lighter;
 	}
 	.all{
 		width:900px;
@@ -92,14 +103,49 @@
 		margin-top: 30px;
 	}
 	.spanBorder{
-		border: 2px solid black;
+		color: teal;
+		border: 1px solid mediumseagreen;
 		display:inline-block;
 		line-height: 20px;
 		width: 95px;
 		text-align: center;
 		margin-right: 15px;
 	}
-</style>
+     .frame {
+        height: 150px;
+        line-height: 150px;
+        overflow: hidden;
+    }
+    .frame ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-size: 50px;
+        margin: 0 auto;
+        }
+     .frame ul li {
+        float: left;
+        width: 207px;
+        height: 100%;
+        margin: 0 1px 0 0;
+        padding: 0;
+        background: #333;
+        color: #ddd;
+        text-align: center;
+        cursor: pointer;
+        }
+        .imgs{
+        	width: 207px;
+        	height: 150px;
+        }
+    .scrollbar { width: 100%; height: 10px; }
+.scrollbar .handle {
+	width: 100px; /* overriden if dynamicHandle: 1 */
+	height: 100%;
+	background: #222;
+}
+    </style>
 
 <script type="text/javascript">
 	$(function() {
@@ -114,6 +160,7 @@
 </head>
 <body>
   <view>
+  
 	<div class="all">
 		<form action="./tradeBoardList?curPage=1&kind=Title" method="get" id="f">
 			<input type="hidden" value="" name="search" id="search">
@@ -130,6 +177,16 @@
 			<p class="title">${one.title }</p>
 		</div>
 		
+		<div class="st"></div>
+		
+	<div class="scrollbar">
+	<div class="handle"></div>
+</div>
+		<div class="frame" id="forceCentered">
+    		<ul class="slidee">
+    		</ul>
+		</div>
+		
 		<div class="contentsLine">
 			<div class="contentsBox">
 				<div class="contents">${one.contents }</div>
@@ -141,16 +198,48 @@
 					<li><span class="spanBorder">작성 아이디</span> ${one.writer }</li>
 					<li><span class="spanBorder">이메일</span> ${one.email }</li>
 					<li><span class="spanBorder">연락처</span> ${one.corporate_phone }</li>
+					<li><span class="spanBorder">주소</span> ${one.address } ${one.address_detail }</li>
 				</ul>
 			</div>
 		</div>
 		
-		
-		<div class="imgBox">
-			
-		</div>
 	 </div>
 	</div>
  </view>
+ <script>
+ var sly = new Sly($('.frame'), {
+     horizontal: 1, // required
+     itemNav: 'forceCentered', // required
+     activateMiddle:true,
+     itemSelector :$(".st"),
+     smart: 1,
+     mouseDragging: 1,
+     touchDragging: 1,
+     releaseSwing: 1,
+     scrollBy: 1,
+     speed: 300,
+     elasticBounds: 1,
+     dragHandle: 1,
+     dynamicHandle: 1,
+     clickBar: 1,
+     scrollBar: $(".scrollbar")
+ }, null).init();
+ var num = ${one.num}
+ var c = 1;
+  $.ajax({
+	 type:"POST",
+	 url:"../tradeBoardFile/fileSelect",
+	 data : {
+		 num:num
+	 } , success : function(data) {
+			$(data).each(function() {
+				 /* $('.slidee').append('<li class="img_select"><img class="imgs" src="${pageContext.request.contextPath}/resources/upload/'+this.fileName+'"></li>'); */
+			    $('.slidee').append('<li>'+(c++)+'</li>');
+				 sly.reload();
+				}) 
+		
+	 }
+  })
+ </script>
 </body>
 </html>

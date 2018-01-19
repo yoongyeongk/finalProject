@@ -1,5 +1,7 @@
 package com.hi.boardFile;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -25,5 +27,10 @@ public class TradeBoardFileDAO {
 	public int deleteAll (int num) throws Exception {
 		
 		return sqlSession.delete(NAMESPACE+"deleteAll", num);
+	}
+	
+	public List<TradeBoardFileDTO> selectFile (int num) throws Exception {
+		
+		return sqlSession.selectList(NAMESPACE+"selectFile", num);
 	}
 }

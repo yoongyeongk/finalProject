@@ -105,6 +105,5 @@ public class TradeBoardService {
 		}
 	return tradeBoardDAO.deleteAll(num);
 	}
-
 	
 }
