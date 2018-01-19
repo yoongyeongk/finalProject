@@ -7,8 +7,8 @@
 		var cnt = 0;
 		
 		$(".wrap_total").click(function(){
-			var clickedDiv = $(this);
-			cnt++;
+				clickedDiv = $(this);
+				cnt++;
 			if(cnt%2 != 0){
 				clickedDiv.css("background-color","rgb(46, 170, 145)");				
 			}else{

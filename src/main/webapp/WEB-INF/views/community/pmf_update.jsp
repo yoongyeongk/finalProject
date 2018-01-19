@@ -287,13 +287,21 @@ $(function(){
 						<div id="dropzone">업로드할 파일을 드래그해 주세요.</div>
 						<div id="fileSec">
 							<c:forEach items="${view.fileDTO}" var="file" varStatus="i">
-							<div class='statusbar odd'>
-								<div class='filename'>${file.oriname}</div>
-								<div class='filesize'>${file.filesize}</div>
-								<span id="delfile${i.count}" class="delfile">삭제</span>
-							</div>
+							<c:if test="${i%2 == 1}">
+								<div class='statusbar odd'>
+									<div class='filename'>${file.oriname}</div>
+									<div class='filesize'>${file.filesize}</div>
+									<span id="delfile${i.count}" class="delfile">삭제</span>
+								</div>
+							</c:if>
+							<c:if test="${i%2 == 0}">
+								<div class='statusbar even'>
+									<div class='filename'>${file.oriname}</div>
+									<div class='filesize'>${file.filesize}</div>
+									<span id="delfile${i.count}" class="delfile">삭제</span>
+								</div>
+							</c:if>
 							</c:forEach>
-							
 						</div>
 					</td>
 				</tr>

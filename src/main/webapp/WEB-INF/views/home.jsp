@@ -19,7 +19,6 @@
 <link rel="stylesheet" href="resources/css/header.css">
 <link rel="stylesheet" href="resources/css/main.css">
 <body>
-
 	<div id="main" class="wrapper">
 		<c:import url="temp/header.jsp"></c:import>
 		<!-- contents -->

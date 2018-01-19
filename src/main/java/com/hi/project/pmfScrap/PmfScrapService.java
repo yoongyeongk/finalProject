@@ -72,6 +72,7 @@ public class PmfScrapService {
 		return result;
 	}
 	
+	//비교하기
 	public ModelAndView selectOne(int [] snums) throws Exception {
 		List<PmfScrapDTO> ar = new ArrayList<PmfScrapDTO>();
 		ModelAndView mv = new ModelAndView();
