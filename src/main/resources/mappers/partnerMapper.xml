@@ -25,5 +25,13 @@
 	<insert id="partnerInsert" parameterType="com.hi.partner.PartnerDTO">
   		insert into partner values(#{schnum},partner_seq.nextval,#{nickname})
   	</insert>
+	
+	<select id="partnerList" parameterType="int" resultType="com.hi.partner.PartnerDTO">
+  		select * from partner where schnum=#{schnum}
+  	</select>
+  	
+	  	<delete id="partnerDelete" parameterType="int">
+  	 DELETE FROM partner WHERE schnum=#{schnum}
+  	</delete>
 
   </mapper>

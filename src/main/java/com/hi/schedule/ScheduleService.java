@@ -28,19 +28,16 @@ public class ScheduleService {
 	private PartnerDAO partnerDAO;
 	
 	//수정을 위한 view 
-			public ModelAndView ScheduleUpdateGET(int schnum,HttpServletRequest request){
+			public ModelAndView ScheduleUpdateGET(int schnum,HttpServletRequest request)throws Exception{
 				ModelAndView mv= new ModelAndView();
 				ScheduleDTO scheduleDTO = null;
 				schnum = Integer.parseInt(request.getParameter("schnum"));
-				try {
+
 				scheduleDTO = scheduleDAO.ScheduleUpdateGET(schnum);
 				scheduleDTO.setStartday(scheduleDTO.getStartday().substring(0, scheduleDTO.getStartday().indexOf(" ")));
 				scheduleDTO.setLastday(scheduleDTO.getLastday().substring(0, scheduleDTO.getLastday().indexOf(" ")));
-				//System.out.println("22 num :"+scheduleDTO.getNum());
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				List<PartnerDTO> nick=	partnerDAO.partnerList(schnum);
+				mv.addObject("nick", nick);
 				mv.addObject("view", scheduleDTO);
 				return mv;
 			}
@@ -51,6 +48,7 @@ public class ScheduleService {
 			}
 		
 		public int ScheduleDeleteOne(int schnum) throws Exception {
+			partnerDAO.partnerDelete(schnum);
 			int result=scheduleDAO.ScheduleDeleteOne(schnum);	
 			return result;
 		}
@@ -60,23 +58,19 @@ public class ScheduleService {
 			ModelAndView mv = new ModelAndView();
 			scheduleDTO.setStartday(request.getParameter("startday"));
 			scheduleDTO.setUsername(request.getParameter("username"));
-			String ah = scheduleDTO.getStartday();
-/*			System.out.println(ah);*/
-			
+			String ah = scheduleDTO.getStartday();			
 			try {
-				List<ScheduleDTO> ar = scheduleDAO.jsonScheduleDayList(scheduleDTO);
-				String type = request.getParameter("type");
-				List<PartnerDTO> part = new ArrayList<PartnerDTO>();
-				if(type.equals("list")){
+				List<ScheduleDTO> ar = scheduleDAO.jsonScheduleDayList(scheduleDTO);			
+				List<PartnerDTO> part = null;
 					System.out.println("success");
 					for(int i =0; i<ar.size();i++){
 						String st= scheduleDTO.getStartday();
+						part=partnerDAO.partnerList(ar.get(i).getSchnum());
 					}
 					mv.addObject("nick", part);
 					mv.addObject("list", ar);
 					mv.setViewName("/schedule/dayListSchedule");
-					System.out.println(part);
-				}
+					/*System.out.println(part);*/
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

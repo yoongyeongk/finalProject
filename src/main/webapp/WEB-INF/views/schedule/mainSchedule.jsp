@@ -19,6 +19,15 @@ $(document).ready(function() {
 	 $('#partadd').on('click', function(){
 		 var nickname = $('#partner').val();
 		 var mynick =$('#mynick').val();
+		 var check = true;
+		 $('.addnick').each(function() {
+			var i=$(this).val();
+			if(nickname==i){
+				check=false;
+				alert('중복이다');
+			}
+		});
+		 if(check){
          $.ajax({
              type: 'POST',
              url: '../users/usersNickCheck',
@@ -26,19 +35,19 @@ $(document).ready(function() {
             	 nickname : nickname,
                  mynick : mynick
              },
-             success: function(data){
-                 if(data.result == nickname && data.result != mynick){
+             success: function(data){	          	 	
+                 if(data.result == nickname && data.result != mynick){               	 
                    alert('추가가능한 닉네임입니다.');
                 	var text = document.getElementById("partner").value;
                 	 var plusUl = document.createElement('input');
                 	 var plus = document.createElement('div');
                 	 var jbBtn= document.createElement("input");
-                	 
+                	 //컨트롤러에 넘겨서 닉네임 확인하는 부분 
                 	 plusUl.style.display="none";
                 	 plusUl.className="addnick";
                 	 plusUl.setAttribute("name", "nickname");
                 	 plusUl.setAttribute("value", text);
-                	 
+                	 //화면에 나타낼 부분
                 	 plus.style.display="inline-block";
                 	 plus.innerHTML = text;   
                 	 
@@ -57,8 +66,10 @@ $(document).ready(function() {
 					});
                  }else if(data.result == mynick){
                 	 alert('본인닉네임입니다.');
-                 }
-                 else{
+                 }else if(add=nickname){
+                	 alert('asd');
+                 }else{
+                	 
                 	 alert('등록되어있지않은 닉네임입니다.');
                  }
              },
@@ -66,6 +77,7 @@ $(document).ready(function() {
                  alert("에러입니다");
          }
          });    //end ajax    
+		 }
      });    //end on    	
 	$(function(){
 		var message = '${message}';
@@ -155,8 +167,7 @@ $(document).ready(function() {
 				startday: day,
 				lastday : day,
 				//나중에 멤버로 받아오기 
-				username: '${user.username}',
-				type: 'list'
+				username: '${user.username}'
 			},
 			success: function(data){
 				$("#list_sec").html(data);
@@ -292,11 +303,9 @@ border-style :none;
 background-color : #e7e7e7;
 padding-bottom: 7px;
 padding-top: 7px;
-color: white;
 }
 #partadd{
 background-color: rgb(22,160,133);
-color: white;
 height: 100%;
 border-style: none;
 }
