@@ -6,6 +6,7 @@
 <head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="../resources/css/pmf/pmf_list_css.css">
+<link rel="stylesheet" href="../resources/css/header.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -84,6 +85,7 @@
 </head>
 <body>
 <!-- header -->
+	<c:import url="../temp/header.jsp"></c:import>
 <!-- header 끝 -->
 
 	<section id="main">

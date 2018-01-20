@@ -13,6 +13,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- CSS -->
 	<link rel="stylesheet" href="../resources/css/pmf/pmf_view_css.css">
+	<link rel="stylesheet" href="../resources/css/header.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
@@ -227,9 +228,8 @@
 </script>
 </head>
 <body>
-	<h1>pmf board view</h1>
 	<!-- header -->
-	
+	<c:import url="../temp/header.jsp"></c:import>
 	<!-- header 끝 -->
 	
 	<section id="main">

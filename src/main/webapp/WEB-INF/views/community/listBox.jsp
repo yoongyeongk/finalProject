@@ -3,21 +3,40 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
 	$(function(){
-		//cnt 다시 조정하기 여러개에 걸쳐서 적용됨
-		var cnt = 0;
+		var snums = [];
 		
 		$(".wrap_total").click(function(){
-				clickedDiv = $(this);
-				cnt++;
-			if(cnt%2 != 0){
-				clickedDiv.css("background-color","rgb(46, 170, 145)");				
-			}else{
-				clickedDiv.css("background-color","rgba(26, 188, 156, 0.39)");
-			}
+			clickedDiv = $(this);
+			var snum = clickedDiv.attr("id");
+			var result = 0;
+			clickedDiv.toggleClass("click");	
 			
+			if(snums.length == 0){	//배열 크기가 0일 경우, 새롭게 추가
+				snums.push(snum);
+			}else{					//배열 크기가 0이 아닌 경우, 해당 번호가 있는지 확인 후 추가
+				for(var i=0; i<snums.length; i++){
+					if(snum != snums[i]){			//번호가 없다면, 새롭게 추가	
+						result = 0;	
+					}else {
+						result = i;
+					}			
+					alert("result: "+result);
+					if(result>0){
+						snums.splice(i,0);			//번호가 있다면, 배열에서 제거						
+					}else{
+						snums.push(snum);
+					}
+				}
+			}
+			alert(snums);
 		});
 	});
 </script>
+<style>
+	.click{
+		background-color: rgb(46, 170, 145);
+	}
+</style>
 <c:forEach items="${list}" var="dto">
 	<div class="wrap_total" id="${dto.snum}">
 		<div class="wrap_1">

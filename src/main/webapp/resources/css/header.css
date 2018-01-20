@@ -1,25 +1,175 @@
 @charset "UTF-8";
 body {
-	font-family: "Lato", sans-serif;
+	font-family: HanSans;
 }
 
+#main {
+	transition: margin-left .5s;
+	height: 1000px;
+	margin-top: 100px;
+}
+
+.nav-header {
+	width: 100%;
+	background-color: #16a085;
+	height: 45px;
+	position: fixed;
+    top: 0;
+    z-index: 10;
+}
+
+.nav-header span {
+	font-size: 17px;
+	cursor: pointer;
+	color: white;
+	/* margin: 0 0 0 18px; */
+}
+.logo-mini {
+	margin: 15px;
+	width: 41px;
+}
+.sidebar-btn{
+	line-height: 45px;
+    margin: 0 10px;
+}
+#logo{
+	line-height: 45px;
+}
+.logo-img {
+	width: 150px;
+	height: 40px;
+	margin: 2px 0;
+}
+
+.navbar-menu {
+	float: right;
+}
+
+.navbar-nav a {
+	color: white;
+	text-decoration: none;
+}
+.dropdown {
+	display: inline-block;
+}
+
+.dropdown-menu {
+	right: 0;
+	left: auto;
+}
+
+/* navBar - dropdown menus */
+.nav .open>a, .nav .open>a:focus, .nav .open>a:hover{
+	background-color: #eee0;
+}
+.alert_sec{
+	line-height: 45px;
+    font-weight: 600;
+    margin-right: 10px;
+}
+.alert_sec .badge{
+	margin-left: 5px;
+    background-color: rgb(211, 84, 0);
+}
+.alert_header{
+	text-align: center;
+    border-bottom: solid 1px #ddd;
+    height: 30px;
+    font-weight: 600;
+    color: gray;
+}
+.alert_ul li{
+	height: 30px;
+}
+.alert_ul a{
+	height: 30px;
+	line-height: 30px;
+}
+.alert_ul .alert_con{
+	color: gray;
+    margin: 0 5px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 13px;
+}
+
+/* messinger_open */
+.messinger_open{
+	line-height: 45px;
+	margin-right: 10px;
+}
+.messinger_open>span{
+	font-size: 20px;
+	width: 30px;
+	height: 45px;
+	line-height: 45px;
+	text-align: center;
+    margin-left: 10px;
+}
+.messinger_header{
+	width: 200px;
+    padding: 2px;
+    border-bottom: solid 1px #ddd;
+    height: 30px;
+    font-weight: 600;
+    color: gray;
+}
+/* user's_info */
+.user_info{
+	display: inline-block;
+    height: 45px;
+    line-height: 45px;
+    margin: 0 20px 0 10px;
+}
+
+.profile-img {
+	width: 30px;
+	height: 30px;
+}
+
+/* sideBar 1 -before open */
+#sideNav_main{
+	width: 40px;
+    height: 100%;
+    float: left;
+    background-color: #ddd;
+    position: fixed;
+    padding: 10px 0;
+    top: 45px;
+}
+.icons{
+	font-size: 20px;
+    color: #16a085;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    display: inline-block;
+    margin: 0 auto;
+}
+.scrap_icon{
+	color: rgb(211, 84, 0);
+}
+
+/* sideBar 2 -after open*/
 .sidenav {
 	height: 100%;
-	width: 0;
-	position: fixed;
-	z-index: 1;
-	top: 0;
-	left: 0;
-	background-color: #16a085;
-	overflow-x: hidden;
-	transition: 0.5s;
-	padding-top: 60px;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 45px;
+    left: 40px;
+    background-color: #16a085;
+    overflow-x: hidden;
+    transition: 0.5s;
+    opacity: 0.8;
+    padding: 10px 0;
 }
 .sidebar {
   position: absolute;
   top: 0;
   height: inherit;
-  width: 300px;
+  width: 130px;
   background-image: linear-gradient(to left, rgba(0,0,0,0.0), rgba(0,0,0,0.5));
   transition: left 1s;
 }
@@ -41,18 +191,23 @@ body {
 
 .sidebar ul li:hover { opacity: 1; }
 
-.hide-sidebar { left: -300px; }
+.hide-sidebar { left: -40px; }
 
 .show-sidebar { left: 0; }
 
-
 .sidenav a {
-	padding: 8px 8px 8px 32px;
 	text-decoration: none;
-	font-size: 25px;
-	color: white;
-	display: block;
-	transition: 0.3s;
+    color: white;
+    display: block;
+    transition: 0.3s;
+    text-align: left;
+    padding-left: 10px;
+    font-size: 17px;
+    width: 130px;
+    height: 40px;
+    line-height: 40px;
+    font-weight: 600;
+    letter-spacing: 1px;
 }
 
 .sidenav a:hover {
@@ -67,11 +222,6 @@ body {
 	margin-left: 50px;
 }
 
-#main {
-	transition: margin-left .5s;
-	height: 1000px;
-}
-
 @media screen and (max-height: 450px) {
 	.sidenav {
 		padding-top: 15px;
@@ -79,44 +229,4 @@ body {
 	.sidenav a {
 		font-size: 18px;
 	}
-}
-
-.nav-header {
-	width: 100%;
-	background-color: #16a085;
-}
-
-.nav-header span {
-	font-size: 16px;
-	cursor: pointer;
-	color: white;
-	/* margin: 0 0 0 18px; */
-}
-.logo-mini {
-	margin: 15px;
-	width: 41px;
-}
-.logo-img {
-	margin: 0;
-	width: 180px;
-}
-
-.profile-img {
-	width: 50px;
-}
-
-.navbar-menu {
-	float: right;
-}
-
-.navbar-nav a {
-	color: white;
-}
-.dropdown {
-	display: inline-block;
-}
-
-.dropdown-menu {
-	right: 0;
-	left: auto;
 }

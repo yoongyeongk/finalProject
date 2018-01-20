@@ -12,8 +12,9 @@
 <script src="https://cdn.ckeditor.com/4.8.0/basic/ckeditor.js"></script>
 <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 <link rel="stylesheet" href="../resources/css/pmf/pmf_write_css.css">
+<link rel="stylesheet" href="../resources/css/header.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Hi!Project/community/find member/update</title>
 <script type="text/javascript">
 $(function(){
 	
@@ -228,9 +229,8 @@ $(function(){
 </script>
 </head>
 <body>
-	<h1>Update form</h1>
 	<!-- header -->
-	
+	<c:import url="../temp/header.jsp"></c:import>
 	<!-- header 끝 -->
 	
 	<section id="main">
