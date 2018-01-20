@@ -19,6 +19,8 @@
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.4.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
+<script src="${pageContext.request.contextPath }/resources/js/fakeLoader.js"></script>
+<link href="${pageContext.request.contextPath }/resources/css/plugin/fakeLoader.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath }/resources/css/tradeBoardWrite.css" rel="stylesheet">
 
 <script type="text/javascript">
@@ -165,7 +167,6 @@ var list = {
 			})	
 		}
 	}
-
 	
 function timeout() {
 	 var writer = $("#writer").val();
@@ -234,10 +235,10 @@ function timeout() {
 	
 $(function() {
 	
-	list.call('sson',1,save_num)
+	$("#over").css("display","none");
+	$(".hideSet").css("display","none");
 	
-	$("#over").css("display","none")
-	$(".hideSet").css("display","none")
+	list.call('sson',1,save_num);
 	
 	$(".listCall").click(function() {
 		if($("#over").css("display") == 'block'){
@@ -367,8 +368,18 @@ $(function(){
 
 })
 </script>
+<script>
+$(document).ready(function(){
+  $("#fakeLoader").fakeLoader({
+    timeToHide:700, // 로딩중에 걸리는 시간, 1000은 1초
+    bgColor:"snow", // 배경색
+    spinner:"spinner1" // 로딩중으로 원하는 로딩이미지타입
+  });
+});
+</script>
 </head>
 <body>
+<div id="fakeLoader"></div>
 	<contents>
 		<div class="all">
 					<form action="./tradeBoard${form }" method="post" enctype="multipart/form-data" name="frm">
@@ -402,7 +413,7 @@ $(function(){
 										</a>
 									</div>
 									
-									<div class="hideSet">
+									<div class="hideSet" id="hideSet">
 										<div class="inBox txt">
 											<p class="save_guide">시간설정에따라 글이 자동 저장되며 최대 50개까지 저장 됩니다.</p>
 											<p class="save_guide sg">저장된 글은 저장일부터 한달 후에 삭제 됩니다.</p>

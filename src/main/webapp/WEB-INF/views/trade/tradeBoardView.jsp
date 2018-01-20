@@ -44,7 +44,6 @@
 	}
 	view{
 		width:100%;
-		font-family: NanumGothic;
 	}
 	p{
 		margin: 0;
@@ -65,7 +64,7 @@
 	}
 	.all{
 		width:900px;
-		height:1100px;
+		height:1900px;
 		margin: 0 auto;
 		background-color: gold;
 	}
@@ -112,6 +111,7 @@
 		margin-right: 15px;
 	}
      .frame {
+     	width:
         height: 150px;
         line-height: 150px;
         overflow: hidden;
@@ -135,16 +135,38 @@
         text-align: center;
         cursor: pointer;
         }
-        .imgs{
-        	width: 207px;
-        	height: 150px;
+      .imgs{
+       	width: 207px;
+        height: 150px;
         }
-    .scrollbar { width: 100%; height: 10px; }
-.scrollbar .handle {
-	width: 100px; /* overriden if dynamicHandle: 1 */
-	height: 100%;
-	background: #222;
-}
+    .scrollbar { 
+    	width: 100%; 
+    	height: 10px; 
+    	background-color: grey;
+    	margin: 13px 0 13px 0;
+    	}
+	.scrollbar .handle {
+		width: 100px; /* overriden if dynamicHandle: 1 */
+		height: 100%;
+		background: #222;
+		}
+	.sampleView{
+		width:750px;
+    	margin: 0 auto;
+    	margin-top: 50px;
+    	margin-bottom: 30px;
+	}
+	.view{
+		width: 750px;
+    	height: 700px;
+	}
+	.info ul>li{
+		font-family: Daum_Regular;
+	}
+	.sly{
+		width: 750px;
+		margin: 0 auto;
+	}
     </style>
 
 <script type="text/javascript">
@@ -154,6 +176,11 @@
 			$("#search").val(search)
 			$("#kind").val("Title")
 			$("#f").submit()
+		})
+	
+		
+		$(".active").change(function() {
+			alert("t")
 		})
 	})
 </script>
@@ -177,14 +204,19 @@
 			<p class="title">${one.title }</p>
 		</div>
 		
-		<div class="st"></div>
+		<div class="sly">
+			<div class="sampleView">
+				<img class="view" src="">
+			</div>
+			
+			<div class="scrollbar">
+				<div class="handle"></div>
+			</div>
 		
-	<div class="scrollbar">
-	<div class="handle"></div>
-</div>
-		<div class="frame" id="forceCentered">
-    		<ul class="slidee">
-    		</ul>
+			<div class="frame" id="forceCentered">
+	    		<ul class="slidee">
+	    		</ul>
+			</div>
 		</div>
 		
 		<div class="contentsLine">
@@ -210,8 +242,8 @@
  var sly = new Sly($('.frame'), {
      horizontal: 1, // required
      itemNav: 'forceCentered', // required
-     activateMiddle:true,
-     itemSelector :$(".st"),
+     activateMiddle:1,
+     activateOn: 'click',
      smart: 1,
      mouseDragging: 1,
      touchDragging: 1,
@@ -222,10 +254,12 @@
      dragHandle: 1,
      dynamicHandle: 1,
      clickBar: 1,
-     scrollBar: $(".scrollbar")
+     scrollBar: $(".scrollbar"),
+     activatePageOn: 'click',
+     activeClass:'active'
  }, null).init();
  var num = ${one.num}
- var c = 1;
+ var c = 0;
   $.ajax({
 	 type:"POST",
 	 url:"../tradeBoardFile/fileSelect",
@@ -233,13 +267,16 @@
 		 num:num
 	 } , success : function(data) {
 			$(data).each(function() {
-				 /* $('.slidee').append('<li class="img_select"><img class="imgs" src="${pageContext.request.contextPath}/resources/upload/'+this.fileName+'"></li>'); */
-			    $('.slidee').append('<li>'+(c++)+'</li>');
-				 sly.reload();
+				$('.slidee').append('<li class="item"><img id="img'+(c++)+'" class="imgs" src="${pageContext.request.contextPath}/resources/upload/'+this.fileName+'"></li>'); 
+				
+				sly.reload();
 				}) 
-		
 	 }
   })
+  sly.on('active', function(eventName, activatedItemIndex){
+   var src = $("#img"+activatedItemIndex).attr("src");
+   $(".view").attr("src", src);
+})
  </script>
 </body>
 </html>
