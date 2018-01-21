@@ -91,16 +91,17 @@ public class ScheduleController {
 	}
 	
 	@RequestMapping(value="ScheduleWrite", method =RequestMethod.POST)
-	public String ScheduleWrite(ScheduleDTO scheduleDTO, String [] nickname, RedirectAttributes rd, HttpSession session,HttpServletRequest request){
+	public String ScheduleWrite(ScheduleDTO scheduleDTO,RedirectAttributes rd,String []nickname,HttpSession session,HttpServletRequest request){
 		int result = 0;
-		try {
-			result = ScheduleService.write(scheduleDTO, nickname, request);
+		try {			
+				result = ScheduleService.write(scheduleDTO,nickname, request);				
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		String message = "일정등록을 재실행해주세요.";
 		if(result>0){
+		
 			message = "일정이 등록되었습니다.";
 		}
 		rd.addFlashAttribute("message", message);

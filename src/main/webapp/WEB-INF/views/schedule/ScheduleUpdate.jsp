@@ -13,11 +13,10 @@
 display:  inline-block;}
 .updateform{
 display: inline-block;
-margin: 0 auto;
 }
 .cal_nav{
 		margin: 0 auto;
-		margin-top: 50px;
+		margin-top: 100px;
 		height: 20px;
 		margin-bottom: 5px;
 	}
@@ -27,7 +26,7 @@ width: 100%;
 .basic_input{
 border-style: none;
 background-color: #f5f5f6;
-padding-left: 20px;
+padding-left: 10px;
 padding: 10px;
 margin-bottom: 10px;
 }
@@ -35,6 +34,7 @@ margin-bottom: 10px;
 background-color: rgb(22,160,133);
 color: white;
 font-weight: bold;
+float: right;
 }
 .part2 {
 display : inline-block;
@@ -48,18 +48,85 @@ border-style: none;
 background-color: #f5f5f6;
 margin-bottom: 10px;
 }
-.sch_colors{
-display : inline-block;
-margin-bottom: 10px;
-} 
+#ck-button {
+    margin:1.2px;
+    background-color:#EFEFEF;
+    border-radius:4px;
+    border:1px solid #D0D0D0;
+    overflow:auto;
+    float:left;
+}
+#ck-button label {
+    float:left;
+    width:3.1em;
+}
+#ck-button label span {
+    text-align:center;
+    padding:3px 0px;
+        font-weight: lighter;
+    display:block;
+}
+#ck-button label input {
+    position:absolute;
+}
+#ck-button input:checked + span {
+    font-weight: bold;
+   color: white;
+}
+input[class="ss2"]{
+display: none;
+}
+#partner{
+margin-top: 10px;
+border-bottom-color: nany;
+}
+#nick{
+margin-bottom: 20px;
+}
+#partadd{
+background-color: rgb(22,160,133);
+height: 150%;
+	border-radius: 10px;
+border-style: none;
+color: white;
+}
+.partner{
+border-style :none;
+background-color : #e7e7e7;
+padding-bottom: 7px;
+padding-top: 7px;
+}
+.delete{
+border-style :none;
+border-radius: 10px;
+color: rgb(210,255,195);
+font-size : small;
+background-color: gray;
+text-align: center;
+}
+.delete2{
+border-style :none;
+border-radius: 10px;
+color: rgb(210,255,195);
+font-size : small;
+background-color: gray;
+text-align: center;
+}
 </style>
 <script type="text/javascript">
 $(document).ready(function () {
+	$(".delete2").click(function() {
+		
+		 $('.updada').each(function() {	
+			 $('.updada').remove();
+			 $('.delete2').remove();
+			 
+			});
+	});	 
 	$('#partadd').on('click', function(){
 		 var nickname = $('#partner').val();
 		 var mynick =$('#mynick').val();
 		 var check = true; 
-
 		 $('.addnick').each(function() {
 			var i=$(this).val();
 			if(nickname==i){
@@ -67,6 +134,7 @@ $(document).ready(function () {
 				alert('중복이다');
 			}
 		});
+			
 		 if(check){
          $.ajax({
              type: 'POST',
@@ -122,10 +190,11 @@ $(document).ready(function () {
 </head>
 <body>
 <div class="cal_nav"></div>
-<div class="col-md-4"></div>
- <div class="updateform col-md-8">
-<h1>일정 수정게시판</h1>
+<div class=" updateform col-md-3"></div>
+<div class=" updateform col-md-9">
 <form action="../schedule/scheduleUpdatePOST" method="post">	
+<h1>일정 수정게시판</h1>
+ <div class="updateform col-md-7">
 			<input type="hidden" name="schnum" value="${view.schnum}">	
 				<input type="hidden" name="username" value="${user.username}">	
 		 			<input type="hidden" id="mynick" name="mynick" value="${user.nickname}">
@@ -140,7 +209,19 @@ $(document).ready(function () {
 								<input type="date" class="basic_input" id="lastDay"
 									name="lastday" value="${view.lastday}"></td>
 							</tr>
-							<tr class="part2"><td colspan="4">일정 상세정보</td></tr>
+							<tr>
+								<td class="label2">세부 내용</td></tr>
+									<tr>
+								<td><textarea rows="8" cols="70"
+								required="required" id="sch_contents"
+									name="pro_contents">${view.pro_contents}</textarea></td>
+							</tr></table>
+														<button id="submitBtn" class="btn">등록하기</button>
+
+</div> 
+ <div class="updateform col-md-5">
+ <table  class="addT">	
+ <tr class="part2"><td colspan="4">일정 상세정보</td></tr>
 								<tr>
 								<td class="label2">기존 시간 ${view.start_time} ~ ${view.last_time}</td></tr>
 								<tr>
@@ -161,31 +242,45 @@ $(document).ready(function () {
 									</div>
 								</td>
 							</tr>
-							<tr>
-								<td class="label2">세부 내용</td></tr>
-									<tr>
-								<td><textarea rows="6" cols="80"
-								required="required" id="sch_contents"
-									name="pro_contents">${view.pro_contents}</textarea></td>
-							</tr>
-							<tr>
+ 							<tr><td>참석자 추가</td></tr><tr>
 							<td class="label2"><input type="text" class="partner" id="partner"
 									name="nickinput" placeholder = "참석자 닉네임 입력">
 									<input id="partadd" type="button" value="추가">
 									
 							</td></tr>
-							<tr><c:forEach items="${nick}" var="nickname">
-									<td><div class="nick_update" name="nick_update" style="display: inline-block;">${nickname.nickname}</div> <input type="button" class="delete2" value="삭제"></td>
-								</c:forEach></tr>
+							<tr>
+							<td><div class="updada" name="nick_update" style="display: inline-block;" 
+									>
+									<c:forEach items="${nick}" var="nickname">
+									 ${nickname.nickname}
+									</c:forEach>		</div>													
+									 <input type="button" class="delete2" value="X"/>
+									</td></tr>
 								<tr><td><div id="nick" style="display: inline-block;"></div></td></tr>
-							<tr><td class="sch_colors"> 일정 색상 
-						초록<input type="radio" name="color" checked="checked" value="rgb(22,160,133)">
-						빨강<input type="radio" name="color" value="rgb(255,0,0)">노랑<input type="radio" name="color" value="rgb(225,225,54)">파랑<input type="radio" name="color" value="rgb(3,0,102)">
-						갈색<input type="radio" name="color" value="rgb(130,0,0)">검정<input type="radio" name="color" value="rgb(0,0,0)">
+								
+							<tr class="colorpart"><td> 일정 색상</td></tr><tr><td>
+							<div id="ck-button" style="background-color: rgb(22,160,133)"><label>
+						<input type="radio" name="color"class="ss2" checked="checked" value="rgb(22,160,133)">
+						<span>green</span></label></div>					
+						<div id="ck-button" style="background-color: rgb(255,0,0)"><label>
+						<input type="radio" name="color" class="ss2" value="rgb(255,0,0)">
+						<span>red</span></label></div>
+						<div id="ck-button" style="background-color: rgb(225,225,54)"><label>
+						<input type="radio" name="color" class="ss2" value="rgb(225,225,54)">
+						<span>yellow</span></label></div>
+						<div id="ck-button" style="background-color:rgb(3,0,102)"><label>
+						<input type="radio" name="color" class="ss2" value="rgb(3,0,102)">
+						<span>blue</span></label></div>
+						<div id="ck-button" style="background-color:rgb(130,0,0)"><label>
+						<input type="radio" name="color" class="ss2"  value="rgb(130,0,0)">
+						<span>brown</span></label></div>
+						<div id="ck-button" style="background-color:rgb(0,0,0)"><label>
+						<input type="radio" name="color" class="ss2" value="rgb(0,0,0)">
+						<span>black</span></label></div>
 						</td></tr></table>
 
-							<button id="submitBtn" class="btn">등록하기</button>
+ </div>
 </form>
-</div> 
+</div>
 </body>
 </html>

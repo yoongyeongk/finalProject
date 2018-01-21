@@ -190,6 +190,15 @@ $(document).ready(function() {
 
 </script>
 <style type="text/css">
+
+.delete{
+border-style :none;
+border-radius: 10px;
+color: rgb(210,255,195);
+font-size : small;
+background-color: gray;
+text-align: center;
+}
 #list_sec{
 	display: none;
 	width: 100%;
@@ -325,6 +334,34 @@ border-style: none;
 	background: rgb(22,160,133);
 	color: white;
 }
+#ck-button {
+    margin:1.2px;
+    background-color:#EFEFEF;
+    border-radius:4px;
+    border:1px solid #D0D0D0;
+    overflow:auto;
+    float:left;
+}
+#ck-button label {
+    float:left;
+    width:3.1em;
+}
+#ck-button label span {
+    text-align:center;
+    padding:3px 0px;
+        font-weight: lighter;
+    display:block;
+}
+#ck-button label input {
+    position:absolute;
+}
+#ck-button input:checked + span {
+    font-weight: bold;
+   color: white;
+}
+input[id="ss2"]{
+display: none;
+}
 </style>
 </head>
 <body>
@@ -383,13 +420,26 @@ border-style: none;
 							 <div id="nick" style="display: inline-block;"></div>						
 						<table>
 						<tr><td class="label2">일정 배경 색상</td><tr>
-						<tr class="colorss"><td>
-						초록<input type="radio" name="color" checked="checked" value="rgb(22,160,133)">
-						빨강<input type="radio" name="color" value="rgb(255,0,0)">
-						노랑<input type="radio" name="color" value="rgb(225,225,54)">
-						파랑<input type="radio" name="color" value="rgb(3,0,102)">
-						갈색<input type="radio" name="color" value="rgb(130,0,0)">
-						검정<input type="radio" name="color" value="rgb(0,0,0)">
+						<tr><td>
+						<div id="ck-button" style="background-color: rgb(22,160,133)"><label>
+						<input type="radio" name="color"id="ss2" checked="" value="rgb(22,160,133)">
+						<span>green</span></label></div>
+						
+						<div id="ck-button" style="background-color: rgb(255,0,0)"><label>
+						<input type="radio" name="color" id="ss2" value="rgb(255,0,0)">
+						<span>red</span></label></div>
+						<div id="ck-button" style="background-color: rgb(225,225,54)"><label>
+						<input type="radio" name="color" id="ss2" value="rgb(225,225,54)">
+						<span>yellow</span></label></div>
+						<div id="ck-button" style="background-color:rgb(3,0,102)"><label>
+						<input type="radio" name="color" id="ss2" value="rgb(3,0,102)">
+						<span>blue</span></label></div>
+						<div id="ck-button" style="background-color:rgb(130,0,0)"><label>
+						<input type="radio" name="color" id="ss2"  value="rgb(130,0,0)">
+						<span>brown</span></label></div>
+						<div id="ck-button" style="background-color:rgb(0,0,0)"><label>
+						<input type="radio" name="color" id="ss2" value="rgb(0,0,0)">
+						<span>black</span></label></div>
 						</td></tr>
 						</table>
 							<button type="submit" id="submitBtn" class="btn">등록하기</button>
@@ -406,8 +456,6 @@ border-style: none;
 			<div id="list_sec">
 			</div>
 		</div>
-		
 	</div>
-	
 </body>
 </html>

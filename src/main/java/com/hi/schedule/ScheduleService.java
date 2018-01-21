@@ -1,5 +1,7 @@
 package com.hi.schedule;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -132,16 +134,17 @@ public class ScheduleService {
 			return mv;
 		}
 		
-		public int write(ScheduleDTO scheduleDTO, String [] nickname ,HttpServletRequest request) throws Exception {
+		public int write(ScheduleDTO scheduleDTO,String[]nickname,HttpServletRequest request) throws Exception {
 			List<PartnerDTO> part = new ArrayList<PartnerDTO>();
-			int result = scheduleDAO.write(scheduleDTO);
+			int result = 0;
+			result = scheduleDAO.write(scheduleDTO);
 			for(String s: nickname){
 			PartnerDTO partnerDTO = new PartnerDTO();
 			partnerDTO.setNickname(s);
 			partnerDTO.setSchnum(scheduleDTO.getSchnum());
 			part.add(partnerDTO);
 			result=partnerDAO.partnerinsert(partnerDTO);
-			}
+			}		
 			return  result;
 		}
 }
