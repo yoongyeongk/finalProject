@@ -78,6 +78,7 @@ $(function() {
 				<div class="outBox">
 					<form action="tradeBoardList" method="get" id="f">
 						<input type="hidden" value="1" name="curPage"  id="curPage">
+						
 						<div class="searchBox">
 							<span class="txt">${pager.kind }</span>
 							<label for="kind" class="screen_out">검색분류선택</label>
@@ -203,7 +204,15 @@ $(function() {
 					</c:if>
 				
 					<c:forEach  begin="${pager.startNum }" end="${pager.lastNum }" var="p">
-							<span class="list" title="${p }">${p }</span>
+							<c:choose>
+								<c:when test="${param.curPage eq p}">
+									<span class="list" id="selected" title="${p }">${p }</span>
+								</c:when>
+								<c:otherwise>
+									<span class="list" title="${p }">${p }</span>
+								</c:otherwise>
+							</c:choose>
+							
 					</c:forEach>
 					
 					<c:if test="${pager.curBlock lt pager.totalBlock }">
