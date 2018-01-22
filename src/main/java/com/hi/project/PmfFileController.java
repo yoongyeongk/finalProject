@@ -29,4 +29,20 @@ public class PmfFileController {
 		
 		return mv;
 	}
+	
+	@RequestMapping(value="fileDelete")
+	public ModelAndView fileDelete(String filename, HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		try {
+			pmfFileService.fileDelete(filename, session);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		mv.addObject("data", "삭제 되었습니다.");
+		mv.setViewName("common/ajax");
+		
+		return mv;
+	}
 }

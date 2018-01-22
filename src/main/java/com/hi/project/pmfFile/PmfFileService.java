@@ -17,11 +17,10 @@ public class PmfFileService {
 	@Inject
 	private PmfFileDAO pmfFileDAO;
 	
-	@RequestMapping(value="deleteOne")
 	public ModelAndView deleteOne(int fnum, HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		
-		String filePath = session.getServletContext().getRealPath("pmf_file");
+		String filePath = session.getServletContext().getRealPath("resources/pmf_files");
 		FileDTO fileDTO = pmfFileDAO.selectOne(fnum);
 		File file = new File(filePath, fileDTO.getFilename());
 		
@@ -41,5 +40,13 @@ public class PmfFileService {
 		
 		return mv;
 	}
-	
+
+	public void fileDelete(String filename, HttpSession session) throws Exception {
+		String filePath = session.getServletContext().getRealPath("resources/pmf_files");
+		File file = new File(filePath, filename);
+		
+		if(file.exists()){
+			file.delete();
+		}
+	}
 }

@@ -159,10 +159,22 @@ $(function(){
 	//DB에 없는 파일 삭제하기 - 배열에서 파일명 AJAX로 넘기고, 제거
 	$("#fileSec").on("click",".deleteArray",function(){
 		var delArray = $(this);
-		var index = $(delArray).attr("id").replace("del","");
-		fileArray.splice(index+1,1);
-		$(delArray).parent().remove();
-		alert(fileArray);
+		var index = $(delArray).attr("id").replace("del","")*1;
+		var filename = fileArray[index];
+		//파일 이름 찾아서 데이터에서 삭제하기
+		$.ajax({
+			type: "POST",
+			url: "../pmfFile/fileDelete",
+			data:{
+				filename: filename
+			},
+			success: function(data){
+				fileArray.splice(index,1);
+				$(delArray).parent().remove();
+				alert($("#file"+index+1).val());
+			}
+		});
+		
 	});
 	
 	//이미 업로드된 파일 삭제하기
