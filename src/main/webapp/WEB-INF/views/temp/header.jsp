@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css">
+<script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
 <!DOCTYPE html>
 <!-- header -->
 <header class="nav-header">
@@ -106,8 +109,8 @@
 <div id="sidenav" class="sidenav">
 	<!-- <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a> -->
 	<a href="#">projects</a> 
-	<a href="#">calendar</a> 
+	<a href="${pageContext.request.contextPath}/schedule/mainSchedule">calendar</a> 
 	<a href="#">contact</a>
-	<a href="#">community</a>
+	<a href="${pageContext.request.contextPath}/pmf/pmfList">community</a>
 	<a href="#">scrap</a>
 </div>
