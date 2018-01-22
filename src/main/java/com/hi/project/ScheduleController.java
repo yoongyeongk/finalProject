@@ -104,10 +104,8 @@ public class ScheduleController {
 		
 			message = "일정이 등록되었습니다.";
 		}
-		rd.addFlashAttribute("message", message);
-		
-		return "redirect:./mainSchedule";
-		
+		rd.addFlashAttribute("message", message);		
+		return "redirect:./mainSchedule";		
 	}
 	
 	@RequestMapping(value="mainSchedule")

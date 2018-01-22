@@ -138,13 +138,17 @@ public class ScheduleService {
 			List<PartnerDTO> part = new ArrayList<PartnerDTO>();
 			int result = 0;
 			result = scheduleDAO.write(scheduleDTO);
+			
+			
 			for(String s: nickname){
 			PartnerDTO partnerDTO = new PartnerDTO();
 			partnerDTO.setNickname(s);
 			partnerDTO.setSchnum(scheduleDTO.getSchnum());
 			part.add(partnerDTO);
 			result=partnerDAO.partnerinsert(partnerDTO);
-			}		
+			scheduleDTO.setUsername(scheduleDAO.selectUserName(s));
+			scheduleDAO.write(scheduleDTO);
+			}
 			return  result;
 		}
 }

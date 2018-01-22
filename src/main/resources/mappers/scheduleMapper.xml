@@ -25,15 +25,20 @@
   	#{pro_contents}, #{startday}, #{lastday}, #{start_time}, #{last_time},#{color})
   	</insert>
   		
- <!-- 참석자로 추가된 닉네임을 가진 아이디도 스케줄 추가해주는 sql 문장 -->	
+<!--  참석자로 추가된 닉네임을 가진 아이디도 스케줄 추가해주는 sql 문장 
   	<insert id="write2">
 INSERT INTO SCHEDULE 
 SELECT schedule_seq.nextval,U.username, 
 S.TITLE, S.pro_contents, S.STARTDAY,S.LASTDAY,
 S.START_TIME,S.LAST_TIME,S.color from schedule S, partner P,users U
 where U.nickname = P.nickname and S.schnum = P.schnum
-</insert>
+</insert> -->
   		
+ <!-- 닉네임으로 유저네임 하나 가져옴. -->
+  <select id="selectUserName" parameterType="java.lang.String" resultType="java.lang.String">
+  	select userName from users where nickName=#{nickName}
+  </select>
+  
 <!-- 캘린더에 가져와야할 아이디별 전체값들 -->
   	<select id="jsonScheduleList" parameterType="java.lang.String" resultType="com.hi.schedule.ScheduleDTO">
   	select * from schedule where username=#{username}

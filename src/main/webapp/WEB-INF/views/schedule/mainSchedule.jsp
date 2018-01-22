@@ -210,7 +210,7 @@ text-align: center;
 		font-size: 14px;
 	}
 	#calendar {
-		max-width: 650px;
+		max-width: 1000px;
 		margin-top: 10px;
 	}
  	.cal_nav{
@@ -365,8 +365,8 @@ display: none;
 </style>
 </head>
 <body>
-<div class="col-md-3"></div>
-		<div class="col-md-8">
+<div class="col-md-2"></div>
+		<div class="col-md-10">
 	<div class="cal_nav">			
 		</div>		
 		<div class="col-md-7">

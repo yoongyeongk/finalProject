@@ -15,9 +15,8 @@ text-decoration: underline;
 font-size: 1.5em;}
 </style>
 <script type="text/javascript">
-$(function() {	
-	
-	$("#deleteBtn").click(function(){
+$(function() {		
+	$(".deleteBtn").click(function(){
 		var schedule_num = $(this).val();
 		$.ajax({
 			type: "GET",
@@ -31,14 +30,19 @@ $(function() {
 			}
 		});
 	});
-	
+	$("#updateBtn").click(function () {
+		var schnum =  $("#schnum").val();
+		window.open("./ScheduleUpdate?schnum="+schnum,"", "width=700, height=410, top=200, left=300");
+	});
 });
 </script>
+<div id="modalchang">
 <div id="maimy"style="text-align: center;">일정관리</div>
-<input type="hidden" value="${dto.username}" name="username">
-<input type="hidden" value="${dto.schnum}" name="schnum">
+<div>${dto.schnum}</div>
     <c:if test="${not empty list}">
     <c:forEach items="${list}" var="dto">
+<input type="hidden" value="${dto.username}" name="username">
+<input type="hidden" value="${dto.schnum}" name="schnum" id="schnum">
 	<table id="day_sc" >
 	<tr><td>no.</td>
        <td>${dto.schnum}</td></tr>
@@ -53,17 +57,19 @@ $(function() {
 	</tr>
 	<tr><td>시간</td>
     	<td><p>${dto.start_time}~${dto.last_time}</p>
-    	</td></tr><tr><td>참석자</td>
-    	<td> <c:forEach items="${nick}" var="nickname">
+    	</td></tr>
+    	<c:forEach items="${nick}" var="nickname">
+    	<tr><td>참석자</td>
+    	<td> 
 		 ${nickname.nickname} 		
-    	</c:forEach>
 		</td>
 	</tr>
+    	</c:forEach>
 	<tr><td colspan="2"></td></tr>
-       	<tr><td colspan="2"><button id="updateBtn" onclick="location.href='./ScheduleUpdate?schnum=${dto.schnum}'">수정</button>
-    	<button value="${dto.schnum}" id="deleteBtn">삭제</button> </td></tr>
+       	<tr><td colspan="2"><button id="updateBtn">수정</button>
+    	<button value="${dto.schnum}" id="deleteBtn" class="deleteBtn">삭제</button> </td></tr>
 	</table>
     	  </c:forEach>
     	  </c:if>
     	  <c:if test="${empty list}">
-  <p> 일정을 추가해주세요.</p></c:if>
+  <p> 일정을 추가해주세요.</p></c:if></div>

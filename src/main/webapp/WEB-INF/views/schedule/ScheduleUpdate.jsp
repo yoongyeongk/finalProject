@@ -12,14 +12,10 @@
 #sTimeBox,#lTimeBox{
 display:  inline-block;}
 .updateform{
+margin : 0 auto;
 display: inline-block;
 }
-.cal_nav{
-		margin: 0 auto;
-		margin-top: 100px;
-		height: 20px;
-		margin-bottom: 5px;
-	}
+
 #sch_title{
 width: 100%;
 }
@@ -189,12 +185,11 @@ $(document).ready(function () {
 </script>
 </head>
 <body>
-<div class="cal_nav"></div>
-<div class=" updateform col-md-3"></div>
-<div class=" updateform col-md-9">
+
+<div style="display:  inline-block; margin: 0 auto;">
 <form action="../schedule/scheduleUpdatePOST" method="post">	
 <h1>일정 수정게시판</h1>
- <div class="updateform col-md-7">
+ <div class="updateform col-md-6">
 			<input type="hidden" name="schnum" value="${view.schnum}">	
 				<input type="hidden" name="username" value="${user.username}">	
 		 			<input type="hidden" id="mynick" name="mynick" value="${user.nickname}">
@@ -212,16 +207,16 @@ $(document).ready(function () {
 							<tr>
 								<td class="label2">세부 내용</td></tr>
 									<tr>
-								<td><textarea rows="8" cols="70"
+								<td><textarea rows="8" cols="45"
 								required="required" id="sch_contents"
 									name="pro_contents">${view.pro_contents}</textarea></td>
 							</tr></table>
 														<button id="submitBtn" class="btn">등록하기</button>
 
 </div> 
- <div class="updateform col-md-5">
+ <div class="updateform col-md-6">
  <table  class="addT">	
- <tr class="part2"><td colspan="4">일정 상세정보</td></tr>
+ <tr class="part2"><td colspan="3">일정 상세정보</td></tr>
 								<tr>
 								<td class="label2">기존 시간 ${view.start_time} ~ ${view.last_time}</td></tr>
 								<tr>
@@ -249,13 +244,11 @@ $(document).ready(function () {
 									
 							</td></tr>
 							<tr>
-							<td><div class="updada" name="nick_update" style="display: inline-block;" 
-									>
+							<td><div class="updada" name="nick_update" style="display: inline-block;">
 									<c:forEach items="${nick}" var="nickname">
-									 ${nickname.nickname}
-									</c:forEach>		</div>													
-									 <input type="button" class="delete2" value="X"/>
-									</td></tr>
+									 ${nickname.nickname}<input type="button" class="delete2" value="X"/>
+									</c:forEach></div>													
+																</td></tr>
 								<tr><td><div id="nick" style="display: inline-block;"></div></td></tr>
 								
 							<tr class="colorpart"><td> 일정 색상</td></tr><tr><td>

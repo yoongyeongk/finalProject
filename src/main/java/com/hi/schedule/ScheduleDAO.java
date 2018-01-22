@@ -21,13 +21,10 @@ public class ScheduleDAO {
 	 public int getNum()throws Exception{
 		 return sqlSession.insert(namespace+"getNum");		 
 	 }
-	 
-	 public int write(ScheduleDTO scheduleDTO)throws Exception{
-		 return sqlSession.insert(namespace+"write",scheduleDTO);
-	 }
 	 //참석자에 들어간 닉네임 가진 아이디도 스케줄 추가해주는 메서드 
-	 public int write2()throws Exception{
-		 return sqlSession.insert(namespace+"write2");
+	 public int write(ScheduleDTO scheduleDTO)throws Exception{
+		 
+		 return sqlSession.insert(namespace+"write",scheduleDTO);
 	 }
 	 public List<ScheduleDTO> jsonScheduleList(String username)throws Exception{
 		 System.out.println(username);		 
@@ -51,5 +48,10 @@ public class ScheduleDAO {
 	 }
 	 public int ScheduleUpdatePOST(ScheduleDTO scheduleDTO)throws Exception{
 		 return sqlSession.update(namespace+"ScheduleUpdatePOST", scheduleDTO);
+	 }
+	 
+	 public String selectUserName (String nickName) throws Exception {
+		 
+		 return sqlSession.selectOne(namespace+"selectUserName", nickName);
 	 }
 }
