@@ -31,6 +31,9 @@ $(function(){
 		}
 	}
 	
+	var cnt = 0;
+	var fileArray = [];		//새로 올린 filename을 담아둘 배열
+	
 	function sendFileToServer(formdata,status){
 		//파일 서버로 전송 및 저장
 		var jqxhr = $.ajax({
@@ -57,9 +60,11 @@ $(function(){
 			success: function(data){
 				//fileDTO 객체에 값 넣기
 				cnt++;
+				fileArray.push(data.filename);
 				$("#fileSec").append('<div id="file'+cnt+'"></div>');
 				$("#file"+cnt).append('<input type="hidden" name="filename" value="'+data.filename+'">');
 				$("#file"+cnt).append('<input type="hidden" name="oriname" value="'+data.oriname+'">');
+				$("#file"+cnt).append('<input type="hidden" name="size" value="'+data.size+'">');
 				status.setProgress(100);
 			}
 		});
@@ -82,10 +87,10 @@ $(function(){
 		this.size = $("<div class='filesize'></div>").appendTo(this.statusbar);
 		this.progressBar = $("<div class='progressBar'><div></div></div>").appendTo(this.statusbar);
 		this.abort = $("<div class='abort'>중지</div>").appendTo(this.statusbar);
-		this.delF = $('<span id="delfile'+rowCount+'" class="delfile">삭제</span>').appendTo(this.statusbar);
+		this.delF = $('<span id="del'+cnt+'" class="deleteArray delfile">삭제</span>').appendTo(this.statusbar);
 		this.delF.hide();
 		
-		drop_sec.after(this.statusbar);
+		$("#fileSec").append(this.statusbar);
 		
 		//파일 이름과 사이즈를 구하는 메서드
 		this.setFileNameSize = function(name,size){
@@ -151,10 +156,18 @@ $(function(){
 		}
 	})
 	
-	//업로드한 파일 삭제하기
-	$(".delfile").click(function(){
+	//DB에 없는 파일 삭제하기 - 배열에서 파일명 AJAX로 넘기고, 제거
+	$("#fileSec").on("click",".deleteArray",function(){
+		var delArray = $(this);
+		var index = $(delArray).attr("id").replace("del","");
+		fileArray.splice(index+1,1);
+		$(delArray).parent().remove();
+		alert(fileArray);
+	});
+	
+	//이미 업로드된 파일 삭제하기
+	$(".deleteFile").click(function(){
 		var delFile = $(this);
-		alert($(delFile).attr("id"));
 		var fnum = $(delFile).attr("id");
 		$.ajax({
 			type: "POST",
@@ -163,7 +176,8 @@ $(function(){
 				fnum: fnum
 			},
 			success: function(data){
-				
+				alert(data.trim());
+				$(delFile).parent().remove();
 			}
 		});
 	});
@@ -298,20 +312,20 @@ $(function(){
 						<div id="dropzone">업로드할 파일을 드래그해 주세요.</div>
 						<div id="fileSec">
 							<c:forEach items="${view.fileDTO}" var="file" varStatus="i">
-							<c:if test="${i%2 == 1}">
-								<div class='statusbar odd'>
-									<div class='filename'>${file.oriname}</div>
-									<div class='filesize'>${file.filesize}</div>
-									<div class='progressBar'></div>
-									<span id="delfile${i.count}" class="delfile">삭제</span>
-								</div>
-							</c:if>
-							<c:if test="${i%2 == 0}">
+							<c:if test="${i.count%2 == 0}">
 								<div class='statusbar even'>
 									<div class='filename'>${file.oriname}</div>
 									<div class='filesize'>${file.filesize}</div>
 									<div class='progressBar'></div>
-									<span id="delfile${i.count}" class="delfile">삭제</span>
+									<span id="${file.fnum}" class="delfile deleteFile">삭제</span>
+								</div>
+							</c:if>
+							<c:if test="${i.count%2 == 1}">
+								<div class='statusbar odd'>
+									<div class='filename'>${file.oriname}</div>
+									<div class='filesize'>${file.filesize}</div>
+									<div class='progressBar'></div>
+									<span id="${file.fnum}" class="delfile deleteFile">삭제</span>
 								</div>
 							</c:if>
 							</c:forEach>

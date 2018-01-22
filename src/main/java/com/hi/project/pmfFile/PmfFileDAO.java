@@ -25,8 +25,7 @@ public class PmfFileDAO implements FileDAO{
 
 	@Override
 	public FileDTO selectOne(int fnum) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne(NAMESPACE+"selectOne", fnum);
 	}
 
 	@Override

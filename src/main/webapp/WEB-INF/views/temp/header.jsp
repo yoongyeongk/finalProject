@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css">
 <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
 <!DOCTYPE html>
@@ -9,7 +8,7 @@
 <header class="nav-header">
 	
 	<!-- sideNav -->
-	<a onclick="openNav()" data-toggle="sidebar" class="sidebar-btn" href="#"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></a>
+	<a data-toggle="sidebar" class="sideOn sidebar-btn" href="#"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></a>
 	
 	<!-- logo-img -->
 	<a href="#" id="logo">
@@ -87,7 +86,7 @@
 						<li class="header">${user.username}</li>
 						<li><a href="#">나의 정보</a></li><!-- 내 정보 / 내가 쓴 글 모아보는 페이지 -->
 						<c:if test="${user ne null}">
-							<li><a href="users/logout">로그아웃</a></li>
+							<li><a href="${pageContext.request.contextPath}/users/logout">로그아웃</a></li>
 						</c:if>
 					</ul>
 				</div>
@@ -98,7 +97,7 @@
 <!-- /header -->
 
 <!-- sidebar -->
-<div id="sideNav_main" onclick="openNav()">
+<div id="sideNav_main" class="sideOn">
 	<span class="icons project_icon glyphicon glyphicon-folder-open"></span>		<!-- project -->
 	<span class="icons calendar_icon glyphicon glyphicon-calendar"></span>		<!-- calendar -->
 	<span class="icons address_book glyphicon glyphicon-list-alt"></span>		<!-- address book -->
@@ -106,7 +105,7 @@
 	<span class="icons scrap_icon glyphicon glyphicon-star"></span>		<!-- scrap -->
 </div>
 
-<div id="sidenav" class="sidenav">
+<div id="sidenav" class="sidenav" style="display: none;">
 	<!-- <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a> -->
 	<a href="#">projects</a> 
 	<a href="${pageContext.request.contextPath}/schedule/mainSchedule">calendar</a> 

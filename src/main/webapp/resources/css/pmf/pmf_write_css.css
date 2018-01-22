@@ -126,7 +126,7 @@ textarea {
 	width: 100%;
 	vertical-align: middle;
 }
-.statusbar:nth-child(odd) {
+.odd {
 	background: #EBEFF0;
 }
 .filename {

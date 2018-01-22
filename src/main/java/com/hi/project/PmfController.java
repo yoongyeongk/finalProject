@@ -149,10 +149,10 @@ public class PmfController {
 	
 	//update
 	@RequestMapping(value="pmfUpdate", method=RequestMethod.POST)
-	public String update(PmfBoardDTO pmfBoardDTO, RedirectAttributes rd) {
+	public String update(PmfBoardDTO pmfBoardDTO, String [] filename, String [] oriname, String [] size, RedirectAttributes rd) {
 		int result = 0;
 		try {
-			result = pmfBoardService.update(pmfBoardDTO);
+			result = pmfBoardService.update(pmfBoardDTO, filename, oriname, size);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="resources/css/header.css">
 <link rel="stylesheet" href="resources/css/main.css">
 <body>
-<c:import url="${pageContext.request.contextPath}/temp/header.jsp"></c:import>
+<c:import url="temp/header.jsp"></c:import>
 	<div id="main" class="wrapper">
 		<!-- contents -->
 		<div class="dashboard">

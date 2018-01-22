@@ -271,20 +271,20 @@
 					<td colspan="2">
 						<div id="file_view">
 							<c:forEach items="${view.fileDTO}" var="file" varStatus="i">
-							<c:if test="${i%2 == 1}">
+							<c:if test="${i.count%2 == 1}">
 								<div class='statusbar odd'>
 									<div class='filename'>${file.oriname}</div>
 									<div class='filesize'>${file.filesize}</div>
 									<div class='progressBar'></div>
-									<span id="delfile${i.count}" class="delfile">삭제</span>
+									<span id="${file.fnum}" class="download">다운로드</span>
 								</div>
 							</c:if>
-							<c:if test="${i%2 == 0}">
+							<c:if test="${i.count%2 == 0}">
 								<div class='statusbar even'>
 									<div class='filename'>${file.oriname}</div>
 									<div class='filesize'>${file.filesize}</div>
 									<div class='progressBar'></div>
-									<span id="delfile${i.count}" class="delfile">삭제</span>
+									<span id="${file.fnum}" class="download">다운로드</span>
 								</div>
 							</c:if>
 							</c:forEach>

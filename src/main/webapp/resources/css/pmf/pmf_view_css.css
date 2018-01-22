@@ -101,6 +101,22 @@ td{
 	margin-left: 10px;
 	margin-right: 40px;
 }
+.download{
+	background-color: #bcbcbc;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    display: inline-block;
+    color: #fff;
+    font-family: HanSans;
+    font-size: 12px;
+    font-weight: normal;
+    padding: 4px 15px;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+/* scrap */
 #scrap_btn{
 	font-size: 14px;
     width: 70px;

@@ -69,13 +69,15 @@ public class PmfBoardService {
 		int result = boardDAO.insert(pmfBoardDTO);
 		
 		//fileDTO 생성 및 저장
-		PmfFileDTO fileDTO = new PmfFileDTO();
-		for(int i=0; i<filename.length; i++){
-			fileDTO.setNum(pmfBoardDTO.getNum());
-			fileDTO.setFilename(filename[i]);
-			fileDTO.setOriname(oriname[i]);
-			fileDTO.setFilesize(size[i]);
-			pmfFileDAO.insert(fileDTO);
+		if(filename.length != 0){
+			PmfFileDTO fileDTO = new PmfFileDTO();
+			for(int i=0; i<filename.length; i++){
+				fileDTO.setNum(pmfBoardDTO.getNum());
+				fileDTO.setFilename(filename[i]);
+				fileDTO.setOriname(oriname[i]);
+				fileDTO.setFilesize(size[i]);
+				pmfFileDAO.insert(fileDTO);
+			}
 		}
 		
 		return result;
@@ -97,13 +99,21 @@ public class PmfBoardService {
 	
 	//update 2 - update
 	@Transactional
-	public int update(PmfBoardDTO pmfBoardDTO) throws Exception {
+	public int update(PmfBoardDTO pmfBoardDTO, String [] filename, String [] oriname, String [] size) throws Exception {
 		System.out.println(pmfBoardDTO.getNum());
 		int result = boardDAO.update(pmfBoardDTO);
 		
 		//파일 업로드
-		
-		
+		if(filename.length != 0){
+			PmfFileDTO fileDTO = new PmfFileDTO();
+			for(int i=0; i<filename.length; i++){
+				fileDTO.setNum(pmfBoardDTO.getNum());
+				fileDTO.setFilename(filename[i]);
+				fileDTO.setOriname(oriname[i]);
+				fileDTO.setFilesize(size[i]);
+				pmfFileDAO.insert(fileDTO);
+			}
+		}
 		return result;
 	}
 	
