@@ -14,6 +14,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sly/1.6.1/sly.min.js"></script>
 
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f5750ac980255f71ca29e7a2ade3c637&libraries=services"></script>
 
 <title>Insert title here</title>
 
@@ -64,7 +65,7 @@
 	}
 	.all{
 		width:900px;
-		height:1900px;
+		height:2600px;
 		margin: 0 auto;
 		background-color: gold;
 	}
@@ -82,9 +83,9 @@
 	}
 	.titleBox{
 		margin-top: 50px;
-		text-align: center;
 	}
 	.title{
+		text-align: center;
 		line-height:50px;
 		font-size: 24px;
 		font-family: Daum_Regular;
@@ -95,8 +96,7 @@
 		width: 680px;
 	}
 	.contentsBox{
-		margin-top: 100px;
-		background-color: #cccccc38;
+		margin-top: 130px;
 	}
 	.info{
 		margin-top: 30px;
@@ -111,7 +111,7 @@
 		margin-right: 15px;
 	}
      .frame {
-     	width:
+     	width: 100%;
         height: 150px;
         line-height: 150px;
         overflow: hidden;
@@ -126,7 +126,7 @@
         }
      .frame ul li {
         float: left;
-        width: 207px;
+        width: 170px;
         height: 100%;
         margin: 0 1px 0 0;
         padding: 0;
@@ -136,7 +136,7 @@
         cursor: pointer;
         }
       .imgs{
-       	width: 207px;
+       	width: 170px;
         height: 150px;
         }
     .scrollbar { 
@@ -153,7 +153,7 @@
 	.sampleView{
 		width:750px;
     	margin: 0 auto;
-    	margin-top: 50px;
+    	margin-top: 100px;
     	margin-bottom: 30px;
 	}
 	.view{
@@ -167,6 +167,17 @@
 		width: 750px;
 		margin: 0 auto;
 	}
+	.gui{
+		font-family: BMJUA;
+		font-size: 19px;
+	}
+	#map{
+		margin: 0 auto;
+		margin-top: 30px;
+		width: 680px;
+		height: 450px;
+	}
+	
     </style>
 
 <script type="text/javascript">
@@ -178,10 +189,6 @@
 			$("#f").submit()
 		})
 	
-		
-		$(".active").change(function() {
-			alert("t")
-		})
 	})
 </script>
 </head>
@@ -194,11 +201,6 @@
 			<input type="hidden" value="" name="kind" id="kind">
 		</form>
 	 <div class="line">
-		<div class="tags">
-			<c:forEach items="${one.tags }" var="tag">
-				<span class="tag_font" title="#${tag.tag }">#${tag.tag }</span>
-			</c:forEach>
-		</div>
 		
 		<div class="titleBox">
 			<p class="title">${one.title }</p>
@@ -206,6 +208,7 @@
 		
 		<div class="sly">
 			<div class="sampleView">
+				<p class="gui">Sample Images</p>
 				<img class="view" src="">
 			</div>
 			
@@ -221,9 +224,15 @@
 		
 		<div class="contentsLine">
 			<div class="contentsBox">
-				<div class="contents">${one.contents }</div>
+				<div class="contents"><p class="title">상세 내용</p>
+					<div style="height: 85px;"></div>
+				${one.contents }</div>
 			</div>
-			
+					<div class="tags">
+			<c:forEach items="${one.tags }" var="tag">
+				<span class="tag_font" title="#${tag.tag }">#${tag.tag }</span>
+			</c:forEach>
+		</div>
 			<div class="info">
 				<ul>
 					<li><span class="spanBorder">기업명</span> ${one.corporation }</li>
@@ -234,6 +243,20 @@
 				</ul>
 			</div>
 		</div>
+		
+		<div id="map">
+		
+		</div>
+		
+		<script>
+	 var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+	 var options = { //지도를 생성할 때 필요한 기본 옵션
+	 	center: new daum.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+	 	level: 3 //지도의 레벨(확대, 축소 정도)
+	 };
+	
+	 var map = new daum.maps.Map(container, options); //지도 생성 및 객체 리턴
+ </script>
 		
 	 </div>
 	</div>
@@ -268,7 +291,6 @@
 	 } , success : function(data) {
 			$(data).each(function() {
 				$('.slidee').append('<li class="item"><img id="img'+(c++)+'" class="imgs" src="${pageContext.request.contextPath}/resources/upload/'+this.fileName+'"></li>'); 
-				
 				sly.reload();
 				}) 
 	 }
@@ -277,6 +299,7 @@
    var src = $("#img"+activatedItemIndex).attr("src");
    $(".view").attr("src", src);
 })
+
  </script>
 </body>
 </html>

@@ -125,10 +125,10 @@ public class TradeBoardController {
 	}
 	
 	@RequestMapping(value="tradeBoardDelete")
-	public String deleteAll (int num,Model model) {
+	public String deleteAll (int num,Model model,HttpSession session) {
 		int result = 0;
 		try {
-			result = tradeBoardService.deleteAll(num);
+			result = tradeBoardService.deleteAll(num,session);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

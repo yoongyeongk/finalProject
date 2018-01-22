@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hi.boardFile.TradeBoardFileDTO;
 import com.hi.boardFile.TradeBoardFileService;
 import com.hi.project.util.ListData;
 import com.hi.project.util.Pager;
@@ -97,9 +98,10 @@ public class TradeBoardService {
 		return tradeBoardDAO.update(tradeBoardDTO);
 	}
 	
-	public int deleteAll(int num) throws Exception {
+	public int deleteAll(int num,HttpSession session) throws Exception {
 		int result = 0;
-		result = tradeBoardFileService.deleteAll(num);
+		result = tradeBoardFileService.deleteAll(num,session);
+		
 		if(result > 0){
 			tagService.deleteAll(num);
 		}

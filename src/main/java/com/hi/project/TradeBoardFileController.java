@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,9 +24,9 @@ public class TradeBoardFileController {
 	TradeBoardFileService tradeBoardFileService;
 
 	@RequestMapping(value="fileDelete")
-	public String deleteOne (int num,Model model) {
+	public String deleteOne (int fnum,Model model,HttpSession session) {
 		try {
-			model.addAttribute("data", tradeBoardFileService.deleteOne(num));
+			model.addAttribute("data", tradeBoardFileService.deleteOne(fnum,session));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

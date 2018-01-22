@@ -318,7 +318,7 @@ $(function(){
 	$("#fileBox").on("click",".upImgDel",function(){
 		if(confirm("기존 이미지를 삭제하시겠습니까? 게시글에서도 삭제됩니다") == true){
 			var fnum = this.id
-			$.post("../tradeBoardFile/fileDelete?num="+fnum);
+			$.post("../tradeBoardFile/fileDelete?fnum="+fnum);
 			var id = $(this).attr("title");
 			$("#"+id).remove();
 		}
@@ -372,7 +372,7 @@ $(function(){
 $(document).ready(function(){
   $("#fakeLoader").fakeLoader({
     timeToHide:700, // 로딩중에 걸리는 시간, 1000은 1초
-    bgColor:"snow", // 배경색
+    bgColor:"white", // 배경색
     spinner:"spinner1" // 로딩중으로 원하는 로딩이미지타입
   });
 });
@@ -391,7 +391,7 @@ $(document).ready(function(){
 				<div class="box" style="margin-top: 70px;">
 					<div id="titleBox">
 						<span class="star">*</span>
-						<input type="text" name="title" id="title" value="${one.title }" placeholder="매매할 프로젝트의 제목"  onkeyup="timeout()" style="padding-left: 12px">
+						<input type="text" name="title" id="title" value="${one.title }" placeholder="프로젝트의 제목을 입력해주세요."  onkeyup="timeout()" style="padding-left: 12px">
 						<input type="hidden" name="writer" id="writer" value="sson" required="required">
 					</div>
 				</div>
