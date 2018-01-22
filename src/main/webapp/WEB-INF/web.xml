@@ -5,7 +5,7 @@
 
 	<error-page>
 		<error-code>404</error-code>
-		<location>/WEB-INF/views/common/notFount.jsp</location>
+		<location>/WEB-INF/views/common/notFound.jsp</location>
 	</error-page>
 
 	<filter>
@@ -22,10 +22,17 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+	<filter-mapping>
+		<filter-name>URIEncoding</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/root-context.xml</param-value>
+		<param-value>/WEB-INF/spring/root-context.xml
+					 /WEB-INF/spring/mybatis-context.xml
+		</param-value>
 	</context-param>
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->

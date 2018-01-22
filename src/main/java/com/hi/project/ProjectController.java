@@ -39,18 +39,12 @@ public class ProjectController {
 	public int create(ProjectDTO projectDTO, HttpSession session) {
 		return projectService.create(projectDTO, session);
 	}
-/*
-	@RequestMapping(value = "update", method = RequestMethod.GET)
-	@ResponseBody
-	public void update() {
-
-	}
 
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	@ResponseBody
-	public void update() {
-
-	}*/
+	public int update(ProjectDTO projectDTO) {
+		return projectService.update(projectDTO);
+	}
 
 	@RequestMapping(value = "delete")
 	public int delete(int project_id) {

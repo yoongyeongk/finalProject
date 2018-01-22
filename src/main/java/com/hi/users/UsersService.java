@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.hi.util.FileSaver;
+import com.hi.project.util.FileSaver;
 
 @Service
 public class UsersService {
@@ -43,5 +43,8 @@ public class UsersService {
 	public int delete(String username) {
 		return usersDAO.delete(username);
 	}
-
+	//서연 추가 
+	public String nicknameCheck(String nickname)throws Exception{
+		return usersDAO.nicknameCheck(nickname);
+	}
 }

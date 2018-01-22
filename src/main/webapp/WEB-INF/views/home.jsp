@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,11 +14,13 @@
 <script src="//cdn.ckeditor.com/4.8.0/basic/ckeditor.js"></script>
 <script src="resources/js/sidebar.js"></script>
 <script src="resources/js/project.js"></script>
+<script src="resources/js/moment.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link href="https://use.fontawesome.com/releases/v5.0.3/css/all.css" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.3/css/all.css" >
 <link rel="stylesheet" href="resources/css/header.css">
 <link rel="stylesheet" href="resources/css/main.css">
 <body>
+
 	<div id="main" class="wrapper">
 		<c:import url="temp/header.jsp"></c:import>
 		<!-- contents -->
@@ -30,40 +33,54 @@
 			<div class="page-contents">
 			</div>
 
-			<!-- sidebar -->
-			<div class="project-properties">
-				<div class="project-properties-header">
-					<i class="far fa-star"></i>
-					<input class="form-control" type="text">
-				</div>
-					
-				<div class="project-properties-pane">
-					<label for="status" class="control-label">프로젝트 상태</label>
-					<select class="status" name="status">
-						<option value="">상태 없음</option>
-						<option value="">계획됨</option>
-						<option value="">진행중</option>
-						<option value="">계획됨</option>
-						<option value="">완료됨</option>
-						<option value="">보류</option>
-						<option value="">취소</option>
-					</select>
-					<hr>
-					<label>시작일</label>
-					<input name="start-date" class="form-control" type="date">
-					<hr> 
-					<label>마감일</label>
-					<input name="close-date" class="form-control" type="date">
-					<hr>
-					<label>프로젝트 관리자</label>
-					<hr>
-					<label>공개 프로젝트</label>
-					<hr>					
+			<!-- setting -->
+			<div class="modal fade setting">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<form id="update-frm">
+							<input type="hidden" name="project_id">
+							<div class="modal-header setting-header">
+							</div>
+								
+							<div class="modal-body setting-pane">
+								<label for="status" class="control-label">프로젝트 상태</label>
+								<select id="status" name="status">
+									<option value="">상태 없음</option>
+									<option value="계획됨">계획됨</option>
+									<option value="진행중">진행중</option>
+									<option value="완료됨">완료됨</option>
+									<option value="보류">보류</option>
+									<option value="취소">취소</option>
+								</select>
+								<hr>
+								<label>시작일</label>
+								<input name="start-date" class="form-control" type="date">
+								<hr> 
+								<label>마감일</label>
+								<input name="close-date" class="form-control" type="date">
+								<hr>
+								<label>프로젝트 관리자</label>
+								<i class="fas fa-plus"></i>
+								<hr>
+								<label>공개 프로젝트</label>
+								
+								<label class="switch">
+									<input name="privacy" type="checkbox">
+									<span class="slider round"></span>
+								</label>
+								<hr>
+							</div>
+							<div class="modal-footer">
+								<button class="btn btn-info" id="update-project">완료</button>
+								<button class="btn btn-warning" data-dismiss="modal">취소</button>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
-			<!-- /sidebar -->
+			<!-- /setting -->
 
-			<!-- modal -->
+			<!-- new-project -->
 			<div class="modal fade project" role="dialog">
 				<div class="modal-dialog">
 					<div class="modal-content">
@@ -89,7 +106,7 @@
 
 								<div>
 									<label for="members" class="control-label">프로젝트 멤버</label> <br>
-									<span class="glyphicon glyphicon-plus"></span>
+									<i class="fas fa-plus"></i>
 								</div>
 							</div>
 							
@@ -101,10 +118,19 @@
 					</div>
 				</div>
 			</div>
-			<!-- /modal -->
+			<!-- /new-project -->
 		</div>
 		<!-- /contents -->
 	</div>
 	<a href="pmf/pmfList">find member</a>
+
+<P>  The time on the server is ${serverTime}. </P>
+
+<a href="pmf/pmfList">find member</a>
+<p></p>
+<a href="${pageContext.request.contextPath }/trade/tradeBoardWrite">wt</a>
+<a href="${pageContext.request.contextPath }/trade/tradeBoardList">lt</a>
+<a href="${pageContext.request.contextPath }/trade/tradeBoardUpdate?num=31">ut</a>
+<a href="schedule/mainSchedule">your schedule</a>
 </body>
 </html>
