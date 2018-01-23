@@ -48,10 +48,7 @@
 				}
 			});
 		});
-		
-		//5. paging
-		var curPage = ${curPage};
-		
+
 		//6. reReply
 		$(".tr_r").click(function(){
 			var tr = $(this);
@@ -87,7 +84,7 @@
 	});
 </script>
 <c:if test="${not empty list}">
-<table class="t_reply1">
+<table id="oList" class="t_reply1">
 	<c:forEach items="${list}" var="dto">
 		<tr class="tr_r">
 			<td class="td_r t_1">${dto.writer}</td>
@@ -108,7 +105,7 @@
 </table>
 </c:if>
 <c:if test="${empty list}">
-<table class="t_reply1">
+<table id="noList" class="t_reply1">
 	<tr>
 		<td class="td_r" colspan="4">댓글이 존재하지 않습니다. 댓글을 등록해주세요.</td>
 	</tr>

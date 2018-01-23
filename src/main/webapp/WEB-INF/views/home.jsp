@@ -20,9 +20,8 @@
 <link rel="stylesheet" href="resources/css/header.css">
 <link rel="stylesheet" href="resources/css/main.css">
 <body>
-
+<c:import url="temp/header.jsp"></c:import>
 	<div id="main" class="wrapper">
-		<c:import url="temp/header.jsp"></c:import>
 		<!-- contents -->
 		<div class="dashboard">
 			<div class="page-header">
@@ -121,6 +120,11 @@
 			<!-- /new-project -->
 		</div>
 		<!-- /contents -->
+			<a href="${pageContext.request.contextPath}/pmf/pmfList">find member</a>
+			<p></p>
+			<a href="${pageContext.request.contextPath}/trade/tradeBoardWrite">wt</a>
+			<a href="${pageContext.request.contextPath}/trade/tradeBoardList">lt</a>
+			<a href="${pageContext.request.contextPath}/trade/tradeBoardUpdate?num=31">ut</a>
 	</div>
 	<a href="pmf/pmfList">find member</a>
 

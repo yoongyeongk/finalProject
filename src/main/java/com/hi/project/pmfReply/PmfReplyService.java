@@ -24,7 +24,7 @@ public class PmfReplyService {
 		int curPage = listData.getCurPage();
 		
 		mv.addObject("list", ar);
-		mv.addObject("curPage", curPage);
+		//mv.addObject("curPage", curPage);
 		mv.setViewName("community/replyResult");
 		
 		return mv;

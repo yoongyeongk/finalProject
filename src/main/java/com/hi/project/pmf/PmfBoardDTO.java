@@ -5,7 +5,7 @@ import java.util.Calendar;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.hi.file.FileDTO;
+import com.hi.project.pmfFile.PmfFileDTO;
 
 public class PmfBoardDTO {
 
@@ -23,8 +23,7 @@ public class PmfBoardDTO {
 	private Date start_date;
 	private Date end_date;
 	private String project_detail;
-	private MultipartFile [] files;
-	private FileDTO [] fileDTO;		//view page file
+	private PmfFileDTO [] fileDTO;		//view page file
 	private String works;
 	
 	//업무 관련 정보 
@@ -151,19 +150,11 @@ public class PmfBoardDTO {
 	}
 
 	///////////////////////////////////////////////////////////
-	public MultipartFile[] getFiles() {
-		return files;
-	}
-	
-	public void setFiles(MultipartFile[] files) {
-		this.files = files;
-	}
-	
-	public FileDTO[] getFileDTO() {
+	public PmfFileDTO[] getFileDTO() {
 		return fileDTO;
 	}
 
-	public void setFileDTO(FileDTO[] fileDTO) {
+	public void setFileDTO(PmfFileDTO[] fileDTO) {
 		this.fileDTO = fileDTO;
 	}
 
