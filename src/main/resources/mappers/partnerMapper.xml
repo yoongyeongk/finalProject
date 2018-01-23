@@ -25,14 +25,20 @@
 	<insert id="partnerInsert" parameterType="com.hi.partner.PartnerDTO">
   		insert into partner values(#{schnum},partner_seq.nextval,#{nickname})
   	</insert>
-  	
-	
 	<select id="partnerList" parameterType="int" resultType="com.hi.partner.PartnerDTO">
   		select * from partner where schnum=#{schnum}
   	</select>
-  	
-	  	<delete id="partnerDelete" parameterType="int">
+  	<!-- 참석자로 된 사람이 스케줄을 지울때  -->
+	  	<delete id="partnerDeleteOne" parameterType="int">
+  	 DELETE FROM partner WHERE pnum=#{pnum}
+  	</delete>
+	
+	<delete id="partnerDelete" parameterType="int">
   	 DELETE FROM partner WHERE schnum=#{schnum}
   	</delete>
-
+	
+	<select id="partnerPnum" parameterType="int" resultType="int">
+	select pnum from schedule S, partner P where S.schnum= P.schnum GROUP BY PNUM;
+	</select>
+	
   </mapper>

@@ -28,9 +28,10 @@ public class ScheduleController {
 	@RequestMapping(value="scheduleUpdatePOST",method =RequestMethod.POST)
 	public String ScheduleUpdate(ScheduleDTO scheduleDTO,RedirectAttributes rd,HttpServletRequest request){
 		int result = 0;
+		
 		try {			
 			result = ScheduleService.ScheduleUpdatePOST(scheduleDTO);
-			System.out.println("schnum : "+scheduleDTO.getSchnum());
+			System.out.println("schnum : "+scheduleDTO.getNum());
 			System.out.println("result : "+result);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -42,13 +43,13 @@ public class ScheduleController {
 		}
 		rd.addFlashAttribute("message", message);
 		
-		return "redirect:./mainSchedule";
-		
+		return "redirect:./mainSchedule";		
 	}
 		
 	@RequestMapping(value="ScheduleUpdate",method=RequestMethod.GET)
-	public ModelAndView ScheduleUpdate(int schnum,HttpServletRequest request)throws Exception{		
-		ModelAndView mv = ScheduleService.ScheduleUpdateGET(schnum, request);
+	public ModelAndView ScheduleUpdate(int num,HttpServletRequest request)throws Exception{		
+		ModelAndView mv = ScheduleService.ScheduleUpdateGET(num, request);
+		System.out.println(num);
 		mv.setViewName("/schedule/ScheduleUpdate");
 		return mv;
 	}
@@ -59,7 +60,7 @@ public class ScheduleController {
 		System.out.println("schnum : "+schnum);
 		int result = 0;
 	try {
-		result = ScheduleService.ScheduleDeleteOne(schnum);
+		result = ScheduleService.ScheduleDelete(schnum);
 		System.out.println("삭제갯수 :" + result);
 	} catch (Exception e) {
 		// TODO Auto-generated catch block

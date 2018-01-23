@@ -4,18 +4,46 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
     <style>
-#day_sc{
-text-align: center;
-border-bottom: 2px double #16A085;
-margin: 0 auto;
+#modalchang{
+    min-width: 246px;
+    min-height: 156px;
 }
+.tete{
+width: 100%;
+height: 10px;
+}
+#updateBtn,#deleteBtn{
+border-style: none;
+color: white;
+background-color: black;
+width: 47%;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+
 #maimy{
 font-weight :bolder;
-text-decoration: underline;
 font-size: 1.5em;}
+#day_sc{
+margin: 0 auto;
+text-align: center;
+}
+#setset{
+font-size: 2.4em;
+text-align: center;
+}
+#pro_text{
+border : lightgray 1px solid;
+
+}
 </style>
 <script type="text/javascript">
-$(function() {		
+$(function() {
+	 $('#color').each(function() {
+		 var i=$(this).val();
+	$('#maimy').css('color', i);
+	$('.tete').css('background-color', i);	
+		});
 	$(".deleteBtn").click(function(){
 		var schedule_num = $(this).val();
 		$.ajax({
@@ -31,45 +59,61 @@ $(function() {
 		});
 	});
 	$("#updateBtn").click(function () {
-		var schnum =  $("#schnum").val();
-		window.open("./ScheduleUpdate?schnum="+schnum,"", "width=700, height=410, top=200, left=300");
+		var num =  $("#num").val();
+		window.open("./ScheduleUpdate?num="+num,"", "width=400, height=620, top=200, left=300");
 	});
+	
 });
 </script>
 <div id="modalchang">
-<div id="maimy"style="text-align: center;">일정관리</div>
-<div>${dto.schnum}</div>
+<div class="tete"></div>
     <c:if test="${not empty list}">
     <c:forEach items="${list}" var="dto">
+<div id="maimy"style="text-align: center;">TITLE : ${dto.title}</div>
+<input type="hidden" value="${dto.num}" name="num" id="num">
 <input type="hidden" value="${dto.username}" name="username">
 <input type="hidden" value="${dto.schnum}" name="schnum" id="schnum">
-	<table id="day_sc" >
-	<tr><td>no.</td>
-       <td>${dto.schnum}</td></tr>
-	<tr><td>프로젝트명</td>
-    	<td><h5>${dto.title}</h5></td>
-	</tr>	
-	<tr><td>상세설명</td>
-	<td>${dto.pro_contents}</td>
-	</tr>
+<input type="hidden" value="${dto.color}" name="color" id="color">
+	<table id="day_sc">
+		<tr>
+       <c:if test="${dto.num ne dto.schnum}">
+        <td> 	 참석자 : </td>
+    <td>${dto.username}</td>
+        </c:if>
+	       <c:if test="${dto.num eq dto.schnum}">
+        <td> 	 주최자 : </td>
+    <td>    ${dto.username}</td>
+</c:if>
+        </tr>
 	<tr><td>기간</td>
-	<td><p>${dto.startday} ~ ${dto.lastday}</p></td>
+	<td>${dto.startday} ~ ${dto.lastday}</td>
 	</tr>
 	<tr><td>시간</td>
-    	<td><p>${dto.start_time}~${dto.last_time}</p>
+    	<td>${dto.start_time}~${dto.last_time}
     	</td></tr>
-    	<c:forEach items="${nick}" var="nickname">
-    	<tr><td>참석자</td>
-    	<td> 
-		 ${nickname.nickname} 		
-		</td>
+    	<tr><td>설명</td>
+	<td><textarea readonly rows="3" cols="25" id="pro_text">${dto.pro_contents}</textarea></td>
+	</tr> 
+
+        
+	<c:if test="${not empty nick}">
+    <tr>
+        <td>참석자</td>
+    		<td><c:forEach items="${nick}" varStatus="status" var="nickname">
+    	${status.count}.${nickname.nickname} &nbsp 	  
+    </c:forEach>
+    <input type="hidden" value="${nickname.nickname}" name="nicknaming" id="nicknaming">
+    </td>
 	</tr>
-    	</c:forEach>
-	<tr><td colspan="2"></td></tr>
+    	</c:if>
        	<tr><td colspan="2"><button id="updateBtn">수정</button>
-    	<button value="${dto.schnum}" id="deleteBtn" class="deleteBtn">삭제</button> </td></tr>
+    	<button value="${dto.schnum}" id="deleteBtn" class="deleteBtn">삭제</button>
+    	 </td></tr>
 	</table>
     	  </c:forEach>
     	  </c:if>
+    	  
     	  <c:if test="${empty list}">
-  <p> 일정을 추가해주세요.</p></c:if></div>
+ <div id="setset"><br>일정을 추가해주세요.</div></c:if>
+  <div class="tete"></div>
+  </div>

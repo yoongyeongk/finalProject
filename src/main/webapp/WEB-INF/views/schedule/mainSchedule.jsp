@@ -186,6 +186,7 @@ $(document).ready(function() {
 		alert($(this).val());
 	});
 	});
+     
 });
 
 </script>
@@ -258,18 +259,18 @@ margin-bottom: 20px;
  	.modal {
     display: none; /* Hidden by default */
     z-index: 999; /* Sit on top */
-    padding-top:5%; /* Location of the box */  
-    width: 100%; /* Full width */
+    padding-top:12%; /* Location of the box */  
+    width: 80%; /* Full width */
     height: 100%; /* Full height */
+    min-width: 246px;
+    min-height: 156px;
 }
 
 /* Modal Content */
 .modal_content {
-     background-color: #F6F6F6; 
+     background-color: white; 
     margin: auto;
-    padding: 20px;
-   border: 2px double #16A085;
-    border-radius: 8px; 
+    border-radius: 2px; 
     width: 25%;
     box-shadow: 0 4px 8px 0 rgba(170, 170, 170, 0.42), 0 6px 20px 0 #888;
    -webkit-animation-name: animatetop;
@@ -286,6 +287,9 @@ margin-bottom: 20px;
 @keyframes animatetop {
     from {top:-300px; opacity:0}
     to {top:0; opacity:1}
+}
+#closebtn{
+font-size: 35px;
 }
 .time_title{
 font-size:  1.3em;
@@ -362,6 +366,7 @@ border-style: none;
 input[id="ss2"]{
 display: none;
 }
+
 </style>
 </head>
 <body>
@@ -452,7 +457,7 @@ display: none;
 		<!-- Modal Content -->
 		<div class="modal_content">		
 			<!-- close button -->
-			<span class="close">&times;</span>			
+			<span class="close" id="closebtn">&times;</span>			
 			<div id="list_sec">
 			</div>
 		</div>

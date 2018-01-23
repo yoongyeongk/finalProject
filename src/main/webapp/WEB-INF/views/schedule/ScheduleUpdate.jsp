@@ -8,7 +8,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>일정 수정페이지</title>
-<style type="text/css">
+ <style type="text/css">
 #sTimeBox,#lTimeBox{
 display:  inline-block;}
 .updateform{
@@ -26,11 +26,19 @@ padding-left: 10px;
 padding: 10px;
 margin-bottom: 10px;
 }
-#submitBtn{
-background-color: rgb(22,160,133);
-color: white;
+.updateBtn{
+margin-top : 15px;
+background-color: #f5f5f6;
+color: rgb(22,160,133);
 font-weight: bold;
-float: right;
+width: 35%;
+    border-radius:4px;
+    border-style: none;
+    height: 35px;
+}
+.updateBtn:hover{
+	background: rgb(22,160,133);
+	color: white;
 }
 .part2 {
 display : inline-block;
@@ -54,9 +62,10 @@ margin-bottom: 10px;
 }
 #ck-button label {
     float:left;
-    width:3.1em;
+    width:3.6em;
 }
 #ck-button label span {
+margin : 0 auto;
     text-align:center;
     padding:3px 0px;
         font-weight: lighter;
@@ -110,6 +119,7 @@ text-align: center;
 }
 </style>
 <script type="text/javascript">
+	
 $(document).ready(function () {
 	$(".delete2").click(function() {
 		
@@ -181,16 +191,30 @@ $(document).ready(function () {
          });    //end ajax 	 
 		 }
 	});
-});
-</script>
+
+	$("#backBtn").click(function(){
+		var num = $(this).val();
+		$.ajax({
+			type: "GET",
+			url: "./mainSchedule",  
+			data:{
+				num: num,
+			},
+			success: function(){
+				window.self.close();
+			}
+		});
+	});
+	});
+});	
+</script> 
 </head>
 <body>
-
-<div style="display:  inline-block; margin: 0 auto;">
+ <div style="display: inline-block; margin-top: 25px; margin-left: 15px;">
 <form action="../schedule/scheduleUpdatePOST" method="post">	
-<h1>일정 수정게시판</h1>
- <div class="updateform col-md-6">
-			<input type="hidden" name="schnum" value="${view.schnum}">	
+ <div class="updateform col-md-12">			
+ <input type="hidden" id="num" name="num" value="${view.num}">	
+			<input type="hidden" id="schnum" name="schnum" value="${view.schnum}">	
 				<input type="hidden" name="username" value="${user.username}">	
 		 			<input type="hidden" id="mynick" name="mynick" value="${user.nickname}">
 				<table class="addT">
@@ -211,10 +235,9 @@ $(document).ready(function () {
 								required="required" id="sch_contents"
 									name="pro_contents">${view.pro_contents}</textarea></td>
 							</tr></table>
-														<button id="submitBtn" class="btn">등록하기</button>
+													
 
-</div> 
- <div class="updateform col-md-6">
+
  <table  class="addT">	
  <tr class="part2"><td colspan="3">일정 상세정보</td></tr>
 								<tr>
@@ -270,10 +293,14 @@ $(document).ready(function () {
 						<div id="ck-button" style="background-color:rgb(0,0,0)"><label>
 						<input type="radio" name="color" class="ss2" value="rgb(0,0,0)">
 						<span>black</span></label></div>
-						</td></tr></table>
-
- </div>
+						</td></tr>
+						<tr><td>
+							<button id="submitBtn" value="${view.num}" class="updateBtn">수정하기</button>
+							<input type="button" id="backBtn" class="updateBtn" value="취소히기">
+						</td></tr>
+						</table>
+ 	</div> 
 </form>
-</div>
+</div> 
 </body>
 </html>

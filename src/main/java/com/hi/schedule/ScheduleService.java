@@ -30,15 +30,15 @@ public class ScheduleService {
 	private PartnerDAO partnerDAO;
 	
 	//수정을 위한 view 
-			public ModelAndView ScheduleUpdateGET(int schnum,HttpServletRequest request)throws Exception{
+			public ModelAndView ScheduleUpdateGET(int num,HttpServletRequest request)throws Exception{
 				ModelAndView mv= new ModelAndView();
 				ScheduleDTO scheduleDTO = null;
-				schnum = Integer.parseInt(request.getParameter("schnum"));
-
-				scheduleDTO = scheduleDAO.ScheduleUpdateGET(schnum);
+				num = Integer.parseInt(request.getParameter("num"));
+				System.out.println("dao num : "+num);
+				scheduleDTO = scheduleDAO.ScheduleUpdateGET(num);
 				scheduleDTO.setStartday(scheduleDTO.getStartday().substring(0, scheduleDTO.getStartday().indexOf(" ")));
 				scheduleDTO.setLastday(scheduleDTO.getLastday().substring(0, scheduleDTO.getLastday().indexOf(" ")));
-				List<PartnerDTO> nick=	partnerDAO.partnerList(schnum);
+				List<PartnerDTO> nick=	partnerDAO.partnerList(num);
 				mv.addObject("nick", nick);
 				mv.addObject("view", scheduleDTO);
 				return mv;
@@ -49,9 +49,9 @@ public class ScheduleService {
 				return scheduleDAO.ScheduleUpdatePOST(scheduleDTO);
 			}
 		
-		public int ScheduleDeleteOne(int schnum) throws Exception {
+		public int ScheduleDelete(int schnum) throws Exception {			
 			partnerDAO.partnerDelete(schnum);
-			int result=scheduleDAO.ScheduleDeleteOne(schnum);	
+			int result=scheduleDAO.ScheduleDelete(schnum);	
 			return result;
 		}
 		//클릭한 날짜의 일정 상세정보 보여주기 
@@ -135,19 +135,17 @@ public class ScheduleService {
 		}
 		
 		public int write(ScheduleDTO scheduleDTO,String[]nickname,HttpServletRequest request) throws Exception {
-			List<PartnerDTO> part = new ArrayList<PartnerDTO>();
 			int result = 0;
 			result = scheduleDAO.write(scheduleDTO);
-			
-			
+			if(nickname !=null){
 			for(String s: nickname){
-			PartnerDTO partnerDTO = new PartnerDTO();
-			partnerDTO.setNickname(s);
-			partnerDTO.setSchnum(scheduleDTO.getSchnum());
-			part.add(partnerDTO);
-			result=partnerDAO.partnerinsert(partnerDTO);
-			scheduleDTO.setUsername(scheduleDAO.selectUserName(s));
-			scheduleDAO.write(scheduleDTO);
+				PartnerDTO partnerDTO = new PartnerDTO();
+				partnerDTO.setNickname(s);
+				partnerDTO.setSchnum(scheduleDTO.getSchnum());
+				result=partnerDAO.partnerinsert(partnerDTO);
+				scheduleDTO.setUsername(scheduleDAO.selectUserName(s));
+				scheduleDAO.write2(scheduleDTO);
+				}
 			}
 			return  result;
 		}

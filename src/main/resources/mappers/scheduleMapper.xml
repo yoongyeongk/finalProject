@@ -22,8 +22,13 @@
   	select schedule_seq.nextval from dual
   	</selectKey>
   	insert into schedule values(#{schnum}, #{username}, #{title},
-  	#{pro_contents}, #{startday}, #{lastday}, #{start_time}, #{last_time},#{color})
+  	#{pro_contents}, #{startday}, #{lastday}, #{start_time}, #{last_time},#{color},#{schnum})
   	</insert>
+  	
+  	<insert id="write2">
+	insert into schedule values(#{schnum}, #{username}, #{title},
+  	#{pro_contents}, #{startday}, #{lastday}, #{start_time}, #{last_time},#{color},schedule_seq.nextval)
+</insert>
   		
 <!--  참석자로 추가된 닉네임을 가진 아이디도 스케줄 추가해주는 sql 문장 
   	<insert id="write2">
@@ -48,13 +53,13 @@ where U.nickname = P.nickname and S.schnum = P.schnum
  resultType="com.hi.schedule.ScheduleDTO">select * from schedule where username=#{username} and 
  (startday = #{startday} or lastday = #{lastday})</select> 
 
-  	<delete id="ScheduleDeleteOne" parameterType="int">delete schedule where schnum=#{schnum}</delete>
+  	<delete id="ScheduleDelete" parameterType="int">delete schedule where schnum=#{schnum}</delete>
   	
   	 <select id="ScheduleUpdateGET" parameterType="int" resultType="com.hi.schedule.ScheduleDTO">
-  	 select * from schedule where schnum=#{schnum}</select> 
+  	 select * from schedule where num=#{num} </select> 
   	 
   <update id="ScheduleUpdatePOST" parameterType="com.hi.schedule.ScheduleDTO">
-  update schedule set title=#{title}, pro_contents=#{pro_contents},STARTDAY=#{startday},LASTDAY=#{lastday},
-  START_TIME=#{start_time}, LAST_TIME=#{last_time},color=#{color} WHERE schnum = #{schnum}</update> 
+  update schedule set  schnum = #{schnum}, title=#{title}, pro_contents=#{pro_contents},STARTDAY=#{startday},LASTDAY=#{lastday},
+  START_TIME=#{start_time}, LAST_TIME=#{last_time},color=#{color} WHERE num = #{num}</update> 
   
   </mapper>

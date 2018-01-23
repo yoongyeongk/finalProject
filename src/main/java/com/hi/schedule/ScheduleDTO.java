@@ -5,7 +5,7 @@ import java.util.List;
 import com.hi.partner.PartnerDTO;
 
 public class ScheduleDTO {
-
+	private int num;
 	private int schnum;
 	private String username; 
 	private String title;
@@ -20,6 +20,17 @@ public class ScheduleDTO {
 	public ScheduleDTO() {
 		// TODO Auto-generated constructor stub
 	}
+
+	
+	public int getNum() {
+		return num;
+	}
+
+
+	public void setNum(int num) {
+		this.num = num;
+	}
+
 
 	public String[] getNickname() {
 		return nickname;

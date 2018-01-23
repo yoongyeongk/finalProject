@@ -26,6 +26,10 @@ public class ScheduleDAO {
 		 
 		 return sqlSession.insert(namespace+"write",scheduleDTO);
 	 }
+ public int write2(ScheduleDTO scheduleDTO)throws Exception{
+		 
+		 return sqlSession.insert(namespace+"write2",scheduleDTO);
+	 }
 	 public List<ScheduleDTO> jsonScheduleList(String username)throws Exception{
 		 System.out.println(username);		 
 		return sqlSession.selectList(namespace+"jsonScheduleList", username);		 
@@ -38,20 +42,18 @@ public class ScheduleDAO {
 		}
 		 return ar;
 	 }
-	 public int ScheduleDeleteOne(int schnum)throws Exception{
-
-		 return sqlSession.delete(namespace+"ScheduleDeleteOne", schnum);
+	 public int ScheduleDelete(int schnum)throws Exception{
+		 return sqlSession.delete(namespace+"ScheduleDelete", schnum);
 	 }
-	 public ScheduleDTO ScheduleUpdateGET(int schnum)throws Exception{
-		 ScheduleDTO scheduleDTO = sqlSession.selectOne(namespace+"ScheduleUpdateGET", schnum);
-		 return sqlSession.selectOne(namespace+"ScheduleUpdateGET", schnum);
+	 public ScheduleDTO ScheduleUpdateGET(int num)throws Exception{
+		 ScheduleDTO scheduleDTO = sqlSession.selectOne(namespace+"ScheduleUpdateGET", num);
+		 return sqlSession.selectOne(namespace+"ScheduleUpdateGET", num);
 	 }
 	 public int ScheduleUpdatePOST(ScheduleDTO scheduleDTO)throws Exception{
 		 return sqlSession.update(namespace+"ScheduleUpdatePOST", scheduleDTO);
 	 }
 	 
 	 public String selectUserName (String nickName) throws Exception {
-		 
 		 return sqlSession.selectOne(namespace+"selectUserName", nickName);
 	 }
 }
