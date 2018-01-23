@@ -45,6 +45,11 @@ public class ScheduleDAO {
 	 public int ScheduleDelete(int schnum)throws Exception{
 		 return sqlSession.delete(namespace+"ScheduleDelete", schnum);
 	 }
+	 public int SchdulepartDelete(int num)throws Exception{
+		 return sqlSession.delete(namespace+"SchedulepartDelete", num);
+	 }
+	 
+	 
 	 public ScheduleDTO ScheduleUpdateGET(int num)throws Exception{
 		 ScheduleDTO scheduleDTO = sqlSession.selectOne(namespace+"ScheduleUpdateGET", num);
 		 return sqlSession.selectOne(namespace+"ScheduleUpdateGET", num);

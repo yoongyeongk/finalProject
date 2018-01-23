@@ -52,14 +52,17 @@ where U.nickname = P.nickname and S.schnum = P.schnum
  <select id="jsonScheduleDayList" parameterType="com.hi.schedule.ScheduleDTO" 
  resultType="com.hi.schedule.ScheduleDTO">select * from schedule where username=#{username} and 
  (startday = #{startday} or lastday = #{lastday})</select> 
-
+<!-- 주최자가 스케줄 전체 삭제할때 씀  -->
   	<delete id="ScheduleDelete" parameterType="int">delete schedule where schnum=#{schnum}</delete>
+
+<!-- 참석자가 개인 스케줄만 삭제할때 씀  -->
+  	<delete id="SchedulepartDelete" parameterType="int">delete schedule where num=#{num}</delete>
   	
   	 <select id="ScheduleUpdateGET" parameterType="int" resultType="com.hi.schedule.ScheduleDTO">
   	 select * from schedule where num=#{num} </select> 
   	 
   <update id="ScheduleUpdatePOST" parameterType="com.hi.schedule.ScheduleDTO">
-  update schedule set  schnum = #{schnum}, title=#{title}, pro_contents=#{pro_contents},STARTDAY=#{startday},LASTDAY=#{lastday},
-  START_TIME=#{start_time}, LAST_TIME=#{last_time},color=#{color} WHERE num = #{num}</update> 
+  update schedule set title=#{title}, pro_contents=#{pro_contents},STARTDAY=#{startday},LASTDAY=#{lastday},
+  START_TIME=#{start_time}, LAST_TIME=#{last_time},color=#{color} WHERE  schnum=#{schnum}</update> 
   
   </mapper>

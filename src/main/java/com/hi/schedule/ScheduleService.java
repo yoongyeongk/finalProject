@@ -48,10 +48,16 @@ public class ScheduleService {
 				System.out.println(scheduleDTO.getUsername());
 				return scheduleDAO.ScheduleUpdatePOST(scheduleDTO);
 			}
-		
+			//주최자가 파트너 스케줄까지 전체 삭제 버튼 누르면 삭제되게 
 		public int ScheduleDelete(int schnum) throws Exception {			
 			partnerDAO.partnerDelete(schnum);
 			int result=scheduleDAO.ScheduleDelete(schnum);	
+			return result;
+		}
+		public int SchdulepartDelete(int num,int pnum)throws Exception{
+			partnerDAO.SchdulepartDelete(pnum);
+			int result = scheduleDAO.SchdulepartDelete(num);
+			System.out.println("파트너 삭제 service : "+num);
 			return result;
 		}
 		//클릭한 날짜의 일정 상세정보 보여주기 

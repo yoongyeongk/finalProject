@@ -118,21 +118,25 @@ background-color: gray;
 text-align: center;
 }
 </style>
-<script type="text/javascript">
-	
+<script type="text/javascript">	
 $(document).ready(function () {
-	$(".delete2").click(function() {
-		
-		 $('.updada').each(function() {	
+	$(".delete2").click(function() {		
 			 $('.updada').remove();
-			 $('.delete2').remove();
-			 
-			});
-	});	 
-	$('#partadd').on('click', function(){
+			 $('.delete2').remove();	 
+	});
+	
+	 $('#partadd').on('click', function(){
 		 var nickname = $('#partner').val();
 		 var mynick =$('#mynick').val();
-		 var check = true; 
+		 var updada =$('.updada').val();
+		 var check = true;
+		 $('.updada').each(function() {	
+				var j = $(this).val();
+				if(nickname==j){
+					check=false;
+					alert('중복이다');
+				}
+			});
 		 $('.addnick').each(function() {
 			var i=$(this).val();
 			if(nickname==i){
@@ -140,7 +144,6 @@ $(document).ready(function () {
 				alert('중복이다');
 			}
 		});
-			
 		 if(check){
          $.ajax({
              type: 'POST',
@@ -188,24 +191,21 @@ $(document).ready(function () {
              error:function(){
                  alert("에러입니다");
          }
-         });    //end ajax 	 
+         });    //end ajax    
 		 }
-	});
+     });    //end on 
 
-	$("#backBtn").click(function(){
-		var num = $(this).val();
-		$.ajax({
-			type: "GET",
-			url: "./mainSchedule",  
-			data:{
-				num: num,
-			},
-			success: function(){
+ 	$("#backBtn").click(function(){
 				window.self.close();
-			}
 		});
-	});
-	});
+/*  	$("#submitBtn").click(function(){
+ 		var schnum = $("#schnum").val();
+ 		
+ 		if (!opener.closed){
+            opener.document.location.reload();
+            window.close();
+ }
+}); */
 });	
 </script> 
 </head>
@@ -267,10 +267,13 @@ $(document).ready(function () {
 									
 							</td></tr>
 							<tr>
-							<td><div class="updada" name="nick_update" style="display: inline-block;">
+							<td>
 									<c:forEach items="${nick}" var="nickname">
-									 ${nickname.nickname}<input type="button" class="delete2" value="X"/>
-									</c:forEach></div>													
+									<div class="updada" name="nick_update" style="display: inline-block;">
+									 ${nickname.nickname}
+									 <input type="hidden" class="updada" value="${nickname.nickname}">
+									 <input type="button" class="delete2" value="X"/></div>			
+									</c:forEach>										
 																</td></tr>
 								<tr><td><div id="nick" style="display: inline-block;"></div></td></tr>
 								
@@ -295,8 +298,8 @@ $(document).ready(function () {
 						<span>black</span></label></div>
 						</td></tr>
 						<tr><td>
-							<button id="submitBtn" value="${view.num}" class="updateBtn">수정하기</button>
-							<input type="button" id="backBtn" class="updateBtn" value="취소히기">
+						<input type="submit" id="submitBtn" class="updateBtn" value="수정하기">
+						<input type="button" id="backBtn" class="updateBtn" value="취소하기">
 						</td></tr>
 						</table>
  	</div> 

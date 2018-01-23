@@ -25,9 +25,11 @@ public class PartnerDAO {
 	public int partnerDelete(int schnum)throws Exception{
 		return sqlSession.delete(NAMESPACE+"partnerDelete",schnum);
 	}
-	public int partnerDeleteOne(int pnum)throws Exception{
-		return sqlSession.delete(NAMESPACE+"partnerDeleteOne",pnum);
-	}
+	
+	 public int SchdulepartDelete(int pnum)throws Exception{
+		 return sqlSession.delete(NAMESPACE+"SchdulepartDelete", pnum);
+	 }
+	
 	public int partnerPnum(int pnum)throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"partnerPnum",pnum);
 	}

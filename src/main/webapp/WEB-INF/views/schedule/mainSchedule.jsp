@@ -66,8 +66,6 @@ $(document).ready(function() {
 					});
                  }else if(data.result == mynick){
                 	 alert('본인닉네임입니다.');
-                 }else if(add=nickname){
-                	 alert('asd');
                  }else{
                 	 
                 	 alert('등록되어있지않은 닉네임입니다.');

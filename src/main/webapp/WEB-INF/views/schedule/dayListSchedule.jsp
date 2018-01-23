@@ -12,7 +12,7 @@
 width: 100%;
 height: 10px;
 }
-#updateBtn,#deleteBtn{
+#updateBtn,#deleteBtn,#partnerdeleteBtn{
 border-style: none;
 color: white;
 background-color: black;
@@ -48,9 +48,25 @@ $(function() {
 		var schedule_num = $(this).val();
 		$.ajax({
 			type: "GET",
-			url: "./scheduleDeleteOne",  
+			url: "./scheduleDelete",  
 			data:{
 				schnum: schedule_num,
+			},
+			success: function(){
+				//opener.location.reload();
+				location.reload();
+			}
+		});
+	});
+	$(".partnerdeleteBtn").click(function(){
+		var pnum = $(this).val();
+		var num = $("#num").val();
+		$.ajax({
+			type: "GET",
+			url: "./SchdulepartDelete",  
+			data:{
+				pnum: pnum,
+				num : num
 			},
 			success: function(){
 				//opener.location.reload();
@@ -100,14 +116,21 @@ $(function() {
     <tr>
         <td>참석자</td>
     		<td><c:forEach items="${nick}" varStatus="status" var="nickname">
-    	${status.count}.${nickname.nickname} &nbsp 	  
+    	${status.count}.${nickname.nickname} &nbsp 
     </c:forEach>
     <input type="hidden" value="${nickname.nickname}" name="nicknaming" id="nicknaming">
     </td>
 	</tr>
     	</c:if>
        	<tr><td colspan="2"><button id="updateBtn">수정</button>
+       	  <c:if test="${dto.num eq dto.schnum}">
     	<button value="${dto.schnum}" id="deleteBtn" class="deleteBtn">삭제</button>
+    	</c:if>
+    	       	  <c:if test="${dto.num ne dto.schnum}">
+    	       	  <c:forEach items="${nick}" varStatus="status" var="nickname">
+    	<button value="${nickname.pnum}" id="partnerdeleteBtn" class="partnerdeleteBtn">삭제</button>
+    	</c:forEach>
+    	</c:if>
     	 </td></tr>
 	</table>
     	  </c:forEach>

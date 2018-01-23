@@ -54,8 +54,8 @@ public class ScheduleController {
 		return mv;
 	}
 	
-	//삭제 버튼 누르면 삭제되게 
-	@RequestMapping(value="scheduleDeleteOne",method=RequestMethod.GET)
+	//주최자가 파트너 스케줄까지 전체 삭제 버튼 누르면 삭제되게 
+	@RequestMapping(value="scheduleDelete",method=RequestMethod.GET)
 	public String scheduleDeleteOne(int schnum, RedirectAttributes rd){
 		System.out.println("schnum : "+schnum);
 		int result = 0;
@@ -73,7 +73,26 @@ public class ScheduleController {
 	rd.addFlashAttribute("message", message);	
 	return "redirect:./mainSchedule";
 	}
-	
+	//파트너 스케줄만  삭제 버튼 누르면 삭제되게 
+	@RequestMapping(value="SchdulepartDelete",method=RequestMethod.GET)
+	public String SchdulepartDelete(int num,int pnum, RedirectAttributes rd){
+		System.out.println("partDelete pnum : "+pnum);
+		System.out.println("partDelete num :"+num);
+		int result = 0;
+	try {
+		result = ScheduleService.SchdulepartDelete(num, pnum);
+		System.out.println("삭제갯수 :" + result);
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	String message = "파트너삭제 실패";
+	if(result>0){
+		message = "파트너 삭제 성공";
+	}
+	rd.addFlashAttribute("message", message);	
+	return "redirect:./mainSchedule";
+	}
 	
 	//날짜 클릭시 그 날짜의 일정 홛인하는 것 
 	@RequestMapping(value="ScheduleDayJson")

@@ -37,6 +37,10 @@
   	 DELETE FROM partner WHERE schnum=#{schnum}
   	</delete>
 	
+		<delete id="SchdulepartDelete" parameterType="int">
+  	 DELETE FROM partner WHERE pnum=#{pnum}
+  	</delete>
+	
 	<select id="partnerPnum" parameterType="int" resultType="int">
 	select pnum from schedule S, partner P where S.schnum= P.schnum GROUP BY PNUM;
 	</select>
