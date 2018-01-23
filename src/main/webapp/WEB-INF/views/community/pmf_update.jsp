@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="../resources/css/pmf/pmf_write_css.css">
 <link rel="stylesheet" href="../resources/css/header.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Hi!Project/community/find member/update</title>
+<title>Hi!Project - update form</title>
 <script type="text/javascript">
 $(function(){
 	
@@ -169,12 +169,11 @@ $(function(){
 				filename: filename
 			},
 			success: function(data){
-				fileArray.splice(index,1);
-				$(delArray).parent().remove();
-				alert($("#file"+index+1).val());
+				$(delArray).parent().remove();		//div 삭제 처리
+				index = index+1;
+				$("#file"+index).remove();			//input 삭제 처리
 			}
 		});
-		
 	});
 	
 	//이미 업로드된 파일 삭제하기

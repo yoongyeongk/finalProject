@@ -114,6 +114,11 @@ td{
     padding: 4px 15px;
     cursor: pointer;
     vertical-align: middle;
+    text-decoration: none;
+}
+.download:hover{
+	text-decoration: gray;
+	color: black;
 }
 
 /* scrap */

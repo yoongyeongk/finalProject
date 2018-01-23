@@ -17,6 +17,21 @@ public class PmfFileService {
 	@Inject
 	private PmfFileDAO pmfFileDAO;
 	
+	public ModelAndView filedown(int fnum, HttpSession session) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		String filePath = session.getServletContext().getRealPath("resources/pmf_files");
+		
+		FileDTO fileDTO = pmfFileDAO.selectOne(fnum);
+		File file = new File(filePath, fileDTO.getFilename());
+		
+		mv.addObject("file", file);
+		mv.addObject("oriname", fileDTO.getOriname());
+		mv.setViewName("FileDown");
+		
+		return mv;
+	}
+	
 	public ModelAndView deleteOne(int fnum, HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		
@@ -42,6 +57,7 @@ public class PmfFileService {
 	}
 
 	public void fileDelete(String filename, HttpSession session) throws Exception {
+		System.out.println(filename);
 		String filePath = session.getServletContext().getRealPath("resources/pmf_files");
 		File file = new File(filePath, filename);
 		

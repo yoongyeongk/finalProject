@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hi.project.pmfFile.PmfFileService;
@@ -15,6 +16,13 @@ public class PmfFileController {
 
 	@Inject
 	private PmfFileService pmfFileService;
+	
+	@RequestMapping(value="fileDownload")
+	public ModelAndView fileDownload(int fnum, HttpSession session) throws Exception {
+		ModelAndView mv = pmfFileService.filedown(fnum, session);
+		
+		return mv;
+	}
 	
 	@RequestMapping(value="deleteOne")
 	public ModelAndView delete(int fnum, HttpSession session) {

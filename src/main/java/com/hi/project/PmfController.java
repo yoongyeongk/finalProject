@@ -106,7 +106,7 @@ public class PmfController {
 		}
 		
 		String message = "게시글 등록에 실패했습니다.";
-		String path = "";
+		String path = "redirect:./pmfWrite";
 		if(result>0) {
 			if(pmfBoardDTO.getTemp() == 0) {
 				message = "게시글이 등록되었습니다.";

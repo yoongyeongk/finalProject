@@ -107,7 +107,7 @@
 		$(".clipboard_copy").click(function() {
 			copyText();
 		});
-
+		
 		//scrap
 		var scrap = $(".scrap_btn");
 		$(scrap).click(function(){
@@ -276,7 +276,7 @@
 									<div class='filename'>${file.oriname}</div>
 									<div class='filesize'>${file.filesize}</div>
 									<div class='progressBar'></div>
-									<span id="${file.fnum}" class="download">다운로드</span>
+									<a href="../pmfFile/fileDownload?fnum=${file.fnum}" class="download">다운로드</a>
 								</div>
 							</c:if>
 							<c:if test="${i.count%2 == 0}">
@@ -284,7 +284,7 @@
 									<div class='filename'>${file.oriname}</div>
 									<div class='filesize'>${file.filesize}</div>
 									<div class='progressBar'></div>
-									<span id="${file.fnum}" class="download">다운로드</span>
+									<a href="../pmfFile/fileDownload?fnum=${file.fnum}" class="download">다운로드</a>
 								</div>
 							</c:if>
 							</c:forEach>
