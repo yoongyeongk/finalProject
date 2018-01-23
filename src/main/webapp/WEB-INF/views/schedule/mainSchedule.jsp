@@ -379,6 +379,7 @@ display: none;
 
 	<form class="event_form" action="../schedule/ScheduleWrite" method="post">
 					<!-- 	//나중에 멤버로 받아오기  --> 
+					<div>${user.username}님의 일정등록 </div>
 			<input type="hidden" name="username" value="${user.username}">	
 		 			<input type="hidden" id="mynick" name="mynick" value="${user.nickname}">
 				<table class="addT">

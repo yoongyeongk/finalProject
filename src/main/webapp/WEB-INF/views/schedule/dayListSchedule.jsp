@@ -113,13 +113,15 @@ $(function() {
 
         
 	<c:if test="${not empty nick}">
-    <tr>
+    <tr><c:forEach items="${nick}" varStatus="status" var="nickname">
+    <c:if test="${nickname.nickname ne user.nickname}">
         <td>참석자</td>
-    		<td><c:forEach items="${nick}" varStatus="status" var="nickname">
+    		<td>
     	${status.count}.${nickname.nickname} &nbsp 
-    </c:forEach>
     <input type="hidden" value="${nickname.nickname}" name="nicknaming" id="nicknaming">
     </td>
+    </c:if>
+    </c:forEach>
 	</tr>
     	</c:if>
        	<tr><td colspan="2"><button id="updateBtn">수정</button>
