@@ -32,7 +32,7 @@
 			
 			<div class="page-contents">
 			</div>
-
+			
 			<!-- setting -->
 			<div class="modal fade setting">
 				<div class="modal-dialog">
@@ -54,10 +54,10 @@
 								</select>
 								<hr>
 								<label>시작일</label>
-								<input name="start-date" class="form-control" type="date">
+								<input name="start_date" class="form-control" type="date">
 								<hr> 
 								<label>마감일</label>
-								<input name="close-date" class="form-control" type="date">
+								<input name="close_date" class="form-control" type="date">
 								<hr>
 								<label>프로젝트 관리자</label>
 								<i class="fas fa-plus"></i>

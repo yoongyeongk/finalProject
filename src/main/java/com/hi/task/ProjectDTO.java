@@ -4,13 +4,13 @@ import java.sql.Date;
 
 public class ProjectDTO {
 	private int project_id;
+	private int star;
 	private String title;
-	private String privacy;
 	private String status;
-	private String star;
+	private Date reg_date;
 	private Date start_date;
 	private Date close_date;
-	private Date reg_date;
+	private String privacy;
 
 	public int getProject_id() {
 		return project_id;
@@ -18,6 +18,14 @@ public class ProjectDTO {
 
 	public void setProject_id(int project_id) {
 		this.project_id = project_id;
+	}
+
+	public int getStar() {
+		return star;
+	}
+
+	public void setStar(int star) {
+		this.star = star;
 	}
 
 	public String getTitle() {
@@ -28,14 +36,6 @@ public class ProjectDTO {
 		this.title = title;
 	}
 
-	public String getPrivacy() {
-		return privacy;
-	}
-
-	public void setPrivacy(String privacy) {
-		this.privacy = privacy;
-	}
-
 	public String getStatus() {
 		return status;
 	}
@@ -44,12 +44,12 @@ public class ProjectDTO {
 		this.status = status;
 	}
 
-	public String getStar() {
-		return star;
+	public Date getReg_date() {
+		return reg_date;
 	}
 
-	public void setStar(String star) {
-		this.star = star;
+	public void setReg_date(Date reg_date) {
+		this.reg_date = reg_date;
 	}
 
 	public Date getStart_date() {
@@ -68,12 +68,12 @@ public class ProjectDTO {
 		this.close_date = close_date;
 	}
 
-	public Date getReg_date() {
-		return reg_date;
+	public String getPrivacy() {
+		return privacy;
 	}
 
-	public void setReg_date(Date reg_date) {
-		this.reg_date = reg_date;
+	public void setPrivacy(String privacy) {
+		this.privacy = privacy;
 	}
 
 }

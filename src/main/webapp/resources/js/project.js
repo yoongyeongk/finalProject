@@ -2,6 +2,22 @@ $(function() {
 	list();
 	create();
 	update();
+	
+	/*	
+	$("input:checkbox[name=check]").change(function(){
+		var check = $(this).prop("checked");
+		if(check == true) 
+			$("input:hidden[name=privacy]").prop("value", "true");
+		else 
+			$("input:hidden[name=privacy]").prop("value", "false");
+	});
+	 */
+	
+	$(".page-contents").on("click", ".project-box", function() {
+		var project_id = $(this).data("id");
+		location.href = "task/view?project_id="+project_id;
+	});
+	
 	$(".page-contents").on("click", "a", function() {
 		var project_id = $(this).data("id");
 		$.ajax({
@@ -11,8 +27,14 @@ $(function() {
 				project_id : project_id
 			},
 			success: function (data) {
-				var start_date = moment(data.start_date).format('YYYY-MM-DD');
-				var close_date = moment(data.close_date).format('YYYY-MM-DD');
+				var start_date = data.start_date;
+				var close_date = data.close_date;
+				
+				if(data.start_date != null)
+					start_date = moment(data.start_date).format('YYYY-MM-DD');
+				
+				if(data.close_date != null)
+					close_date = moment(data.close_date).format('YYYY-MM-DD');
 				
 				if(data.star == 0) 
 					$(".setting-header").html('<i class="far fa-star"></i><input class="form-control" name="title" type="text">');
@@ -35,17 +57,14 @@ $(function() {
 				else if(data.status == '취소')
 					$("#status option:eq(5)").attr("selected", "selected");
 				
-				$("input[name=start-date]").attr("value", start_date);
-				$("input[name=close-date]").attr("value", close_date);
+				$("input[name=start_date]").attr("value", start_date);
+				$("input[name=close_date]").attr("value", close_date);
 				
-				if(data.privacy == 'public') {
-					$(".setting input[name=privacy]").attr("checked", true);
-					$(".setting input[name=privacy]").attr("value", "public");
-				}
-				else {
-					$(".setting input[name=privacy]").attr("checked", false);
-					$(".setting input[name=privacy]").attr("value", "private");
-				}
+				if(data.privacy == 'true')
+					$("input[name=check]").prop("checked", true);
+				else
+					$("input[name=check]").prop("checked", false);
+				
 			},
 			error: function (data) {
 				console.log('Error : ', data);
@@ -61,13 +80,12 @@ function list() {
 		success : function(data) {
 			var html = '';
 			$.each(data, function(key, value) {
-				html += '<div class="project-box">';
-
+				html += '<div class="project-box" data-id="'+value.project_id+'">';
 				/* header */
 				html += '<div class="project-header">';
-				if (value.privacy == "private") {
+				if (value.privacy == 'false') {
 					html += '<i class="fas fa-lock"></i>';
-				} else if (value.privacy == "public") {
+				} else if (value.privacy == "true") {
 					html += '<i class="fas fa-globe"></i>';
 				}
 				html += '<span>' + value.title + '</span>';
@@ -176,3 +194,4 @@ function update() {
 		});
 	});
 }
+
