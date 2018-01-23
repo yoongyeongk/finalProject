@@ -1,16 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
 <!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sly/1.6.1/sly.min.js"></script>
 
@@ -58,20 +67,14 @@
 		list-style: none;
 		padding: 0;
 		margin: 0;
-		line-height: 50px;
-		border-bottom: 1px solid;
-		border-top: 1px solid;
-		font-weight: lighter;
 	}
 	.all{
 		width:900px;
 		height:2600px;
 		margin: 0 auto;
-		background-color: gold;
 	}
 	.line{
-		width:830px;
-		background-color: lightpink;
+		width:800px;
 		margin: 0 auto;
 		margin-top: 110px;
 	}
@@ -123,6 +126,7 @@
         height: 100%;
         font-size: 50px;
         margin: 0 auto;
+        line-height: 50px;
         }
      .frame ul li {
         float: left;
@@ -160,6 +164,12 @@
 		width: 750px;
     	height: 700px;
 	}
+	.info ul{
+		line-height: 50px;
+		border-bottom: 1px solid;
+		border-top: 1px solid;
+		font-weight: lighter;
+	}
 	.info ul>li{
 		font-family: Daum_Regular;
 	}
@@ -177,10 +187,105 @@
 		width: 680px;
 		height: 450px;
 	}
-	
+	.tags{
+		margin: 80px 20px 10px 8px;
+	}
+	@media (min-width: 576px){
+	.modal-dialog {
+    max-width: 500px;
+    margin: 230px auto;
+		}
+	}
+	.md{
+		display: block;
+		margin: 0 auto;
+		margin-top: 80px;
+		font-family: BMJUA;
+	}
+	.md{
+	  background:mediumturquoise;
+	  color:#fff;
+	  border:none;
+	  position:relative;
+	  height:60px;
+	  font-size:1.6em;
+	  padding:0 2em;
+	  cursor:pointer;
+	  transition:800ms ease all;
+	  outline:none;
+	}
+	.md:hover{
+	  background:#fff;
+	  color:mediumturquoise;
+	}
+	.md:before,button:after{
+	  content:'';
+	  position:absolute;
+	  top:0;
+	  right:0;
+	  height:2px;
+	  width:0;
+	  background: mediumturquoise;
+	  transition:400ms ease all;
+	}
+	.md:after{
+	  right:inherit;
+	  top:inherit;
+	  left:0;
+	  bottom:0;
+	}
+	.md:hover:before,button:hover:after{
+	  width:100%;
+	  transition:800ms ease all;
+	}
+	.modal-body{
+		font-family: Daum_Regular;
+	}
+	.auctionBox{
+		margin-top: 30px;
+	}
+	.auctionUL{
+		text-align: center;
+	}
+	.auctionUL li{
+		margin-bottom: 13px;
+	}
+	.auctionSpan{
+		width: 65px;
+    	display: inline-block;
+	}
+	.price{
+		margin-left: 40px;
+	}
+	b{
+		color: yellowgreen;
+	}
+	.submit{
+		background-color: inherit;
+	    margin: 0;
+	    padding: 0;
+	    border: 1px solid deepskyblue;
+	    width: 90px;
+	    height: 30px;
+	    color: deepskyblue;
+	    border-radius: 5px;
+	    font-family: monospace;
+	    font-size: 14px;
+	}
+	.submit:hover{
+		border: 1px solid dodgerblue;
+		color: dodgerblue;
+	}
+	.position{
+		margin: 0 auto;
+    	margin-top: 40px;
+		width: 100px;
+	}
     </style>
-
+	
 <script type="text/javascript">
+var regNumber = /^[0-9]*$/
+
 	$(function() {
 		$(".tags").on("click",".tag_font",function(){
 			var search = $(this).prop("title")
@@ -189,7 +294,24 @@
 			$("#f").submit()
 		})
 	
-	})
+		var regExp = /[,{n}/s]/
+		$("#bindding_price").on("focusout",function(){
+			$(this).val($(this).val().replace(regExp,""))
+		
+			if($(this).val() % 1000 != 0){
+				alert("1000 단위 아래는 입력할 수 없습니다.")
+				$(this).val("")
+			}
+		})
+		
+		$("#corporate_phone").on("keyup",function(){
+			if(!phone.test($(this).val())) {
+			    $(this).val("")
+			}else if (this.value.length > 11){
+				$(this).val($(this).val().slice(0,-1))
+			}
+		})
+	})	
 </script>
 </head>
 <body>
@@ -239,28 +361,107 @@
 					<li><span class="spanBorder">작성 아이디</span> ${one.writer }</li>
 					<li><span class="spanBorder">이메일</span> ${one.email }</li>
 					<li><span class="spanBorder">연락처</span> ${one.corporate_phone }</li>
-					<li><span class="spanBorder">주소</span> ${one.address } ${one.address_detail }</li>
+					<li><span class="spanBorder">주소</span> ${one.address }, ${one.address_detail }</li>
 				</ul>
 			</div>
 		</div>
 		
-		<div id="map">
-		
-		</div>
-		
-		<script>
-	 var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
-	 var options = { //지도를 생성할 때 필요한 기본 옵션
-	 	center: new daum.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
-	 	level: 3 //지도의 레벨(확대, 축소 정도)
-	 };
-	
-	 var map = new daum.maps.Map(container, options); //지도 생성 및 객체 리턴
- </script>
+		<div id="map"></div>
+			
+					<button type="button" class="b md" data-toggle="modal" data-target="#myModal">입찰하기</button>
+
+					<!-- The Modal -->
+					<div class="modal fade" id="myModal">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					
+					      <!-- Modal Header -->
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal">&times;</button>
+					      </div>
+					
+					      <!-- Modal body -->
+					      <div class="modal-body">
+					        <div class="price">현재 경매가 : <b><fmt:formatNumber value="${one.present_price }" type="currency" currencySymbol="￦"/></b></div>
+						        <div class="auctionBox">
+						        	<form action="./tradeBoardAC?num=${param.num}">
+							        	<input type="hidden" name="writer" value="${user.nickname }">
+								        	<ul class="auctionUL">
+								        		<li><span class="auctionSpan">이름 </span> <input type="text" name="name" required="required"></li>
+								        		<li><span class="auctionSpan">연락처 </span> <input type="text" name="corporate_phone" id="corporate_phone" required="required"></li>
+								        		<li><span class="auctionSpan">기업명 </span> <input type="text" name="corporation" required="required"></li>
+								        		<li><span class="auctionSpan">입찰가 </span> <input type="text" name="bindding_price" id="bindding_price" required="required"></li>
+								        	</ul>
+									      <div class="position">
+									        <input type="button" class="submit" value="등록">
+									      </div>
+						        	</form>
+						        </div>
+					      </div>
+
+					      <!-- Modal footer -->
+					      <div class="modal-footer">
+					      </div>
+					
+					    </div>
+					  </div>
+					</div>
 		
 	 </div>
 	</div>
  </view>
+ <script>
+ var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+ mapOption = {
+     center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+     draggable:false,
+     level: 3 // 지도의 확대 레벨
+ };  
+
+//지도를 생성합니다    
+var map = new daum.maps.Map(mapContainer, mapOption); 
+
+//일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+var mapTypeControl = new daum.maps.MapTypeControl();
+
+//지도에 컨트롤을 추가해야 지도위에 표시됩니다
+//daum.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
+
+//지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+var zoomControl = new daum.maps.ZoomControl();
+map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
+
+//주소-좌표 변환 객체를 생성합니다
+var geocoder = new daum.maps.services.Geocoder();
+
+//주소로 좌표를 검색합니다
+geocoder.addressSearch('${one.address} '+'${one.address_detail}', function(result, status) {
+
+ // 정상적으로 검색이 완료됐으면 
+  if (status === daum.maps.services.Status.OK) {
+
+     var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+
+     // 결과값으로 받은 위치를 마커로 표시합니다
+     var marker = new daum.maps.Marker({
+         map: map,
+         position: coords
+     });
+
+     // 인포윈도우로 장소에 대한 설명을 표시합니다
+     var infowindow = new daum.maps.InfoWindow({
+         content: '<div style="width:150px;text-align:center;padding:6px 0;">${one.corporation}</div>'
+     });
+     infowindow.open(map, marker);
+
+     // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+     map.setCenter(coords);
+ } 
+ 
+});    
+ </script>
+		
  <script>
  var sly = new Sly($('.frame'), {
      horizontal: 1, // required

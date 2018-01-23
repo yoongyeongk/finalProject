@@ -34,7 +34,7 @@
   	<insert id="insert" parameterType="tradeBoardDTO">
   		insert into TRADE_BOARD 
   		values(#{num},#{writer},#{title},#{contents},sysdate,#{closing_date},0,
-  		#{corporate_phone},#{min_price},#{corporation},#{email},#{address},#{address_detail})
+  		#{corporate_phone},#{min_price},#{corporation},#{email},#{address},#{address_detail},#{min_price})
   	</insert>
   	
   	<select id="selectList" parameterType="RowNum" resultType="tradeBoardDTO">

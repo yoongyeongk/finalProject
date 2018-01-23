@@ -19,6 +19,7 @@ public class TradeBoardDTO {
 	private int hit;
 	private String corporate_phone;
 	private int min_price;
+	private int present_price;
 	private String [] tag;
 	private List<TradeTagDTO> tags;
 	private MultipartFile [] img;
@@ -131,6 +132,12 @@ public class TradeBoardDTO {
 	}
 	public void setAddress_detail(String address_detail) {
 		this.address_detail = address_detail;
+	}
+	public int getPresent_price() {
+		return present_price;
+	}
+	public void setPresent_price(int present_price) {
+		this.present_price = present_price;
 	}
 	
 	

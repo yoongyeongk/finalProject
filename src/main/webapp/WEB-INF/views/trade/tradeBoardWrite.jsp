@@ -151,6 +151,7 @@
 	})
 </script>
 <script type="text/javascript">
+
 var timecheck = true;
 var url = "../tradeSave/tradeSaveInsert";
 var save_num = 0;
@@ -158,6 +159,7 @@ var saveCount = 'insert';
 var totalCount = 0;
 var minute = 300000;
 var fnc;
+var nickName = '${user.nickname}';
 var list = {
 			call : function(id,curPage) {
 				$.post("../tradeSave/saveList?writer="+id+"&curPage="+curPage+"&save_num="+save_num,function(data){
@@ -196,7 +198,7 @@ function timeout() {
 						if(save_num == 0){
 							alert("저장되지 않았습니다. 임시저장은 최대 50개까지 입니다.");
 						}
-							list.call('sson',1,save_num)
+							list.call(nickName,1,save_num)
 							saveCount ='up';
 					}
 				  })
@@ -219,7 +221,7 @@ function timeout() {
 						  title:title,
 						  contents:contents
 					  }, success : function(data) {
-						  list.call('sson',1,save_num)
+						  list.call(nickName,1,save_num)
 					}
 				  })
 			}, minute);
@@ -238,7 +240,7 @@ $(function() {
 	$("#over").css("display","none");
 	$(".hideSet").css("display","none");
 	
-	list.call('sson',1,save_num);
+	list.call(nickName,1,save_num);
 	
 	$(".listCall").click(function() {
 		if($("#over").css("display") == 'block'){
@@ -283,12 +285,12 @@ $(function() {
 			$("#"+title).remove();
 			saveCount='insert';
 			url = "../tradeSave/tradeSaveInsert";
-			list.call('sson',1,save_num)
+			list.call(nickName,1,save_num)
 	})
 	
 	$("#over").on("click",".page",function(){
 		var curPage = $(this).attr("title");
-		list.call('sson',curPage,save_num)
+		list.call(nickName,curPage,save_num)
 	})
 	
 	$("#over").on("click",".viewLink",function(){
@@ -392,7 +394,7 @@ $(document).ready(function(){
 					<div id="titleBox">
 						<span class="star">*</span>
 						<input type="text" name="title" id="title" value="${one.title }" placeholder="프로젝트의 제목을 입력해주세요."  onkeyup="timeout()" style="padding-left: 12px">
-						<input type="hidden" name="writer" id="writer" value="sson" required="required">
+						<input type="hidden" name="writer" id="writer" value="${user.nickname}" required="required">
 					</div>
 				</div>
 				
@@ -551,7 +553,7 @@ $(document).ready(function(){
 								<div class="in">
 									<div style="display: inline-block; float: left;">
 										<label for="min_price" class="lb">최소 경매가 <span class="star">*</span></label>
-										<input type="text" name="min_price" id="min_price" value="${one.min_price }" placeholder="ex) 1300000" required="required">
+										<input type="text" name="min_price" id="min_price" value="${one.min_price }" placeholder="ex) 13000000" required="required">
 									</div>
 									
 									<div style="display: inline-block; float: right;">

@@ -164,9 +164,7 @@ $(function() {
 										<div class="loc">
 											<fmt:formatNumber value="${dto.min_price }" type="currency" currencySymbol="￦"/> /
 											<div>
-												<em>
-													<fmt:formatNumber value="3000" type="currency" currencySymbol="￦"/>
-												</em>
+												<fmt:formatNumber value="${dto.present_price }" type="currency" currencySymbol="￦"/>
 											</div>
 										</div>
 										

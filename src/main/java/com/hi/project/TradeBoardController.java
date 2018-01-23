@@ -54,7 +54,7 @@ public class TradeBoardController {
 			}
 		}
 		Config config = new Config();
-		config.setContent("인증 번호는 ["+rd+"]입니다");
+		config.setContent("Together! 인증 번호는 ["+rd+"]입니다");
 		config.setReceiver(phone);
 		
 		SendSMS.send(config);
