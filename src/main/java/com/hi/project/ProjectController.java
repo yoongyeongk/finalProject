@@ -28,10 +28,10 @@ public class ProjectController {
 		return list;
 	}
 
-	@RequestMapping(value = "view")
+	@RequestMapping(value = "setting")
 	@ResponseBody
-	public ProjectDTO view(int project_id) {
-		return projectService.view(project_id);
+	public ProjectDTO setting(int project_id) {
+		return projectService.setting(project_id);
 	}
 
 	@RequestMapping(value = "create", method = RequestMethod.POST)

@@ -70,7 +70,7 @@
 								<hr>
 							</div>
 							<div class="modal-footer">
-								<button class="btn btn-info" id="update-project">완료</button>
+								<button class="btn btn-info" id="update-project">수정</button>
 								<button class="btn btn-warning" data-dismiss="modal">취소</button>
 							</div>
 						</form>

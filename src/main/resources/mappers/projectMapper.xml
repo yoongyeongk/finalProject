@@ -17,7 +17,7 @@
 		order by start_date desc
 	</select>
 
-	<select id="view" parameterType="int" resultType="ProjectDTO">
+	<select id="setting" parameterType="int" resultType="ProjectDTO">
 		select * from project where project_id = #{project_id}
 	</select>
 

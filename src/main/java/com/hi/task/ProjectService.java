@@ -24,8 +24,8 @@ public class ProjectService {
 		return projectDAO.list(usersDTO);
 	}
 
-	public ProjectDTO view(int project_id) {
-		return projectDAO.view(project_id);
+	public ProjectDTO setting(int project_id) {
+		return projectDAO.setting(project_id);
 	}
 
 	public int create(ProjectDTO projectDTO, HttpSession session) {

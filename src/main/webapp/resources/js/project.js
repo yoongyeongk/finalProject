@@ -13,63 +13,9 @@ $(function() {
 	});
 	 */
 	
-	$(".page-contents").on("click", ".project-box", function() {
-		var project_id = $(this).data("id");
-		location.href = "task/view?project_id="+project_id;
-	});
-	
 	$(".page-contents").on("click", "a", function() {
 		var project_id = $(this).data("id");
-		$.ajax({
-			type: "GET",
-			url: "project/view",
-			data: {
-				project_id : project_id
-			},
-			success: function (data) {
-				var start_date = data.start_date;
-				var close_date = data.close_date;
-				
-				if(data.start_date != null)
-					start_date = moment(data.start_date).format('YYYY-MM-DD');
-				
-				if(data.close_date != null)
-					close_date = moment(data.close_date).format('YYYY-MM-DD');
-				
-				if(data.star == 0) 
-					$(".setting-header").html('<i class="far fa-star"></i><input class="form-control" name="title" type="text">');
-				else 
-					$(".setting-header").html('<i class="fas fa-star"></i><input class="form-control" name="title" type="text">');
-				
-				$(".setting input[name=project_id]").attr("value", data.project_id);
-				$(".setting input[name=title]").attr("value", data.title);
-				
-				if(data.status == '')
-					$("#status option:eq(0)").attr("selected", "selected");
-				else if(data.status == '계획됨')
-					$("#status option:eq(1)").attr("selected", "selected");
-				else if(data.status == '진행중')
-					$("#status option:eq(2)").attr("selected", "selected");
-				else if(data.status == '완료됨')
-					$("#status option:eq(3)").attr("selected", "selected");
-				else if(data.status == '보류')
-					$("#status option:eq(4)").attr("selected", "selected");
-				else if(data.status == '취소')
-					$("#status option:eq(5)").attr("selected", "selected");
-				
-				$("input[name=start_date]").attr("value", start_date);
-				$("input[name=close_date]").attr("value", close_date);
-				
-				if(data.privacy == 'true')
-					$("input[name=check]").prop("checked", true);
-				else
-					$("input[name=check]").prop("checked", false);
-				
-			},
-			error: function (data) {
-				console.log('Error : ', data);
-			}
-		});
+		setting(project_id);
 	});
 });
 
@@ -166,6 +112,12 @@ function list() {
 	});
 }
 
+function view() {
+	
+	
+	
+}
+
 function create() {
 	$("#create-project").click(function() {
 		var param = $("#frm").serialize();
@@ -195,3 +147,55 @@ function update() {
 	});
 }
 
+function setting(project_id) {
+	$.ajax({
+		type: "GET",
+		url: "project/setting",
+		data: {
+			project_id : project_id
+		},
+		success: function (data) {
+			var start_date = data.start_date;
+			var close_date = data.close_date;
+			
+			if(data.start_date != null)
+				start_date = moment(data.start_date).format('YYYY-MM-DD');
+			
+			if(data.close_date != null)
+				close_date = moment(data.close_date).format('YYYY-MM-DD');
+			
+			if(data.star == 0) 
+				$(".setting-header").html('<i class="far fa-star"></i><input class="form-control" name="title" type="text">');
+			else 
+				$(".setting-header").html('<i class="fas fa-star"></i><input class="form-control" name="title" type="text">');
+			
+			$(".setting input[name=project_id]").attr("value", data.project_id);
+			$(".setting input[name=title]").attr("value", data.title);
+			
+			if(data.status == '')
+				$("#status option:eq(0)").attr("selected", "selected");
+			else if(data.status == '계획됨')
+				$("#status option:eq(1)").attr("selected", "selected");
+			else if(data.status == '진행중')
+				$("#status option:eq(2)").attr("selected", "selected");
+			else if(data.status == '완료됨')
+				$("#status option:eq(3)").attr("selected", "selected");
+			else if(data.status == '보류')
+				$("#status option:eq(4)").attr("selected", "selected");
+			else if(data.status == '취소')
+				$("#status option:eq(5)").attr("selected", "selected");
+			
+			$("input[name=start_date]").attr("value", start_date);
+			$("input[name=close_date]").attr("value", close_date);
+			
+			if(data.privacy == 'true')
+				$("input[name=check]").prop("checked", true);
+			else
+				$("input[name=check]").prop("checked", false);
+			
+		},
+		error: function (data) {
+			console.log('Error : ', data);
+		}
+	});
+}

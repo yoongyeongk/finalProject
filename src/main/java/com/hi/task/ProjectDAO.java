@@ -22,8 +22,8 @@ public class ProjectDAO {
 		return sqlSession.selectList(NAMESPACE + "list", usersDTO);
 	}
 
-	public ProjectDTO view(int project_id) {
-		return sqlSession.selectOne(NAMESPACE + "view", project_id);
+	public ProjectDTO setting(int project_id) {
+		return sqlSession.selectOne(NAMESPACE + "setting", project_id);
 	}
 
 	public List<MemberDTO> member(int project_id) {
