@@ -38,7 +38,7 @@
 					<div class="task-header">
 						<input id="complete" class="checkbox-inline" type="checkbox">
 						<input id="title" class="form-control" type="text" placeholder="업무 리스트 이름">
-						<button id="new-task">+</button>
+						<button id="new-task"><i class="fas fa-plus"></i></button>
 					</div>
 					
 					<div class="task-input">

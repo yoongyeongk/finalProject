@@ -1,5 +1,28 @@
 @CHARSET "UTF-8";
 
+.searchbar {
+	float: right;
+	width: 20%;
+	padding-left: 30px;
+	background-image: url("../images/search-icon.png");
+	background-size: 10px;
+	background-position: 10px 12px;
+	background-repeat: no-repeat;
+}
+
+.new-task {
+	display: inline-block;
+}
+
+.dashboard {
+	margin: 100px;
+	height: inherit;
+}
+
+.page-contents {
+	height: inherit;
+}
+
 .task {
 	width: 305px;
 	display: inline-block;
