@@ -64,7 +64,7 @@ var playAlert = '';
 		
 			if($(this).val() % 10000 != 0){
 				alert("10000 단위만 입력 가능합니다.")
-				$(this).val("")
+				$(this).val(bidding_price)
 			}
 		})
 		
