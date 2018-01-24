@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hi.project.util.ListData;
+import com.hi.tender.TenderDTO;
 import com.hi.trade.Config;
 import com.hi.trade.SendSMS;
 import com.hi.trade.TradeBoardDTO;
@@ -31,15 +32,16 @@ public class TradeBoardController {
 	
 	
 	@RequestMapping(value="tradeBoardView")
-	public Model selectOne (int num,Model model){
-			
+	public ModelAndView selectOne (int num,String writer,Model model){
+			TenderDTO tenderDTO = null;
+			ModelAndView view = new ModelAndView();
 			try {
-				model.addAttribute("one", tradeBoardService.selectOne(num));
+				view.addObject("one", tradeBoardService.selectOne(num));
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		return model;
+		return view;
 	}
 	
 	@RequestMapping(value="tradeBoardCheck")
@@ -141,5 +143,31 @@ public class TradeBoardController {
 			model.addAttribute("message", message);
 		}
 		return "redirect:/";
+	}
+	
+	@RequestMapping(value="tradeBoardAC")
+	public String insertAC (Model model,TenderDTO tenderDTO){
+			String message = "등록실패했습니다 ,금액을 다시 확인해주세요";
+			int result = 0;
+			System.out.println(tenderDTO.getCorporate_phone());
+			try {
+					TenderDTO tenderDTO2 = tradeBoardService.selectTender(tenderDTO);
+					if(tenderDTO.getNum() != tenderDTO2.getNum()){
+						result = tradeBoardService.insertAC(tenderDTO);
+					}else{
+						result = tradeBoardService.updateAC(tenderDTO);
+					}
+					 
+					if(result > 0){
+						message = "등록됐습니다";
+						tradeBoardService.updatePrice(tenderDTO);
+					}
+				 model.addAttribute("message", message);
+				 model.addAttribute("path", "./tradeBoardView?num="+tenderDTO.getNum());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return "common/result";
 	}
 }

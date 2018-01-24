@@ -28,7 +28,7 @@ public class TradeBoardDTO {
 	private String email;
 	private String address;
 	private String address_detail;
-	
+	private int close;
 
 	public String getCorporation() {
 		return corporation;
@@ -138,6 +138,12 @@ public class TradeBoardDTO {
 	}
 	public void setPresent_price(int present_price) {
 		this.present_price = present_price;
+	}
+	public int getClose() {
+		return close;
+	}
+	public void setClose(int close) {
+		this.close = close;
 	}
 	
 	

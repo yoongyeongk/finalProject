@@ -25,7 +25,7 @@
 		<typeAlias type="com.hi.boardFile.TradeBoardFileDTO" alias="tradeBoardFileDTO" /> 
 		<typeAlias type="com.hi.tradeTag.TradeTagDTO" alias="tradeTagDTO" /> 
 		<typeAlias type="com.hi.saveboard.TradeSaveDTO" alias="tradeSaveDTO" /> 
-  	  	
+  	  	<typeAlias type="com.hi.tender.TenderDTO" alias="tenderDTO" /> 
   	</typeAliases>
   </configuration>
 

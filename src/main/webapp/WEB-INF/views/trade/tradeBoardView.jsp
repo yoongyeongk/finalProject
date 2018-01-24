@@ -294,23 +294,33 @@ var regNumber = /^[0-9]*$/
 			$("#f").submit()
 		})
 	
-		var regExp = /[,{n}/s]/
-		$("#bindding_price").on("focusout",function(){
-			$(this).val($(this).val().replace(regExp,""))
+		$("#bidding_price").on("focusout",function(){
+			$(this).val($(this).val().replace(/\,/g,""))
 		
-			if($(this).val() % 1000 != 0){
-				alert("1000 단위 아래는 입력할 수 없습니다.")
+			if($(this).val() % 10000 != 0){
+				alert("10000 단위만 입력 가능합니다.")
 				$(this).val("")
 			}
 		})
 		
 		$("#corporate_phone").on("keyup",function(){
-			if(!phone.test($(this).val())) {
+			if(!regNumber.test($(this).val())) {
 			    $(this).val("")
 			}else if (this.value.length > 11){
 				$(this).val($(this).val().slice(0,-1))
 			}
 		})
+		
+		var present_price = ${one.present_price}
+		$(".submit").click(function() {
+			var price = parseInt($("#bidding_price").val())
+			if(present_price > price){
+				alert("현재 경매가보다 금액이 커야합니다");
+			}else{
+			
+			}
+		})
+		
 	})	
 </script>
 </head>
@@ -367,9 +377,13 @@ var regNumber = /^[0-9]*$/
 		</div>
 		
 		<div id="map"></div>
-			
-					<button type="button" class="b md" data-toggle="modal" data-target="#myModal">입찰하기</button>
-
+					<c:if test="${one.close eq 0 }">
+						<button type="button" class="b md" data-toggle="modal" data-target="#myModal">입찰하기</button>
+					</c:if>
+					<c:if test="${one.close eq 1 }">
+						<button type="button" class="b md">마감됐습니다</button>
+					</c:if>
+					
 					<!-- The Modal -->
 					<div class="modal fade" id="myModal">
 					  <div class="modal-dialog">
@@ -384,18 +398,19 @@ var regNumber = /^[0-9]*$/
 					      <div class="modal-body">
 					        <div class="price">현재 경매가 : <b><fmt:formatNumber value="${one.present_price }" type="currency" currencySymbol="￦"/></b></div>
 						        <div class="auctionBox">
-						        	<form action="./tradeBoardAC?num=${param.num}">
-							        	<input type="hidden" name="writer" value="${user.nickname }">
+						        		<form action="./tradeBoardAC" method="post" name="frm">
+						        			<input type="hidden" name="writer" value="${user.nickname }">
+											<input type="hidden" name="num" value="${param.num }">
 								        	<ul class="auctionUL">
-								        		<li><span class="auctionSpan">이름 </span> <input type="text" name="name" required="required"></li>
-								        		<li><span class="auctionSpan">연락처 </span> <input type="text" name="corporate_phone" id="corporate_phone" required="required"></li>
-								        		<li><span class="auctionSpan">기업명 </span> <input type="text" name="corporation" required="required"></li>
-								        		<li><span class="auctionSpan">입찰가 </span> <input type="text" name="bindding_price" id="bindding_price" required="required"></li>
+								        		<li><span class="auctionSpan">이름 </span> <input type="text" name="name" value="" id="name" class="pack" required="required"></li>
+								        		<li><span class="auctionSpan">연락처 </span> <input type="text" name="corporate_phone" value="" id="corporate_phone" required="required"></li>
+								        		<li><span class="auctionSpan">기업명 </span> <input type="text" name="corporation" value="" class="pack"  id="corporation" required="required"></li>
+								        		<li><span class="auctionSpan">입찰가 </span> <input type="text" name="bidding_price" id="bidding_price" required="required"></li>
 								        	</ul>
 									      <div class="position">
-									        <input type="button" class="submit" value="등록">
+									        	<input type="submit" class="submit" value="등록">
 									      </div>
-						        	</form>
+						        		</form>
 						        </div>
 					      </div>
 
