@@ -28,8 +28,7 @@ public class ScheduleController {
 	
 	@RequestMapping(value="scheduleUpdatePOST",method =RequestMethod.POST)
 	public String ScheduleUpdate(ScheduleDTO scheduleDTO,Model model,HttpServletRequest request){
-		int result = 0;
-		
+		int result = 0;		
 		try {			
 			result = ScheduleService.ScheduleUpdatePOST(scheduleDTO);
 			System.out.println("schnum : "+scheduleDTO.getNum());
@@ -43,10 +42,8 @@ public class ScheduleController {
 			message = "수정이 완료되었습니다.";
 		}
 		model.addAttribute("data", message);
-		
 		return "common/updateresult";		
-	}
-		
+	}		
 	@RequestMapping(value="ScheduleUpdate",method=RequestMethod.GET)
 	public ModelAndView ScheduleUpdate(int num,HttpServletRequest request)throws Exception{		
 		ModelAndView mv = ScheduleService.ScheduleUpdateGET(num, request);

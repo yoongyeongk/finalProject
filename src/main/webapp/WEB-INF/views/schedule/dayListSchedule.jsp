@@ -59,7 +59,7 @@ $(function() {
 		});
 	});
 	$(".partnerdeleteBtn").click(function(){
-		var pnum = $("#partnerpnum").val();
+		var pnum =$(this).val();
 		var num = $("#num").val();
 		$.ajax({
 			type: "GET",
@@ -74,11 +74,11 @@ $(function() {
 			}
 		});
 	});
+	
 	$("#updateBtn").click(function () {
 		var num =  $("#num").val();
 		window.open("./ScheduleUpdate?num="+num,"", "width=400, height=620, top=200, left=300");
-	});
-	
+	});	
 });
 </script>
 <div id="modalchang">
@@ -94,10 +94,6 @@ $(function() {
 		<tr>
 		<td> 	 주최자 : </td>
     <td>    ${dto.host}</td>
-       <c:if test="${dto.num ne dto.schnum}">
-        <td> 	 참석자 : </td>
-    <td>${user.username}</td>
-        </c:if>
         </tr>
 	<tr><td>기간</td>
 	<td>${dto.startday} ~ ${dto.lastday}</td>
@@ -111,31 +107,33 @@ $(function() {
 
         
 	<c:if test="${not empty nick}">
-    <tr><td>참석자</td>
+ 	<tr><td>참석자</td>
+ 
     <td><c:forEach items="${nick}" varStatus="status" var="nickname">
 
-    <c:if test="${nickname.nickname ne user.nickname}">
-    	${status.count}.${nickname.nickname} &nbsp 
-    <input type="hidden" value="${nickname.nickname}" name="nicknaming" id="nicknaming">
-    
-    <c:if test="${nickname.nickname eq user.nickname}">
-    <input type="hidden" value="${nickname.pnum}" id="partnerpnum" >
-    </c:if>
-    
+	    <c:if test="${nickname.nickname ne user.nickname}">
+    	${status.count}.${nickname.nickname} &nbsp  <input type="hidden" value="${nickname.nickname}" name="nicknaming" id="nicknaming">
+    	<c:if test="${nickname.nickname eq user.nickname}">
+        <input type="hidden" value="${nickname.pnum}" id="partnerpnum" >
+        </c:if>  
     </c:if>
     </c:forEach>
     </td>
+    
 	</tr>
-    	</c:if>
+	</c:if>
+    	
        	<tr><td colspan="2"><button id="updateBtn">수정</button>
        	
        	<c:choose>
        	<c:when test="${dto.num eq dto.schnum}">
        	<button value="${dto.schnum}" id="deleteBtn" class="deleteBtn">삭제</button>
        	</c:when>
-       	<c:otherwise>
-       	<button id="partnerdeleteBtn" class="partnerdeleteBtn">삭제</button>
-       	</c:otherwise>
+        	<c:when test="${dto.num ne dto.schnum}">
+        	<c:forEach items="${nick}" var="nickname">
+       	<button id="partnerdeleteBtn" value="${nickname.pnum}" class="partnerdeleteBtn">삭제</button>
+       	</c:forEach>
+       	</c:when>
        	</c:choose>
        	
  

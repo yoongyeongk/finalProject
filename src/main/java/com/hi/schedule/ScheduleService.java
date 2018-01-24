@@ -55,7 +55,9 @@ public class ScheduleService {
 			int result=scheduleDAO.ScheduleDelete(schnum);	
 			return result;
 		}
+		//참석자가 삭제 
 		public int SchdulepartDelete(int num,int pnum)throws Exception{
+			
 			partnerDAO.SchdulepartDelete(pnum);
 			int result = scheduleDAO.SchdulepartDelete(num);
 			System.out.println("파트너 삭제 service : "+num);
