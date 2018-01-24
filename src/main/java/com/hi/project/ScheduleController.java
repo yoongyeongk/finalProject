@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,7 +27,7 @@ public class ScheduleController {
 	ScheduleService ScheduleService;
 	
 	@RequestMapping(value="scheduleUpdatePOST",method =RequestMethod.POST)
-	public String ScheduleUpdate(ScheduleDTO scheduleDTO,RedirectAttributes rd,HttpServletRequest request){
+	public String ScheduleUpdate(ScheduleDTO scheduleDTO,Model model,HttpServletRequest request){
 		int result = 0;
 		
 		try {			
@@ -41,9 +42,9 @@ public class ScheduleController {
 		if(result>0){
 			message = "수정이 완료되었습니다.";
 		}
-		rd.addFlashAttribute("message", message);
+		model.addAttribute("data", message);
 		
-		return "redirect:./mainSchedule";		
+		return "common/updateresult";		
 	}
 		
 	@RequestMapping(value="ScheduleUpdate",method=RequestMethod.GET)
@@ -111,10 +112,11 @@ public class ScheduleController {
 	}
 	
 	@RequestMapping(value="ScheduleWrite", method =RequestMethod.POST)
-	public String ScheduleWrite(ScheduleDTO scheduleDTO,RedirectAttributes rd,String []nickname,HttpSession session,HttpServletRequest request){
+	public String ScheduleWrite(ScheduleDTO scheduleDTO,RedirectAttributes rd,
+String []nickname,HttpSession session,HttpServletRequest request){
 		int result = 0;
 		try {			
-				result = ScheduleService.write(scheduleDTO,nickname, request);				
+				result = ScheduleService.write(scheduleDTO, nickname, session, request);			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

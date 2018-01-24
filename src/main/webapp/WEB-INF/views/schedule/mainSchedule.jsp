@@ -384,7 +384,7 @@ display: none;
 		 			<input type="hidden" id="mynick" name="mynick" value="${user.nickname}">
 				<table class="addT">
 								<tr colspan="4">
-								<td><input required="required" type="text" id="title" placeholder="프로젝트 명"
+								<td><input required="required" type="text" id="title" placeholder="일정 명"
 									name="title"></td>
 							</tr>
 								<tr>

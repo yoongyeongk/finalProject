@@ -59,7 +59,7 @@ $(function() {
 		});
 	});
 	$(".partnerdeleteBtn").click(function(){
-		var pnum = $(this).val();
+		var pnum = $("#partnerpnum").val();
 		var num = $("#num").val();
 		$.ajax({
 			type: "GET",
@@ -92,14 +92,12 @@ $(function() {
 <input type="hidden" value="${dto.color}" name="color" id="color">
 	<table id="day_sc">
 		<tr>
+		<td> 	 주최자 : </td>
+    <td>    ${dto.host}</td>
        <c:if test="${dto.num ne dto.schnum}">
         <td> 	 참석자 : </td>
-    <td>${dto.username}</td>
+    <td>${user.username}</td>
         </c:if>
-	       <c:if test="${dto.num eq dto.schnum}">
-        <td> 	 주최자 : </td>
-    <td>    ${dto.username}</td>
-</c:if>
         </tr>
 	<tr><td>기간</td>
 	<td>${dto.startday} ~ ${dto.lastday}</td>
@@ -113,26 +111,34 @@ $(function() {
 
         
 	<c:if test="${not empty nick}">
-    <tr><c:forEach items="${nick}" varStatus="status" var="nickname">
+    <tr><td>참석자</td>
+    <td><c:forEach items="${nick}" varStatus="status" var="nickname">
+
     <c:if test="${nickname.nickname ne user.nickname}">
-        <td>참석자</td>
-    		<td>
     	${status.count}.${nickname.nickname} &nbsp 
     <input type="hidden" value="${nickname.nickname}" name="nicknaming" id="nicknaming">
-    </td>
+    
+    <c:if test="${nickname.nickname eq user.nickname}">
+    <input type="hidden" value="${nickname.pnum}" id="partnerpnum" >
+    </c:if>
+    
     </c:if>
     </c:forEach>
+    </td>
 	</tr>
     	</c:if>
        	<tr><td colspan="2"><button id="updateBtn">수정</button>
-       	  <c:if test="${dto.num eq dto.schnum}">
-    	<button value="${dto.schnum}" id="deleteBtn" class="deleteBtn">삭제</button>
-    	</c:if>
-    	       	  <c:if test="${dto.num ne dto.schnum}">
-    	       	  <c:forEach items="${nick}" varStatus="status" var="nickname">
-    	<button value="${nickname.pnum}" id="partnerdeleteBtn" class="partnerdeleteBtn">삭제</button>
-    	</c:forEach>
-    	</c:if>
+       	
+       	<c:choose>
+       	<c:when test="${dto.num eq dto.schnum}">
+       	<button value="${dto.schnum}" id="deleteBtn" class="deleteBtn">삭제</button>
+       	</c:when>
+       	<c:otherwise>
+       	<button id="partnerdeleteBtn" class="partnerdeleteBtn">삭제</button>
+       	</c:otherwise>
+       	</c:choose>
+       	
+ 
     	 </td></tr>
 	</table>
     	  </c:forEach>

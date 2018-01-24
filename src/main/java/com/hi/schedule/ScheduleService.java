@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
@@ -140,8 +141,10 @@ public class ScheduleService {
 			return mv;
 		}
 		
-		public int write(ScheduleDTO scheduleDTO,String[]nickname,HttpServletRequest request) throws Exception {
+		public int write(ScheduleDTO scheduleDTO,String[]nickname,HttpSession session,HttpServletRequest request) throws Exception {
 			int result = 0;
+			String host = ((UsersDTO)session.getAttribute("user")).getUsername();
+			scheduleDTO.setHost(host);
 			result = scheduleDAO.write(scheduleDTO);
 			if(nickname !=null){
 			for(String s: nickname){

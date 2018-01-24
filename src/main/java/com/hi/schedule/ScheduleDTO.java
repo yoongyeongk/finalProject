@@ -16,12 +16,23 @@ public class ScheduleDTO {
 	private String last_time;
 	private String color;
 	private String [] nickname;
+	private String host;
 	
 	public ScheduleDTO() {
 		// TODO Auto-generated constructor stub
 	}
-
 	
+	
+	public String getHost() {
+		return host;
+	}
+
+
+	public void setHost(String host) {
+		this.host = host;
+	}
+
+
 	public int getNum() {
 		return num;
 	}

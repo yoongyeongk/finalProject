@@ -198,20 +198,21 @@ $(document).ready(function () {
  	$("#backBtn").click(function(){
 				window.self.close();
 		});
-/*  	$("#submitBtn").click(function(){
- 		var schnum = $("#schnum").val();
+	$("#submitBtn").click(function(){
  		
- 		if (!opener.closed){
-            opener.document.location.reload();
-            window.close();
- }
-}); */
-});	
+ 		$("#frm").submit();
+ 		
+          /*   opener.location.reload();
+            window.close(); */
+ 
+}); 
+	
+	});	
 </script> 
 </head>
 <body>
  <div style="display: inline-block; margin-top: 25px; margin-left: 15px;">
-<form action="../schedule/scheduleUpdatePOST" method="post">	
+<form action="../schedule/scheduleUpdatePOST" method="post" id="frm">	
  <div class="updateform col-md-12">			
  <input type="hidden" id="num" name="num" value="${view.num}">	
 			<input type="hidden" id="schnum" name="schnum" value="${view.schnum}">	
@@ -298,7 +299,7 @@ $(document).ready(function () {
 						<span>black</span></label></div>
 						</td></tr>
 						<tr><td>
-						<input type="submit" id="submitBtn" class="updateBtn" value="수정하기">
+						<input type="button" id="submitBtn" class="updateBtn" value="수정하기">
 						<input type="button" id="backBtn" class="updateBtn" value="취소하기">
 						</td></tr>
 						</table>

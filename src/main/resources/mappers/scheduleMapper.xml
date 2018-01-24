@@ -22,12 +22,12 @@
   	select schedule_seq.nextval from dual
   	</selectKey>
   	insert into schedule values(#{schnum}, #{username}, #{title},
-  	#{pro_contents}, #{startday}, #{lastday}, #{start_time}, #{last_time},#{color},#{schnum})
+  	#{pro_contents}, #{startday}, #{lastday}, #{start_time}, #{last_time},#{color},#{schnum},#{host})
   	</insert>
   	
   	<insert id="write2">
 	insert into schedule values(#{schnum}, #{username}, #{title},
-  	#{pro_contents}, #{startday}, #{lastday}, #{start_time}, #{last_time},#{color},schedule_seq.nextval)
+  	#{pro_contents}, #{startday}, #{lastday}, #{start_time}, #{last_time},#{color},schedule_seq.nextval,#{host})
 </insert>
   		
 <!--  참석자로 추가된 닉네임을 가진 아이디도 스케줄 추가해주는 sql 문장 
