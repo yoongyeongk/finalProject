@@ -15,7 +15,7 @@
 	<link rel="stylesheet" href="../resources/css/pmf/pmf_view_css.css">
 	<link rel="stylesheet" href="../resources/css/header.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Hi!Project - view</title>
 <script type="text/javascript">
 	
 	function copyText(){

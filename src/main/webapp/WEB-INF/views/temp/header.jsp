@@ -111,5 +111,5 @@
 	<a href="${pageContext.request.contextPath}/schedule/mainSchedule">calendar</a> 
 	<a href="#">contact</a>
 	<a href="${pageContext.request.contextPath}/pmf/pmfList">community</a>
-	<a href="#">scrap</a>
+	<a href="${pageContext.request.contextPath}/scrap/pmfList">scrap</a>
 </div>

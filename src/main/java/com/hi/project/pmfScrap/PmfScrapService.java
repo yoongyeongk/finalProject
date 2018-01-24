@@ -12,14 +12,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hi.users.UsersDTO;
+
 @Service
 public class PmfScrapService {
 
 	@Inject
 	private PmfScrapDAO pmfScrapDAO;
 	
-	public ModelAndView selectList(String nickname) throws Exception {
+	public ModelAndView selectList(HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView();
+		//String nickname = ((UsersDTO)session.getAttribute("user")).getNickname();
+		String nickname = "nickname";		//test용
 		List<PmfScrapDTO> ar = pmfScrapDAO.selectList(nickname);
 		
 		for(PmfScrapDTO pmfScrapDTO: ar) {
@@ -34,7 +38,7 @@ public class PmfScrapService {
 		}
 	
 	mv.addObject("list", ar);
-	mv.setViewName("community/listBox");
+	mv.setViewName("community/pmf_scrap");
 
 	return mv;
 	}

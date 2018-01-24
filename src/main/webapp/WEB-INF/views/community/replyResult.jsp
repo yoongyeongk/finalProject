@@ -53,31 +53,28 @@
 		$(".tr_r").click(function(){
 			var tr = $(this);
 			var rnum = $(this).find(".t_4").attr("title");
-			$(this).after('<tr class="reReply'+rnum+' re_reply"><td colspan="4"><textarea class="replyzone form-control" draggable="false">궁금한 내용을 자유롭게 써 주세요.</textarea><input type="button" class="reply_btn btn'+rnum+'" value="댓글 등록"></td></tr>');
-			
-			//대댓글 등록
-			$(".btn"+rnum).click(function(){
-				var contents = $(".reReply"+rnum).find(".replyzone").val();
-				var ref = $(".ref"+rnum).val();
-				$.ajax({
-					type: "POST",
-					url: "../reply/pmfReReply",
-					data: {
-						rnum: rnum,
-						ref: rnum,
-						writer: "writer",	//'${member}'
-						contents: contents
-					},
-					success: function(data){
-						alert(data.trim());
-						location.reload();
-					}
-				});
-			})
-			
-			//재클릭 시 닫힘
-			$(tr).click(function(){
-				$(".reReply"+rnum).remove();
+
+			$(".reReply"+rnum).toggle();
+		});
+		
+		//대댓글 등록
+		$(".reply_btn").click(function(){
+			var rnum = $(this).attr("title");
+			var contents = $(".reReply"+rnum).find(".replyzone").val();
+			var ref = $(".ref"+rnum).val();
+			$.ajax({
+				type: "POST",
+				url: "../reply/pmfReReply",
+				data: {
+					rnum: rnum,
+					ref: rnum,
+					writer: "writer",	//'${member}'
+					contents: contents
+				},
+				success: function(data){
+					alert(data.trim());
+					location.reload();
+				}
 			});
 		});
 		
@@ -100,6 +97,14 @@
 				<span class="r_delete r_btn glyphicon glyphicon-remove"></span>
 			</td>
 		</tr>
+		
+		<tr class="reReply${dto.rnum} re_reply" style="display: none;">
+			<td colspan="4">
+				<textarea class="replyzone form-control" draggable="false">궁금한 내용을 자유롭게 써 주세요.</textarea>
+				<input type="button" class="reply_btn" title="${dto.rnum}" value="댓글 등록">
+			</td>
+		</tr>
+		
 		<input type="hidden" class="ref${dto.rnum}" value="${dto.ref}">
 	</c:forEach>
 </table>
