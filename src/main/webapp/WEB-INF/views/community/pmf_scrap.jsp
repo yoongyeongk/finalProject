@@ -104,61 +104,74 @@
 	<!-- modal -->
 	<div id="modal" style="display: none">
 		<div id="modalSec">
+			
+			<div id="option_wrap">
+				<span id="option_btn" class="glyphicon glyphicon-option-horizontal"></span>
+			</div>
+			
 			<table class="t_head">
-				<tr>
+				<tr class="project_name">
 					<td>프로젝트 명</td>
 				</tr>
-				<tr>
+				<tr class="duration">
 					<td>일정 정보</td>
 				</tr>
-				<tr>
+				<tr class="work">
 					<td>직무 내용</td>
 				</tr>
-				<tr>
+				<tr class="work_detail">
 					<td>직무 상세 내용</td>
 				</tr>
-				<tr>
+				<tr class="condition">
 					<td>직무유형 / 급여</td>
 				</tr>
-				<tr>
+				<tr class="experience">
 					<td>자격사항</td>
 				</tr>
-				<tr>
+				<tr class="host">
 					<td>단체명</td>
 				</tr>
-				<tr>
+				<tr class="addr">
 					<td>위치</td>
+				</tr>
+				<tr>
+					<td></td>
 				</tr>
 			</table>
 			
 			<!-- 비교 테이블 추가 -->
 			<table class="t_compare">
-				<tr>
+				<tr class="project_name">
 					<td>project_1</td>
 				</tr>
-				<tr>
+				<tr class="duration">
 					<td>2017-12-28 ~ 2018-01-31</td>
 				</tr>
-				<tr>
+				<tr class="work">
 					<td>직무 내용 test</td>
 				</tr>
-				<tr>
+				<tr class="work_detail">
 					<td>직무 상세 내용</td>
 				</tr>
-				<tr>
+				<tr class="condition">
 					<td>프리랜서 / 회사 내규</td>
 				</tr>
-				<tr>
+				<tr class="experience">
 					<td>학력 무관 / 경력 3년 이하</td>
 				</tr>
-				<tr>
+				<tr class="host">
 					<td>Together</td>
 				</tr>
-				<tr>
+				<tr class="addr">
 					<td>강남구 역삼동</td>
 				</tr>
+				<tr>
+					<td>
+						<input type="button" value="상세보기">
+					</td>
+				</tr>
 			</table>
-			<input type="button" value="상세보기">
+			
 		</div>
 	</div>
 
