@@ -27,10 +27,11 @@ public class ScheduleController {
 	ScheduleService ScheduleService;
 	
 	@RequestMapping(value="scheduleUpdatePOST",method =RequestMethod.POST)
-	public String ScheduleUpdate(ScheduleDTO scheduleDTO,Model model,HttpServletRequest request){
+	public String ScheduleUpdate(ScheduleDTO scheduleDTO,Model model,
+			String []nickname,HttpServletRequest request){
 		int result = 0;		
 		try {			
-			result = ScheduleService.ScheduleUpdatePOST(scheduleDTO);
+			result = ScheduleService.ScheduleUpdatePOST(scheduleDTO, nickname);
 			System.out.println("schnum : "+scheduleDTO.getNum());
 			System.out.println("result : "+result);
 		} catch (Exception e) {

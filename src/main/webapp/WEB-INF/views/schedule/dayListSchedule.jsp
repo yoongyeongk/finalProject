@@ -93,7 +93,10 @@ $(function() {
 	<table id="day_sc">
 		<tr>
 		<td> 	 주최자 : </td>
+		 <c:if test="${dto.username ne dto.host}">
     <td>    ${dto.host}</td>
+    </c:if>
+    <td> 본인[ ${dto.host} ] </td>
         </tr>
 	<tr><td>기간</td>
 	<td>${dto.startday} ~ ${dto.lastday}</td>
@@ -107,7 +110,7 @@ $(function() {
 
         
 	<c:if test="${not empty nick}">
- 	<tr><td>참석자</td>
+ 	<tr><td>참석자 : </td>
  
     <td><c:forEach items="${nick}" varStatus="status" var="nickname">
 

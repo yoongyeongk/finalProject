@@ -120,9 +120,10 @@ text-align: center;
 </style>
 <script type="text/javascript">	
 $(document).ready(function () {
-	$(".delete2").click(function() {		
-			 $('.updada').remove();
-			 $('.delete2').remove();	 
+	$(".delete2").click(function() {
+		var delete2=$(this).attr("title");
+			 $('.updada'+delete2).remove();
+			 $(this).remove();	 
 	});
 	
 	 $('#partadd').on('click', function(){
@@ -214,6 +215,7 @@ $(document).ready(function () {
  <div style="display: inline-block; margin-top: 25px; margin-left: 15px;">
 <form action="../schedule/scheduleUpdatePOST" method="post" id="frm">	
  <div class="updateform col-md-12">			
+  <input type="hidden" id="host" name="host" value="${view.host}">	
  <input type="hidden" id="num" name="num" value="${view.num}">	
 			<input type="hidden" id="schnum" name="schnum" value="${view.schnum}">	
 				<input type="hidden" name="username" value="${user.username}">	
@@ -269,11 +271,11 @@ $(document).ready(function () {
 							</td></tr>
 							<tr>
 							<td>
-									<c:forEach items="${nick}" var="nickname">
+									<c:forEach items="${nick}" var="nickname" varStatus="i">
 									<div class="updada" name="nick_update" style="display: inline-block;">
-									 ${nickname.nickname}
-									 <input type="hidden" class="updada" value="${nickname.nickname}">
-									 <input type="button" class="delete2" value="X"/></div>			
+									<span  class="updada${i.index}">${nickname.nickname}</span>
+									 <input type="hidden" class="updada${i.index}" value="${nickname.nickname}">
+									 <input type="button" class="delete2" title="${i.index}" value="X"/></div>			
 									</c:forEach>										
 																</td></tr>
 								<tr><td><div id="nick" style="display: inline-block;"></div></td></tr>

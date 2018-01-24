@@ -45,9 +45,21 @@ public class ScheduleService {
 				return mv;
 			}
 			//본격 수정 
-			public int ScheduleUpdatePOST(ScheduleDTO scheduleDTO)throws Exception{
+			public int ScheduleUpdatePOST(ScheduleDTO scheduleDTO,String []nickname)throws Exception{				
 				System.out.println(scheduleDTO.getUsername());
-				return scheduleDAO.ScheduleUpdatePOST(scheduleDTO);
+				int result =0;
+				result = scheduleDAO.ScheduleUpdatePOST(scheduleDTO);
+				if(nickname !=null){
+					for(String s: nickname){
+						PartnerDTO partnerDTO = new PartnerDTO();
+						partnerDTO.setNickname(s);
+						partnerDTO.setSchnum(scheduleDTO.getSchnum());
+						result=partnerDAO.partnerinsert(partnerDTO);
+						scheduleDTO.setUsername(scheduleDAO.selectUserName(s));
+						scheduleDAO.write2(scheduleDTO);
+						}
+				}
+				return result;
 			}
 			//주최자가 파트너 스케줄까지 전체 삭제 버튼 누르면 삭제되게 
 		public int ScheduleDelete(int schnum) throws Exception {			

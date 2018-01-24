@@ -35,8 +35,7 @@
 	
 	<delete id="partnerDelete" parameterType="int">
   	 DELETE FROM partner WHERE schnum=#{schnum}
-  	</delete>
-	
+  	</delete>	
 		<delete id="SchdulepartDelete" parameterType="int">
   	 DELETE FROM partner WHERE pnum=#{pnum}
   	</delete>
