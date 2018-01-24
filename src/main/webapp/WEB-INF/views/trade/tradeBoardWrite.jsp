@@ -15,23 +15,15 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <!-- Latest compiled JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script src="//cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
-<script type="text/javascript"
-	src="https://service.iamport.kr/js/iamport.payment-1.1.4.js"></script>
-<script type="text/javascript"
-	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.4.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
-<script
-	src="${pageContext.request.contextPath }/resources/js/fakeLoader.js"></script>
-<link
-	href="${pageContext.request.contextPath }/resources/css/plugin/fakeLoader.css"
-	rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath }/resources/css/tradeBoardWrite.css"
-	rel="stylesheet">
+<script src="${pageContext.request.contextPath }/resources/js/fakeLoader.js"></script>
+<link href="${pageContext.request.contextPath }/resources/css/plugin/fakeLoader.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath }/resources/css/tradeBoardWrite.css" rel="stylesheet">
 
 <script type="text/javascript">
 	var count = 0;
@@ -39,27 +31,18 @@
 
 	$(function() {
 
-		var editor = CKEDITOR.replace('contents', {
-			height : '310px'
-		});
+		var editor = CKEDITOR.replace('contents', {height : '310px'});
 
 		// The "change" event is fired whenever a change is made in the editor.
-		editor.on('change', function(evt) {
-			timeout();
+		editor.on('change', function(evt) {timeout();
 		});
 
-		$("#tagForm")
-				.on(
-						"click",
-						"#addTag",
-						function() {
+		$("#tagForm").on("click","#addTag",function() {
 							var tag = $("#addInput").val();
 							var regExp = /[\{\}\[\]\/.;:|\)*~`!^\-_+<>@\s\#$%&\\\=\(\'\"]/gi
 
 							if (tag == '' || regExp.test(tag)) {
-								$("#addInput").val(
-										$("#addInput").val()
-												.replace(regExp, ""))
+								$("#addInput").val($("#addInput").val().replace(regExp, ""))
 								$("#addTag").click()
 							} else if ($(".tag").length < 8) {
 								var ar = tag.split(",");

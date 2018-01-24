@@ -14,11 +14,11 @@
   	</insert>
   
   	<select id="selectTender" parameterType="tenderDTO" resultType="tenderDTO">
-  		select * from TENDER where num=#{num}
+  		select * from TENDER where num=#{num} and writer=#{writer}
   	</select>
-  
+  	
   	<update id="updateAC" parameterType="tenderDTO">
-  		update TENDER set corporate_phone=#{corporate_phone},bidding_price=#{bidding_price}
+  		update TENDER set corporate_phone=#{corporate_phone},bidding_price=#{bidding_price} where num=#{num} and writer=#{writer}
   	</update>
   	
   	<update id="updatePrice" parameterType="tenderDTO">

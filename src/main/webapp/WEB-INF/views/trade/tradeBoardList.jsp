@@ -193,9 +193,7 @@ $(function() {
 					
 						</tbody>
 					</table>
-				</div>
-			</div>
-			
+					
 				<div class="pager">
 					<c:if test="${pager.curBlock gt 1}">
 						<span class="list" title="${pager.startNum-1 }">이전</span>
@@ -217,6 +215,10 @@ $(function() {
 						<span class="list" title="${pager.lastNum+1 }">다음</span>
 					</c:if>
 				</div>
+			
+				</div>
+	
+			</div>
 		</div>
 		
 	</list>

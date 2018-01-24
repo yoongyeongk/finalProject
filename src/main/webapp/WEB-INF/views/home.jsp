@@ -121,7 +121,6 @@
 <a href="pmf/pmfList">find member</a>
 <p></p>
 <a href="${pageContext.request.contextPath }/trade/tradeBoardWrite">wt</a>
-<a href="${pageContext.request.contextPath }/trade/tradeBoardList">lt</a>
-<a href="${pageContext.request.contextPath }/trade/tradeBoardUpdate?num=31">ut</a>
+<a href="${pageContext.request.contextPath }/trade/tradeBoardList?curPage=1">lt</a>
 </body>
 </html>

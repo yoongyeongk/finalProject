@@ -24,269 +24,34 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sly/1.6.1/sly.min.js"></script>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f5750ac980255f71ca29e7a2ade3c637&libraries=services"></script>
-
 <title>Insert title here</title>
-
-<style type="text/css">
-	@FONT-FACE {
-		font-family: BMJUA;
-		src:url("${pageContext.request.contextPath}/resources/font/BMJUA_ttf.ttf");
-	}
-	@FONT-FACE{
-		font-family: Daum_Regular;
-		src:url("${pageContext.request.contextPath}/resources/font/Daum_Regular.ttf");
-	}
-	@FONT-FACE{
-		font-family: NanumSquareB;
-		src:url("${pageContext.request.contextPath}/resources/font/NanumSquareB.ttf");
-	}
-	@FONT-FACE{
-		font-family: NanumSquareEB;
-		src:url("${pageContext.request.contextPath}/resources/font/NanumSquareEB.ttf");
-	}
-	@FONT-FACE{
-		font-family: NanumSquareR;
-		src:url("${pageContext.request.contextPath}/resources/font/NanumSquareR.ttf");
-	}
-	@FONT-FACE{
-		font-family: NanumGothic;
-		src:url("${pageContext.request.contextPath}/resources/font/NanumGothic.ttf");
-	}
-	view{
-		width:100%;
-	}
-	p{
-		margin: 0;
-		padding: 0;
-	}
-	span{
-		margin: 0;
-		padding: 0;
-	}
-	ul{
-		list-style: none;
-		padding: 0;
-		margin: 0;
-	}
-	.all{
-		width:900px;
-		height:2600px;
-		margin: 0 auto;
-	}
-	.line{
-		width:800px;
-		margin: 0 auto;
-		margin-top: 110px;
-	}
-	.tag_font{
-		font-family: BMJUA;
-		font-size: 19px;
-		cursor: pointer;
-		margin-right: 12px;
-	}
-	.titleBox{
-		margin-top: 50px;
-	}
-	.title{
-		text-align: center;
-		line-height:50px;
-		font-size: 24px;
-		font-family: Daum_Regular;
-		border-bottom: 4px solid #cccccc50;
-	}
-	.contentsLine{
-		margin: 0 auto;
-		width: 680px;
-	}
-	.contentsBox{
-		margin-top: 130px;
-	}
-	.info{
-		margin-top: 30px;
-	}
-	.spanBorder{
-		color: teal;
-		border: 1px solid mediumseagreen;
-		display:inline-block;
-		line-height: 20px;
-		width: 95px;
-		text-align: center;
-		margin-right: 15px;
-	}
-     .frame {
-     	width: 100%;
-        height: 150px;
-        line-height: 150px;
-        overflow: hidden;
-    }
-    .frame ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        font-size: 50px;
-        margin: 0 auto;
-        line-height: 50px;
-        }
-     .frame ul li {
-        float: left;
-        width: 170px;
-        height: 100%;
-        margin: 0 1px 0 0;
-        padding: 0;
-        background: #333;
-        color: #ddd;
-        text-align: center;
-        cursor: pointer;
-        }
-      .imgs{
-       	width: 170px;
-        height: 150px;
-        }
-    .scrollbar { 
-    	width: 100%; 
-    	height: 10px; 
-    	background-color: grey;
-    	margin: 13px 0 13px 0;
-    	}
-	.scrollbar .handle {
-		width: 100px; /* overriden if dynamicHandle: 1 */
-		height: 100%;
-		background: #222;
-		}
-	.sampleView{
-		width:750px;
-    	margin: 0 auto;
-    	margin-top: 100px;
-    	margin-bottom: 30px;
-	}
-	.view{
-		width: 750px;
-    	height: 700px;
-	}
-	.info ul{
-		line-height: 50px;
-		border-bottom: 1px solid;
-		border-top: 1px solid;
-		font-weight: lighter;
-	}
-	.info ul>li{
-		font-family: Daum_Regular;
-	}
-	.sly{
-		width: 750px;
-		margin: 0 auto;
-	}
-	.gui{
-		font-family: BMJUA;
-		font-size: 19px;
-	}
-	#map{
-		margin: 0 auto;
-		margin-top: 30px;
-		width: 680px;
-		height: 450px;
-	}
-	.tags{
-		margin: 80px 20px 10px 8px;
-	}
-	@media (min-width: 576px){
-	.modal-dialog {
-    max-width: 500px;
-    margin: 230px auto;
-		}
-	}
-	.md{
-		display: block;
-		margin: 0 auto;
-		margin-top: 80px;
-		font-family: BMJUA;
-	}
-	.md{
-	  background:mediumturquoise;
-	  color:#fff;
-	  border:none;
-	  position:relative;
-	  height:60px;
-	  font-size:1.6em;
-	  padding:0 2em;
-	  cursor:pointer;
-	  transition:800ms ease all;
-	  outline:none;
-	}
-	.md:hover{
-	  background:#fff;
-	  color:mediumturquoise;
-	}
-	.md:before,button:after{
-	  content:'';
-	  position:absolute;
-	  top:0;
-	  right:0;
-	  height:2px;
-	  width:0;
-	  background: mediumturquoise;
-	  transition:400ms ease all;
-	}
-	.md:after{
-	  right:inherit;
-	  top:inherit;
-	  left:0;
-	  bottom:0;
-	}
-	.md:hover:before,button:hover:after{
-	  width:100%;
-	  transition:800ms ease all;
-	}
-	.modal-body{
-		font-family: Daum_Regular;
-	}
-	.auctionBox{
-		margin-top: 30px;
-	}
-	.auctionUL{
-		text-align: center;
-	}
-	.auctionUL li{
-		margin-bottom: 13px;
-	}
-	.auctionSpan{
-		width: 65px;
-    	display: inline-block;
-	}
-	.price{
-		margin-left: 40px;
-	}
-	b{
-		color: yellowgreen;
-	}
-	.submit{
-		background-color: inherit;
-	    margin: 0;
-	    padding: 0;
-	    border: 1px solid deepskyblue;
-	    width: 90px;
-	    height: 30px;
-	    color: deepskyblue;
-	    border-radius: 5px;
-	    font-family: monospace;
-	    font-size: 14px;
-	}
-	.submit:hover{
-		border: 1px solid dodgerblue;
-		color: dodgerblue;
-	}
-	.position{
-		margin: 0 auto;
-    	margin-top: 40px;
-		width: 100px;
-	}
-    </style>
-	
+<link href="${pageContext.request.contextPath }/resources/css/tradeBoardView.css" rel="stylesheet">
 <script type="text/javascript">
+var bidding_price = ${tender.bidding_price}
 var regNumber = /^[0-9]*$/
-
+var playAlert = '';
+	  playAlert = setInterval(function() {
+	    var num = ${param.num}
+	    var writer = '${user.nickname}'
+		  $.ajax({
+	    	type:'POST',
+	    	url:'price',
+	    	data : {
+	    		num:num,
+	    	} , success : function(data) {
+				$("#pr").html('￦'+data.present_price)
+			}
+	    })
+	  }, 2000);
+	  
+	  
 	$(function() {
+		if(bidding_price == 0){
+			("#bidding_price").val("")
+		}else{
+			$("#bidding_price").val(bidding_price)
+		}
+		
 		$(".tags").on("click",".tag_font",function(){
 			var search = $(this).prop("title")
 			$("#search").val(search)
@@ -311,15 +76,23 @@ var regNumber = /^[0-9]*$/
 			}
 		})
 		
-		var present_price = ${one.present_price}
 		$(".submit").click(function() {
-			var price = parseInt($("#bidding_price").val())
-			if(present_price > price){
-				alert("현재 경매가보다 금액이 커야합니다");
-			}else{
+			var p_price = ${one.present_price };
+			var b_price = $("#bidding_price").val()
 			
+			if(p_price < b_price){
+				document.frm.submit()
+			}else{
+				alert("금액이 경매가보다 작습니다")
 			}
-		})
+		})//click
+		
+		if('${tender.writer}' == ''){
+		}else{
+			$(".pack").attr("readonly" , "readonly")
+		}
+		
+		
 		
 	})	
 </script>
@@ -378,7 +151,7 @@ var regNumber = /^[0-9]*$/
 		
 		<div id="map"></div>
 					<c:if test="${one.close eq 0 }">
-						<button type="button" class="b md" data-toggle="modal" data-target="#myModal">입찰하기</button>
+						<button type="button" class="md" data-toggle="modal" data-target="#myModal">입찰하기</button>
 					</c:if>
 					<c:if test="${one.close eq 1 }">
 						<button type="button" class="b md">마감됐습니다</button>
@@ -396,19 +169,19 @@ var regNumber = /^[0-9]*$/
 					
 					      <!-- Modal body -->
 					      <div class="modal-body">
-					        <div class="price">현재 경매가 : <b><fmt:formatNumber value="${one.present_price }" type="currency" currencySymbol="￦"/></b></div>
+					        <div class="price">현재 경매가 : <b id="pr">￦${one.present_price }</b></div>
 						        <div class="auctionBox">
 						        		<form action="./tradeBoardAC" method="post" name="frm">
 						        			<input type="hidden" name="writer" value="${user.nickname }">
 											<input type="hidden" name="num" value="${param.num }">
 								        	<ul class="auctionUL">
-								        		<li><span class="auctionSpan">이름 </span> <input type="text" name="name" value="" id="name" class="pack" required="required"></li>
-								        		<li><span class="auctionSpan">연락처 </span> <input type="text" name="corporate_phone" value="" id="corporate_phone" required="required"></li>
-								        		<li><span class="auctionSpan">기업명 </span> <input type="text" name="corporation" value="" class="pack"  id="corporation" required="required"></li>
+								        		<li><span class="auctionSpan">이름 </span> <input type="text" name="name" value="${tender.name }" id="name" class="pack" required="required"></li>
+								        		<li><span class="auctionSpan">연락처 </span> <input type="text" name="corporate_phone" value="${tender.corporate_phone }" id="corporate_phone" required="required"></li>
+								        		<li><span class="auctionSpan">기업명 </span> <input type="text" name="corporation" value="${tender.corporation }" class="pack"  id="corporation" required="required"></li>
 								        		<li><span class="auctionSpan">입찰가 </span> <input type="text" name="bidding_price" id="bidding_price" required="required"></li>
 								        	</ul>
 									      <div class="position">
-									        	<input type="submit" class="submit" value="등록">
+									        	<input type="button" class="submit" value="등록">
 									      </div>
 						        		</form>
 						        </div>

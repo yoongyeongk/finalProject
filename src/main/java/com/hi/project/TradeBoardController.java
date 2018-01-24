@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonAnyFormatVisitor;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonArrayFormatVisitor;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.hi.project.util.ListData;
 import com.hi.tender.TenderDTO;
 import com.hi.trade.Config;
@@ -32,10 +35,17 @@ public class TradeBoardController {
 	
 	
 	@RequestMapping(value="tradeBoardView")
+	@ResponseBody
 	public ModelAndView selectOne (int num,String writer,Model model){
 			TenderDTO tenderDTO = null;
 			ModelAndView view = new ModelAndView();
 			try {
+				tenderDTO = new TenderDTO();
+				tenderDTO.setNum(num);
+				tenderDTO.setWriter(writer);
+				tenderDTO = tradeBoardService.selectTender(tenderDTO);
+				
+				view.addObject("tender",tenderDTO);
 				view.addObject("one", tradeBoardService.selectOne(num));
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -45,7 +55,6 @@ public class TradeBoardController {
 	}
 	
 	@RequestMapping(value="tradeBoardCheck")
-	@ResponseBody
 	public int check (String phone) {
 		int rd = 0;
 		Random random = new Random();
@@ -60,8 +69,20 @@ public class TradeBoardController {
 		config.setReceiver(phone);
 		
 		SendSMS.send(config);
-		
 		return rd;
+	}
+	
+	@RequestMapping(value="price")
+	@ResponseBody
+	public TradeBoardDTO priceAjax (int num) {
+		TradeBoardDTO tradeBoardDTO = null;
+		try {
+			tradeBoardDTO = tradeBoardService.selectOne(num);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return tradeBoardDTO;
 	}
 	
 	@RequestMapping(value="tradeBoardList")
@@ -145,14 +166,14 @@ public class TradeBoardController {
 		return "redirect:/";
 	}
 	
-	@RequestMapping(value="tradeBoardAC")
+	@RequestMapping(value="tradeBoardAC" , method = RequestMethod.POST)
 	public String insertAC (Model model,TenderDTO tenderDTO){
 			String message = "등록실패했습니다 ,금액을 다시 확인해주세요";
 			int result = 0;
-			System.out.println(tenderDTO.getCorporate_phone());
+			TenderDTO tenderDTO2 = null;
 			try {
-					TenderDTO tenderDTO2 = tradeBoardService.selectTender(tenderDTO);
-					if(tenderDTO.getNum() != tenderDTO2.getNum()){
+					tenderDTO2 = tradeBoardService.selectTender(tenderDTO);
+					if(tenderDTO2 == null){
 						result = tradeBoardService.insertAC(tenderDTO);
 					}else{
 						result = tradeBoardService.updateAC(tenderDTO);
@@ -163,7 +184,7 @@ public class TradeBoardController {
 						tradeBoardService.updatePrice(tenderDTO);
 					}
 				 model.addAttribute("message", message);
-				 model.addAttribute("path", "./tradeBoardView?num="+tenderDTO.getNum());
+				 model.addAttribute("path", "./tradeBoardView?num="+tenderDTO.getNum()+"&writer="+tenderDTO.getWriter());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
