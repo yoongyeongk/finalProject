@@ -31,7 +31,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter  {
 		if(obj == null) {
 			modelAndView.setViewName("common/result");
 			modelAndView.addObject("message", "로그인 후 이용하세요.");
-			response.sendRedirect("../users/login");
+			response.sendRedirect("users/login");
 		}
 		
 		super.postHandle(request, response, handler, modelAndView);

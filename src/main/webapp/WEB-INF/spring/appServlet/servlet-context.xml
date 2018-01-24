@@ -32,10 +32,6 @@
 			<beans:ref bean="login"/>
 		</interceptor>
 		
-		<interceptor>
-			<mapping path="/trade/*"/>
-			<beans:ref bean="login"/>
-		</interceptor>
 	</interceptors>
 	
 	<!-- 성윤 -->
