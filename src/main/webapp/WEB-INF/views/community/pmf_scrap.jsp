@@ -15,6 +15,7 @@
 	$(function(){
 		var snums = [];
 		
+		//div 클릭 처리 - 비교하기
 		$(".wrap_total").click(function(){
 			clickedDiv = $(this);
 			var snum = clickedDiv.attr("id");
@@ -39,25 +40,45 @@
 			}
 		});
 		
-		$(".compare_btn").click(function(){
-			//ajax로 배열 보내서 데이터 받아오기
-			$.ajax({
-				type: "POST",
-				url: "./pmfViews",
-				data:{
-					snums: snums.toString()
-				},
-				success: function(data){
-					$("#compare_wrap").append(data);
-				}
-			});
+		//div 클릭 처리 2 - 원본 글 보기
+		$(".wrap_total").dblclick(function(){
+			var num = $(this).data("num");
 			
-			//modal로 띄우기
-			$("#modal").show();
+			location.href = "../pmf/pmfView?num="+num;
 		});
 		
+		//비교하기 버튼 클릭 시
+		$(".compare_btn").click(function(){
+			if(snums.length > 1 && snums.length < 5){
+				//ajax로 배열 보내서 데이터 받아오기
+				$.ajax({
+					type: "POST",
+					url: "./pmfViews",
+					data:{
+						snums: snums.toString()
+					},
+					success: function(data){
+						$("#compare_result").html(data);
+						snums.splice(0,snums.length);
+						$(".wrap_total").removeClass("click");
+					}
+				});
+
+				//modal로 띄우기
+				$("#modal").show();
+				$("#option_sec").hide();
+				
+			}else if(snums.length > 4){
+				alert("4개까지만 비교가 가능합니다.");
+			}else{
+				alert("비교할 항목을 두 가지 이상 선택해 주세요.");
+			}
+		});
+		
+		//modal close
 		$("#modal").click(function(){
 			$(this).hide();
+			$("#option_sec").hide();
 		});
 		
 		//option 추가
@@ -67,10 +88,12 @@
 			$("#option_sec").toggle();
 		});
 		
+		//체크박스 클릭 시 전파 방지
 		$(".check").click(function(){
 			event.stopPropagation();
 		});
 		
+		//option 변경사항 적용
 		$("#submit").click(function(){
 			event.stopPropagation();
 	        $(".compare_tr").hide();
@@ -82,8 +105,17 @@
 		   	});
 		});
 		
+		//초기화
 		$("#reset").click(function(){
 			event.stopPropagation();
+		});
+		
+		//원본 글 보기 버튼 클릭 이벤트
+		$("#compare_result").on("click", ".view_btn",function(){
+			event.stopPropagation();
+			var num = $(this).data("value");
+			
+			location.href = "../pmf/pmfView?num="+num;
 		});
 	});
 </script>
@@ -106,7 +138,7 @@
 				</div>
 				<div id="scrapCall">
 					<c:forEach items="${list}" var="dto">
-						<div class="wrap_total" id="${dto.snum}">
+						<div class="wrap_total" id="${dto.snum}" data-num="${dto.pmfBoardDTO.num}">
 							<div class="wrap_1">
 								<div class="image">이미지</div>
 								<c:if test="${dto.pmfBoardDTO.duration_kind != '상시 모집'}">
@@ -178,6 +210,7 @@
 			</table>
 			
 			<!-- 비교 테이블 추가 -->
+			<div id="compare_result"></div>
 			</div>
 		</div>
 		

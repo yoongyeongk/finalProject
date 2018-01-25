@@ -64,7 +64,7 @@ $(function(){
 				$("#fileSec").append('<div id="file'+cnt+'"></div>');
 				$("#file"+cnt).append('<input type="hidden" name="filename" value="'+data.filename+'">');
 				$("#file"+cnt).append('<input type="hidden" name="oriname" value="'+data.oriname+'">');
-				$("#file"+cnt).append('<input type="hidden" name="size" value="'+data.size+'">');
+				$("#file"+cnt).append('<input type="hidden" name="size" value="'+data.filesize+'">');
 				status.setProgress(100);
 			}
 		});

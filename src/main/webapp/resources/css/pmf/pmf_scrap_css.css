@@ -117,6 +117,9 @@ a:hover{
     margin-right: 25px;
     display: inline-block;
 }
+#compare_result{
+	display: inline-block;
+}
 .t_head{
     width: 150px;
     margin-top: 25px;

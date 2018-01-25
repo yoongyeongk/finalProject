@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:forEach items="list" var="dto">
+<c:forEach items="${list}" var="dto">
 	<table class="t_compare">
 		<tr class="project_name">
 			<td>${dto.pmfBoardDTO.project_name}</td>
@@ -38,7 +38,7 @@
 			<td>${dto.pmfBoardDTO.addr}</td>
 		</tr>
 		<tr>
-			<td><input type="button" data-value="${dto.num}" id="view_btn" value="원본 글 보기"></td>
+			<td><input type="button" data-value="${dto.pmfBoardDTO.num}" class="view_btn" value="원본 글 보기"></td>
 		</tr>
 	</table>
 </c:forEach>

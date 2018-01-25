@@ -93,13 +93,13 @@ public class PmfScrapController
 			e.printStackTrace();
 		}
 		
-		String message = "삭제에 실패했습니다.";
+		String message = "취소에 실패했습니다.";
 		if(result>0) {
-			message = "삭제되었습니다.";
+			message = "스크랩이 취소되었습니다.";
 		}
-		model.addAttribute("message", message);
+		model.addAttribute("data", message);
 		
-		return "community/listBox";
+		return "common/ajax";
 	}
 	
 	@RequestMapping(value="pmfDeleteAll")

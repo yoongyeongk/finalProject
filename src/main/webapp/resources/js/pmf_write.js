@@ -46,7 +46,7 @@ $(function(){
 				$("#fileSec").append('<div id="file'+cnt+'"></div>');
 				$("#file"+cnt).append('<input type="hidden" name="filename" value="'+data.filename+'">');
 				$("#file"+cnt).append('<input type="hidden" name="oriname" value="'+data.oriname+'">');
-				$("#file"+cnt).append('<input type="hidden" name="size" value="'+data.size+'">');
+				$("#file"+cnt).append('<input type="hidden" name="size" value="'+data.filesize+'">');
 			}
 		});
 		
@@ -135,7 +135,7 @@ $(function(){
 		}
 	})
 	
-		//DB에 없는 파일 삭제하기 - 배열에서 파일명 AJAX로 넘기고, 제거
+	//DB에 없는 파일 삭제하기 - 배열에서 파일명 AJAX로 넘기고, 제거
 	$("#fileSec").on("click",".deleteArray",function(){
 		var delArray = $(this);
 		var index = $(delArray).attr("id").replace("del","")*1;

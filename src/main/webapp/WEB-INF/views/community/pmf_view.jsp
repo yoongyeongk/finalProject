@@ -42,6 +42,8 @@
 		});
 	}
 
+	//scrap
+	var snum = 0;
 	function scrapStatus(){
 		var ch;
 		$.ajax({
@@ -49,9 +51,9 @@
 			type: "GET",
 			async: false,
 			success: function(data){
-				if(data.trim != 0){
+				if(data.trim() != 0){
 					ch = true;
-					$("#scrap_btn").addClass("color-change");
+					snum = data.trim();
 				}else{
 					ch = false;
 				}
@@ -71,6 +73,7 @@
 			success: function(data){
 				if(data == 1){
 					alert("게시글이 저장되었습니다.");
+					$("#scrap_btn").addClass("color-change");
 				}
 			}
 		});
@@ -78,10 +81,11 @@
 	
 	function scrapRemove(){
 		$.ajax({
-			url: "../scrap/pmfDelete?num=${view.num}",
+			url: "../scrap/pmfDelete?snum="+snum,
 			type: "GET",
 			success: function(data){
-				alert(data);
+				alert(data.trim());
+				$("#scrap_btn").removeClass("color-change");
 			}
 		});
 	}
@@ -113,7 +117,7 @@
 		$(scrap).click(function(){
 			//스크랩 여부 확인 후 목록에 추가 혹은 목록에서 제거
 			var ch = scrapStatus();
-			if(ch){
+			if(!ch){
 				scrapAdd();
 			}else{
 				scrapRemove();
@@ -121,7 +125,11 @@
 		});
 		
 		//scrap 상태 표시
-		scrapStatus();
+		$(window).on("load", function(){
+			if(scrapStatus()){
+				$("#scrap_btn").addClass("color-change");
+			}			
+		});
 		
 		//댓글
 		var num = ${view.num};
@@ -131,7 +139,7 @@
 
 		//2. write
 		$(".reply_btn").click(function() {
-			var writer = 'writer'; //'${member.nickname}';
+			var writer = '${member.nickname}';
 			var contents = $(".replyzone").val();
 
 			$.ajax({

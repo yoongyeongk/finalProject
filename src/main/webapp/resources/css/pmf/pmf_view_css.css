@@ -133,14 +133,8 @@ td{
     border-radius: 3px;
 }
 .color-change{
-	font-size: 14px;
-    width: 70px;
-    height: 35px;
-    padding: 2px 0;
-    color: white;
-    background-color: #2eaa91;
-    border: solid 1px #ccc;
-    border-radius: 3px;
+    color: white !important;
+    background-color: #2eaa91 !important;
 }
 /* reply section */
 #reply{

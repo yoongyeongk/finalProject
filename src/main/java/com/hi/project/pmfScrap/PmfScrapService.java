@@ -70,7 +70,7 @@ public class PmfScrapService {
 		pmfScrapDTO.setNum(num);
 		PmfScrapDTO pmfScrapDTO2 = pmfScrapDAO.scrapCheck(pmfScrapDTO);
 		if(pmfScrapDTO2 != null){
-			result = 1;
+			result = pmfScrapDTO2.getSnum();
 		}
 		
 		return result;
