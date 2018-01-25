@@ -136,7 +136,7 @@ $(function() {
 											</div>
 										</div>
 									</th>
-									<td class="title t"> <div class="loc"><a href="./tradeBoardView?num=${dto.num }&writer=${user.nickname}">${dto.title }</a>
+									<td class="title t"> <div class="loc"><a href="./tradeBoardView?num=${dto.num }&writer=${user.nickname}&curPage=${param.curPage}">${dto.title }</a>
 										<div class="line"> 
 											
 												<c:forEach items="${tags }" var="t" varStatus="i">

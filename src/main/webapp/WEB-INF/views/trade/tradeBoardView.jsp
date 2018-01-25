@@ -27,7 +27,11 @@
 <title>Insert title here</title>
 <link href="${pageContext.request.contextPath }/resources/css/tradeBoardView.css" rel="stylesheet">
 <script type="text/javascript">
-var bidding_price = ${tender.bidding_price}
+var bidding_price = ''
+if(${tender.bidding_price} != 0){
+bidding_price = ${tender.bidding_price}
+}
+
 var regNumber = /^[0-9]*$/
 var playAlert = '';
 	  playAlert = setInterval(function() {
@@ -47,7 +51,7 @@ var playAlert = '';
 	  
 	$(function() {
 		if(bidding_price == 0){
-			("#bidding_price").val("")
+			$("#bidding_price").val('')
 		}else{
 			$("#bidding_price").val(bidding_price)
 		}
@@ -91,9 +95,10 @@ var playAlert = '';
 		}else{
 			$(".pack").attr("readonly" , "readonly")
 		}
-		
-		
-		
+
+		function del () {
+			
+		}
 	})	
 </script>
 </head>
@@ -149,7 +154,16 @@ var playAlert = '';
 			</div>
 		</div>
 		
-		<div id="map"></div>
+			<div id="map"></div>
+			
+				<div class="btnBox">
+					<c:if test="${user.nickname eq one.writer}">
+						<button class="bt"><a href="./tradeBoardUpdate?num=${one.num }">수정</a></button>
+						<button class="bt"><a href="" onclick="del()">삭제</a></button>
+					</c:if>
+					<button class="bt"><a href="./tradeBoardList?curPage=${param.curPage }">목록</a></button>
+				</div>
+				
 					<c:if test="${one.close eq 0 }">
 						<button type="button" class="md" data-toggle="modal" data-target="#myModal">입찰하기</button>
 					</c:if>
@@ -195,9 +209,9 @@ var playAlert = '';
 					  </div>
 					</div>
 		
-	 </div>
-	</div>
- </view>
+			 </div>
+			</div>
+	 </view>
  <script>
  var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
  mapOption = {

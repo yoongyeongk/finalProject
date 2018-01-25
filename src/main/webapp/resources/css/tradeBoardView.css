@@ -263,3 +263,24 @@
 	.b:before,.b:after{
 		background: red;
 	}
+	.bt{
+		display: inline-block;
+   	 	border: 1px solid #dcdede;
+   	 	border-right: 1px solid #c0c3c6;
+ 		border-bottom: 1px solid #c0c3c6;
+ 		color: #606060;
+   		text-decoration: none;
+   		background-color: white;
+   		font-size: 15px;
+   		font-family: NanumSquareR;
+	}
+	.bt>a{
+		text-decoration: none;
+		color: black;
+	}
+	.btnBox{
+		width: 260px;
+    	float: right;
+    	text-align: center;
+    	margin-top: 25px;
+	}

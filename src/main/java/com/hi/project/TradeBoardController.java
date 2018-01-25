@@ -24,6 +24,7 @@ import com.hi.trade.Config;
 import com.hi.trade.SendSMS;
 import com.hi.trade.TradeBoardDTO;
 import com.hi.trade.TradeBoardService;
+import com.hi.users.UsersDTO;
 
 
 @Controller
@@ -37,13 +38,17 @@ public class TradeBoardController {
 	@RequestMapping(value="tradeBoardView")
 	@ResponseBody
 	public ModelAndView selectOne (int num,String writer,Model model){
-			TenderDTO tenderDTO = null;
+			TenderDTO tenderDTO = new TenderDTO();
 			ModelAndView view = new ModelAndView();
 			try {
-				tenderDTO = new TenderDTO();
 				tenderDTO.setNum(num);
 				tenderDTO.setWriter(writer);
 				tenderDTO = tradeBoardService.selectTender(tenderDTO);
+				
+				if(tenderDTO == null){
+					tenderDTO = new TenderDTO();
+					tenderDTO.setBidding_price(0);
+				}
 				
 				view.addObject("tender",tenderDTO);
 				view.addObject("one", tradeBoardService.selectOne(num));
@@ -117,12 +122,13 @@ public class TradeBoardController {
 	}
 	
 	@RequestMapping(value="tradeBoardUpdate" , method = RequestMethod.GET)
-	public ModelAndView update (Model model , int num)  {
+	public ModelAndView update (Model model , int num,HttpSession session)  {
 			ModelAndView view = new ModelAndView();
+			UsersDTO usersDTO = (UsersDTO) session.getAttribute("user");
 			view.addObject("form", "Update");
 			try {
 				TradeBoardDTO tradeBoardDTO =  tradeBoardService.selectOne(num);
-				if(tradeBoardDTO != null){
+				if(tradeBoardDTO != null && usersDTO.getNickname().equals(tradeBoardDTO.getWriter())){
 					view.addObject("one", tradeBoardDTO);
 					view.setViewName("trade/tradeBoardWrite");
 				}else{
@@ -148,22 +154,26 @@ public class TradeBoardController {
 	}
 	
 	@RequestMapping(value="tradeBoardDelete")
-	public String deleteAll (int num,Model model,HttpSession session) {
+	public String deleteAll (int num,String writer,Model model,HttpSession session) {
 		int result = 0;
+		UsersDTO usersDTO = (UsersDTO) session.getAttribute("user");
 		try {
+			if(usersDTO.getNickname().equals(writer)){
 			result = tradeBoardService.deleteAll(num,session);
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		String message = "삭제 실패했습니다";
+		String path = "";
 		if(result > 0){
 			message = "삭제 됐습니다.";
-			model.addAttribute("message", message);
-		}else{
-			model.addAttribute("message", message);
 		}
-		return "redirect:/";
+		path ="../";
+		model.addAttribute("message", message);
+		model.addAttribute("path", path);
+		return "common/result";
 	}
 	
 	@RequestMapping(value="tradeBoardAC" , method = RequestMethod.POST)

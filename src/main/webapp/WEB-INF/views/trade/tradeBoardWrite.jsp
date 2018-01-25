@@ -170,10 +170,9 @@
 	var minute = 300000;
 	var fnc;
 	var nickName = '${user.nickname}';
-	var list = {
-		call : function(id, curPage) {
-			$.post("../tradeSave/saveList?writer=" + id + "&curPage=" + curPage
-					+ "&save_num=" + save_num, function(data) {
+	var list = { 
+			call : function(id, curPage) {
+			$.post("../tradeSave/saveList?writer=" + id + "&curPage=" + curPage+ "&save_num=" + save_num, function(data) {
 				$(".list").html(data.trim())
 				getCount();
 				$(".listCall span").html("(" + totalCount + ")")
@@ -306,17 +305,11 @@
 			list.call(nickName, curPage, save_num)
 		})
 
-		$("#over").on(
-				"click",
-				".viewLink",
-				function() {
-					var getNum = this.title;
-					$.post(
-							"${pageContext.request.contextPath }/tradeSave/saveOne?save_num="
-									+ getNum, function(data) {
+		$("#over").on("click",".viewLink",function() {
+			var getNum = this.title;
+			$.post("${pageContext.request.contextPath }/tradeSave/saveOne?save_num="+ getNum, function(data) {
 								$("#title").val(data.title)
-								CKEDITOR.instances.contents
-										.setData(data.contents)
+								CKEDITOR.instances.contents.setData(data.contents)
 							})
 				})
 
