@@ -77,17 +77,19 @@ public class PmfScrapService {
 	}
 	
 	//비교하기
-	public ModelAndView selectOne(int [] snums) throws Exception {
+	public ModelAndView selectOne(String snums) throws Exception {
 		List<PmfScrapDTO> ar = new ArrayList<PmfScrapDTO>();
 		ModelAndView mv = new ModelAndView();
 		
+		String [] sNums = snums.split(",");
+		
 		PmfScrapDTO pmfScrapDTO = null;
-		for(int snum: snums) {
-			pmfScrapDTO = pmfScrapDAO.selectOne(snum);
+		for(String snum: sNums) {
+			pmfScrapDTO = pmfScrapDAO.selectOne(Integer.parseInt(snum));
 			ar.add(pmfScrapDTO);
 		}
 		mv.addObject("list", ar);
-		mv.setViewName("/");		//경로 설정하기
+		mv.setViewName("community/scrapResult");
 		
 		return mv;
 	}

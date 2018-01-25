@@ -102,39 +102,114 @@ a:hover{
     top: 0;
     left: 0;
     background-color: #8080804d;
+    text-align: center;
 }
 #modalSec{
 	background-color: white;
-	width: 1000px;
-    min-height: 300px;
-    margin: 0 auto;
+	display: inline-block;
+    min-height: 400px;
     margin-top: 150px;
     border-radius: 5px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+#compare_wrap{
+	margin-left: 25px;
+    margin-right: 25px;
+    display: inline-block;
+}
 .t_head{
-	border: solid 1px gray;
     width: 150px;
     margin-top: 25px;
     margin-bottom: 25px;
-    margin-left: 20px;
     display: inline-block;
 }
 .t_compare{
-	border-top: solid 1px gray;
-    border-bottom: solid 1px gray;
     width: 300px;
     margin-top: 25px;
     margin-bottom: 25px;
     display: inline-block;
+    margin-left: -6px;
 }
 td, tr{
 	border: solid 1px gray;
 	text-align: center;
 	height: 40px;
 	width: 300px;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+.view_btn{
+	width: 200px;
+    height: 35px;
+    border: none;
+    border-radius: 3px;
+    font-size: 17px;
+    font-weight: 600;
+    background-color: #16a085;
+    color: white;
+}
+
+/* option */
+#option_wrap{
+	background-color: #16a085;
+    width: 100%;
+    height: 40px;
 }
 #option_btn{
 	float: right;
-	margin: 10px 25px;
+	line-height: 40px;
+	margin: 0 25px;
+}
+#option_sec{
+	display: none;
+	display: inline-block;
+    width: 200px;
+    margin-left: 5px;
+    min-height: 400px;
+    background-color: white;
+    border-radius: 3px;
+    padding: 40px 20px;
+    position: absolute;
+    top: 150px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.option_head{
+	font-size: 20px;
+	font-weight: 600;
+	margin-bottom: 10px;
+}
+.option_p{
+	margin-left: 10px;
+	margin: 0 0 5px;
+	text-align: left;
+}
+.check{
+	float: right;
+}
+.work_detail{
+	display: none;
+}
+.condition{
+	display: none;
+}
+.experience{
+	display: none;
+}
+.addr{
+	display: none;
+}
+#submit{
+	border: solid 1px gray;
+    height: 30px;
+    width: 150px;
+    border-radius: 3px;
+    margin: 49px 0 5px;
+    font-weight: 600;
+}
+#reset{
+	border: solid 1px gray;
+    height: 30px;
+    width: 150px;
+    border-radius: 3px;
+    font-weight: 600;
 }

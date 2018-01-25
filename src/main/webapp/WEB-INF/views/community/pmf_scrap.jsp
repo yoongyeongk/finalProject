@@ -41,12 +41,49 @@
 		
 		$(".compare_btn").click(function(){
 			//ajax로 배열 보내서 데이터 받아오기
+			$.ajax({
+				type: "POST",
+				url: "./pmfViews",
+				data:{
+					snums: snums.toString()
+				},
+				success: function(data){
+					$("#compare_wrap").append(data);
+				}
+			});
+			
 			//modal로 띄우기
 			$("#modal").show();
 		});
 		
 		$("#modal").click(function(){
 			$(this).hide();
+		});
+		
+		//option 추가
+		$("#option_btn").click(function(){
+			event.stopPropagation();
+			event.preventDefault();
+			$("#option_sec").toggle();
+		});
+		
+		$(".check").click(function(){
+			event.stopPropagation();
+		});
+		
+		$("#submit").click(function(){
+			event.stopPropagation();
+	        $(".compare_tr").hide();
+			
+			$('.check:checked').each(function() { 
+		        var id = $(this).attr("id");
+		        
+				$("."+id).show();
+		   	});
+		});
+		
+		$("#reset").click(function(){
+			event.stopPropagation();
 		});
 	});
 </script>
@@ -109,29 +146,30 @@
 				<span id="option_btn" class="glyphicon glyphicon-option-horizontal"></span>
 			</div>
 			
+			<div id="compare_wrap">
 			<table class="t_head">
 				<tr class="project_name">
 					<td>프로젝트 명</td>
 				</tr>
-				<tr class="duration">
+				<tr class="compare_tr duration">
 					<td>일정 정보</td>
 				</tr>
-				<tr class="work">
+				<tr class="compare_tr work">
 					<td>직무 내용</td>
 				</tr>
-				<tr class="work_detail">
+				<tr class="compare_tr work_detail">
 					<td>직무 상세 내용</td>
 				</tr>
-				<tr class="condition">
+				<tr class="compare_tr condition">
 					<td>직무유형 / 급여</td>
 				</tr>
-				<tr class="experience">
+				<tr class="compare_tr experience">
 					<td>자격사항</td>
 				</tr>
-				<tr class="host">
+				<tr class="compare_tr host">
 					<td>단체명</td>
 				</tr>
-				<tr class="addr">
+				<tr class="compare_tr addr">
 					<td>위치</td>
 				</tr>
 				<tr>
@@ -140,39 +178,45 @@
 			</table>
 			
 			<!-- 비교 테이블 추가 -->
-			<table class="t_compare">
-				<tr class="project_name">
-					<td>project_1</td>
-				</tr>
-				<tr class="duration">
-					<td>2017-12-28 ~ 2018-01-31</td>
-				</tr>
-				<tr class="work">
-					<td>직무 내용 test</td>
-				</tr>
-				<tr class="work_detail">
-					<td>직무 상세 내용</td>
-				</tr>
-				<tr class="condition">
-					<td>프리랜서 / 회사 내규</td>
-				</tr>
-				<tr class="experience">
-					<td>학력 무관 / 경력 3년 이하</td>
-				</tr>
-				<tr class="host">
-					<td>Together</td>
-				</tr>
-				<tr class="addr">
-					<td>강남구 역삼동</td>
-				</tr>
-				<tr>
-					<td>
-						<input type="button" value="상세보기">
-					</td>
-				</tr>
-			</table>
-			
+			</div>
 		</div>
+		
+		<div id="option_sec">
+				<p class="option_head">비교 조건 추가</p>
+				<form action="#" id="option_frm">
+					<p class="option_p">
+						일정 정보
+						<input type="checkbox" id="duration" class="check" checked="checked">
+					</p>
+					<p class="option_p">
+						직무 내용
+						<input type="checkbox" id="work" class="check" checked="checked">
+					</p>
+					<p class="option_p">
+						직무 상세 내용
+						<input type="checkbox" id="work_detail" class="check">
+					</p>
+					<p class="option_p">
+						단체명
+						<input type="checkbox" id="host" checked="checked" class="check">
+					</p>
+					<p class="option_p">
+						자격사항
+						<input type="checkbox" id="experience" class="check">
+					</p>
+					<p class="option_p">
+						위치 정보
+						<input type="checkbox" id="addr" class="check">
+					</p>
+					<p class="option_p">
+						근무 유형/급여
+						<input type="checkbox" id="condition" class="check">
+					</p>
+				
+				<input type="button" id="submit" value="변경사항 적용">
+				<input type="reset" id="reset" value="초기화">
+				</form>
+			</div>
 	</div>
 
 	</section>

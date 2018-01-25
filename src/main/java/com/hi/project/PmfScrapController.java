@@ -54,7 +54,8 @@ public class PmfScrapController
 	}
 	
 	@RequestMapping(value="pmfViews")
-	public ModelAndView selectOne(int [] snums) {
+	public ModelAndView selectOne(String snums) {
+		
 		ModelAndView mv = null;
 		
 		try {
