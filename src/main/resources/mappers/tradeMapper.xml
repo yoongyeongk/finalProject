@@ -8,14 +8,33 @@
   	<sql id="search">
   		like '%'||#{search}||'%'
   	</sql>
+  	
+  	<insert id="insertAC" parameterType="tenderDTO">
+  		insert into TENDER values(#{num},#{writer},#{name},#{corporate_phone},#{corporation},#{bidding_price})
+  	</insert>
   
+  	<select id="selectTender" parameterType="tenderDTO" resultType="tenderDTO">
+  		select * from TENDER where num=#{num} and writer=#{writer}
+  	</select>
+  	
+  	<update id="updateAC" parameterType="tenderDTO">
+  		update TENDER set corporate_phone=#{corporate_phone},bidding_price=#{bidding_price} where num=#{num} and writer=#{writer}
+  	</update>
+  	
+  	<update id="updatePrice" parameterType="tenderDTO">
+  		update TRADE_BOARD set present_price=#{bidding_price} where num=#{num}
+  	</update>
+  	
+  	<update id="close" parameterType="tradeBoardDTO">
+  		update TRADE_BOARD set close=1 where num=#{num}
+  	</update>
+  	
   	<select id="getTagCount" resultType="Integer" parameterType="RowNum" >
   		 select COUNT(num) from (select DISTINCT TG.num from TAGS TG where TG.tag=#{search} and 
   		 REGEXP_LIKE(TG.tag,#{search},'i'))
   	</select>
   
   	<select id="selectTagSearch" parameterType="RowNum" resultType="tradeBoardDTO">
-
   		 select * from (select rowNum R,T.* from (select DISTINCT T.* from TRADE_BOARD T,TAGS TG where T.num=TG.num and 
   		 TG.tag=#{search} and REGEXP_LIKE(TG.tag,#{search},'i') order by T.num desc) T) where R BETWEEN #{startRow} and #{lastRow}
   	</select>
@@ -33,7 +52,8 @@
   
   	<insert id="insert" parameterType="tradeBoardDTO">
   		insert into TRADE_BOARD 
-  		values(#{num},#{writer},#{title},#{contents},sysdate,#{closing_date},0,#{corporate_phone},#{min_price},#{corporation},#{email})
+  		values(#{num},#{writer},#{title},#{contents},sysdate,#{closing_date},0,
+  		#{corporate_phone},#{min_price},#{corporation},#{email},#{address},#{address_detail},#{min_price},0)
   	</insert>
   	
   	<select id="selectList" parameterType="RowNum" resultType="tradeBoardDTO">
@@ -73,18 +93,25 @@
   	
   	<update id="update" parameterType="tradeBoardDTO">
   		update TRADE_BOARD set title=#{title},contents=#{contents},closing_date=#{closing_date},
-  		corporate_phone=#{corporate_phone},min_price=#{min_price},corporation=#{corporation} where num=#{num}
+  		corporate_phone=#{corporate_phone},min_price=#{min_price},corporation=#{corporation},email=#{email},
+  		address=#{address},address_detail=#{address_detail} where num=#{num}
   	</update>
   	
-  	<delete id="deleteAll">
+  	<delete id="deleteAll" parameterType="Integer">
   		delete TRADE_BOARD where num=#{num}
+  	</delete>
+  	
+  	<delete id="deleteTender" parameterType="Integer">
+  		delete TENDER where num=#{num}
   	</delete>
   	
   	<resultMap type="tradeBoardDTO" id="tradeBoardResult">
   		<id property="num" column="num"/>
   		<collection property="tags" column="num" ofType="tradeTagDTO" select="selectTag">
+  			<id property="tag_num" column="tag_num"/>
   		</collection>
   		<collection property="fileNames"  column="num" ofType="tradeBoardFileDTO" select="selectFile">
+  			<id property="fnum" column="fnum"/>
   		</collection>
   	</resultMap>
   	
