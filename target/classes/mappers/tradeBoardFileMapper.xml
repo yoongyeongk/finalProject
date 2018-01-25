@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="tradeBoardFileMapper">
+  	<insert id="insert" parameterType="tradeBoardFileDTO">
+  		insert into BOARDFILE values(board_seq.nextval,#{num},#{fileName},#{oriName})
+  	</insert>
+  	
+  	<delete id="deleteOne" parameterType="Integer">
+  		delete BOARDFILE where fnum=#{fnum}
+  	</delete>
+  	
+  	<delete id="deleteAll" parameterType="Integer">
+  		delete BOARDFILE where num=#{num}
+   	</delete>
+   	
+   	<select id="selectFile" parameterType="Integer" resultType="tradeBoardFileDTO">
+  		select * from BOARDFILE where num=#{num} order by fnum asc
+  	</select>
+  	
+  	<select id="selectOne" parameterType="Integer" resultType="tradeBoardFileDTO">
+  		select * from BOARDFILE where fnum=#{fnum}
+  	</select>
+  </mapper>

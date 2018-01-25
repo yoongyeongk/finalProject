@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="pmfScrapMapper">
+  
+  	<resultMap type="PmfScrapDTO" id="listResult">
+  		<id property="snum" column="snum"/>
+		<collection property="pmfBoardDTO" column="num" ofType="PmfBoardDTO" select="boardList">
+			<id property="num" column="num"/>
+		</collection>
+  	</resultMap>
+  	
+  	<resultMap type="PmfScrapDTO" id="viewResult">
+  		<id property="snum" column="snum"/>
+  		<association property="pmfBoardDTO" column="num" select="boardList">
+  			<id property="num" column="num"/>
+  		</association>
+  	</resultMap>
+  	
+  	<select id="selectList" parameterType="java.lang.String" resultMap="listResult">
+ 		select * from pmf_scrap where nickname=#{nickname} 	
+  	</select>
+  	
+  	<select id="boardList" parameterType="int" resultType="PmfBoardDTO">
+  		select * from pmf_board where num=#{num}
+  	</select>
+  	
+  	<select id="selectOne" parameterType="int" resultMap="viewResult">
+  		select * from pmf_scrap where snum=#{snum}
+  	</select>
+  	
+  	<select id="scrapCheck" parameterType="PmfScrapDTO" resultType="PmfScrapDTO">
+  		select * from pmf_scrap where num=#{num} and nickname=#{nickname}
+  	</select>
+  	
+  	<insert id="insert" parameterType="PmfScrapDTO">
+  		insert into pmf_scrap values(pmf_scrap_seq.nextval,#{nickname},#{num})
+  	</insert>
+  	
+  	<delete id="delete" parameterType="int">
+  		delete pmf_scrap where snum=#{snum}
+  	</delete>
+  	
+  	<delete id="deleteAll" parameterType="java.lang.String">
+  		delete pmf_scrap where nickname=#{nickname}
+  	</delete>
+  	
+  </mapper>
