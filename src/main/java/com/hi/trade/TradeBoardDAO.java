@@ -97,4 +97,9 @@ public class TradeBoardDAO {
 		
 		return sqlSession.update(NAMESPACE+"updatePrice", tenderDTO);
 	}
+	
+	public int deleteTender (int num) throws Exception {
+		
+		return sqlSession.delete(NAMESPACE+"deleteTender", num);
+	}
 }

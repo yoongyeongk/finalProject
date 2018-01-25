@@ -35,6 +35,12 @@ public class TradeBoardController {
 	TradeBoardService tradeBoardService;
 	
 	
+	@RequestMapping(value="tenderUserList")
+	public List<TradeBoardDTO> userList (String writer) {
+		
+		return null;
+	}
+	
 	@RequestMapping(value="tradeBoardView")
 	@ResponseBody
 	public ModelAndView selectOne (int num,String writer,Model model){
@@ -166,11 +172,11 @@ public class TradeBoardController {
 			e.printStackTrace();
 		}
 		String message = "삭제 실패했습니다";
-		String path = "";
+		String path = "../";
 		if(result > 0){
 			message = "삭제 됐습니다.";
+			path ="./tradeBoardList?curPage=1";
 		}
-		path ="../";
 		model.addAttribute("message", message);
 		model.addAttribute("path", path);
 		return "common/result";

@@ -105,6 +105,7 @@ public class TradeBoardService {
 		
 		if(result > 0){
 			tagService.deleteAll(num);
+			tradeBoardDAO.deleteTender(num);
 		}
 	return tradeBoardDAO.deleteAll(num);
 	}

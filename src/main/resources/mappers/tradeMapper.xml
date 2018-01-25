@@ -97,8 +97,12 @@
   		address=#{address},address_detail=#{address_detail} where num=#{num}
   	</update>
   	
-  	<delete id="deleteAll">
+  	<delete id="deleteAll" parameterType="Integer">
   		delete TRADE_BOARD where num=#{num}
+  	</delete>
+  	
+  	<delete id="deleteTender" parameterType="Integer">
+  		delete TENDER where num=#{num}
   	</delete>
   	
   	<resultMap type="tradeBoardDTO" id="tradeBoardResult">

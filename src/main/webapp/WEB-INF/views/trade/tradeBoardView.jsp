@@ -48,6 +48,17 @@ var playAlert = '';
 	    })
 	  }, 2000);
 	  
+	  function del () {
+		  
+	  		if(confirm("정말 삭제합니까?") == true){
+			var num = ${param.num}
+			var writer = '${user.nickname}'
+			$.post("./tradeBoardDelete",{num:num,writer:writer},function(){
+			alert("삭제됐습니다");
+			location.href="./tradeBoardList?curPage=1"
+			})
+	  		}
+		}
 	  
 	$(function() {
 		if(bidding_price == 0){
@@ -96,9 +107,6 @@ var playAlert = '';
 			$(".pack").attr("readonly" , "readonly")
 		}
 
-		function del () {
-			
-		}
 	})	
 </script>
 </head>
@@ -146,7 +154,7 @@ var playAlert = '';
 			<div class="info">
 				<ul>
 					<li><span class="spanBorder">기업명</span> ${one.corporation }</li>
-					<li><span class="spanBorder">작성 아이디</span> ${one.writer }</li>
+					<li><span class="spanBorder">작성자</span> ${one.writer }</li>
 					<li><span class="spanBorder">이메일</span> ${one.email }</li>
 					<li><span class="spanBorder">연락처</span> ${one.corporate_phone }</li>
 					<li><span class="spanBorder">주소</span> ${one.address }, ${one.address_detail }</li>
@@ -159,7 +167,7 @@ var playAlert = '';
 				<div class="btnBox">
 					<c:if test="${user.nickname eq one.writer}">
 						<button class="bt"><a href="./tradeBoardUpdate?num=${one.num }">수정</a></button>
-						<button class="bt"><a href="" onclick="del()">삭제</a></button>
+						<button class="bt"><a href="javascript:void(0)" onclick="del()">삭제</a></button>
 					</c:if>
 					<button class="bt"><a href="./tradeBoardList?curPage=${param.curPage }">목록</a></button>
 				</div>
