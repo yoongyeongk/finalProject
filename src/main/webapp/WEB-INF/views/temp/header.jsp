@@ -84,7 +84,7 @@
 					
 					<ul class="dropdown-menu">
 						<li class="header">${user.username}</li>
-						<li><a href="#">나의 정보</a></li><!-- 내 정보 / 내가 쓴 글 모아보는 페이지 -->
+						<li><a href="${pageContext.request.contextPath}/users/myPage">나의 정보</a></li>
 						<c:if test="${user ne null}">
 							<li><a href="${pageContext.request.contextPath}/users/logout">로그아웃</a></li>
 						</c:if>

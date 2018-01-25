@@ -4,7 +4,9 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.hi.project.util.FileSaver;
 
@@ -36,15 +38,48 @@ public class UsersService {
 		return usersDAO.login(usersDTO);
 	}
 
-	public int update(UsersDTO usersDTO) {
-		return usersDAO.update(usersDTO);
+	@Transactional
+	public ModelAndView update(UsersDTO usersDTO) {
+		ModelAndView mv = new ModelAndView();
+		
+		int result = usersDAO.update(usersDTO);
+		
+		//파일 수정 시 처리
+		
+		if(result>0) {
+			mv.addObject("message", "수정되었습니다.");
+			mv.setViewName("redirect:./myPage");
+		}else {
+			mv.addObject("message", "수정에 실패했습니다.");
+			mv.setViewName("users/usersUpdate");
+		}
+		
+		return mv;
 	}
 
-	public int delete(String username) {
-		return usersDAO.delete(username);
+	public ModelAndView delete(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		String username = ((UsersDTO)session.getAttribute("user")).getUsername();
+		
+		int result = usersDAO.delete(username);
+		
+		if(result>0) {
+			session.invalidate();
+			mv.addObject("message", "탈퇴되었습니다.");
+			mv.setViewName("redirect:./");
+		}else {
+			mv.addObject("message", "탈퇴할 수 없습니다.");
+			mv.setViewName("users/myPage");
+		}
+		
+		return mv;
 	}
+	
 	//서연 추가 
 	public String nicknameCheck(String nickname)throws Exception{
 		return usersDAO.nicknameCheck(nickname);
 	}
+	
+	//윤경 추가
+	
 }
