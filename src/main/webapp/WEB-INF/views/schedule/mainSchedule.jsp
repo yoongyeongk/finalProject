@@ -186,10 +186,8 @@ $(document).ready(function() {
 	});
      
 });
-
 </script>
 <style type="text/css">
-
 .delete{
 border-style :none;
 border-radius: 10px;
@@ -197,10 +195,6 @@ color: rgb(210,255,195);
 font-size : small;
 background-color: gray;
 text-align: center;
-}
-#list_sec{
-	display: none;
-	width: 100%;
 }
 	body {
 	
@@ -212,13 +206,6 @@ text-align: center;
 		max-width: 1000px;
 		margin-top: 10px;
 	}
- 	.cal_nav{
-		margin: 0 auto;
-		margin-top: 50px;
-		height: 20px;
-		margin-bottom: 5px;
-	}
-
 	#title{
 	background-color: #f5f5f6;
 	font-size: 1.4em;
@@ -247,14 +234,11 @@ padding-bottom: 5px;
 padding-top: 10px;
 margin-bottom: 20px;
 }
-	.label2{
-	border-radius: 10px;
-	}
 	.addT{
 	margin-top : 5%;
 	height :200px;
 	}
- 	.modal {
+/*  	.modal {
     display: none; /* Hidden by default */
     z-index: 999; /* Sit on top */
     padding-top:12%; /* Location of the box */  
@@ -262,6 +246,18 @@ margin-bottom: 20px;
     height: 100%; /* Full height */
     min-width: 246px;
     min-height: 156px;
+} */
+.addT {
+	margin-top: 5%;
+	height: 200px;
+}
+
+ .modal {
+	display: none; /* Hidden by default */
+	z-index: 999; /* Sit on top */
+	padding-top: 5%; /* Location of the box */
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
 }
 
 /* Modal Content */
@@ -275,16 +271,18 @@ margin-bottom: 20px;
     -webkit-animation-duration: 0.8s;
     animation-name: animatetop;
     animation-duration: 0.8s 
-} 
+}
 /* Add Animation */
-@-webkit-keyframes animatetop {
-    from {top:-300px; opacity:0} 
-    to {top:0; opacity:1}
+keyframes animatetop {
+	from {top: -300px;
+	opacity: 0
 }
 
-@keyframes animatetop {
-    from {top:-300px; opacity:0}
-    to {top:0; opacity:1}
+to {
+	top: 0;
+	opacity: 1
+}
+
 }
 #closebtn{
 font-size: 35px;
@@ -293,11 +291,8 @@ font-size: 35px;
 font-size:  1.3em;
 display: inline-block;
 }
-#startTime,#lastTime{
+#lTime {
 	width: 100%;
-	padding: 7px;
-}
-#lTime{
 	padding: 2px;
 	border-radius: 4px;
 	padding-bottom: 7px;
@@ -305,10 +300,14 @@ display: inline-block;
 }
 .Time_box{
 margin-bottom: 20px;
+}
+
+.sTime_box {
 	display: inline-block;
 	width: 20%;
 	margin-right: 4px;
 }
+
 .partner{
 border-style :none;
 background-color : #e7e7e7;
@@ -320,7 +319,12 @@ background-color: rgb(22,160,133);
 height: 100%;
 border-style: none;
 }
-#submitBtn{
+.lTime_box {
+	display: inline-block;
+	width: 45%;
+}
+
+#submitBtn {
 	width: 50%;
 	height: 35px;
 	font-size: 1em;
@@ -335,6 +339,15 @@ border-style: none;
 #submitBtn:hover{
 	background: rgb(22,160,133);
 	color: white;
+	margin-bottom: 10px;
+	margin: 0 auto;
+	display: block;
+	background-color: #e7e7e7;
+}
+
+#submitBtn:hover {
+	background: #ddd;
+>>>>>>> master
 }
 #ck-button {
     margin:1.2px;
@@ -368,15 +381,18 @@ display: none;
 </style>
 </head>
 <body>
+<!-- header -->
+<c:import url="../temp/header.jsp"></c:import>
+<!-- header 끝 -->
+
+<!-- contents -->
+<section id="main">
 <div class="col-md-2"></div>
-		<div class="col-md-10">
-	<div class="cal_nav">			
-		</div>		
+		<div class="col-md-10">		
 		<div class="col-md-7">
 			<div style="width: 100%" id='calendar'></div>
-		</div>
+		</div>		
 		<div class="cal_nav col-md-5">
-
 	<form class="event_form" action="../schedule/ScheduleWrite" method="post">
 					<!-- 	//나중에 멤버로 받아오기  --> 
 					<div>${user.username}님의 일정등록 </div>
@@ -449,8 +465,12 @@ display: none;
 							<button type="submit" id="submitBtn" class="btn">등록하기</button>
 						</form>
 		</div>
+
+
 		</div>
+		
 		<!--  색상 : rgb(22,160,133) -->
+
 	<!-- Modal -->
 	<div id="myModal" class="modal">		
 		<!-- Modal Content -->
@@ -461,5 +481,11 @@ display: none;
 			</div>
 		</div>
 	</div>
+
+		
+		<!-- Modal -->
+	</section>		
+<!-- contents 끝 -->
+
 </body>
 </html>

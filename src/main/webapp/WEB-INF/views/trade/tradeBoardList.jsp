@@ -23,7 +23,7 @@ $(function() {
 	
 	if("${pager.kind}" == "Title") {
 		$("#kind option:eq(0)").prop("selected", true);
-	}else{
+	}else if("${pager.kind}" == "Update"){
 		$("#kind option:eq(1)").prop("selected", true);
 	}
 
@@ -87,7 +87,7 @@ $(function() {
 								</select>
 						</div>
 							<div class="searchInput">
-								<input type="text" name="search" id="search" value="${pager.search }">
+								<input type="text" name="search" id="search" value="${pager.search }" placeholder="태그 검색 예) #개발">
 							</div>
 							<span class="s_img">
 									<label for="s">

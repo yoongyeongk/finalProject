@@ -1,0 +1,139 @@
+@charset "UTF-8";
+body{
+	font-family: HanSans;
+	opacity: 0.9;
+}
+.list_wrap{
+	margin: 0 auto;
+	margin-top: 50px;
+	width: 1000px;
+}
+.new{
+	width: 80px;
+	height: 30px;
+	float: right;
+	text-align: center;
+	line-height: 27px;
+	font-size: 12px;
+	font-weight: 600;
+	color: white;
+	margin-bottom: 20px;
+	background-color: rgb(22, 160, 133);
+    border: solid 1px rgb(22, 160, 133);
+    border-radius: 4px;
+}
+a:hover{
+	text-decoration: none;
+	color: white;
+}
+
+/* pmf list div */
+#search_bar{
+	text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+#search_bar select{
+	width: 100px;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+}
+.search{
+	width: 300px;
+    height: 30px;
+    border-radius: 3px;
+    border: solid 1px #ccc;
+}
+.search_btn{
+	width: 60px;
+    height: 27px;
+    text-align: center;
+    line-height: 13px;
+    border-radius: 3px;
+    background-color: rgb(22, 160, 133);
+    border: solid 1px rgb(22, 160, 133);
+    color: white;
+}
+}
+#listCall{
+	padding-top: 30px;
+}
+
+.t_list{
+	border: solid 1px #ccc;
+	border-left: none;
+	border-right: none;
+	width: 950px;
+	margin: 0 auto;
+	border-collapse: collapse;
+	letter-spacing: -1px;
+}
+.t_list th,.t_list td{
+	border: solid 1px #ccc;
+	border-left: none;
+	border-right: none;
+	text-align: center; 
+	vertical-align: middle;
+}
+.t_list td{
+	height: 35px;
+}
+.t_list th{
+	height: 40px;
+	background-color: white;
+}
+.td_1{
+	width: 50px;
+}
+.td_2{
+	width: 120px;
+}
+.td_3{
+	width: 350px;
+}
+.td_4{
+	width: 120px;
+}
+.td_5{
+	width: 120px;
+}
+.td_6{
+	width: 70px;
+}
+.td_7{
+	width: 90px;
+}
+.td_8{
+	width: 60px;
+}
+.t_font{
+	font-size: 12px;
+}
+
+/* 페이징 */
+.paging{
+	text-decoration: none;
+    width: 327px;
+    margin: 0 auto;
+}
+.paging_move{
+	width: 45px;
+}
+.paging li{
+	list-style: none;
+    float: left;
+    padding: 4px;
+    width: 35px;
+    margin: 30px 3px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: rgb(244, 244, 244);
+    text-align: center;
+    font-size: 13px;
+}
+
+.paging li a{
+	color: black;
+}

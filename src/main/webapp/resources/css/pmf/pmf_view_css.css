@@ -66,6 +66,62 @@ td{
 	width: 100%;
 	border-top: 3px solid #eee;
 }
+.progressBar {
+	width: 200px;
+	height: 20px;
+	border-radius: 5px;
+	overflow: hidden;
+	display: inline-block;
+	margin: 10px;
+	vertical-align: middle;
+}
+.statusbar {
+	border-top: 1px solid #A9CCD1;
+	min-height: 20px;
+	width: 100%;
+	vertical-align: middle;
+}
+.statusbar:nth-child(odd) {
+	background: #EBEFF0;
+}
+.filename {
+	display: inline-block;
+	vertical-align: middle;
+	width: 300px;
+	font-size: 12px;
+	text-align: center;
+}
+.filesize {
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 12px;
+	text-align: center;
+	color: #30693D;
+	width: 100px;
+	margin-left: 10px;
+	margin-right: 40px;
+}
+.download{
+	background-color: #bcbcbc;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    display: inline-block;
+    color: #fff;
+    font-family: HanSans;
+    font-size: 12px;
+    font-weight: normal;
+    padding: 4px 15px;
+    cursor: pointer;
+    vertical-align: middle;
+    text-decoration: none;
+}
+.download:hover{
+	text-decoration: gray;
+	color: black;
+}
+
+/* scrap */
 #scrap_btn{
 	font-size: 14px;
     width: 70px;

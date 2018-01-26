@@ -23,12 +23,12 @@ public class PmfScrapController
 	@Inject
 	private PmfScrapService pmfScrapService;
 	
-	@RequestMapping(value="pmfList", method=RequestMethod.POST)
-	public ModelAndView selectList(String nickname) {
+	@RequestMapping(value="pmfList")
+	public ModelAndView selectList(HttpSession session) {
 		ModelAndView mv = null;
 		
 		try {
-			mv = pmfScrapService.selectList(nickname);
+			mv = pmfScrapService.selectList(session);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

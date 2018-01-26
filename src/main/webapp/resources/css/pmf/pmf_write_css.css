@@ -103,7 +103,6 @@ textarea {
 .progressBar {
 	width: 200px;
 	height: 20px;
-	border: 1px solid #ddd;
 	border-radius: 5px;
 	overflow: hidden;
 	display: inline-block;
@@ -127,7 +126,7 @@ textarea {
 	width: 100%;
 	vertical-align: middle;
 }
-.statusbar:nth-child(odd) {
+.odd {
 	background: #EBEFF0;
 }
 .filename {
@@ -160,6 +159,20 @@ textarea {
 	padding: 4px 15px;
 	cursor: pointer;
 	vertical-align: middle;
+}
+.delfile{
+	background-color: #bcbcbc;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    display: inline-block;
+    color: #fff;
+    font-family: HanSans;
+    font-size: 12px;
+    font-weight: normal;
+    padding: 4px 15px;
+    cursor: pointer;
+    vertical-align: middle;
 }
 
 /* --------------------------------------- */

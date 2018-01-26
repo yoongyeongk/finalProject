@@ -70,6 +70,10 @@ public class TradeBoardService {
 				days.add(time / (24*60*60*1000));
 			}
 			
+			if(ar.size() == 0){
+				pager.setLastNum(1);
+			}
+			
 			view.addObject("date", days);
 			view.addObject("list", ar);
 			view.addObject("tags", tag);
