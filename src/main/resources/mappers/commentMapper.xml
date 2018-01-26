@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="commentMapper">
+	
+	<select id="list" parameterType="int" resultType="CommentDTO">
+		select * from comments where task_id=#{task_id}
+	</select>
+	
+	<insert id="insert" parameterType="CommentDTO">
+		insert into (comments_id, task_id, contents, writer, reg_date)
+		values (comment_seq.nextval, #{task_id}, #{contents}, #{writer}, sysdate) 
+	</insert>
+	
+	<update id="update" parameterType="CommentDTO">
+		update comments set title=#{title} from comments_id=#{comments_id}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete comments where task_id=#{task_id}
+	</delete>
+	
+</mapper>

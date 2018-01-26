@@ -38,6 +38,7 @@
 	<context:component-scan base-package="com.hi.project" />
 	<context:component-scan base-package="com.hi.users" />
 	<context:component-scan base-package="com.hi.task" />
+	<context:component-scan base-package="com.hi.comment" />
 	<!-- 서연 -->
 	<context:component-scan base-package="com.hi.schedule"/>
 	<context:component-scan base-package="com.hi.partner"/>

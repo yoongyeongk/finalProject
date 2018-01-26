@@ -3,19 +3,18 @@ $(function() {
 	create();
 	update();
 	
-	/*	
-	$("input:checkbox[name=check]").change(function(){
-		var check = $(this).prop("checked");
-		if(check == true) 
-			$("input:hidden[name=privacy]").prop("value", "true");
-		else 
-			$("input:hidden[name=privacy]").prop("value", "false");
-	});
-	 */
 	
-	$(".page-contents").on("click", "a", function() {
+	$(".page-contents").on("click", "a", function(e) {
 		var project_id = $(this).data("id");
 		setting(project_id);
+		e.preventDefault();
+	});
+	
+	$(".page-contents").on("click", ".project-box", function(event) {
+		if($(event.target).is(".project-box")) {
+			var project_id = $(this).data("id");
+			location.href = "task/main?project_id="+project_id;
+		}
 	});
 });
 
@@ -26,7 +25,7 @@ function list() {
 		success : function(data) {
 			var html = '';
 			$.each(data, function(key, value) {
-				html += '<div class="project-box" data-id="'+value.project_id+'">';
+				html += '<div class="project-box" data-id='+value.project_id+'>';
 				/* header */
 				html += '<div class="project-header">';
 				if (value.privacy == 'false') {
@@ -112,12 +111,6 @@ function list() {
 	});
 }
 
-function view() {
-	
-	
-	
-}
-
 function create() {
 	$("#create-project").click(function() {
 		var param = $("#frm").serialize();
@@ -189,9 +182,9 @@ function setting(project_id) {
 			$("input[name=close_date]").attr("value", close_date);
 			
 			if(data.privacy == 'true')
-				$("input[name=check]").prop("checked", true);
+				$("input:radio[name=privacy][value=true]").prop("checked", true);
 			else
-				$("input[name=check]").prop("checked", false);
+				$("input:radio[name=privacy][value=false]").prop("checked", true);
 			
 		},
 		error: function (data) {

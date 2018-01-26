@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hi.task.ProjectDTO;
 import com.hi.task.ProjectService;
 
-@RestController
 @RequestMapping(value = "/project/*")
+@RestController
 public class ProjectController {
 
 	@Inject
@@ -27,7 +27,7 @@ public class ProjectController {
 		List<ProjectDTO> list = projectService.list(session);
 		return list;
 	}
-
+	
 	@RequestMapping(value = "setting")
 	@ResponseBody
 	public ProjectDTO setting(int project_id) {

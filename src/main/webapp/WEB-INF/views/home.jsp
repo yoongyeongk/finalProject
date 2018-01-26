@@ -11,7 +11,6 @@
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="//cdn.ckeditor.com/4.8.0/basic/ckeditor.js"></script>
 <script src="resources/js/sidebar.js"></script>
 <script src="resources/js/project.js"></script>
 <script src="resources/js/moment.js"></script>
@@ -63,10 +62,11 @@
 								<hr>
 								<label>공개 프로젝트</label>
 								
-								<label class="switch">
-									<input name="privacy" type="checkbox">
-									<span class="slider round"></span>
-								</label>
+								<label for="privacy" class="control-label">공개</label>
+								<input type="radio" name="privacy" value="true">
+								<label for="privacy" class="control-label">비공개</label>
+								<input type="radio" name="privacy" value="false">
+								
 								<hr>
 							</div>
 							<div class="modal-footer">
