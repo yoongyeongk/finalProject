@@ -5,7 +5,7 @@
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
     <style>
 #modalchang{
-    min-width: 246px;
+    min-width: 200px;
     min-height: 156px;
 }
 .tete{
@@ -96,7 +96,9 @@ $(function() {
 		 <c:if test="${dto.username ne dto.host}">
     <td>    ${dto.host}</td>
     </c:if>
+    	 <c:if test="${dto.username eq dto.host}">
     <td> 본인[ ${dto.host} ] </td>
+    </c:if>
         </tr>
 	<tr><td>기간</td>
 	<td>${dto.startday} ~ ${dto.lastday}</td>
@@ -116,10 +118,11 @@ $(function() {
 
 	    <c:if test="${nickname.nickname ne user.nickname}">
     	${status.count}.${nickname.nickname} &nbsp  <input type="hidden" value="${nickname.nickname}" name="nicknaming" id="nicknaming">
+    </c:if>
     	<c:if test="${nickname.nickname eq user.nickname}">
+    	본인[${nickname.nickname}]
         <input type="hidden" value="${nickname.pnum}" id="partnerpnum" >
         </c:if>  
-    </c:if>
     </c:forEach>
     </td>
     

@@ -186,6 +186,9 @@ $(document).ready(function() {
 	});
      
 });
+function myFunction() {
+    setInterval(function(){ alert("Hello"); }, 30000);
+}
 </script>
 <style type="text/css">
 .delete{
@@ -238,20 +241,6 @@ margin-bottom: 20px;
 	margin-top : 5%;
 	height :200px;
 	}
-/*  	.modal {
-    display: none; /* Hidden by default */
-    z-index: 999; /* Sit on top */
-    padding-top:12%; /* Location of the box */  
-    width: 80%; /* Full width */
-    height: 100%; /* Full height */
-    min-width: 246px;
-    min-height: 156px;
-} */
-.addT {
-	margin-top: 5%;
-	height: 200px;
-}
-
  .modal {
 	display: none; /* Hidden by default */
 	z-index: 999; /* Sit on top */
@@ -277,12 +266,10 @@ keyframes animatetop {
 	from {top: -300px;
 	opacity: 0
 }
-
 to {
 	top: 0;
 	opacity: 1
 }
-
 }
 #closebtn{
 font-size: 35px;
@@ -298,11 +285,8 @@ display: inline-block;
 	padding-bottom: 7px;
 	font-size: 0.7em;
 }
-.Time_box{
-margin-bottom: 20px;
-}
 
-.sTime_box {
+.Time_box {
 	display: inline-block;
 	width: 20%;
 	margin-right: 4px;
@@ -330,24 +314,15 @@ border-style: none;
 	font-size: 1em;
 	font-weight: 600;
 	border-radius: 5px;
-	margin-top: 10px;
+	margin-top: 30px;
 	margin-bottom : 10px;
 	display: block;
 	color: rgb(22,160,133);
 	background-color: #e7e7e7; 
+	
 }
-#submitBtn:hover{
-	background: rgb(22,160,133);
-	color: white;
-	margin-bottom: 10px;
-	margin: 0 auto;
-	display: block;
-	background-color: #e7e7e7;
-}
-
 #submitBtn:hover {
 	background: #ddd;
->>>>>>> master
 }
 #ck-button {
     margin:1.2px;
@@ -377,7 +352,21 @@ border-style: none;
 input[id="ss2"]{
 display: none;
 }
-
+.event_form{
+margin-top: 15%;
+}
+#colorss{
+margin-top: 20px;
+}
+.myname{
+margin : 0 auto;
+display : inline-block;
+background-color : #e7e7e7;
+}
+#pname{
+font-size: 2em;
+font-weight: bolder;
+}
 </style>
 </head>
 <body>
@@ -395,7 +384,8 @@ display: none;
 		<div class="cal_nav col-md-5">
 	<form class="event_form" action="../schedule/ScheduleWrite" method="post">
 					<!-- 	//나중에 멤버로 받아오기  --> 
-					<div>${user.username}님의 일정등록 </div>
+					<div class="myname"><div class="myname" id="pname">${user.nickname}</div><div class="myname" id="namesm">님의 등록</div></div>
+					
 			<input type="hidden" name="username" value="${user.username}">	
 		 			<input type="hidden" id="mynick" name="mynick" value="${user.nickname}">
 				<table class="addT">
@@ -439,7 +429,7 @@ display: none;
 						</table>
 							 <div id="nick" style="display: inline-block;"></div>						
 						<table>
-						<tr><td class="label2">일정 배경 색상</td><tr>
+						<tr><td class="colorss">일정 배경 색상</td><tr>
 						<tr><td>
 						<div id="ck-button" style="background-color: rgb(22,160,133)"><label>
 						<input type="radio" name="color"id="ss2" checked="" value="rgb(22,160,133)">
@@ -462,11 +452,9 @@ display: none;
 						<span>black</span></label></div>
 						</td></tr>
 						</table>
-							<button type="submit" id="submitBtn" class="btn">등록하기</button>
+							<button type="submit" id="submitBtn" class="btn" onclick="myFunction()">등록하기</button>
 						</form>
 		</div>
-
-
 		</div>
 		
 		<!--  색상 : rgb(22,160,133) -->
@@ -481,11 +469,7 @@ display: none;
 			</div>
 		</div>
 	</div>
-
-		
-		<!-- Modal -->
 	</section>		
 <!-- contents 끝 -->
-
 </body>
 </html>

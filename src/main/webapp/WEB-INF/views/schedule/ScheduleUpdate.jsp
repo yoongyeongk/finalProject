@@ -274,10 +274,11 @@ $(document).ready(function () {
 									<c:forEach items="${nick}" var="nickname" varStatus="i">
 									<div class="updada" name="nick_update" style="display: inline-block;">
 									<span  class="updada${i.index}">${nickname.nickname}</span>
-									 <input type="hidden" class="updada${i.index}" value="${nickname.nickname}">
-									 <input type="button" class="delete2" title="${i.index}" value="X"/></div>			
+ 									 <input type="hidden" class="updada" value="${nickname.nickname}">
+							<%-- 		 <input type="button" class="delete2" title="${i.index}" value="X"/></div>		 --%>	 
 									</c:forEach>										
-																</td></tr>
+									</td></tr>
+									
 								<tr><td><div id="nick" style="display: inline-block;"></div></td></tr>
 								
 							<tr class="colorpart"><td> 일정 색상</td></tr><tr><td>
