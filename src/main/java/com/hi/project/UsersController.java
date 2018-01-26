@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hi.project.util.ListData;
 import com.hi.users.UsersDTO;
 import com.hi.users.UsersService;
 
@@ -95,11 +96,11 @@ public class UsersController {
 	
 	//2-2. 회원정보 수정 - 수정 프로세스
 	@RequestMapping(value="usersUpdate", method=RequestMethod.POST)
-	public ModelAndView update(UsersDTO usersDTO) {
+	public ModelAndView update(UsersDTO usersDTO, HttpSession session) {
 		ModelAndView mv = null;
 
 		//회원 정보 수정 프로세스
-		mv = usersService.update(usersDTO);
+		mv = usersService.update(usersDTO, session);
 
 		return mv;
 	}
@@ -117,10 +118,16 @@ public class UsersController {
 	
 	//4. 내 글 모아보기
 	@RequestMapping(value="myWrite")
-	public ModelAndView myWrite(HttpSession session) {
+	public ModelAndView myWrite(HttpSession session, ListData listData) {
 		ModelAndView mv = null;
 		
 		//글 목록 불러오기
+		try {
+			mv = usersService.myWrite(session, listData);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return mv;
 	}

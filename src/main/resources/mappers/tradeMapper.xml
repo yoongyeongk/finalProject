@@ -88,4 +88,12 @@
   		</collection>
   	</resultMap>
   	
+  	<!-- 윤경 추가 -->
+  	<select id="myBoard" parameterType="Map" resultType="tradeBoardDTO">
+  		select * from
+  		(select rownum R, N.* from
+  		(select * from TRADE_BOARD where writer=#{writer} order by num desc) N)
+  		 where R between #{rownum.startRow} and #{rownum.lastRow}
+  	</select>
+  	
   </mapper>

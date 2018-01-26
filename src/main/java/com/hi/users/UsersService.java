@@ -1,5 +1,9 @@
 package com.hi.users;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -8,14 +12,25 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hi.project.pmf.PmfBoardDAO;
+import com.hi.project.pmf.PmfBoardDTO;
 import com.hi.project.util.FileSaver;
+import com.hi.project.util.ListData;
+import com.hi.trade.TradeBoardDAO;
+import com.hi.trade.TradeBoardDTO;
 
 @Service
 public class UsersService {
 
 	@Inject
 	private UsersDAO usersDAO;
-
+	
+	@Inject
+	private PmfBoardDAO pmfBoardDAO;
+	
+	@Inject
+	private TradeBoardDAO tradeBoardDAO;
+	
 	@Inject
 	private FileSaver fileSaver;
 
@@ -39,7 +54,7 @@ public class UsersService {
 	}
 
 	@Transactional
-	public ModelAndView update(UsersDTO usersDTO) {
+	public ModelAndView update(UsersDTO usersDTO, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		
 		int result = usersDAO.update(usersDTO);
@@ -47,10 +62,11 @@ public class UsersService {
 		//파일 수정 시 처리
 		
 		if(result>0) {
-			mv.addObject("message", "수정되었습니다.");
+			//session 정보 수정하기
+			usersDTO = usersDAO.selectOne(usersDTO.getUsername());
+			session.setAttribute("user", usersDTO);
 			mv.setViewName("redirect:./myPage");
 		}else {
-			mv.addObject("message", "수정에 실패했습니다.");
 			mv.setViewName("users/usersUpdate");
 		}
 		
@@ -66,7 +82,7 @@ public class UsersService {
 		if(result>0) {
 			session.invalidate();
 			mv.addObject("message", "탈퇴되었습니다.");
-			mv.setViewName("redirect:./");
+			mv.setViewName("redirect:/");
 		}else {
 			mv.addObject("message", "탈퇴할 수 없습니다.");
 			mv.setViewName("users/myPage");
@@ -81,5 +97,29 @@ public class UsersService {
 	}
 	
 	//윤경 추가
-	
+	public ModelAndView myWrite(HttpSession session, ListData listData) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		String username = ((UsersDTO)session.getAttribute("user")).getUsername();
+		Map<String, Object> map = new HashMap<String, Object>();		//전체 board
+		
+		//1. pmf board 불러오기
+		Map<String, Object> boardMap = new HashMap<String, Object>();	//pmf 파라미터 맵
+		boardMap.put("writer", username);
+		boardMap.put("rownum", listData.makeRow());
+		
+		List<PmfBoardDTO> pmfList = pmfBoardDAO.myBoard(boardMap);
+		map.put("pmf", pmfList);
+		
+		//2. trade board 불러오기
+		List<TradeBoardDTO> tradeList = tradeBoardDAO.myBoard(boardMap);
+		map.put("trade", tradeList);
+		
+		//3. temp 불러오기
+		
+		
+		mv.addObject("map", map);
+		mv.setViewName("users/myWrite");
+		
+		return mv;
+	}
 }

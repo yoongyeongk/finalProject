@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import javax.inject.Inject;
@@ -71,5 +72,9 @@ public class TradeBoardDAO {
 	
 	public List<TradeBoardDTO> selectTagSearch (RowNum rowNum) throws Exception {
 		return sqlSession.selectList(NAMESPACE+"selectTagSearch", rowNum);
+	}
+	
+	public List<TradeBoardDTO> myBoard (Map<String, Object> boardMap) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"myBoard", boardMap);
 	}
 }

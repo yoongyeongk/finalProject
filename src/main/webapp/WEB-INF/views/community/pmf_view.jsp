@@ -139,7 +139,7 @@
 
 		//2. write
 		$(".reply_btn").click(function() {
-			var writer = '${member.nickname}';
+			var writer = '${user.nickname}';
 			var contents = $(".replyzone").val();
 
 			$.ajax({

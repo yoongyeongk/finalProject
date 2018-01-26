@@ -34,17 +34,16 @@
   		delete pmf_reply where num=#{num}
   	</delete>
   	
-  	 <update id="stepUpdate" parameterType="PmfReplyDTO" >
+  	<update id="stepUpdate" parameterType="PmfReplyDTO" >
   		<![CDATA[
 	  	update pmf_reply set step=step+1 where ref=#{ref} and step>#{step}
 	  	]]>
-	  </update>
+	</update>
 	  
-	  <insert id="reply" parameterType="PmfReplyDTO">
-	  
-	  	insert into pmf_reply 
+	<insert id="reply" parameterType="PmfReplyDTO">
+		insert into pmf_reply 
 	  	values(pmf_reply_seq.nextval,#{num},#{writer},#{contents},sysdate,
 	  	#{ref},#{step}+1,#{depth}+1)
-	  </insert>
+	</insert>
 	  
   </mapper>

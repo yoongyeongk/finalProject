@@ -100,7 +100,6 @@ public class PmfBoardService {
 	//update 2 - update
 	@Transactional
 	public int update(PmfBoardDTO pmfBoardDTO, String [] filename, String [] oriname, String [] size) throws Exception {
-		System.out.println(pmfBoardDTO.getNum());
 		int result = boardDAO.update(pmfBoardDTO);
 		
 		//파일 업로드

@@ -29,7 +29,7 @@
 			<input class="title form-control" name="title" type="text" placeholder="프로젝트 내용를 설명할 수 있는 제목을 등록해 주세요.">
 			<input type="button" value="임시저장" id="tempSave">
 			<input type="hidden" value="0" name="temp" id="temp_value">
-			<input type="hidden" value="writer" name="writer">
+			<input type="hidden" value="writer" name="${user.username}">
 			
 			<p class="des">* 표시된 항목은 필수항목입니다.</p>
 			<table class="t_project">

@@ -22,8 +22,7 @@ public class PmfScrapService {
 	
 	public ModelAndView selectList(HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		//String nickname = ((UsersDTO)session.getAttribute("user")).getNickname();
-		String nickname = "nickname";		//test용
+		String nickname = ((UsersDTO)session.getAttribute("user")).getNickname();
 		List<PmfScrapDTO> ar = pmfScrapDAO.selectList(nickname);
 		
 		for(PmfScrapDTO pmfScrapDTO: ar) {
@@ -63,8 +62,7 @@ public class PmfScrapService {
 
 	public int scrapCheck(int num, HttpSession session) throws Exception {
 		int result = 0;
-		String nickname = "nickname";
-		//session.getAttribute("member");
+		String nickname = ((UsersDTO)session.getAttribute("user")).getNickname();
 		PmfScrapDTO pmfScrapDTO = new PmfScrapDTO();
 		pmfScrapDTO.setNickname(nickname);
 		pmfScrapDTO.setNum(num);
@@ -98,8 +96,7 @@ public class PmfScrapService {
 	public int insert(String scrapNum, HttpSession session) throws Exception {
 		int result = 0;
 		PmfScrapDTO pmfScrapDTO = new PmfScrapDTO();
-		String nickname = "nickname";
-				//((MemberDTO)session.getAttribute("member")).getId();		//세션 정한 후 추가하기
+		String nickname = ((UsersDTO)session.getAttribute("user")).getNickname();
 		String [] str = scrapNum.split(",");
 		
 		for(int i=0; i<str.length; i++){

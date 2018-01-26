@@ -7,7 +7,6 @@
   		like '%'||#{search}||'%'
   	</sql>
   	
-  	
   	<resultMap type="PmfBoardDTO" id="viewResult">
   		<id property="num" column="num"/>
   		<collection property="fileDTO" column="num" ofType="com.hi.project.pmfFile.PmfFileDTO" select="selectFile">
@@ -113,4 +112,12 @@
   	<select id="selectSubKeys" parameterType="java.lang.String" resultType="java.lang.String">
   		select sub_key from pmf_key_value where major_key=#{major_key}  order by sub_key
   	</select>
+  	
+  	<select id="myBoard" parameterType="Map" resultType="PmfBoardDTO">
+  		select * from
+  		(select rownum R, N.* from
+  		(select * from pmf_board where writer=#{writer} and temp=0 order by num desc) N)
+  		where R between #{rownum.startRow} and #{rownum.lastRow}
+  	</select>
+  	
   </mapper>

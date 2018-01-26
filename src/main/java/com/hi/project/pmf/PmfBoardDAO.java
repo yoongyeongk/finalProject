@@ -1,6 +1,7 @@
 package com.hi.project.pmf;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -51,5 +52,9 @@ public class PmfBoardDAO {
 	
 	public List<String> sub_key_list(String major_key) throws Exception {
 		return sqlSession.selectList(NAMESPACE+"selectSubKeys", major_key);
+	}
+	
+	public List<PmfBoardDTO> myBoard(Map<String, Object> map) throws Exception {
+		return sqlSession.selectList(NAMESPACE+"myBoard", map);
 	}
 }

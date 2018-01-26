@@ -19,6 +19,11 @@
 		select * from users where username=#{username} and password=#{password}
 	</select>
 
+	<!-- 윤경 추가 -->
+	<select id="selectOne" parameterType="String" resultType="UsersDTO">
+		select * from users where username=#{username}
+	</select>
+
 	<update id="update" parameterType="UsersDTO">
 		update users set modify_date=sysdate, 
 		password=#{password}, 
