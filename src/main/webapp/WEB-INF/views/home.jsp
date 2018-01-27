@@ -19,9 +19,8 @@
 <link rel="stylesheet" href="resources/css/header.css">
 <link rel="stylesheet" href="resources/css/main.css">
 <body>
-
+<c:import url="temp/header.jsp"></c:import>
 	<div id="main" class="wrapper">
-		<c:import url="temp/header.jsp"></c:import>
 		<!-- contents -->
 		<div class="dashboard">
 			<div class="page-header">
@@ -114,13 +113,12 @@
 			</div>
 		</div>
 		<!-- /contents -->
+			<div style="margin-left: 300px; padding-bottom: 200px;">
+			<a href="${pageContext.request.contextPath}/pmf/pmfList">find member</a>
+			<p></p>
+			<a href="${pageContext.request.contextPath}/trade/tradeBoardList?curPage=1">매매리스트</a>
+			</div>
 	</div>
-
-<P>  The time on the server is ${serverTime}. </P>
-
-<a href="pmf/pmfList">find member</a>
-<p></p>
-<a href="${pageContext.request.contextPath }/trade/tradeBoardWrite">wt</a>
-<a href="${pageContext.request.contextPath }/trade/tradeBoardList?curPage=1">lt</a>
+	
 </body>
 </html>

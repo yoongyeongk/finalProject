@@ -15,7 +15,9 @@
 	<context:component-scan base-package="com.hi.project.pmf"></context:component-scan>
 	<context:component-scan base-package="com.hi.project.pmfReply"></context:component-scan>
 	<context:component-scan base-package="com.hi.project.pmfScrap"></context:component-scan>
+	<context:component-scan base-package="com.hi.project.pmfFile"></context:component-scan>
 	<context:component-scan base-package="com.hi.project.util"></context:component-scan>
+
 
 		<context:component-scan base-package="com.hi.trade" use-default-filters="true">
 			<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
@@ -32,5 +34,7 @@
 		<context:component-scan base-package="com.hi.saveboard" use-default-filters="true">
 			<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 		</context:component-scan>
+
+
 
 </beans>

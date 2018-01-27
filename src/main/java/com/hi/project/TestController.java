@@ -1,5 +1,7 @@
 package com.hi.project;
 
+import java.io.File;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -9,8 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.hi.file.FileDTO;
+import com.hi.project.pmfFile.PmfFileDTO;
+import com.hi.project.pmfFile.PmfFileService;
 import com.hi.project.util.FileSaver;
 
 @Controller
@@ -29,11 +34,25 @@ public class TestController {
 	@ResponseBody
 	public FileDTO fileUpload(MultipartFile file, HttpSession session, Model model) throws Exception {
 		
-		FileDTO fileDTO = new FileDTO();
+		PmfFileDTO fileDTO = new PmfFileDTO();
 		fileDTO.setOriname(file.getOriginalFilename());
 		fileDTO.setFilename(fileSaver.fileSave(file, session, "pmf_files"));
+		fileDTO.setFilesize(this.getFileSize(file));
 
 		return fileDTO;
+	}
+	
+	private String getFileSize(MultipartFile file){
+		String fileSize = "";
+		
+		long oriSize = file.getSize()/1024;
+		if(oriSize > 1024){
+			fileSize = (int)oriSize/1024 + "MB"; 
+		}else{
+			fileSize = (int)oriSize + "KB";
+		}
+		
+		return fileSize;
 	}
 	
 	@RequestMapping("login")

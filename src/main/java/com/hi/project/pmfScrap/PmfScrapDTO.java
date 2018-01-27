@@ -8,6 +8,7 @@ public class PmfScrapDTO {
 	private int num;
 	private String nickname;
 	private PmfBoardDTO pmfBoardDTO;
+	private String fin;
 	
 	public int getSnum() {
 		return snum;
@@ -32,6 +33,12 @@ public class PmfScrapDTO {
 	}
 	public void setPmfBoardDTO(PmfBoardDTO pmfBoardDTO) {
 		this.pmfBoardDTO = pmfBoardDTO;
+	}
+	public String getFin() {
+		return fin;
+	}
+	public void setFin(String fin) {
+		this.fin = fin;
 	}
 
 }

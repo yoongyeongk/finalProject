@@ -36,34 +36,10 @@ public class PmfBoardServiceTest extends AbstractTest{
 		}
 	}
 	
-	public void insert() throws Exception {
-		Calendar cal = Calendar.getInstance();
-		long date = cal.getTimeInMillis();
-		long date2 = date+(1000*60*60*60*24);
-		PmfBoardDTO pmfBoardDTO = new PmfBoardDTO();
-		pmfBoardDTO.setTitle("aaaa");
-		pmfBoardDTO.setWriter("bbbb");
-		pmfBoardDTO.setMajor_key("aaaa");
-		pmfBoardDTO.setSub_key("aaaa");
-		pmfBoardDTO.setWorks("aaaaa");
-		pmfBoardDTO.setProject_name("project_name");
-		pmfBoardDTO.setStart_date(new Date(date));
-		pmfBoardDTO.setEnd_date(new Date(date));
-		pmfBoardDTO.setProject_detail("aaaa");
-		pmfBoardDTO.setWork_kind("bbbb");
-		pmfBoardDTO.setAdmin_id("aaaa");
-		pmfBoardDTO.setAdmin_email("aaaa");
-		pmfBoardDTO.setAdmin_phone("aaaa");
-		pmfBoardDTO.setDuration_kind("상시 모집");
-		
-		int result = boardService.insert(pmfBoardDTO);
-		assertEquals(result, 1);
-	}
-	
 	@Test
 	public void test() {
 		try {
-			this.insert();
+			this.selectList();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

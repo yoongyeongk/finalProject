@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html> 
 <html>
 <head>
@@ -11,8 +12,9 @@
 <script src="https://cdn.ckeditor.com/4.8.0/basic/ckeditor.js"></script>
 <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 <link rel="stylesheet" href="../resources/css/pmf/pmf_write_css.css">
+<link rel="stylesheet" href="../resources/css/header.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Hi!Project - update form</title>
 <script type="text/javascript">
 $(function(){
 	
@@ -28,6 +30,9 @@ $(function(){
 		sendFileToServer(formdata,status);
 		}
 	}
+	
+	var cnt = 0;
+	var fileArray = [];		//새로 올린 filename을 담아둘 배열
 	
 	function sendFileToServer(formdata,status){
 		//파일 서버로 전송 및 저장
@@ -53,7 +58,13 @@ $(function(){
 			contentType: false,
 			processData: false,
 			success: function(data){
-				alert(data.filename);
+				//fileDTO 객체에 값 넣기
+				cnt++;
+				fileArray.push(data.filename);
+				$("#fileSec").append('<div id="file'+cnt+'"></div>');
+				$("#file"+cnt).append('<input type="hidden" name="filename" value="'+data.filename+'">');
+				$("#file"+cnt).append('<input type="hidden" name="oriname" value="'+data.oriname+'">');
+				$("#file"+cnt).append('<input type="hidden" name="size" value="'+data.size+'">');
 				status.setProgress(100);
 			}
 		});
@@ -61,21 +72,25 @@ $(function(){
 		status.setAbort(jqxhr);
 	}
 	
-	var rowCount = 0;
+	var rowCount = ${fn:length(view.fileDTO)};
 	function createStatusbar(drop_sec){
 		
 		rowCount++;
-		var row = "odd";
+		var row;
 		if(rowCount % 2 == 0){
 			row = "even";
+		}else{
+			row = "odd";
 		}
 		this.statusbar = $("<div class='statusbar "+row+"'></div>");
 		this.filename = $("<div class='filename'></div>").appendTo(this.statusbar);
 		this.size = $("<div class='filesize'></div>").appendTo(this.statusbar);
 		this.progressBar = $("<div class='progressBar'><div></div></div>").appendTo(this.statusbar);
 		this.abort = $("<div class='abort'>중지</div>").appendTo(this.statusbar);
+		this.delF = $('<span id="del'+cnt+'" class="deleteArray delfile">삭제</span>').appendTo(this.statusbar);
+		this.delF.hide();
 		
-		drop_sec.after(this.statusbar);
+		$("#fileSec").append(this.statusbar);
 		
 		//파일 이름과 사이즈를 구하는 메서드
 		this.setFileNameSize = function(name,size){
@@ -98,6 +113,7 @@ $(function(){
 			this.progressBar.find('div').animate({ width: progressBarWidth }, 10).html(progress + "% ");
 			if(parseInt(progress) >= 100){
 				this.abort.hide();
+				this.delF.show();
 			}
 		}
 		
@@ -139,6 +155,43 @@ $(function(){
 		
 		}
 	})
+	
+	//DB에 없는 파일 삭제하기 - 배열에서 파일명 AJAX로 넘기고, 제거
+	$("#fileSec").on("click",".deleteArray",function(){
+		var delArray = $(this);
+		var index = $(delArray).attr("id").replace("del","")*1;
+		var filename = fileArray[index];
+		//파일 이름 찾아서 데이터에서 삭제하기
+		$.ajax({
+			type: "POST",
+			url: "../pmfFile/fileDelete",
+			data:{
+				filename: filename
+			},
+			success: function(data){
+				$(delArray).parent().remove();		//div 삭제 처리
+				index = index+1;
+				$("#file"+index).remove();			//input 삭제 처리
+			}
+		});
+	});
+	
+	//이미 업로드된 파일 삭제하기
+	$(".deleteFile").click(function(){
+		var delFile = $(this);
+		var fnum = $(delFile).attr("id");
+		$.ajax({
+			type: "POST",
+			url: "../pmfFile/deleteOne",
+			data: {
+				fnum: fnum
+			},
+			success: function(data){
+				alert(data.trim());
+				$(delFile).parent().remove();
+			}
+		});
+	});
 	
 	//CKEditor
 	//name 각 DB 항목에 맞게 변경하기
@@ -201,9 +254,8 @@ $(function(){
 </script>
 </head>
 <body>
-	<h1>Update form</h1>
 	<!-- header -->
-	
+	<c:import url="../temp/header.jsp"></c:import>
 	<!-- header 끝 -->
 	
 	<section id="main">
@@ -269,23 +321,26 @@ $(function(){
 				<tr>
 					<td colspan="2">
 						<div id="dropzone">업로드할 파일을 드래그해 주세요.</div>
-						<!-- id="dropContainer"  -->
-						<input type="file" name="files" id="fileInput" multiple="multiple">
-						
-						<script type="text/javascript">
-						$(function(){
-							dropzone.ondragover = dropzone.ondragenter = function(evt) {
-								  evt.preventDefault();
-								};
-
-								dropzone.ondrop = function(evt) {
-								  // pretty simple -- but not for IE :(
-								  fileInput.files = evt.dataTransfer.files;
-								  evt.preventDefault();
-								};
-						});
-					</script>
-					
+						<div id="fileSec">
+							<c:forEach items="${view.fileDTO}" var="file" varStatus="i">
+							<c:if test="${i.count%2 == 0}">
+								<div class='statusbar even'>
+									<div class='filename'>${file.oriname}</div>
+									<div class='filesize'>${file.filesize}</div>
+									<div class='progressBar'></div>
+									<span id="${file.fnum}" class="delfile deleteFile">삭제</span>
+								</div>
+							</c:if>
+							<c:if test="${i.count%2 == 1}">
+								<div class='statusbar odd'>
+									<div class='filename'>${file.oriname}</div>
+									<div class='filesize'>${file.filesize}</div>
+									<div class='progressBar'></div>
+									<span id="${file.fnum}" class="delfile deleteFile">삭제</span>
+								</div>
+							</c:if>
+							</c:forEach>
+						</div>
 					</td>
 				</tr>
 				<tr>

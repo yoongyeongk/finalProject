@@ -10,7 +10,7 @@
   	
   	<resultMap type="PmfBoardDTO" id="viewResult">
   		<id property="num" column="num"/>
-  		<collection property="fileDTO" column="num" ofType="FileDTO" select="selectFile">
+  		<collection property="fileDTO" column="num" ofType="com.hi.project.pmfFile.PmfFileDTO" select="selectFile">
   			<id property="fnum" column="fnum"/>
   		</collection>
   	</resultMap>
@@ -56,7 +56,7 @@
   	</select>
   	
   	<!-- 파일 -->
-  	<select id="selectFile" parameterType="int" resultType="FileDTO">
+  	<select id="selectFile" parameterType="int" resultType="com.hi.project.pmfFile.PmfFileDTO">
   		select * from pmf_files where num=#{num}
   	</select>
   	

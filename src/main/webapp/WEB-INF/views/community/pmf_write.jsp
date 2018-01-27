@@ -10,235 +10,22 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdn.ckeditor.com/4.8.0/basic/ckeditor.js"></script>
 <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+<script src="../resources/js/pmf_write.js"></script>
 <link rel="stylesheet" href="../resources/css/pmf/pmf_write_css.css">
+<link rel="stylesheet" href="../resources/css/header.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<script type="text/javascript">
-$(function(){
-	
-	var file = {
-		filename: "",
-		oriname: ""
-	}
-	
-	var fileDTO = new Array();
-	
-	function fileUpload(files, drop_sec){
-		var formdata = new FormData();
-		
-		for(var i=0; i<files.length; i++){
-			formdata.append('file',files[i]);	//formdata에 받은 파일을 하나씩 추가하기(name,value)
-		
-		//progress bar 생성
-		var status = new createStatusbar(drop_sec);
-		status.setFileNameSize(files[i].name, files[i].size);
-		sendFileToServer(formdata,status);
-		}
-	}
-	
-	function sendFileToServer(formdata,status){
-		//파일 서버로 전송 및 저장
-		var jqxhr = $.ajax({
-			xhr: function(){
-				var xhrobj = $.ajaxSettings.xhr();
-				if(xhrobj.upload){
-					xhrobj.upload.addEventListener('progress',function(event){
-						var percent = 0;
-						var position = event.loaded || event.position;
-						var total = event.total;
-						if(event.lengthComputable){
-							percent = Math.ceil(position / total*100);
-						}
-						status.setProgress(percent);
-					}, false);
-				}
-				return xhrobj;
-			},
-			type: 'POST',
-			url: '../test/fileUpload',
-			data: formdata,
-			contentType: false,
-			processData: false,
-			success: function(data){
-				//fileDTO 객체에 값 넣기
-				file.filename = data.filename;
-				file.oriname = data.oriname;
-				fileDTO.push(file);				//배열에 추가
-				alert(fileDTO);
-				status.setProgress(100);		//상태 100으로 설정
-			}
-		});
-		
-		status.setAbort(jqxhr);
-	}
-	
-	var rowCount = 0;
-	function createStatusbar(drop_sec){
-		
-		rowCount++;
-		var row = "odd";
-		if(rowCount % 2 == 0){
-			row = "even";
-		}
-		this.statusbar = $("<div class='statusbar "+row+"'></div>");
-		this.filename = $("<div class='filename'></div>").appendTo(this.statusbar);
-		this.size = $("<div class='filesize'></div>").appendTo(this.statusbar);
-		this.progressBar = $("<div class='progressBar'><div></div></div>").appendTo(this.statusbar);
-		this.abort = $("<div class='abort'>중지</div>").appendTo(this.statusbar);
-		
-		drop_sec.after(this.statusbar);
-		
-		//파일 이름과 사이즈를 구하는 메서드
-		this.setFileNameSize = function(name,size){
-			var sizeStr = "";
-			var sizeKB = size/1024;
-			if(parseInt(sizeKB) > 1024){
-				var sizeMB = sizeKB/1024;	//1024KB보다 클 때 MB로 전환하기
-				sizeStr = sizeMB.toFixed(2)+" MB";
-			}else{
-				sizeStr = sizeKB.toFixed(2)+" KB";
-			}
-			
-			this.filename.html(name);
-			this.size.html(sizeStr);
-		}
-		
-		//progress bar를 생성하는 메서드
-		this.setProgress = function(progress){
-			var progressBarWidth = progress*this.progressBar.width()/100;
-			this.progressBar.find('div').animate({ width: progressBarWidth }, 10).html(progress + "% ");
-			if(parseInt(progress) >= 100){
-				this.abort.hide();
-			}
-		}
-		
-		//파일 전송을 중지하는 메서드
-		this.setAbort = function(jqxhr){
-			var sb = this.statusbar;
-			this.abort.click(function(){
-				jqxhr.abort();
-				sb.hide();
-			});
-		}
-	}
-	
-	var drop_sec = $("#dropzone");
-	$(drop_sec).on({
-		dragenter: function(event){
-			event.stopPropagation();
-			event.preventDefault();
-			$(this).css("border","2px solid gray");
-		},
-		dragleave: function(event){
-			event.stopPropagation();
-			event.preventDefault();
-			$(this).css("border","1px solid #ddd");
-		},
-		dragover: function(event){
-			event.stopPropagation();
-			event.preventDefault();
-		},
-		drop: function(event){
-			event.preventDefault();	//자동으로 파일 실행하는 것 없애기
-			$(this).css("border","1px solid #ddd");
-			var files = event.originalEvent.dataTransfer.files;
-			
-			if(files.length > 0){
-				//fileUpload
-				fileUpload(files, drop_sec);
-			}
-		}
-	})
-	
-	//CKEditor
-	//name 각 DB 항목에 맞게 변경하기
-	CKEDITOR.replace( 'project_detail' );
-	CKEDITOR.replace( 'works' );
-	CKEDITOR.replace( 'firm_info' );
-	CKEDITOR.replace( 'document' );
-	
-	//주소검색
-	$(".find_addr").postcodifyPopUp();
-	
-	//select box option
-	var major_key = "IT/인터넷";
-	$("#major_key").on({
-		change: function(){
-			major_key = $(this).val();
-			$("#sub_key").html('<option disabled="disabled">소분류</option>')
-			$.ajax({
-				type:'POST',
-				url: '../pmf/subKey',
-				dataType: 'json',
-				data: {
-					major_key: major_key
-				},
-				success: function(data){
-					for(var i=0; i<data.length; i++){
-						$("#sub_key").append('<option>'+data[i]+'</option>');
-					}
-				}
-			});
-		}
-	});
-
-	//pay value
-	$("#payment_kind").change(function(){
-		var payKind = $("#payment_kind").val();
-		if(payKind != "협의"){
-			$("#pay_value").html('<input class="form-control payValue" type="number" id="payment_value" name="payment_value"> 원');
-		}else{
-			$("#pay_value").html('');
-		}
-	});
-	
-	//마감일
-	$("#duration").change(function(){
-		var dKind = $("#duration").val();
-		if(dKind != "상시 모집"){
-			$("#dura_end").html('<input type="date" name="duration_end" class="date_select selectBox fRight form-control">');
-		}else{
-			$("#dura_end").html('');
-		}
-	});
-	
-	//작업예상기간 end_date 설정
-	$(".start_date").change(function(){
-		var start_date = $(this).val();
-		$(".end_date").attr("min",start_date);
-	});
-	
-	//form submit
-	//임시저장
-	$("#tempSave").click(function(){
-		var sDate = $(".start_date").val();
-		var eDate = $(".end_date").val();
-		if(!sDate || !eDate){
-			alert("작업예상기간은 필수사항입니다.");
-		}else{
-			$("#temp_value").val(1);
-			$("#frm").submit();	//임시저장 시 테이블에 저장
-		}
-	});
-	
-	//등록
-	$("#submit_btn").click(function(){
-		$("#frm").submit();
-	});
-});
-</script>
+<title>Hi!project - write form</title>
 </head>
 <body>
-	<h1>member find board</h1>
 	<!-- header -->
-	
+	<c:import url="../temp/header.jsp"></c:import>
 	<!-- header 끝 -->
 	
 	<section id="main">
 	
 		<!-- 게시판 내용 -->	
 		<section id="board_sec">
-		<form action="./pmfWrite" method="post" id="frm" enctype="multipart/form-data">
+		<form action="./pmfWrite" method="post" id="frm">
 			<input class="title form-control" name="title" type="text" placeholder="프로젝트 내용를 설명할 수 있는 제목을 등록해 주세요.">
 			<input type="button" value="임시저장" id="tempSave">
 			<input type="hidden" value="0" name="temp" id="temp_value">
@@ -290,23 +77,7 @@ $(function(){
 				<tr>
 					<td colspan="2">
 						<div id="dropzone">업로드할 파일을 드래그해 주세요.</div>
-						<!-- id="dropContainer"  -->
-						<input type="file" name="files" id="fileInput" multiple="multiple">
-						
-						<script type="text/javascript">
-						$(function(){
-							dropzone.ondragover = dropzone.ondragenter = function(evt) {
-								  evt.preventDefault();
-								};
-
-								dropzone.ondrop = function(evt) {
-								  // pretty simple -- but not for IE :(
-								  fileInput.files = evt.dataTransfer.files;
-								  evt.preventDefault();
-								};
-						});
-					</script>
-					
+						<div id="fileSec"></div>
 					</td>
 				</tr>
 				<tr>

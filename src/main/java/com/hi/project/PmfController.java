@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -94,17 +95,18 @@ public class PmfController {
 	
 	//글쓰기
 	@RequestMapping(value="pmfWrite", method=RequestMethod.POST)
-	public String insert(PmfBoardDTO pmfBoardDTO, RedirectAttributes rd){
+	public String insert(PmfBoardDTO pmfBoardDTO, String [] filename, String [] oriname, String [] size, RedirectAttributes rd){
+	
 		int result = 0;
 		try {
-			result = pmfBoardService.insert(pmfBoardDTO);
+			result = pmfBoardService.insert(pmfBoardDTO, filename, oriname, size);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		String message = "게시글 등록에 실패했습니다.";
-		String path = "";
+		String path = "redirect:./pmfWrite";
 		if(result>0) {
 			if(pmfBoardDTO.getTemp() == 0) {
 				message = "게시글이 등록되었습니다.";
@@ -147,10 +149,10 @@ public class PmfController {
 	
 	//update
 	@RequestMapping(value="pmfUpdate", method=RequestMethod.POST)
-	public String update(PmfBoardDTO pmfBoardDTO, RedirectAttributes rd) {
+	public String update(PmfBoardDTO pmfBoardDTO, String [] filename, String [] oriname, String [] size, RedirectAttributes rd) {
 		int result = 0;
 		try {
-			result = pmfBoardService.update(pmfBoardDTO);
+			result = pmfBoardService.update(pmfBoardDTO, filename, oriname, size);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -167,10 +169,10 @@ public class PmfController {
 	
 	//delete
 	@RequestMapping(value="pmfDelete")
-	public String delete(int num, RedirectAttributes rd) {
+	public String delete(int num, RedirectAttributes rd, HttpSession session) {
 		int result = 0;
 		try {
-			result = pmfBoardService.delete(num);
+			result = pmfBoardService.delete(num, session);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

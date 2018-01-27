@@ -16,13 +16,20 @@
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 
+	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<beans:property name="order" value="0"></beans:property>
+	</beans:bean>
+
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
 	<beans:bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
+		<beans:property name="order" value="1"/>
 	</beans:bean>
+	
+	<beans:bean class="com.hi.project.util.FileDownload" id="FileDown"></beans:bean>
 	
 	<beans:bean id="login" class="com.hi.interceptor.LoginInterceptor" />
 	
@@ -31,13 +38,14 @@
 			<mapping path="/"/>
 			<beans:ref bean="login"/>
 		</interceptor>
-		
 	</interceptors>
 	
 	<!-- 성윤 -->
 	<context:component-scan base-package="com.hi.project" />
 	<context:component-scan base-package="com.hi.users" />
 	<context:component-scan base-package="com.hi.task" />
-	
+	<!-- 서연 -->
+	<context:component-scan base-package="com.hi.schedule"/>
+	<context:component-scan base-package="com.hi.partner"/>
 
 </beans:beans>

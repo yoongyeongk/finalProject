@@ -13,8 +13,9 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- CSS -->
 	<link rel="stylesheet" href="../resources/css/pmf/pmf_view_css.css">
+	<link rel="stylesheet" href="../resources/css/header.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Hi!Project - view</title>
 <script type="text/javascript">
 	
 	function copyText(){
@@ -106,7 +107,7 @@
 		$(".clipboard_copy").click(function() {
 			copyText();
 		});
-
+		
 		//scrap
 		var scrap = $(".scrap_btn");
 		$(scrap).click(function(){
@@ -163,6 +164,7 @@
 				success: function(data){
 					$("#reply_sec").append(data);
 					$(".reply_add").attr("title",curPage);
+					
 				}
 			});
 		});
@@ -226,9 +228,8 @@
 </script>
 </head>
 <body>
-	<h1>pmf board view</h1>
 	<!-- header -->
-	
+	<c:import url="../temp/header.jsp"></c:import>
 	<!-- header 끝 -->
 	
 	<section id="main">
@@ -269,8 +270,23 @@
 				<tr>
 					<td colspan="2">
 						<div id="file_view">
-							<c:forEach items="${view.fileDTO}" var="file">
-							<a href="../../resources/pmf_file/${file.filename}">${file.oriname}</a>
+							<c:forEach items="${view.fileDTO}" var="file" varStatus="i">
+							<c:if test="${i.count%2 == 1}">
+								<div class='statusbar odd'>
+									<div class='filename'>${file.oriname}</div>
+									<div class='filesize'>${file.filesize}</div>
+									<div class='progressBar'></div>
+									<a href="../pmfFile/fileDownload?fnum=${file.fnum}" class="download">다운로드</a>
+								</div>
+							</c:if>
+							<c:if test="${i.count%2 == 0}">
+								<div class='statusbar even'>
+									<div class='filename'>${file.oriname}</div>
+									<div class='filesize'>${file.filesize}</div>
+									<div class='progressBar'></div>
+									<a href="../pmfFile/fileDownload?fnum=${file.fnum}" class="download">다운로드</a>
+								</div>
+							</c:if>
 							</c:forEach>
 						</div>
 					</td>

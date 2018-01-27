@@ -1,0 +1,134 @@
+@CHARSET "UTF-8";
+body{
+	font-family: HanSans;
+	opacity: 0.9;
+}
+.list_wrap{
+	margin: 0 auto;
+	margin-top: 50px;
+	width: 1000px;
+}
+a:hover{
+	text-decoration: none;
+	color: white;
+}
+/* myMenu div */
+#btn_wrap{
+	text-align: right;
+    padding-right: 15px;
+    margin-bottom: 10px;
+}
+.compare_btn{
+	width: 100px;
+    height: 40px;
+    border-radius: 3px;
+    background-color: rgb(94, 94, 94);
+    border: 1px solid rgb(94, 94, 94);
+    color: white;
+    font-weight: 600;
+}
+.wrap_total{
+	width: 300px;
+    background-color: rgba(26, 188, 156, 0.39);
+    border-radius: 3px;
+    height: 120px;
+    margin: 20px 12px;
+    float: left;
+}
+.wrap_total:hover{
+	background-color: rgb(46, 170, 145);
+}
+.wrap_1{
+	width: 80px;
+    height: 100%;
+    display: inline-block;
+    padding: 10px 5px 10px 10px;
+    float: left;
+}
+.image{
+	background-color: white;
+    width: 60px;
+    height: 60px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+.d-day{
+    text-align: left;
+    font-size: 11px;
+}
+.wrap_2{
+	width: 220px;
+    height: 100%;
+    display: inline-block;
+    float: right;
+    padding-left: 15px;	
+}
+.project_title{
+	font-size: 15px;
+    font-weight: 600;
+    margin-top: 8px;
+    margin-bottom: 18px;
+    text-align: center;
+}
+.works_list ul{
+	-webkit-padding-start: 25px;
+    -webkit-margin-before: -10px;
+    -webkit-margin-after: 5px;
+}
+.works_list li{
+	margin-bottom: 5px;
+}
+.tag_list{
+	font-size: 13px;
+}
+.scrap_btn{
+	font-size: 12px;
+    margin-left: 15px;
+    width: 45px;
+    padding: 2px 0;
+    color: #2eaa91;
+    background-color: #f5f5f5;
+    border: solid 1px #ccc;
+    border-radius: 3px;
+    margin-top: 10px;
+}
+
+/* modal */
+#modal{
+	width: 100%;
+	height: 100%;
+    z-index: 20;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #8080804d;
+}
+#modalSec{
+	background-color: white;
+	width: 1000px;
+    height: 500px;
+    margin: 0 auto;
+    margin-top: 150px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.t_head{
+	float: left;
+    border: solid 1px gray;
+    width: 150px;
+    height: 90%;
+    margin-top: 25px;
+    margin-left: 20px;
+}
+.t_compare{
+	float: left;
+	border-top: solid 1px gray;
+    border-bottom: solid 1px gray;
+    width: 300px;
+    height: 90%;
+    margin-top: 25px;
+}
+td, tr{
+	border: solid 1px gray;
+	text-align: center;
+}
