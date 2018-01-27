@@ -78,6 +78,7 @@ $(function() {
 				<div class="outBox">
 					<form action="tradeBoardList" method="get" id="f">
 						<input type="hidden" value="1" name="curPage"  id="curPage">
+						
 						<div class="searchBox">
 							<span class="txt">${pager.kind }</span>
 							<label for="kind" class="screen_out">검색분류선택</label>
@@ -87,7 +88,7 @@ $(function() {
 								</select>
 						</div>
 							<div class="searchInput">
-								<input type="text" name="search" id="search" value="${pager.search }" placeholder="태그 검색 예) #개발">
+								<input type="text" name="search" id="search" value="${pager.search }">
 							</div>
 							<span class="s_img">
 									<label for="s">
@@ -119,7 +120,7 @@ $(function() {
 							<tr id="top">
 								<th scope="col">기업명</th>
 								<th scope="col">프로젝트 제목</th>
-								<th scope="col">현재 경매가</th>
+								<th scope="col">최소<em>/현재 경매가</em></th>
 								<th scope="col">마감일</th>
 							</tr>
 						</thead>
@@ -135,7 +136,7 @@ $(function() {
 											</div>
 										</div>
 									</th>
-									<td class="title t"> <div class="loc"><a href="./tradeBoardView?num=${dto.num }">${dto.title }</a>
+									<td class="title t"> <div class="loc"><a href="./tradeBoardView?num=${dto.num }&writer=${user.nickname}&curPage=${param.curPage}">${dto.title }</a>
 										<div class="line"> 
 											
 												<c:forEach items="${tags }" var="t" varStatus="i">
@@ -161,8 +162,12 @@ $(function() {
 									
 									<td class="ct price">
 										<div class="loc">
-											<fmt:formatNumber value="1000" type="currency" currencySymbol="￦"/>
+											<fmt:formatNumber value="${dto.min_price }" type="currency" currencySymbol="￦"/> /
+											<div>
+												<fmt:formatNumber value="${dto.present_price }" type="currency" currencySymbol="￦"/>
+											</div>
 										</div>
+										
 									</td>
 									
 									<td class="ct date">
@@ -188,22 +193,32 @@ $(function() {
 					
 						</tbody>
 					</table>
-				</div>
-			</div>
-			
+					
 				<div class="pager">
 					<c:if test="${pager.curBlock gt 1}">
 						<span class="list" title="${pager.startNum-1 }">이전</span>
 					</c:if>
 				
 					<c:forEach  begin="${pager.startNum }" end="${pager.lastNum }" var="p">
-							<span class="list" title="${p }">${p }</span>
+							<c:choose>
+								<c:when test="${param.curPage eq p}">
+									<span class="list" id="selected" title="${p }">${p }</span>
+								</c:when>
+								<c:otherwise>
+									<span class="list" title="${p }">${p }</span>
+								</c:otherwise>
+							</c:choose>
+							
 					</c:forEach>
 					
 					<c:if test="${pager.curBlock lt pager.totalBlock }">
 						<span class="list" title="${pager.lastNum+1 }">다음</span>
 					</c:if>
 				</div>
+			
+				</div>
+	
+			</div>
 		</div>
 		
 	</list>

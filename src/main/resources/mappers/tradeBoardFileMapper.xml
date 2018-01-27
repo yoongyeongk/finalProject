@@ -9,10 +9,18 @@
   	</insert>
   	
   	<delete id="deleteOne" parameterType="Integer">
-  		delete BOARDFILE where fnum=#{num}
+  		delete BOARDFILE where fnum=#{fnum}
   	</delete>
   	
   	<delete id="deleteAll" parameterType="Integer">
   		delete BOARDFILE where num=#{num}
    	</delete>
+   	
+   	<select id="selectFile" parameterType="Integer" resultType="tradeBoardFileDTO">
+  		select * from BOARDFILE where num=#{num} order by fnum asc
+  	</select>
+  	
+  	<select id="selectOne" parameterType="Integer" resultType="tradeBoardFileDTO">
+  		select * from BOARDFILE where fnum=#{fnum}
+  	</select>
   </mapper>

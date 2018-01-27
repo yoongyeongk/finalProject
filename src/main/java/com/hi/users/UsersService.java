@@ -108,11 +108,11 @@ public class UsersService {
 		String username = ((UsersDTO)session.getAttribute("user")).getUsername();
 		Map<String, Object> map = new HashMap<String, Object>();		//전체 board
 		
-		//1. pmf board 불러오기
 		Map<String, Object> boardMap = new HashMap<String, Object>();	//pmf 파라미터 맵
 		boardMap.put("writer", username);
 		boardMap.put("rownum", listData.makeRow());
 		
+		//1. pmf board 불러오기
 		List<PmfBoardDTO> pmfList = pmfBoardDAO.myBoard(boardMap);
 		map.put("pmf", pmfList);
 		

@@ -19,13 +19,16 @@ public class TradeBoardDTO {
 	private int hit;
 	private String corporate_phone;
 	private int min_price;
+	private int present_price;
 	private String [] tag;
 	private List<TradeTagDTO> tags;
 	private MultipartFile [] img;
 	private List<TradeBoardFileDTO> fileNames;
 	private String corporation; 
 	private String email;
-	
+	private String address;
+	private String address_detail;
+	private int close;
 
 	public String getCorporation() {
 		return corporation;
@@ -117,6 +120,30 @@ public class TradeBoardDTO {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getAddress_detail() {
+		return address_detail;
+	}
+	public void setAddress_detail(String address_detail) {
+		this.address_detail = address_detail;
+	}
+	public int getPresent_price() {
+		return present_price;
+	}
+	public void setPresent_price(int present_price) {
+		this.present_price = present_price;
+	}
+	public int getClose() {
+		return close;
+	}
+	public void setClose(int close) {
+		this.close = close;
 	}
 	
 	
