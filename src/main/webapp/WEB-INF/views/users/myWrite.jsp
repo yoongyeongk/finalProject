@@ -10,6 +10,14 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Hi!Project - my board list</title>
+<script type="text/javascript">
+	$(function(){
+		var message = '${message}';
+		if(message != ''){
+			alert(message);
+		}
+	});
+</script>
 <style type="text/css">
 #myWrite_wrap{
 	width: 1000px;
@@ -18,12 +26,15 @@
 }
 .board_wrap{
 	margin: 50px 0;
+	background-color: #eeeeee24;
 }
 .board_wrap p{
-	height: 40px;
+	height: 46px;
     line-height: 40px;
     background-color: #eee;
     border-radius: 3px;
+    border-top: 3px solid #ddd;
+    border-bottom: 3px solid #ddd;
     font-size: 17px;
     font-weight: 800;
 }
@@ -47,6 +58,27 @@
 .my_t tr{
 	border: 1px solid #eee;
 }
+.tr_num{
+	width: 55px;
+}
+.tr_title{
+	width: 650px;
+}
+.tr_regdate{
+	width: 120px;
+}
+.tr_enddate{
+	width: 120px;
+}
+.tr_tmptitle{
+	width: 300px
+}
+.tr_kind{
+	width: 110px;
+}
+.td_kind, .td_title, .td_contents{
+	font-size: 12px;
+}
 </style>
 </head>
 <body>
@@ -55,17 +87,6 @@
 <!-- header 끝 -->
 
 	<section id="main">
-		<div>
-			<!-- 테이블 형식으로 만들기 
-			//상태: 임시저장/완료
-			//글제목: 없을 경우 제목 없음으로 넣기 - 전체
-			//댓글: 글제목 옆에 표시 - pmf
-			//체크박스: 한꺼번에 삭제하기 위해서 - 전체
-			//마지막 수정일 - 전체
-			//조회수: 완료 글만 - pmf/trade
-			//내용 미리보기: 프로젝트 설명부분 미리보기 (overflow hidden) -->
-		</div>
-		
 		<!-- 전체 div 목록 -->
 		<div id="myWrite_wrap">
 		
@@ -76,16 +97,20 @@
 				
 				<table class="my_t">
 					<tr>
-						<th>번호</th>
-						<th>제목</th>
-						<th>등록일</th>
-						<th>마감일</th>
-						<th>조회수</th>
+						<th class="tr_num">번호</th>
+						<th class="tr_title">제목</th>
+						<th class="tr_regdate">등록일</th>
+						<th class="tr_enddate">마감일</th>
+						<th class="tr_hit">조회수</th>
 					</tr>
+					
+					<c:if test="${map.pmf ne null}">
 					<c:forEach items="${map.pmf}" var="dto" varStatus="i">
 					<tr>
 						<td>${i.count}</td>
-						<td>${dto.title}</td>
+						<td>
+							<a href="../pmf/pmfView?num=${dto.num}">${dto.title}</a>
+						</td>
 						<td>${dto.reg_date}</td>
 						<td>
 							<c:if test="${dto.duration_kind ne '상시 모집'}">
@@ -98,58 +123,116 @@
 						<td>${dto.hit}</td>
 					</tr>
 					</c:forEach>
+					</c:if>
+					
+					<c:if test="${map.pmf eq null}">
+						<tr>
+							<td colspan="5" rowspan="3">게시글이 없습니다.</td>
+						</tr>
+					</c:if>
 				</table>
 			</div>
 		
 			<!-- 프로젝트 매매 리스트 -->
 			<div id="tradeWrote_wrap" class="board_wrap">
 				<p>프로젝트 매매</p>
-				<span>전체 글 개수: 0 개</span>
+				<span>전체 글 개수: ${fn:length(map.trade)} 개</span>
 				
 				<table class="my_t">
 					<tr>
-						<th>번호</th>
-						<th>제목</th>
-						<th>등록일</th>
-						<th>마감일</th>
-						<th>조회수</th>
+						<th class="tr_num">번호</th>
+						<th class="tr_title">제목</th>
+						<th class="tr_regdate">등록일</th>
+						<th class="tr_enddate">마감일</th>
+						<th class="tr_hit">조회수</th>
 					</tr>
+					
+					<c:if test="${map.trade ne null}">
 					<c:forEach items="${map.trade}" var="dto" varStatus="i">
 					<tr>
 						<td>${i.count}</td>
-						<td>${dto.title}</td>
+						<td>
+							<a href="#">${dto.title}</a>
+						</td>
 						<td>${dto.reg_date}</td>
 						<td>${dto.closing_date}</td>
 						<td>${dto.hit}</td>
 					</tr>
 					</c:forEach>
+					</c:if>
+					
+					<c:if test="${map.trade eq null}">
+						<tr>
+							<td colspan="5" rowspan="3">게시글이 없습니다.</td>
+						</tr>
+					</c:if>
 				</table>
 			</div>
 			
 			<!-- 임시저장 리스트 -->
 			<div id="tempsave_wrap" class="board_wrap">
 				<p>임시저장한 글</p>
-				<span>전체 글 개수: 0 개</span>
+				
+				<!-- 계산식 -->
+				<c:set var="pmf_size" value="${fn:length(map.pmfTemp)}"/>
+				<c:set var="trade_size" value="${fn:length(map.tradeTemp)}"/>
+				<c:set var="sum" value="${pmf_size+trade_size}"/>
+				<!-- 계산 끝 -->
+				
+				<span>전체 글 개수: <c:out value="${sum}"/> 개</span>
 				
 				<table class="my_t">
 					<tr>
-						<th><input type="checkbox" id="temp_chBox" class="chBox chTotal"></th>
-						<th>제목</th>
-						<th>등록일</th>
-						<th>내용</th>
+						<th class="tr_num"><input type="checkbox" id="temp_chBox" class="chBox chTotal"></th>
+						<th class="tr_kind">항목</th>
+						<th class="tr_tmptitle">제목</th>
+						<th class="tr_tmpcontents">내용</th>
+						<th class="tr_regdate">등록일</th>
 					</tr>
-					<c:forEach items="${map.temp}" var="dto">
+					
+					<c:if test="${sum != 0}">
+					<c:forEach items="${map.pmfTemp}" var="dto">
 					<tr>
 						<td><input type="checkbox" class="chBox"></td>
-						<td>${dto.title}</td>
-						<td>${dto.reg_date}</td>
-						<td>
-							<c:if test="">
-							${dto.contents}
-							</c:if>
+						<td class="td_kind">프로젝트 멤버 모집</td>
+						<td class="td_title">
+							<a href="../pmf/pmfUpdate?num=${dto.num}">
+								<c:if test="${dto.title eq null}">
+									제목 없음
+								</c:if>
+								<c:if test="${dto.title ne null}">
+									${dto.title}
+								</c:if>
+							</a>
 						</td>
+						<td class="td_contents">${dto.project_detail}</td>
+						<td>${dto.reg_date}</td>
 					</tr>
 					</c:forEach>
+					<c:forEach items="${map.tradeTemp}" var="dto">
+					<tr>
+						<td><input type="checkbox" class="chBox"></td>
+						<td class="td_kind">프로젝트 매매</td>
+						<td class="td_title">
+							<a href="../tradeSave/tradeSaveUpdate?save_num=${dto.save_num}">
+								<c:if test="${dto.title eq null}">
+									제목 없음
+								</c:if>
+								<c:if test="${dto.title ne null}">
+									${dto.title}
+								</c:if>
+							</a>
+						</td>
+						<td class="td_contents">${dto.contents}</td>
+						<td>${dto.reg_date}</td>
+					</tr>
+					</c:forEach>
+					</c:if>
+					<c:if test="${sum == 0}">
+						<tr>
+							<td colspan="5" rowspan="3">게시글이 없습니다.</td>
+						</tr>
+					</c:if>
 				</table>
 			</div>
 		</div>

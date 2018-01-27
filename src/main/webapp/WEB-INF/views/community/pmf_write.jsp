@@ -12,7 +12,6 @@
 <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 <script src="../resources/js/pmf_write.js"></script>
 <link rel="stylesheet" href="../resources/css/pmf/pmf_write_css.css">
-<link rel="stylesheet" href="../resources/css/header.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Hi!project - write form</title>
 </head>
@@ -29,7 +28,7 @@
 			<input class="title form-control" name="title" type="text" placeholder="프로젝트 내용를 설명할 수 있는 제목을 등록해 주세요.">
 			<input type="button" value="임시저장" id="tempSave">
 			<input type="hidden" value="0" name="temp" id="temp_value">
-			<input type="hidden" value="writer" name="${user.username}">
+			<input type="hidden" value="${user.username}" name="writer">
 			
 			<p class="des">* 표시된 항목은 필수항목입니다.</p>
 			<table class="t_project">

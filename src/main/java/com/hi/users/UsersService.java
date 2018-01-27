@@ -16,6 +16,8 @@ import com.hi.project.pmf.PmfBoardDAO;
 import com.hi.project.pmf.PmfBoardDTO;
 import com.hi.project.util.FileSaver;
 import com.hi.project.util.ListData;
+import com.hi.saveboard.TradeSaveDAO;
+import com.hi.saveboard.TradeSaveDTO;
 import com.hi.trade.TradeBoardDAO;
 import com.hi.trade.TradeBoardDTO;
 
@@ -30,6 +32,9 @@ public class UsersService {
 	
 	@Inject
 	private TradeBoardDAO tradeBoardDAO;
+	
+	@Inject
+	private TradeSaveDAO tradeSaveDAO;
 	
 	@Inject
 	private FileSaver fileSaver;
@@ -97,6 +102,7 @@ public class UsersService {
 	}
 	
 	//윤경 추가
+	//내 글 모아보기
 	public ModelAndView myWrite(HttpSession session, ListData listData) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		String username = ((UsersDTO)session.getAttribute("user")).getUsername();
@@ -115,11 +121,47 @@ public class UsersService {
 		map.put("trade", tradeList);
 		
 		//3. temp 불러오기
+		//3-1. pmfBoard
+		List<PmfBoardDTO> pmfTemp = pmfBoardDAO.tempList(boardMap);
 		
+		for(PmfBoardDTO dto: pmfTemp) {
+			if(dto.getProject_detail() != null) {
+				String beforeRemove = dto.getProject_detail();
+				dto.setProject_detail(this.htmlRemove(beforeRemove));
+			}else {
+				dto.setProject_detail("작성된 내용이 없습니다.");
+			}
+		}
+		
+		map.put("pmfTemp", pmfTemp);
+		
+		//3-2. tradesave
+		List<TradeSaveDTO> tradeTemp = tradeSaveDAO.selectList(boardMap);
+		
+		for(TradeSaveDTO dto: tradeTemp) {
+			if(dto.getContents() != null) {
+				String beforeRemove = dto.getContents();
+				dto.setContents(this.htmlRemove(beforeRemove));
+			}else {
+				dto.setContents("작성된 내용이 없습니다.");
+			}
+		}
+		
+		map.put("tradeTemp", tradeTemp);
 		
 		mv.addObject("map", map);
 		mv.setViewName("users/myWrite");
 		
 		return mv;
+	}
+	
+	private String htmlRemove(String beforeRemove) throws Exception {
+		String afterRemove = beforeRemove.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
+		
+		if(afterRemove.length() > 40) {
+			afterRemove = afterRemove.substring(0,40);
+		}
+		
+		return afterRemove;
 	}
 }

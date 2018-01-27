@@ -57,4 +57,8 @@ public class PmfBoardDAO {
 	public List<PmfBoardDTO> myBoard(Map<String, Object> map) throws Exception {
 		return sqlSession.selectList(NAMESPACE+"myBoard", map);
 	}
+	
+	public List<PmfBoardDTO> tempList(Map<String, Object> map) throws Exception {
+		return sqlSession.selectList(NAMESPACE+"tempList", map);
+	}
 }

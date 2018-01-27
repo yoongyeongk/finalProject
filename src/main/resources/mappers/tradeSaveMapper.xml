@@ -17,7 +17,7 @@
 	<select id="selectList" resultType="tradeSaveDTO" parameterType="java.util.Map">
 		select * from (select rowNum R,S.* from 
 		(select * from SAVE_BOARD where writer=#{writer} order by save_num desc) S) 
-		where R BETWEEN #{startRow} and #{lastRow}
+		where R BETWEEN #{rownum.startRow} and #{rownum.lastRow}
 	</select>
 	
 	<select id="selectOne" parameterType="Integer" resultType="tradeSaveDTO">

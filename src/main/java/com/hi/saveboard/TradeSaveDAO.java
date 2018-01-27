@@ -39,12 +39,8 @@ public class TradeSaveDAO {
 		return sqlSession.selectOne(NAMESPACE+"getNum");
 	}
 	
-	public List<TradeSaveDTO> selectList (String writer,RowNum rowNum) throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("writer", writer);
-		map.put("startRow", rowNum.getStartRow());
-		map.put("lastRow", rowNum.getLastRow());
-		return sqlSession.selectList(NAMESPACE+"selectList", map);
+	public List<TradeSaveDTO> selectList (Map<String, Object> boardMap) throws Exception {
+		return sqlSession.selectList(NAMESPACE+"selectList", boardMap);
 	}
 	
 	public TradeSaveDTO selectOne (int save_num) throws Exception {

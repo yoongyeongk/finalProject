@@ -49,7 +49,6 @@ public class PmfController {
 			e.printStackTrace();
 		}
 		
-		//예외처리
 		if(mv.getModel().get("list") == null) {
 			mv.addObject("message", "리스트를 불러올 수 없습니다.");
 		}
@@ -107,6 +106,7 @@ public class PmfController {
 		
 		String message = "게시글 등록에 실패했습니다.";
 		String path = "redirect:./pmfWrite";
+		
 		if(result>0) {
 			if(pmfBoardDTO.getTemp() == 0) {
 				message = "게시글이 등록되었습니다.";
@@ -202,4 +202,5 @@ public class PmfController {
 		
 		return keys;
 	}
+	
 }

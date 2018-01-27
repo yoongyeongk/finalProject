@@ -120,4 +120,11 @@
   		where R between #{rownum.startRow} and #{rownum.lastRow}
   	</select>
   	
+  	<select id="tempList" parameterType="Map" resultType="PmfBoardDTO">
+  		select * from
+  		(select rownum R, N.* from
+  		(select * from pmf_board where writer=#{writer} and temp=1 order by num desc) N)
+  		where R between #{rownum.startRow} and #{rownum.lastRow}
+  	</select>
+  	
   </mapper>

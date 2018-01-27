@@ -1,7 +1,9 @@
 package com.hi.project.pmf;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -16,6 +18,7 @@ import com.hi.project.pmfFile.PmfFileDTO;
 import com.hi.project.pmfReply.PmfReplyDAO;
 import com.hi.project.util.ListData;
 import com.hi.project.util.Pager;
+import com.hi.users.UsersDTO;
 
 @Service
 public class PmfBoardService {
@@ -69,7 +72,7 @@ public class PmfBoardService {
 		int result = boardDAO.insert(pmfBoardDTO);
 		
 		//fileDTO 생성 및 저장
-		if(filename.length != 0){
+		if(filename != null){
 			PmfFileDTO fileDTO = new PmfFileDTO();
 			for(int i=0; i<filename.length; i++){
 				fileDTO.setNum(pmfBoardDTO.getNum());
@@ -103,7 +106,7 @@ public class PmfBoardService {
 		int result = boardDAO.update(pmfBoardDTO);
 		
 		//파일 업로드
-		if(filename.length != 0){
+		if(filename != null){
 			PmfFileDTO fileDTO = new PmfFileDTO();
 			for(int i=0; i<filename.length; i++){
 				fileDTO.setNum(pmfBoardDTO.getNum());
