@@ -24,7 +24,7 @@ $(document).ready(function() {
 			var i=$(this).val();
 			if(nickname==i){
 				check=false;
-				alert('중복이다');
+				alert('추가된 유저입니다.');
 			}
 		});
 		 if(check){
@@ -358,15 +358,7 @@ margin-top: 15%;
 #colorss{
 margin-top: 20px;
 }
-.myname{
-margin : 0 auto;
-display : inline-block;
-background-color : #e7e7e7;
-}
-#pname{
-font-size: 2em;
-font-weight: bolder;
-}
+
 </style>
 </head>
 <body>
@@ -384,7 +376,6 @@ font-weight: bolder;
 		<div class="cal_nav col-md-5">
 	<form class="event_form" action="../schedule/ScheduleWrite" method="post">
 					<!-- 	//나중에 멤버로 받아오기  --> 
-					<div class="myname"><div class="myname" id="pname">${user.nickname}</div><div class="myname" id="namesm">님의 등록</div></div>
 					
 			<input type="hidden" name="username" value="${user.username}">	
 		 			<input type="hidden" id="mynick" name="mynick" value="${user.nickname}">

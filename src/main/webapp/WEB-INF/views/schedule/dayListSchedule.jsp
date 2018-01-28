@@ -120,7 +120,7 @@ $(function() {
     	${status.count}.${nickname.nickname} &nbsp  <input type="hidden" value="${nickname.nickname}" name="nicknaming" id="nicknaming">
     </c:if>
     	<c:if test="${nickname.nickname eq user.nickname}">
-    	본인[${nickname.nickname}]
+    		${status.count}.본인[${nickname.nickname}]
         <input type="hidden" value="${nickname.pnum}" id="partnerpnum" >
         </c:if>  
     </c:forEach>
@@ -132,12 +132,15 @@ $(function() {
        	<tr><td colspan="2"><button id="updateBtn">수정</button>
        	
        	<c:choose>
-       	<c:when test="${dto.num eq dto.schnum}">
+       	<c:when test="${dto.num eq dto.schnum}" >
        	<button value="${dto.schnum}" id="deleteBtn" class="deleteBtn">삭제</button>
        	</c:when>
-        	<c:when test="${dto.num ne dto.schnum}">
+       	       	<c:when test="${dto.num ne dto.schnum}" >
         	<c:forEach items="${nick}" var="nickname">
-       	<button id="partnerdeleteBtn" value="${nickname.pnum}" class="partnerdeleteBtn">삭제</button>
+        	<c:if test="${user.nickname eq nickname.nickname}">
+       	<button id="partnerdeleteBtn" value="${nickname.pnum}" class="partnerdeleteBtn">삭제 
+       	 </button>
+       	 </c:if>
        	</c:forEach>
        	</c:when>
        	</c:choose>

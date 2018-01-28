@@ -23,7 +23,7 @@ public class ScheduleDAO {
 	 }
 	 //참석자에 들어간 닉네임 가진 아이디도 스케줄 추가해주는 메서드 
 	 public int write(ScheduleDTO scheduleDTO)throws Exception{
-		 
+
 		 return sqlSession.insert(namespace+"write",scheduleDTO);
 	 }
  public int write2(ScheduleDTO scheduleDTO)throws Exception{
