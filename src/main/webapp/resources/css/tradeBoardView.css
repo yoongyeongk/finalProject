@@ -1,6 +1,6 @@
 @CHARSET "UTF-8";
 
-	@FONT-FACE {
+/* 	@FONT-FACE {
 		font-family: BMJUA;
 		src:url("../font/BMJUA_ttf.ttf");
 	}
@@ -23,7 +23,7 @@
 	@FONT-FACE{
 		font-family: NanumGothic;
 		src:url("../font/NanumGothic.ttf");
-	}
+	} */
 	view{
 		width:100%;
 	}
@@ -51,10 +51,16 @@
 		margin-top: 110px;
 	}
 	.tag_font{
-		font-family: BMJUA;
-		font-size: 19px;
-		cursor: pointer;
-		margin-right: 12px;
+		/* font-family: BMJUA; */
+		font-size: 18px;
+	    letter-spacing: -1px;
+	    background-color: #eee;
+	    padding: 3px 10px;
+	    border-radius: 3px;
+	    font-weight: 600;
+	    display: inline-block;
+	    cursor: pointer;
+	    margin-right: 12px;
 	}
 	.titleBox{
 		margin-top: 50px;
@@ -62,8 +68,9 @@
 	.title{
 		text-align: center;
 		line-height:50px;
-		font-size: 24px;
-		font-family: Daum_Regular;
+		font-size: 25px;
+		font-weight: 600;
+		/* font-family: Daum_Regular; */
 		border-bottom: 4px solid #cccccc50;
 	}
 	.contentsLine{
@@ -77,13 +84,15 @@
 		margin-top: 30px;
 	}
 	.spanBorder{
-		color: teal;
-		border: 1px solid mediumseagreen;
-		display:inline-block;
-		line-height: 20px;
-		width: 95px;
-		text-align: center;
-		margin-right: 15px;
+		color: #16a085;
+	    border: 1px solid #16a085;
+	    display: inline-block;
+	    line-height: 30px;
+	    width: 95px;
+	    height: 30px;
+	    text-align: center;
+	    margin-right: 20px;
+	    font-weight: 600;
 	}
      .frame {
      	width: 100%;
@@ -124,7 +133,7 @@
 	.scrollbar .handle {
 		width: 100px; /* overriden if dynamicHandle: 1 */
 		height: 100%;
-		background: #222;
+		background: gray;
 		}
 	.sampleView{
 		width:750px;
@@ -143,15 +152,17 @@
 		font-weight: lighter;
 	}
 	.info ul>li{
-		font-family: Daum_Regular;
+		/* font-family: Daum_Regular; */
 	}
 	.sly{
 		width: 750px;
 		margin: 0 auto;
 	}
 	.gui{
-		font-family: BMJUA;
+		/* font-family: BMJUA; */
 		font-size: 19px;
+		text-align: center;
+   		margin-bottom: 20px;
 	}
 	#map{
 		margin: 0 auto;
@@ -168,27 +179,34 @@
     margin: 230px auto;
 		}
 	}
+	/* 윤경 추가 - modal */
+	.modal{
+		background-color: #80808054;
+	}
+	/* // */
 	.md{
 		display: block;
 		margin: 0 auto;
 		margin-top: 80px;
-		font-family: BMJUA;
+		/* font-family: BMJUA; */
 	}
 	.md{
-	  background:mediumturquoise;
-	  color:#fff;
-	  border:none;
-	  position:relative;
-	  height:60px;
-	  font-size:1.6em;
-	  padding:0 2em;
-	  cursor:pointer;
-	  transition:800ms ease all;
-	  outline:none;
+		background:#16a085;
+		color:#fff;
+		border:none;
+		position:relative;
+		height:60px;
+		font-size:1.6em;
+		padding:0 2em;
+		cursor:pointer;
+		transition:800ms ease all;
+		outline:none;
+		border-radius: 5px;
+	    width: 250px;
 	}
 	.md:hover{
 	  background:#fff;
-	  color:mediumturquoise;
+	  color:#16a085;
 	}
 	.md:before,button:after{
 	  content:'';
@@ -197,7 +215,7 @@
 	  right:0;
 	  height:2px;
 	  width:0;
-	  background: mediumturquoise;
+	  background: #16a085;
 	  transition:400ms ease all;
 	}
 	.md:after{
@@ -211,7 +229,7 @@
 	  transition:800ms ease all;
 	}
 	.modal-body{
-		font-family: Daum_Regular;
+		/* font-family: Daum_Regular; */
 	}
 	.auctionBox{
 		margin-top: 30px;
@@ -227,7 +245,9 @@
     	display: inline-block;
 	}
 	.price{
-		margin-left: 40px;
+		text-align: center;
+	    font-size: 17px;
+	    font-weight: 600;
 	}
 	b{
 		color: yellowgreen;
@@ -236,17 +256,18 @@
 		background-color: inherit;
 	    margin: 0;
 	    padding: 0;
-	    border: 1px solid deepskyblue;
+	    border: 1px solid #399583;
 	    width: 90px;
 	    height: 30px;
-	    color: deepskyblue;
+	    color: #399583;
 	    border-radius: 5px;
-	    font-family: monospace;
+	   /*  font-family: monospace; */
 	    font-size: 14px;
 	}
 	.submit:hover{
-		border: 1px solid dodgerblue;
-		color: dodgerblue;
+		border: 1px solid #399583;
+		background-color: #399583;
+		color: white;
 	}
 	.position{
 		margin: 0 auto;
@@ -272,7 +293,9 @@
    		text-decoration: none;
    		background-color: white;
    		font-size: 15px;
-   		font-family: NanumSquareR;
+   		width: 100px;
+	    height: 30px;
+	    border-radius: 3px;
 	}
 	.bt>a{
 		text-decoration: none;

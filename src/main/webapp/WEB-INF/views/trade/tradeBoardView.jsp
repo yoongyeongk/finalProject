@@ -17,7 +17,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 
 <!-- Latest compiled JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sly/1.6.1/sly.min.js"></script>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f5750ac980255f71ca29e7a2ade3c637&libraries=services"></script>
@@ -105,6 +105,16 @@ var playAlert = '';
 			$(".pack").attr("readonly" , "readonly")
 		}
 
+		//윤경 추가
+		//modal open
+		$("#mdOpen").click(function(){
+			$("#myModal").show();
+		});
+		
+		$(".close").click(function(){
+			$("#myModal").hide();
+		});
+		
 	})	
 </script>
 </head>
@@ -176,20 +186,20 @@ var playAlert = '';
 				</div>
 				
 					<c:if test="${one.close eq 0 }">
-						<button type="button" class="md" data-toggle="modal" data-target="#myModal">입찰하기</button>
+						<button type="button" id="mdOpen" class="md">입찰하기</button>
 					</c:if>
 					<c:if test="${one.close eq 1 }">
 						<button type="button" class="b md">마감됐습니다</button>
 					</c:if>
 					
 					<!-- The Modal -->
-					<div class="modal fade" id="myModal">
+					<div class="modal" id="myModal">
 					  <div class="modal-dialog">
 					    <div class="modal-content">
 					
 					      <!-- Modal Header -->
 					      <div class="modal-header">
-					        <button type="button" class="close" data-dismiss="modal">&times;</button>
+					        <button type="button" class="close">&times;</button>
 					      </div>
 					
 					      <!-- Modal body -->

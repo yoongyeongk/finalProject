@@ -19,7 +19,7 @@
 		<selectKey keyProperty="rnum" resultType="int" order="BEFORE">
 			select pmf_reply_seq.nextval from dual
 		</selectKey>
-  		insert into pmf_reply values(#{rnum},#{num},#{writer},#{contents},sysdate,#{rnum},0,0)
+  		insert into pmf_reply values(#{rnum},#{num},#{writer},#{contents},sysdate,#{rnum},0,0,#{nickname})
   	</insert>
   	
   	<update id="update" parameterType="PmfReplyDTO">

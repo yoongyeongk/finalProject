@@ -32,6 +32,7 @@
 	<beans:bean class="com.hi.project.util.FileDownload" id="FileDown"></beans:bean>
 	
 	<beans:bean id="login" class="com.hi.interceptor.LoginInterceptor" />
+<!-- 	<beans:bean id="authority" class="com.hi.interceptor.AuthorityInterceptor" /> -->
 	
 	<interceptors>
 		<interceptor>
@@ -39,6 +40,12 @@
 			<exclude-mapping path="/users/login"/>
 			<beans:ref bean="login"/>
 		</interceptor>
+		
+		<!-- <interceptor>
+			<mapping path="/reply/pmfReplyUpdate*"/>
+			<mapping path="/reply/pmfReplyDelete*"/>
+			<beans:ref bean="authority"/>
+		</interceptor> -->
 	</interceptors>
 	
 	<!-- 성윤 -->

@@ -81,6 +81,7 @@ public class PmfReplyService {
 
 		pmfReplyDTO2.setWriter(pmfReplyDTO.getWriter());
 		pmfReplyDTO2.setContents(pmfReplyDTO.getContents());
+		pmfReplyDTO2.setNickname(pmfReplyDTO.getNickname());
 		
 		pmfReplyDAO.stepUpdate(pmfReplyDTO);
 		int result = pmfReplyDAO.reply(pmfReplyDTO2);

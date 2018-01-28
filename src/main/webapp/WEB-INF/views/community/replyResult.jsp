@@ -1,8 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script type="text/javascript">
 	$(function(){
+		var num;
+		<c:forEach items="${list}" var="dto">
+			num = ${dto.num};
+		</c:forEach>
+		
 		//3. update
 		$(".r_update").click(function(){
 			var re_btn = $(this);
@@ -26,7 +32,7 @@
 							},
 							success: function(data){
 								alert(data.trim());
-								location.reload();
+								replyList(num);
 							}
 						});
 					});
@@ -44,7 +50,7 @@
 				url: "../reply/pmfReplyDelete?rnum="+rnum,
 				success: function(data){
 					alert(data.trim());
-					location.reload();
+					replyList(num);
 				}
 			});
 		});
@@ -68,12 +74,13 @@
 				data: {
 					rnum: rnum,
 					ref: rnum,
-					writer: "writer",	//'${member}'
+					writer: "${user.username}",
+					nickname: "${user.nickname}",
 					contents: contents
 				},
 				success: function(data){
 					alert(data.trim());
-					location.reload();
+					replyList(num);
 				}
 			});
 		});
@@ -84,7 +91,7 @@
 <table id="oList" class="t_reply1">
 	<c:forEach items="${list}" var="dto">
 		<tr class="tr_r">
-			<td class="td_r t_1">${dto.writer}</td>
+			<td class="td_r t_1">${dto.nickname}</td>
 			<td class="td_r t_2 n_${dto.rnum}">
 				<c:forEach begin="1" end="${dto.depth}">
 				  ㄴ
@@ -92,10 +99,13 @@
 			${dto.contents}
 			</td>
 			<td class="td_r t_3">${dto.reg_date}</td>
+			<c:if test="${user.username eq dto.writer}">
 			<td class="td_r t_4" title="${dto.rnum}"> 
 				<span class="r_update r_btn glyphicon glyphicon-pencil"></span>
 				<span class="r_delete r_btn glyphicon glyphicon-remove"></span>
 			</td>
+			</c:if>
+			
 		</tr>
 		
 		<tr class="reReply${dto.rnum} re_reply" style="display: none;">

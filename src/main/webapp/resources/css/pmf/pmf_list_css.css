@@ -8,6 +8,28 @@ body{
 	margin-top: 50px;
 	width: 1000px;
 }
+#move_wrap{
+	border-bottom: 1px solid #eee;
+}
+#move_wrap a{
+	width: 450px;
+    height: 60px;
+    line-height: 60px;
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 600;
+    color: gray;
+    text-align: center;
+    border-radius: 5px;
+    border: #eee solid;
+    margin-bottom: 30px;
+}
+#move_wrap a:hover{
+	background-color: #eee;
+}
+.pmf_move{
+	margin-right: 50px;
+}
 .new{
 	width: 80px;
 	height: 30px;
@@ -17,6 +39,7 @@ body{
 	font-size: 12px;
 	font-weight: 600;
 	color: white;
+	margin-top: 30px;
 	margin-bottom: 20px;
 	background-color: rgb(22, 160, 133);
     border: solid 1px rgb(22, 160, 133);
@@ -28,8 +51,11 @@ a:hover{
 }
 
 /* pmf list div */
+#pmfList_sec{
+	padding-bottom: 50px;
+    border-bottom: 1px solid #eee;
+}
 #search_bar{
-	text-align: center;
     margin-top: 30px;
     margin-bottom: 30px;
 }
@@ -78,11 +104,12 @@ a:hover{
 	vertical-align: middle;
 }
 .t_list td{
-	height: 35px;
+	height: 45px;
+	font-size: 0.9em;
 }
 .t_list th{
-	height: 40px;
-	background-color: white;
+	height: 50px;
+	background-color: #fafafa;
 }
 .td_1{
 	width: 50px;
@@ -112,11 +139,26 @@ a:hover{
 	font-size: 12px;
 }
 
+.scrap_btn{
+	font-size: 14px;
+    width: 70px;
+    height: 35px;
+    padding: 2px 0;
+    color: #2eaa91;
+    background-color: #f5f5f5;
+    border: solid 1px #ccc;
+    border-radius: 3px;
+    float: left;
+    margin-top: 25px;
+    margin-left: 10px;
+}
+
 /* 페이징 */
 .paging{
 	text-decoration: none;
     width: 327px;
     margin: 0 auto;
+    height: 30px;
 }
 .paging_move{
 	width: 45px;
@@ -132,8 +174,11 @@ a:hover{
     background-color: rgb(244, 244, 244);
     text-align: center;
     font-size: 13px;
+    cursor: pointer;
 }
-
+.currentPage{
+	background-color: rgb(22, 160, 133) !important;
+}
 .paging li a{
 	color: black;
 }

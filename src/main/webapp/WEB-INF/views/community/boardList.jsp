@@ -9,48 +9,16 @@
 <link rel="stylesheet" href="../resources/css/header.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="../resources/js/pmf_list.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Hi!Project - community</title>
 <script type="text/javascript">
-	$(function(){
-		var message = '${message}';
-		if(message != ""){
-			alert(message);
-		}
-		
-		var curPage = 1;
-		var kind = $("#kind").val();
-		var search = "";
-		callList(curPage,kind,search);
-		
-		//검색
-		$(".search_btn").click(function(){
-			search = $("#search").val();
-			callList(curPage,kind,search);
-		});
-		
-		//페이징
-		$(".paging_one").click(function(){
-			curPage = $(this).html();
-			search = $("#search").val();
-			callList(curPage,kind,search);
-		});
-	});
-	
-	function callList(curPage,kind,search){	
-		$.ajax({
-			type: "POST",
-			url: "./pmfList",
-			data: {
-				kind: kind,
-				search: search,
-				curPage: curPage
-			},
-			success: function(data){
-				$("#listCall").html(data);
-			}
-		});
+$(function(){
+	var message = '${message}';
+	if(message != ""){
+		alert(message);
 	}
+});
 </script>
 </head>
 <body>
@@ -59,7 +27,13 @@
 <!-- header 끝 -->
 
 	<section id="main">
+	
 		<div class="list_wrap">
+			<div id="move_wrap">
+				<a class="pmf_move" href="${pageContext.request.contextPath}/pmf/pmfList">프로젝트 멤버 모집</a>
+				<a href="${pageContext.request.contextPath}/trade/tradeBoardList?curPage=1">프로젝트 판매</a>
+			</div>
+			
 			<a href="./pmfWrite" class="new">새 글 등록</a>
 
 			<div id="pmfList_sec">
@@ -76,7 +50,7 @@
 				<div id="listCall"></div>
 
 				<ul class="paging">
-					<li class="paging_move"><</li>
+					<li class="paging_move"><</li>			
 					<c:forEach begin="1" end="5" var="i">
 						<li class="paging_one">${i}</li>
 					</c:forEach>

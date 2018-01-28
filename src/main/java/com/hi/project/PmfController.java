@@ -35,7 +35,7 @@ public class PmfController {
 	//1. 페이지 이동
 	@RequestMapping(value="pmfList", method=RequestMethod.GET)
 	public String selectList() {
-		return "community/pmf_list";
+		return "community/boardList";
 	}
 	
 	//2. 리스트 불러오기

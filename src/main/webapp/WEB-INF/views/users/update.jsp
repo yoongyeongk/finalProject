@@ -5,61 +5,12 @@
 <html>
 <head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" href="../resources/css/pmf/pmf_scrap_css.css">
-<link rel="stylesheet" href="../resources/css/header.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../resources/css/update.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Hi!Project - my info update</title>
 </head>
-<style type="text/css">
-.profile_img{
-	width: 170px;
-	height: 170px;
-}
-#myInfo{
-	margin: 0 auto;
-    width: 800px;
-    height: 400px;
-    background-color: #f5f5f5;
-    border-radius: 5px;
-    margin-top: 200px;
-    padding: 50px 0;
-}
-#t_info{
-	width: 800px;
-    height: 300px;
-}
-#t_info td,#t_info th,#t_info tr{
-	border: none;
-	width: auto;
-	font-size: 17px;
-}
-#t_info th{
-	font-weight: 600;
-	text-align: center;
-}
-#t_info input{
-	height: 35px;
-    padding: 2px 10px;
-    border-radius: 3px;
-    border: 1px solid #ddd;
-}
-#move_wrap{
-	width: 800px;
-	margin: 0 auto;
-	padding: 20px 3px;
-}
-.update_btn{
-	float: right;
-	width: 150px;
-    height: 40px;
-    font-size: 18px;
-    background-color: #eee;
-    border: 1px solid #ddd;
-    border-radius: 3px;
-}
-</style>
 <body>
 <!-- header -->
 	<c:import url="../temp/header.jsp"></c:import>

@@ -11,7 +11,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <title>Insert title here</title>
-<link href="${pageContext.request.contextPath }/resources/css/tradeBoardList.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/tradeBoardList.css" rel="stylesheet">
 
 <script type="text/javascript">
 
@@ -75,7 +75,12 @@ $(function() {
 	
 	<list>
 		<div class="all">
+			<div id="move_wrap">
+				<a class="pmf_move" href="${pageContext.request.contextPath}/pmf/pmfList">프로젝트 멤버 모집</a>
+				<a href="${pageContext.request.contextPath}/trade/tradeBoardList?curPage=1">프로젝트 판매</a>
+			</div>
 
+			<div class="list_wrap">
 			<div class="box">
 				<div class="outBox">
 					<form action="tradeBoardList" method="get" id="f">
@@ -218,6 +223,7 @@ $(function() {
 					</c:if>
 				</div>
 			
+				</div>
 				</div>
 	
 			</div>

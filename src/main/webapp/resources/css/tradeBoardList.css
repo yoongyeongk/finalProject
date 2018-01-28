@@ -5,10 +5,41 @@
 		height: 100%;
 	}
 	.all{
-		width: 1200px;
+		width: 1000px;
 		height: 1600px;
 		margin: 0 auto;
 	}
+	/* 윤경 추가 */
+	a:hover{
+	text-decoration: none;
+	}
+	#move_wrap{
+	border-bottom: 1px solid #eee;
+	}
+	#move_wrap a{
+		width: 450px;
+	    height: 60px;
+	    line-height: 60px;
+	    display: inline-block;
+	    font-size: 20px;
+	    font-weight: 600;
+	    color: gray;
+	    text-align: center;
+	    border-radius: 5px;
+	    border: #eee solid;
+	    margin-bottom: 30px;
+	}
+	#move_wrap a:hover{
+	background-color: #eee;
+	}
+	.pmf_move{
+		margin-right: 50px;
+	}
+	.list_wrap{
+		padding-bottom: 50px;
+    	border-bottom: solid 1px #eee;
+	}
+	
 	.box{
 		width: 1000px;
 		height: auto;
@@ -36,7 +67,7 @@
     	border:0;
     	border-bottom: 1px solid #ddd;
     	border-top: 1px solid #ddd;
-    	font-family: "Malgun Gothic", "Arial", sans-serif !important;
+    	/* font-family: "Malgun Gothic", "Arial", sans-serif !important; */
     	font-size: 13px;
     	color: #888;
 	}
@@ -58,7 +89,7 @@
 		font-size: 15px;
 		text-decoration: none;
 		color: black;
-		font-family: NanumGothic;
+		/* font-family: NanumGothic; */
 		letter-spacing:-1px;
 	}
 	.loc>a:hover{
@@ -73,7 +104,7 @@
 	.price{
 		font-size: 12px;
     	line-height: 20px;
-    	font-family: "Malgun Gothic", "Arial", sans-serif;
+    	/* font-family: "Malgun Gothic", "Arial", sans-serif; */
     	color: #666;
 	}
 	.date{
@@ -90,7 +121,7 @@
 		text-decoration: none;
 		display: inline-block;
     	margin-top: 5px;
-    	font-family: "Malgun Gothic", "Arial", sans-serif;
+    	/* font-family: "Malgun Gothic", "Arial", sans-serif; */
 		font-size:13px;
 		margin-bottom: 5px;
 		margin-left: 1px;
@@ -182,7 +213,7 @@
 		height:40px;
 		background:url('../images/tradeBoard/ico_select_arrow.png') right center no-repeat;
 		background-color:#fff;
-		margin-top: 100px;
+		margin-top: 30px;
 		top:1px;
 	}
 	.searchBox .txt {
@@ -193,6 +224,7 @@
 		line-height:40px;
 		border:1px solid #ccc;
 		text-align:left;
+		border-radius: 3px;
 	}
 	.searchBox label {
 		overflow:hidden;
@@ -223,9 +255,11 @@
 	}
 	#search{
 		width: 300px;
-		height: 38px;
+		height: 40px;
 		padding-right: 43px;
 		padding-left: 12px;
+		border: 1px solid #ccc;
+		border-radius: 3px; 
 	}
 	.searchInput{
 		display: inline-block;
@@ -241,9 +275,9 @@
 		top:-2;
 		right: 50;
 	}
-	@FONT-FACE {
+	/* @FONT-FACE {
 	font-family: BMJUA;
 	src:url("../font/BMJUA_ttf.ttf");
 	font-family: :NanumGothic;
 	src:url("../font/NanumGothic.ttf")
-	}
+	} */
