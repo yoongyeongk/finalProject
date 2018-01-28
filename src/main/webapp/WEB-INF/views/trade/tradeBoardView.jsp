@@ -43,7 +43,9 @@ var playAlert = '';
 	    	data : {
 	    		num:num,
 	    	} , success : function(data) {
-				$("#pr").html('￦'+data.present_price)
+	    		var p = data.present_price
+	    		p = p.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+				$("#pr").html('￦'+p)
 			}
 	    })
 	  }, 2000);
@@ -193,7 +195,7 @@ var playAlert = '';
 					      <div class="modal-body">
 					        <div class="price">현재 경매가 : <b id="pr">￦${one.present_price }</b></div>
 						        <div class="auctionBox">
-						        		<form action="./tradeBoardAC" method="post" name="frm">
+						        		<form action="./tradeBoardAC?curPage=${param.curPage }" method="post" name="frm">
 						        			<input type="hidden" name="writer" value="${user.nickname }">
 											<input type="hidden" name="num" value="${param.num }">
 								        	<ul class="auctionUL">
