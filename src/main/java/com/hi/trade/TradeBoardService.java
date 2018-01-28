@@ -70,7 +70,7 @@ public class TradeBoardService {
 				c_d.set(Integer.parseInt(date[0]),Integer.parseInt(date[1])-1, Integer.parseInt(date[2]));
 				long time = c_d.getTimeInMillis() - sysdate.getTimeInMillis();
 				long day = time / (24*60*60*1000);
-				if(day < 0){
+				if(day == 0){
 					tradeBoardDAO.close(tradeBoardDTO);
 				}
 				days.add(day);

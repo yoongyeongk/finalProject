@@ -178,7 +178,7 @@ $(function() {
 											<c:forEach items="${date }" var="dt" varStatus="d">
 												<c:if test="${d.count eq l.count }">
 													<c:choose>
-														<c:when test="${dt >= 0 }">
+														<c:when test="${dt >= 1 }">
 															<p>(${dt }일 남음)</p>
 														</c:when>
 														<c:otherwise>
