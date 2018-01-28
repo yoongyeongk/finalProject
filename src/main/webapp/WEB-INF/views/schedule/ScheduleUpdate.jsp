@@ -135,14 +135,14 @@ $(document).ready(function () {
 				var j = $(this).val();
 				if(nickname==j){
 					check=false;
-					alert('중복이다');
+					alert('추가된 참석자 입니다.');
 				}
 			});
 		 $('.addnick').each(function() {
 			var i=$(this).val();
 			if(nickname==i){
 				check=false;
-				alert('중복이다');
+				alert('추가된 참석자 입니다.');
 			}
 		});
 		 if(check){

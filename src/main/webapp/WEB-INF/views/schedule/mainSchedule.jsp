@@ -182,6 +182,14 @@ $(document).ready(function() {
 	});
 	$("#startTime").change(function(){
 		alert($(this).val());
+		var start = $(this).val();
+	});
+	$("#lastTime").change(function(){
+		alert($(this).val());
+		var last = $(this).val();
+	if (start > last) {
+		alert("x");
+	}
 	});
 	});
      
