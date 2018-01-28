@@ -137,6 +137,7 @@
 					<input type="button" class="compare_btn" value="비교하기">
 				</div>
 				<div id="scrapCall">
+					<c:if test="${not empty list}">
 					<c:forEach items="${list}" var="dto">
 						<div class="wrap_total" id="${dto.snum}" data-num="${dto.pmfBoardDTO.num}">
 							<div class="wrap_1">
@@ -166,6 +167,12 @@
 							</div>
 						</div>
 					</c:forEach>
+					</c:if>
+					<c:if test="${empty list}">
+						<div id="noList">
+							스크랩한 내용이 없습니다.
+						</div>
+					</c:if>
 				</div>
 			</div>
 		</div>

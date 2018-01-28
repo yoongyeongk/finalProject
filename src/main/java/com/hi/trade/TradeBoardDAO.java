@@ -81,7 +81,7 @@ public class TradeBoardDAO {
 	}
 	
 	public List<TradeBoardDTO> myBoard (Map<String, Object> boardMap) throws Exception {
-		return sqlSession.selectOne(NAMESPACE+"myBoard", boardMap);
+		return sqlSession.selectList(NAMESPACE+"myBoard", boardMap);
 	}	
 		
 	public int insertAC (TenderDTO tenderDTO) throws Exception {

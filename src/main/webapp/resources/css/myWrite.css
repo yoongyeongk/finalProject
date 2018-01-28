@@ -1,0 +1,61 @@
+@charset "UTF-8";
+#myWrite_wrap{
+	width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+.board_wrap{
+	margin: 50px 0;
+	background-color: #eeeeee24;
+}
+.board_wrap p{
+	height: 46px;
+    line-height: 40px;
+    background-color: #eee;
+    border-radius: 3px;
+    border-top: 3px solid #ddd;
+    border-bottom: 3px solid #ddd;
+    font-size: 17px;
+    font-weight: 800;
+}
+.board_wrap span{
+	float: right;
+}
+.my_t{
+	margin-top: 60px;
+    width: 100%;
+}
+.my_t th{
+	text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    height: 40px;
+    background-color: #eee;
+}
+.my_t td{
+	height: 35px;
+}
+.my_t tr{
+	border: 1px solid #eee;
+}
+.tr_num{
+	width: 55px;
+}
+.tr_title{
+	width: 650px;
+}
+.tr_regdate{
+	width: 120px;
+}
+.tr_enddate{
+	width: 120px;
+}
+.tr_tmptitle{
+	width: 300px
+}
+.tr_kind{
+	width: 110px;
+}
+.td_kind, .td_title, .td_contents{
+	font-size: 12px;
+}

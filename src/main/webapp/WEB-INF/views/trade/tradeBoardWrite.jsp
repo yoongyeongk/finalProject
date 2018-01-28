@@ -7,16 +7,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
+<!-- bootstrap -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="//cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.4.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -169,13 +163,13 @@
 	var totalCount = 0;
 	var minute = 300000;
 	var fnc;
-	var nickName = '${user.nickname}';
+	var writer = '${user.username}';
 	var list = { 
 			call : function(id, curPage) {
-			$.post("../tradeSave/saveList?writer=" + id + "&curPage=" + curPage+ "&save_num=" + save_num, function(data) {
-				$(".list").html(data.trim())
+			$.post("../tradeSave/saveList?writer=" + writer + "&curPage=" + curPage+ "&save_num=" + save_num, function(data) {
+				$(".list").html(data.trim());
 				getCount();
-				$(".listCall span").html("(" + totalCount + ")")
+				$(".listCall span").html("(" + totalCount + ")");
 			})
 		}
 	}
@@ -233,7 +227,7 @@
 							contents : contents
 						},
 						success : function(data) {
-							list.call(nickName, 1, save_num)
+							list.call(writer, 1, save_num)
 						}
 					})
 				}, minute);
@@ -252,7 +246,7 @@
 		$("#over").css("display", "none");
 		$(".hideSet").css("display", "none");
 
-		list.call(nickName, 1, save_num);
+		list.call(writer, 1, save_num);
 
 		$(".listCall").click(function() {
 			if ($("#over").css("display") == 'block') {
@@ -391,6 +385,12 @@
 </script>
 </head>
 <body>
+<!-- header -->
+	<c:import url="../temp/header.jsp"></c:import>
+<!-- header 끝 -->
+
+	<section id="main">
+
 	<div id="fakeLoader"></div>
 	<contents>
 	<div class="all">
@@ -406,7 +406,7 @@
 					<span class="star">*</span> <input type="text" name="title"
 						id="title" value="${one.title }" placeholder="프로젝트의 제목을 입력해주세요."
 						onkeyup="timeout()" style="padding-left: 12px"> <input
-						type="hidden" name="writer" id="writer" value="${user.nickname}"
+						type="hidden" name="writer" id="writer" value="${user.username}"
 						required="required">
 				</div>
 			</div>
@@ -615,6 +615,8 @@
 		</form>
 	</div>
 	</contents>
+	
+</section>
 	<script>
 		// 우편번호 찾기 화면을 넣을 element
 		var element_layer = document.getElementById('layer');

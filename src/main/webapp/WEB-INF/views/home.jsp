@@ -12,11 +12,9 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="//cdn.ckeditor.com/4.8.0/basic/ckeditor.js"></script>
-<script src="resources/js/sidebar.js"></script>
 <script src="resources/js/project.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link href="https://use.fontawesome.com/releases/v5.0.3/css/all.css" rel="stylesheet">
-<link rel="stylesheet" href="resources/css/header.css">
 <link rel="stylesheet" href="resources/css/main.css">
 <body>
 <c:import url="temp/header.jsp"></c:import>

@@ -7,23 +7,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
 
-<!-- jQuery library -->
+<!-- bootstrap -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <!-- Popper JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 
 <!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sly/1.6.1/sly.min.js"></script>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f5750ac980255f71ca29e7a2ade3c637&libraries=services"></script>
+
 <title>Insert title here</title>
 <link href="${pageContext.request.contextPath }/resources/css/tradeBoardView.css" rel="stylesheet">
 <script type="text/javascript">
@@ -111,6 +109,11 @@ var playAlert = '';
 </script>
 </head>
 <body>
+<!-- header -->
+	<c:import url="../temp/header.jsp"></c:import>
+<!-- header 끝 -->
+
+	<section id="main">
   <view>
   
 	<div class="all">
@@ -220,6 +223,8 @@ var playAlert = '';
 			 </div>
 			</div>
 	 </view>
+	 
+	</section>
  <script>
  var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
  mapOption = {

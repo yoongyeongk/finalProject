@@ -14,7 +14,7 @@
 		select * from SAVE_BOARD
 	</select>
 	
-	<select id="selectList" resultType="tradeSaveDTO" parameterType="java.util.Map">
+	<select id="selectList" resultType="tradeSaveDTO" parameterType="Map">
 		select * from (select rowNum R,S.* from 
 		(select * from SAVE_BOARD where writer=#{writer} order by save_num desc) S) 
 		where R BETWEEN #{rownum.startRow} and #{rownum.lastRow}

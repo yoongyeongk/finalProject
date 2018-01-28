@@ -27,6 +27,15 @@ a:hover{
     color: white;
     font-weight: 600;
 }
+#scrap_call{
+	border-top: 3px solid #ddd;
+    border-bottom: 3px solid #ddd;
+}
+#noList{
+	font-size: 20px;
+    text-align: center;
+    line-height: 500px;
+}
 .wrap_total{
 	width: 300px;
     background-color: rgba(26, 188, 156, 0.39);

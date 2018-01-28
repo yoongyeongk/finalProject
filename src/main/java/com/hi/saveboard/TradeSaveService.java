@@ -31,7 +31,7 @@ public class TradeSaveService {
 		//윤경 수정
 		Map<String, Object> boardMap = new HashMap<String, Object>();
 		boardMap.put("writer", writer);
-		boardMap.put("rowNum", rowNum);
+		boardMap.put("rownum", rowNum);
 		
 		List<TradeSaveDTO> ar = tradeSaveDAO.selectList(boardMap);
 		//
@@ -86,8 +86,8 @@ public class TradeSaveService {
 		TradeSaveDTO tradeSaveDTO = tradeSaveDAO.selectOne(save_num);
 		
 		if(tradeSaveDTO != null) {
-			mv.addObject("view", tradeSaveDTO);
-			mv.setViewName("trade/tradeBoardView");
+			mv.addObject("one", tradeSaveDTO);
+			mv.setViewName("trade/tradeBoardWrite");
 		}else {
 			mv.addObject("message", "내용을 불러올 수 없습니다.");
 			mv.setViewName("redirect:../users/myWrite");

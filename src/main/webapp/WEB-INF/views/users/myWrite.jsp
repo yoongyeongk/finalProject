@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/myWrite.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Hi!Project - my board list</title>
 <script type="text/javascript">
@@ -18,68 +19,6 @@
 		}
 	});
 </script>
-<style type="text/css">
-#myWrite_wrap{
-	width: 1000px;
-    margin: 0 auto;
-    text-align: center;
-}
-.board_wrap{
-	margin: 50px 0;
-	background-color: #eeeeee24;
-}
-.board_wrap p{
-	height: 46px;
-    line-height: 40px;
-    background-color: #eee;
-    border-radius: 3px;
-    border-top: 3px solid #ddd;
-    border-bottom: 3px solid #ddd;
-    font-size: 17px;
-    font-weight: 800;
-}
-.board_wrap span{
-	float: right;
-}
-.my_t{
-	margin-top: 60px;
-    width: 100%;
-}
-.my_t th{
-	text-align: center;
-    font-size: 15px;
-    font-weight: 600;
-    height: 40px;
-    background-color: #eee;
-}
-.my_t td{
-	height: 35px;
-}
-.my_t tr{
-	border: 1px solid #eee;
-}
-.tr_num{
-	width: 55px;
-}
-.tr_title{
-	width: 650px;
-}
-.tr_regdate{
-	width: 120px;
-}
-.tr_enddate{
-	width: 120px;
-}
-.tr_tmptitle{
-	width: 300px
-}
-.tr_kind{
-	width: 110px;
-}
-.td_kind, .td_title, .td_contents{
-	font-size: 12px;
-}
-</style>
 </head>
 <body>
 <!-- header -->
@@ -104,7 +43,7 @@
 						<th class="tr_hit">조회수</th>
 					</tr>
 					
-					<c:if test="${map.pmf ne null}">
+					<c:if test="${not empty map.pmf}">
 					<c:forEach items="${map.pmf}" var="dto" varStatus="i">
 					<tr>
 						<td>${i.count}</td>
@@ -125,7 +64,7 @@
 					</c:forEach>
 					</c:if>
 					
-					<c:if test="${map.pmf eq null}">
+					<c:if test="${empty map.pmf}">
 						<tr>
 							<td colspan="5" rowspan="3">게시글이 없습니다.</td>
 						</tr>
@@ -147,12 +86,12 @@
 						<th class="tr_hit">조회수</th>
 					</tr>
 					
-					<c:if test="${map.trade ne null}">
+					<c:if test="${not empty map.trade}">
 					<c:forEach items="${map.trade}" var="dto" varStatus="i">
 					<tr>
 						<td>${i.count}</td>
 						<td>
-							<a href="#">${dto.title}</a>
+							<a href="../trade/tradeBoardView?num=${dto.num}&writer=${dto.writer}">${dto.title}</a>
 						</td>
 						<td>${dto.reg_date}</td>
 						<td>${dto.closing_date}</td>
@@ -161,7 +100,7 @@
 					</c:forEach>
 					</c:if>
 					
-					<c:if test="${map.trade eq null}">
+					<c:if test="${empty map.trade}">
 						<tr>
 							<td colspan="5" rowspan="3">게시글이 없습니다.</td>
 						</tr>

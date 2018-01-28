@@ -7,23 +7,22 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 public class LoginInterceptor extends HandlerInterceptorAdapter  {
-	/*
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		HttpSession session = request.getSession();
-		Object obj = session.getAttribute("user");
+		Object obj = request.getSession().getAttribute("user");
 		boolean check = true;
 		
 		if(obj == null) {
-			response.sendRedirect(session.getServletContext().getContextPath());
 			check = false;
+			response.sendRedirect(request.getContextPath()+"/users/login");
 		}
 		
 		return check;
 	}
-	*/
-	@Override
+	
+	/*@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 		// UsersDTO usersDTO = (UsersDTO) request.getSession().getAttribute("user");
@@ -31,9 +30,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter  {
 		if(obj == null) {
 			modelAndView.setViewName("common/result");
 			modelAndView.addObject("message", "로그인 후 이용하세요.");
-			response.sendRedirect("users/login");
+			response.sendRedirect("./users/login");
 		}
 		
-		super.postHandle(request, response, handler, modelAndView);
-	}
+		//super.postHandle(request, response, handler, modelAndView);
+	}*/
 }

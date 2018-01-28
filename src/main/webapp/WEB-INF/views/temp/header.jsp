@@ -11,7 +11,7 @@
 	<a data-toggle="sidebar" class="sideOn sidebar-btn" href="#"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></a>
 	
 	<!-- logo-img -->
-	<a href="#" id="logo">
+	<a href="${pageContext.request.contextPath}/" id="logo">
 		<img class="logo-img" src="${pageContext.request.contextPath}/resources/images/logo_3.png">
 	</a>
 	

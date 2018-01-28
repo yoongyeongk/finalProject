@@ -69,7 +69,7 @@ public class TradeSaveController {
 	
 	@RequestMapping(value="saveList")
 	@ResponseBody
-	public ModelAndView selectList ( int save_num,String writer,ListData listData) {
+	public ModelAndView selectList (int save_num, String writer, ListData listData) {
 		ModelAndView view = new ModelAndView();
 		listData.setPerPage(5);
 		try {
