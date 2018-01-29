@@ -45,11 +45,8 @@
 		height: auto;
 		margin: 0 auto;
 	}
-	#listBox{
-		margin-top: 30px;
-	}
 	#tb{
-		width: 950px;
+		width: 1000px;
 		table-layout: fixed;
 		border-left: none;
 		border-right: none;
@@ -62,7 +59,7 @@
 	}
 	#top>th{
 		text-align: center;
-    	height: 37px;
+    	height: 50px;
     	background: #fafafa;
     	border:0;
     	border-bottom: 1px solid #ddd;

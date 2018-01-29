@@ -197,7 +197,7 @@ public class TradeBoardController {
 	}
 	
 	@RequestMapping(value="tradeBoardAC" , method = RequestMethod.POST)
-	public String insertAC (Model model,TenderDTO tenderDTO){
+	public String insertAC (Model model,TenderDTO tenderDTO,int curPage){
 			String message = "등록실패했습니다 ,금액을 다시 확인해주세요";
 			int result = 0;
 			TenderDTO tenderDTO2 = null;
@@ -214,7 +214,7 @@ public class TradeBoardController {
 						tradeBoardService.updatePrice(tenderDTO);
 					}
 				 model.addAttribute("message", message);
-				 model.addAttribute("path", "./tradeBoardView?num="+tenderDTO.getNum()+"&writer="+tenderDTO.getWriter());
+				 model.addAttribute("path", "./tradeBoardView?num="+tenderDTO.getNum()+"&writer="+tenderDTO.getWriter()+"&curPage="+curPage);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

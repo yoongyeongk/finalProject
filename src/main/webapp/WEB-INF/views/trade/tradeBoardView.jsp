@@ -209,7 +209,7 @@ var playAlert = '';
 					      <div class="modal-body">
 					        <div class="price">현재 경매가 : <b id="pr">￦${one.present_price }</b></div>
 						        <div class="auctionBox">
-						        		<form action="./tradeBoardAC" method="post" name="frm">
+						        		<form action="./tradeBoardAC?curPage=${param.curPage }" method="post" name="frm">
 						        			<input type="hidden" name="writer" value="${user.nickname }">
 											<input type="hidden" name="num" value="${param.num }">
 								        	<ul class="auctionUL">
