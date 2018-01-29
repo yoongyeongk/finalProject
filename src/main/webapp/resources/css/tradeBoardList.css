@@ -156,12 +156,10 @@
 	}
 	.b{
 		display: inline-block;
-   	 	border: 1px solid #dcdede;
-   	 	border-right: 1px solid #c0c3c6;
- 		border-bottom: 1px solid #c0c3c6;
- 		color: #606060;
    		text-decoration: none;
-   		background-color: white;
+   		background-color: rgb(22, 160, 133);
+	    border: solid 1px rgb(22, 160, 133);
+	    border-radius: 4px;
 	}
 	#write,#tenderList{
 		width: 80px;
@@ -171,6 +169,7 @@
 		line-height: 25px;
 		font-weight: bold;
 		margin-left: 10px;
+		color: white;
 	}
 	#write:hover,#tenderList:hover{
 		text-decoration: none;
