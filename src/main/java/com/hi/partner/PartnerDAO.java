@@ -19,5 +19,18 @@ public class PartnerDAO {
 	public int partnerinsert(PartnerDTO partnerDTO)throws Exception{
 		return sqlSession.insert(NAMESPACE+"partnerInsert", partnerDTO);
 	}
+	public List<PartnerDTO> partnerList(int schnum)throws Exception{
+		return sqlSession.selectList(NAMESPACE+"partnerList", schnum);
+	}
+	public int partnerDelete(int schnum)throws Exception{
+		return sqlSession.delete(NAMESPACE+"partnerDelete",schnum);
+	}
 	
+	 public int SchdulepartDelete(int pnum)throws Exception{
+		 return sqlSession.delete(NAMESPACE+"SchdulepartDelete", pnum);
+	 }
+	
+	public int partnerPnum(int pnum)throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"partnerPnum",pnum);
+	}
 }

@@ -34,28 +34,24 @@
 						<c:choose>
 							<c:when test="${list.privacy eq 'private'}">
 								<i class="fas fa-lock"></i>
-								<!-- <span class="glyphicon glyphicon-lock"></span> -->
 							</c:when>
 							<c:otherwise>
 								<i class="fas fa-globe"></i>
-								<!-- <span class="glyphicon glyphicon-globe"></span> -->
 							</c:otherwise>
 						</c:choose>
 						<span>프로젝트명</span>
-						<!-- <span class="glyphicon glyphicon-cogwheel"></span> -->
-					</div>
-					<div class="project-side">
-						<c:choose>
-							<c:when test="${list.star eq 0}">
-								<i class="far fa-star"></i>
-								<!-- <span class="glyphicon glyphicon-star-empty"></span> -->
-							</c:when>
-							<c:otherwise>
-								<i class="fas fa-star"></i>
-								<!-- <span class="glyphicon glyphicon-star"></span> -->
-							</c:otherwise>
-						</c:choose>
-						<i class="fas fa-cog"></i>
+						
+						<div class="project-side">
+							<c:choose>
+								<c:when test="${list.star eq 0}">
+									<i class="far fa-star"></i>
+								</c:when>
+								<c:otherwise>
+									<i class="fas fa-star"></i>
+								</c:otherwise>
+							</c:choose>
+							<i class="fas fa-cog"></i>
+						</div>
 					</div>
 					<div class="project-footer">
 						<select class="status" name="status">
