@@ -38,14 +38,14 @@
 
 	<update id="update" parameterType="ProjectDTO">
 		update project
-		<set>
+		<trim prefix="SET" suffixOverrides=",">
 			<if test="title != null">title = #{title},</if>
 			<if test="privacy != null">privacy = #{privacy},</if>
 			<if test="status != null">status = #{status},</if>
 			<if test="start_date != null">start_date = #{start_date},</if>
-			<if test="close_date != null">close_date = #{close _date},</if>
+			<if test="close_date != null">close_date = #{close_date},</if>
 			<if test="star != null">star = #{star}</if>
-		</set>
+		</trim>
 		where project_id = #{project_id}
 	</update>
 

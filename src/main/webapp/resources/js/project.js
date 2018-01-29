@@ -1,8 +1,6 @@
 $(function() {
 	list();
 	create();
-	update();
-	
 	
 	$(".page-contents").on("click", "a", function(e) {
 		var project_id = $(this).data("id");
@@ -15,6 +13,10 @@ $(function() {
 			var project_id = $(this).data("id");
 			location.href = "task/main?project_id="+project_id;
 		}
+	});
+	
+	$("#update-project").click(function() {
+		update();
 	});
 });
 
@@ -126,17 +128,15 @@ function create() {
 }
 
 function update() {
-	$("#update-project").click(function() {
-		var param = $("#update-frm").serialize();
-		$.ajax({
-			type : 'post',
-			url : "project/update",
-			data : param,
-			dataType : 'json',
-			success : function(data) {
-				console.log(data);
-			}
-		});
+	var param = $("#update-frm").serialize();
+	$.ajax({
+		type : 'post',
+		url : "project/update",
+		data : param,
+		dataType : 'json',
+		success : function(data) {
+			console.log(data);
+		}
 	});
 }
 

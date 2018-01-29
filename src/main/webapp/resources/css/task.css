@@ -19,6 +19,24 @@
 	height: inherit;
 }
 
+.page-contents {
+	height: inherit;
+}
+/* 
+.task {
+	width: 305px;
+	display: inline-block;
+}
+ */
+.status-label {
+	display: block;
+}
+
+.dashboard {
+	margin: 100px;
+	height: inherit;
+}
+
 .page-header {
 	padding-bottom: 25px;
 }
@@ -27,13 +45,31 @@
 	height: inherit;
 }
 
-.section {
-	width: 32.5%;
+.section-wrap {
+	width: 32%;
 	margin: 0 5px;
 	height: 100%;
 	display: inline-block;
 	background-color: gainsboro;
 	float: left;
+}
+
+.section-header label {
+	color: white;
+	font-size: 20px;
+	padding: 5px 10px;
+}
+
+.open-header {
+	background-color: #47cc8a;
+}
+
+.in-progress-header {
+	background-color: #00aaff;
+}
+
+.done-header {
+	background-color: #8f7ee6;
 }
 
 .title-wrap {
@@ -64,6 +100,12 @@
 
 .title-wrap input {
 	border: none;
+	cursor: pointer;
+}
+
+.delete-btn {
+	display: inline-block;
+	float: right;
 }
 
 .fa-arrow-left:before {
@@ -72,7 +114,13 @@
 	color: cadetblue;
 }
 
-.reply {
+.add-task {
+	text-align: center;
+	font-size: 25px;
+	color: white;
+}
+
+.input-comment {
 	width: 465px;
 	resize: none;
 	padding: 10px;
@@ -82,7 +130,7 @@
 	font-size: 12px;
 }
 
-.reply-btn {
+.new-comment {
 	width: 90px;
 	height: 100px;
 	float: right;

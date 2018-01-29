@@ -15,6 +15,7 @@
 		<typeAlias type="com.hi.member.MemberDTO" alias="MemberDTO"/>
 		<typeAlias type="com.hi.task.TaskDTO" alias="TaskDTO" />
 		<typeAlias type="com.hi.checklist.ChecklistDTO" alias="ChecklistDTO" />
+		<typeAlias type="com.hi.taskFile.TaskFileDTO" alias="TaskFileDTO" />
 		<typeAlias type="com.hi.comment.CommentDTO" alias="CommentDTO" />
 
 		<!-- yoongyeong -->

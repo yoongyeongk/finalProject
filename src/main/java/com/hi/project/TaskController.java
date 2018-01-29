@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hi.comment.CommentDTO;
-import com.hi.comment.CommentService;
 import com.hi.task.TaskDTO;
 import com.hi.task.TaskService;
+import com.hi.taskFile.TaskFileDTO;
 
 @Controller
 @RequestMapping(value = "/task/*")
@@ -21,7 +21,6 @@ public class TaskController {
 
 	@Inject
 	private TaskService taskService;
-	private CommentService commentService;
 
 	@RequestMapping(value = "main", method = RequestMethod.GET)
 	public ModelAndView main(int project_id) {
@@ -36,45 +35,71 @@ public class TaskController {
 	public List<TaskDTO> list(int project_id) {
 		return taskService.list(project_id);
 	}
-	
-	@RequestMapping(value = "commentList")
-	@ResponseBody
-	public List<CommentDTO> commentList(int task_id) {
-		return commentService.list(task_id);
-	}
-	
-	@RequestMapping(value = "commentWrite")
-	@ResponseBody
-	public int commentWrite(CommentDTO commentDTO) {
-		return commentService.insert(commentDTO);
-	}
-	
-	@RequestMapping(value = "commentUpdate")
-	@ResponseBody
-	public int commentUpdate(CommentDTO commentDTO) {
-		return commentService.update(commentDTO);
-	}
-	
-	@RequestMapping(value = "commentDelete")
-	@ResponseBody
-	public int commentDelete(int comment_id) {
-		return commentService.delete(comment_id);
-	}
-
-	@RequestMapping(value = "fileUpload")
-	public void fileUpload() {
-	}
 
 	@RequestMapping(value = "create")
 	@ResponseBody
-	public void create(TaskDTO taskDTO) {
+	public int create(TaskDTO taskDTO) {
+		return taskService.create(taskDTO);
+	}
 
+	@RequestMapping(value = "update")
+	@ResponseBody
+	public int update(TaskDTO taskDTO) {
+		return taskService.update(taskDTO);
+	}
+
+	@RequestMapping(value = "delete")
+	@ResponseBody
+	public int delete(int task_id) {
+		return taskService.delete(task_id);
 	}
 
 	@RequestMapping(value = "view")
 	@ResponseBody
 	public TaskDTO view(int task_id) {
 		return taskService.view(task_id);
+	}
+
+	@RequestMapping(value = "file/list")
+	@ResponseBody
+	public List<TaskFileDTO> fileList(int task_id) {
+		return taskService.fileList(task_id);
+	}
+
+	@RequestMapping(value = "file/upload")
+	@ResponseBody
+	public int fileUpload(TaskFileDTO taskFileDTO) {
+		return taskService.fileUpload(taskFileDTO);
+	}
+
+	@RequestMapping(value = "file/delete")
+	@ResponseBody
+	public int fileDelete(int file_id) {
+		return taskService.fileDelete(file_id);
+	}
+
+	@RequestMapping(value = "comment/list")
+	@ResponseBody
+	public List<CommentDTO> commentList(int task_id) {
+		return taskService.commentList(task_id);
+	}
+
+	@RequestMapping(value = "comment/write")
+	@ResponseBody
+	public int commentWrite(CommentDTO commentDTO) {
+		return taskService.commentWrite(commentDTO);
+	}
+
+	@RequestMapping(value = "comment/update")
+	@ResponseBody
+	public int commentUpdate(CommentDTO commentDTO) {
+		return taskService.commentUpdate(commentDTO);
+	}
+
+	@RequestMapping(value = "comment/delete")
+	@ResponseBody
+	public int commentDelete(int comment_id) {
+		return taskService.commentDelete(comment_id);
 	}
 
 }

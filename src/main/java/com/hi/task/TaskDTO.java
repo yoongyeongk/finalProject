@@ -1,17 +1,20 @@
 package com.hi.task;
 
 import java.sql.Date;
+import java.util.List;
+
+import com.hi.comment.CommentDTO;
+import com.hi.file.FileDTO;
 
 public class TaskDTO {
 	private int task_id;
 	private int project_id;
 	private String title;
-	private String comments;
-	private String checklist;
 	private Date start_date;
 	private Date close_date;
-	private String tag;
 	private String status;
+	private List<CommentDTO> comment;
+	private List<FileDTO> filename;
 
 	public int getTask_id() {
 		return task_id;
@@ -37,22 +40,6 @@ public class TaskDTO {
 		this.title = title;
 	}
 
-	public String getComments() {
-		return comments;
-	}
-
-	public void setComments(String comments) {
-		this.comments = comments;
-	}
-
-	public String getChecklist() {
-		return checklist;
-	}
-
-	public void setChecklist(String checklist) {
-		this.checklist = checklist;
-	}
-
 	public Date getStart_date() {
 		return start_date;
 	}
@@ -69,20 +56,28 @@ public class TaskDTO {
 		this.close_date = close_date;
 	}
 
-	public String getTag() {
-		return tag;
-	}
-
-	public void setTag(String tag) {
-		this.tag = tag;
-	}
-
 	public String getStatus() {
 		return status;
 	}
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public List<CommentDTO> getComment() {
+		return comment;
+	}
+
+	public void setComment(List<CommentDTO> comment) {
+		this.comment = comment;
+	}
+
+	public List<FileDTO> getFilename() {
+		return filename;
+	}
+
+	public void setFilename(List<FileDTO> filename) {
+		this.filename = filename;
 	}
 
 }

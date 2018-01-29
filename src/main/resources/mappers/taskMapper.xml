@@ -7,7 +7,65 @@
 		where t.project_id=#{project_id}
 	</select>
 
-	<select id="view" parameterType="int" resultType="TaskDTO">
+	<select id="view" parameterType="int" resultMap="TaskResult">
 		select * from task where task_id=#{task_id}
 	</select>
+	
+	<insert id="create" parameterType="TaskDTO">
+		insert into task (task_id, project_id, title, comment_id, start_date, close_date, status)
+		values (task_seq.nextval, #{project_id}, #{title}, null, null, null, #{status})
+	</insert>
+	
+	<update id="update" parameterType="TaskDTO">
+		update task 
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="title != null">title = #{title},</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="start_date != null">start_date = #{start_date},</if>
+			<if test="close_date != null">close_date = #{close_date}</if>
+		</trim>
+		<!-- set title = #{title}, status = #{status}, start_date = #{start_date}, close_date = #{close_date} -->
+		where task_id = #{task_id}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from task where task_id = #{task_id}
+	</delete>
+	
+	<resultMap type="TaskDTO" id="TaskResult">
+		<id property="task_id" column="task_id"/>
+		<collection property="comment" column="task_id" javaType="ArrayList" ofType="CommentDTO" select="commentList"></collection>
+	</resultMap>
+	
+	<select id="fileList" parameterType="int" resultType="TaskFileDTO">
+		select * from task_file where task_id = #{task_id}
+	</select>
+	
+	<insert id="fileUpload" parameterType="TaskFileDTO">
+		insert into task_file (file_id, task_id, file_name, original_name)
+		values (TASKFILE_SEQ.nextval, #{task_id}, #{file_name}, #{original_name})
+	</insert>
+	
+	<delete id="fileDelete" parameterType="int">
+		delete from task_file where file_id = #{file_id}
+	</delete>
+
+	<select id="commentList" parameterType="int" resultType="CommentDTO">
+		select c.*
+		from task t, comments c
+		where t.task_id=c.task_id and t.task_id=#{task_id}
+	</select>
+	
+	<insert id="commentWrite" parameterType="CommentDTO">
+		insert into comments (comment_id, contents, writer, reg_date, task_id)
+		values (comment_seq.nextval, #{contents}, #{writer}, sysdate, #{task_id})
+	</insert>
+	
+	<update id="commentUpdate" parameterType="CommentDTO">
+		update comments set contents = #{contents} where comment_id=#{comment_id}
+	</update>
+	
+	<delete id="commentDelete" parameterType="int">
+		delete from comments where comment_id = #{comment_id}
+	</delete>
 </mapper>
