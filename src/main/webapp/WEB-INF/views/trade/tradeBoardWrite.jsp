@@ -203,7 +203,7 @@
 							if (save_num == 0) {
 								alert("저장되지 않았습니다. 임시저장은 최대 50개까지 입니다.");
 							}
-							list.call(nickName, 1, save_num)
+							list.call(writer, 1, save_num)
 							saveCount = 'up';
 						}
 					})
@@ -291,12 +291,12 @@
 			$("#" + title).remove();
 			saveCount = 'insert';
 			url = "../tradeSave/tradeSaveInsert";
-			list.call(nickName, 1, save_num)
+			list.call(writer, 1, save_num)
 		})
 
 		$("#over").on("click", ".page", function() {
 			var curPage = $(this).attr("title");
-			list.call(nickName, curPage, save_num)
+			list.call(writer, curPage, save_num)
 		})
 
 		$("#over").on("click",".viewLink",function() {

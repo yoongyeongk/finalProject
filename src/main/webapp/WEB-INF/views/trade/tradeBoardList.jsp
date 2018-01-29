@@ -111,7 +111,7 @@ $(function() {
 					<a href="./tradeBoardWrite" class="b" id="write">
 					<img src="${pageContext.request.contextPath }/resources/images/tradeBoard/ico-btn-write.gif" >
 					 글쓰기</a>
-					 <a href="./tenderList?curPage=1&writer=${user.nickname }" class="b" id="tenderList">입찰목록</a>
+					 <a href="./tenderList?curPage=1&writer=${user.username }" class="b" id="tenderList">입찰목록</a>
 				</div>
 			</div>
 				
@@ -185,7 +185,7 @@ $(function() {
 											<c:forEach items="${date }" var="dt" varStatus="d">
 												<c:if test="${d.count eq l.count }">
 													<c:choose>
-														<c:when test="${dt >= 0 }">
+														<c:when test="${dt > 0 }">
 															<p>(${dt }일 남음)</p>
 														</c:when>
 														<c:otherwise>

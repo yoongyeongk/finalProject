@@ -212,7 +212,7 @@ var playAlert = '';
 					        <div class="price">현재 경매가 : <b id="pr">￦${one.present_price }</b></div>
 						        <div class="auctionBox">
 						        		<form action="./tradeBoardAC?curPage=${param.curPage }" method="post" name="frm">
-						        			<input type="hidden" name="writer" value="${user.nickname }">
+						        			<input type="hidden" name="writer" value="${user.username }">
 											<input type="hidden" name="num" value="${param.num }">
 								        	<ul class="auctionUL">
 								        		<li><span class="auctionSpan">이름 </span> <input type="text" name="name" value="${tender.name }" id="name" class="pack" required="required"></li>
