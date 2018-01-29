@@ -12,7 +12,7 @@
 width: 100%;
 height: 10px;
 }
-#updateBtn,#deleteBtn,#partnerdeleteBtn{
+.updateBtn,#deleteBtn,#partnerdeleteBtn{
 border-style: none;
 color: white;
 background-color: black;
@@ -21,7 +21,7 @@ margin-top: 5px;
 margin-bottom: 5px;
 }
 
-#maimy{
+.maimy{
 font-weight :bolder;
 font-size: 1.5em;}
 #day_sc{
@@ -41,9 +41,10 @@ border : lightgray 1px solid;
 $(function() {
 	 $('#color').each(function() {
 		 var i=$(this).val();
-	$('#maimy').css('color', i);
+	$('.maimy').css('color', i);
 	$('.tete').css('background-color', i);	
 		});
+	 
 	$(".deleteBtn").click(function(){
 		var schedule_num = $(this).val();
 		$.ajax({
@@ -75,7 +76,7 @@ $(function() {
 		});
 	});
 	
-	$("#updateBtn").click(function () {
+	$(".updateBtn").click(function () {
 		var num =  $("#num").val();
 		window.open("./ScheduleUpdate?num="+num,"", "width=400, height=620, top=200, left=300");
 	});	
@@ -85,7 +86,7 @@ $(function() {
 <div class="tete"></div>
     <c:if test="${not empty list}">
     <c:forEach items="${list}" var="dto">
-<div id="maimy"style="text-align: center;">TITLE : ${dto.title}</div>
+<div class="maimy"style="text-align: center;">TITLE : ${dto.title}</div>
 <input type="hidden" value="${dto.num}" name="num" id="num">
 <input type="hidden" value="${dto.username}" name="username">
 <input type="hidden" value="${dto.schnum}" name="schnum" id="schnum">
@@ -129,7 +130,7 @@ $(function() {
 	</tr>
 	</c:if>
     	
-       	<tr><td colspan="2"><button id="updateBtn">수정</button>
+       	<tr><td colspan="2"><button class="updateBtn">수정</button>
        	
        	<c:choose>
        	<c:when test="${dto.num eq dto.schnum}" >
