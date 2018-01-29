@@ -203,6 +203,7 @@
 		outline:none;
 		border-radius: 5px;
 	    width: 250px;
+	    margin-bottom: 50px;
 	}
 	.md:hover{
 	  background:#fff;

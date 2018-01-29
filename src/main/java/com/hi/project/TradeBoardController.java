@@ -138,7 +138,7 @@ public class TradeBoardController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		return "redirect:/";
+		return "redirect:./tradeBoardList?curPage=1";
 	}
 	
 	@RequestMapping(value="tradeBoardUpdate" , method = RequestMethod.GET)
@@ -153,7 +153,7 @@ public class TradeBoardController {
 					view.setViewName("trade/tradeBoardWrite");
 				}else{
 					view.addObject("message"	, "업데이트를 실패했습니다");
-					view.setViewName("redirect:/");
+					view.setViewName("redirect:./tradeBoardList?curPage=1");
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -170,7 +170,7 @@ public class TradeBoardController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		return "redirect:/";
+		return "redirect:./tradeBoardList?curPage=1";
 	}
 	
 	@RequestMapping(value="tradeBoardDelete")
