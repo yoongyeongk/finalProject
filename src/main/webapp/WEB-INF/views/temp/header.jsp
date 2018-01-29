@@ -3,6 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css">
 <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
+<script type="text/javascript">
+
+function openWin(){
+	window.open("https://spring-ws-chat.herokuapp.com/", 
+			"_blank", "width=600, height=800, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
+}
+
+</script>
 <!DOCTYPE html>
 <!-- header -->
 <header class="nav-header">
@@ -60,7 +68,7 @@
 					<a href="#" class="messinger_open dropdown-toggle" type="button" data-toggle="dropdown">
 						<span class="glyphicon glyphicon-envelope"></span>
 					</a>
-					
+					<a onclick="openWin()">메신저</a>
 					<ul class="dropdown-menu">
 						<li class="messinger_header header">5개의 메세지가 도착했습니다.</li>
 						<li><a href="#">메세지1</a></li>

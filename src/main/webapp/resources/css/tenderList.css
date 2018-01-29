@@ -1,0 +1,86 @@
+@CHARSET "UTF-8";
+	@FONT-FACE{
+		font-family: Daum_Regular;
+		src:url("../font/Daum_Regular.ttf");
+	}
+	a{
+		text-decoration: none;
+		color: black;
+	}
+	a:HOVER{
+		text-decoration: none;
+	}
+	.all{
+		width: 1200px;
+		height: 1100px;
+		margin: 0 auto;
+	}
+	.box{
+		margin: 0 auto;
+		padding-top: 150px;
+		width: 950px;
+	}
+	.t_list{
+		border: solid 1px #ccc;
+		border-left: none;
+		border-right: none;
+		width: 950px;
+		margin: 0 auto;
+		border-collapse: collapse;
+		letter-spacing: -1px;
+		font-size: 14px;
+	}
+	.t_list th,.t_list td{
+		border: solid 1px #ccc;
+		border-left: none;
+		border-right: none;
+		text-align: center; 
+		vertical-align: middle;
+	}
+	.t_list td{
+		height: 35px;
+	}
+	.t_list th{
+		height: 40px;
+		background-color: white;
+	}
+	.td_1{
+		width: 120px;
+	}
+	.td_2{
+		width: 300px;
+	}
+	.td_3{
+		width: 150px;
+	}
+	.td_4{
+		width: 150px;
+	}
+	.td_5{
+		width: 150px;
+	}
+	.paging{
+		width: 400px; 
+		margin: 0 auto;
+		margin-top:45px;
+		text-align: center;
+	}
+	.pg{
+		padding: 4px;
+	    width: 35px;
+	    margin: 30px 3px;
+	    height: 30px;
+	    border-radius: 5px;
+	    background-color: rgb(244, 244, 244);
+	    text-align: center;
+	    font-size: 13px;
+	    line-height: 22px;
+	    display: inline-block;
+	}
+	.gui{
+		text-align: center;
+		font-family: Daum_Regular;
+		opacity: 0.3;
+		margin-top: 100px;
+		user-select:none;
+	}

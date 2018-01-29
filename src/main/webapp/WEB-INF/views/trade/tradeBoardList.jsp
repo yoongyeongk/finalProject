@@ -107,10 +107,11 @@ $(function() {
 					</form>
 				</div>
 				
-				<div class="outBox" style="vertical-align: middle;">
+				<div class="outBox" style="vertical-align: middle; margin-top: 36px; float: right;">
 					<a href="./tradeBoardWrite" class="b" id="write">
 					<img src="${pageContext.request.contextPath }/resources/images/tradeBoard/ico-btn-write.gif" >
 					 글쓰기</a>
+					 <a href="./tenderList?curPage=1&writer=${user.nickname }" class="b" id="tenderList">입찰목록</a>
 				</div>
 			</div>
 				

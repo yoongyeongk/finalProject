@@ -41,10 +41,13 @@ var playAlert = '';
 	    	data : {
 	    		num:num,
 	    	} , success : function(data) {
-				$("#pr").html('￦'+data.present_price)
+	    		var p = data.present_price
+	    		p = p.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+				$("#pr").html('￦'+p)
 			}
 	    })
 	  }, 2000);
+	  
 	  
 	  function del () {
 		  
@@ -177,12 +180,14 @@ var playAlert = '';
 		
 			<div id="map"></div>
 			
-				<div class="btnBox">
-					<c:if test="${user.nickname eq one.writer}">
-						<button class="bt"><a href="./tradeBoardUpdate?num=${one.num }">수정</a></button>
-						<button class="bt"><a href="javascript:void(0)" onclick="del()">삭제</a></button>
-					</c:if>
-					<button class="bt"><a href="./tradeBoardList?curPage=${param.curPage }">목록</a></button>
+				<div class="box">
+					<div class="btnBox">
+						<c:if test="${user.nickname eq one.writer}">
+							<button class="bt"><a href="./tradeBoardUpdate?num=${one.num }">수정</a></button>
+							<button class="bt"><a href="javascript:void(0)" onclick="del()">삭제</a></button>
+						</c:if>
+						<button class="bt"><a href="./tradeBoardList?curPage=${param.curPage }">목록</a></button>
+					</div>
 				</div>
 				
 					<c:if test="${one.close eq 0 }">
@@ -206,14 +211,14 @@ var playAlert = '';
 					      <div class="modal-body">
 					        <div class="price">현재 경매가 : <b id="pr">￦${one.present_price }</b></div>
 						        <div class="auctionBox">
-						        		<form action="./tradeBoardAC" method="post" name="frm">
+						        		<form action="./tradeBoardAC?curPage=${param.curPage }" method="post" name="frm">
 						        			<input type="hidden" name="writer" value="${user.nickname }">
 											<input type="hidden" name="num" value="${param.num }">
 								        	<ul class="auctionUL">
 								        		<li><span class="auctionSpan">이름 </span> <input type="text" name="name" value="${tender.name }" id="name" class="pack" required="required"></li>
-								        		<li><span class="auctionSpan">연락처 </span> <input type="text" name="corporate_phone" value="${tender.corporate_phone }" id="corporate_phone" required="required"></li>
+								        		<li><span class="auctionSpan">연락처 </span> <input type="text" name="corporate_phone" value="${tender.corporate_phone }" id="corporate_phone" required="required" placeholder=" 01056807909"></li>
 								        		<li><span class="auctionSpan">기업명 </span> <input type="text" name="corporation" value="${tender.corporation }" class="pack"  id="corporation" required="required"></li>
-								        		<li><span class="auctionSpan">입찰가 </span> <input type="text" name="bidding_price" id="bidding_price" required="required"></li>
+								        		<li><span class="auctionSpan">입찰가 </span> <input type="text" name="bidding_price" id="bidding_price" required="required" placeholder=" 1,000,000"></li>
 								        	</ul>
 									      <div class="position">
 									        	<input type="button" class="submit" value="등록">

@@ -41,18 +41,16 @@
 	}
 	
 	.box{
-		width: 1000px;
+		width: 950px;
 		height: auto;
 		margin: 0 auto;
-	}
-	#listBox{
-		margin-top: 30px;
 	}
 	#tb{
 		width: 950px;
 		table-layout: fixed;
 		border-left: none;
 		border-right: none;
+		margin: 0 auto;
 	}
 	tr{
 		border-bottom:1px solid #e1e1e1;
@@ -62,7 +60,7 @@
 	}
 	#top>th{
 		text-align: center;
-    	height: 37px;
+    	height: 50px;
     	background: #fafafa;
     	border:0;
     	border-bottom: 1px solid #ddd;
@@ -158,22 +156,22 @@
 	}
 	.b{
 		display: inline-block;
-   	 	border: 1px solid #dcdede;
-   	 	border-right: 1px solid #c0c3c6;
- 		border-bottom: 1px solid #c0c3c6;
- 		color: #606060;
    		text-decoration: none;
-   		background-color: white;
+   		background-color: rgb(22, 160, 133);
+	    border: solid 1px rgb(22, 160, 133);
+	    border-radius: 4px;
 	}
-	#write{
+	#write,#tenderList{
 		width: 80px;
 		height: 29px;
 		float: right;
 		text-align: center;
 		line-height: 25px;
 		font-weight: bold;
+		margin-left: 10px;
+		color: white;
 	}
-	#write:hover{
+	#write:hover,#tenderList:hover{
 		text-decoration: none;
 	}
 	#write>img{
