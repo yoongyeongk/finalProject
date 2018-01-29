@@ -165,15 +165,16 @@
    		text-decoration: none;
    		background-color: white;
 	}
-	#write{
+	#write,#tenderList{
 		width: 80px;
 		height: 29px;
 		float: right;
 		text-align: center;
 		line-height: 25px;
 		font-weight: bold;
+		margin-left: 10px;
 	}
-	#write:hover{
+	#write:hover,#tenderList:hover{
 		text-decoration: none;
 	}
 	#write>img{

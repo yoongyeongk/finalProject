@@ -111,6 +111,7 @@ $(function() {
 					<a href="./tradeBoardWrite" class="b" id="write">
 					<img src="${pageContext.request.contextPath }/resources/images/tradeBoard/ico-btn-write.gif" >
 					 글쓰기</a>
+					 <a href="./tenderList?curPage=1&writer=${user.nickname }" class="b" id="tenderList">입찰목록</a>
 				</div>
 			</div>
 				

@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonArrayFormatVisitor;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.hi.project.util.ListData;
 import com.hi.tender.TenderDTO;
+import com.hi.tender.TenderService;
 import com.hi.trade.Config;
 import com.hi.trade.SendSMS;
 import com.hi.trade.TradeBoardDTO;
@@ -33,7 +34,20 @@ public class TradeBoardController {
 
 	@Inject
 	TradeBoardService tradeBoardService;
+	@Inject
+	TenderService tenderService;
 	
+	@RequestMapping(value="tenderList")
+	public ModelAndView userList (String writer,ListData listData) {
+		ModelAndView view = new ModelAndView();
+			try {
+				view = tenderService.selectList(writer,listData);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return view;
+	}
 	
 	@RequestMapping(value="tenderUserList")
 	public List<TradeBoardDTO> userList (String writer) {
