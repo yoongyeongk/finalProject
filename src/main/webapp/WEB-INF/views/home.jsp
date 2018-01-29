@@ -46,10 +46,10 @@
 						<div class="project-side">
 							<c:choose>
 								<c:when test="${list.star eq 0}">
-									<i class="far fa-star"></i>
+									<i class="icon2 far fa-star"></i>
 								</c:when>
 								<c:otherwise>
-									<i class="fas fa-star"></i>
+									<i class="icon3 fas fa-star"></i>
 								</c:otherwise>
 							</c:choose>
 							<i class="fas fa-cog"></i>

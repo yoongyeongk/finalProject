@@ -76,3 +76,14 @@
 .icon1{
 	margin-right: 10px	
 }
+.icon2{
+	font-size: 16px;
+    position: relative;
+    top: 95px;
+}
+.icon3{
+	font-size: 16px;
+    position: relative;
+    top: 95px;
+    margin-left: 10px;
+}
