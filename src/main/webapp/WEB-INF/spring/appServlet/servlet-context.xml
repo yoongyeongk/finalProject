@@ -56,5 +56,12 @@
 	<!-- 서연 -->
 	<context:component-scan base-package="com.hi.schedule"/>
 	<context:component-scan base-package="com.hi.partner"/>
-
+	<!-- 진수 -->
+	<context:component-scan base-package="com.hi.websocketdemo"/>
+	<websocket:message-broker application-destination-prefix="/app">
+		<websocket:stomp-endpoint path="/project">
+			<websocket:sockjs/>
+		</websocket:stomp-endpoint>
+		<websocket:simple-broker prefix="/channel/public"/>
+	</websocket:message-broker>
 </beans:beans>
