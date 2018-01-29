@@ -12,6 +12,24 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="../resources/css/login.css" type="text/css">
 <title>Login</title>
+<script type="text/javascript">
+$(function(){
+	$(".join").click(function(){
+		$.ajax({
+			type: "GET",
+			url: "./join",
+			success: function(data){
+				$("#joinModal").html(data);
+				$("#modal").show();	
+			}
+		});
+	});
+	
+	$("#modal").click(function(){
+		$("#modal").hide();
+	});
+});
+</script>
 </head>
 <body>
 	<div class="col-md-4"></div>
@@ -33,7 +51,7 @@
 					<label class="remember"><input type="checkbox" name="remember" id="remember"> 아이디 저장</label>
 					<input type="submit" value="로그인" class="login_btn">
 					<a href="#"	class="text forgot">비밀번호 찾기</a>
-					<a href="join" class="text join">회원가입</a>
+					<a href="#" class="text join">회원가입</a>
 				</form>
 			</div>
 
@@ -87,7 +105,13 @@
 				</div>
 			</div>
 		</div>
+		
 	</div>
 	<div class="col-md-4"></div>
+	
+	<div id="modal" style="display: none;">
+		<div id="joinModal"></div>
+	</div>
+	
 </body>
 </html>

@@ -33,14 +33,16 @@
 					<div class="project-header">
 						<c:choose>
 							<c:when test="${list.privacy eq 'private'}">
-								<i class="fas fa-lock"></i>
+								<i class="fa fas fa-lock"></i>
 							</c:when>
 							<c:otherwise>
-								<i class="fas fa-globe"></i>
+								<i class="fa fas fa-globe"></i>
 							</c:otherwise>
 						</c:choose>
 						<span>프로젝트명</span>
-						
+					</div>
+					
+					<div class="project-footer">
 						<div class="project-side">
 							<c:choose>
 								<c:when test="${list.star eq 0}">
@@ -52,8 +54,7 @@
 							</c:choose>
 							<i class="fas fa-cog"></i>
 						</div>
-					</div>
-					<div class="project-footer">
+					
 						<select class="status" name="status">
 							<option value="">상태 없음</option>
 							<option value="계획됨">계획됨</option>
