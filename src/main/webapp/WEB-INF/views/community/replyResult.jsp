@@ -32,9 +32,9 @@
 							},
 							success: function(data){
 								alert(data.trim());
-								replyList(num);
 							}
 						});
+						replyList(num);
 					});
 				}
 			});
@@ -50,9 +50,9 @@
 				url: "../reply/pmfReplyDelete?rnum="+rnum,
 				success: function(data){
 					alert(data.trim());
-					replyList(num);
 				}
 			});
+			replyList(num);
 		});
 
 		//6. reReply
@@ -64,7 +64,7 @@
 		});
 		
 		//대댓글 등록
-		$(".reply_btn").click(function(){
+		$(".reReply_btn").click(function(){
 			var rnum = $(this).attr("title");
 			var contents = $(".reReply"+rnum).find(".replyzone").val();
 			var ref = $(".ref"+rnum).val();
@@ -80,9 +80,9 @@
 				},
 				success: function(data){
 					alert(data.trim());
-					replyList(num);
 				}
 			});
+			replyList(num);
 		});
 		
 	});
@@ -111,7 +111,7 @@
 		<tr class="reReply${dto.rnum} re_reply" style="display: none;">
 			<td colspan="4">
 				<textarea class="replyzone form-control" draggable="false">궁금한 내용을 자유롭게 써 주세요.</textarea>
-				<input type="button" class="reply_btn" title="${dto.rnum}" value="댓글 등록">
+				<input type="button" class="reReply_btn" title="${dto.rnum}" value="댓글 등록">
 			</td>
 		</tr>
 		

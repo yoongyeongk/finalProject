@@ -9,7 +9,6 @@
 <link rel="stylesheet" href="../resources/css/header.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="../resources/js/pmf_list.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Hi!Project - community</title>
 <script type="text/javascript">
@@ -18,7 +17,43 @@ $(function(){
 	if(message != ""){
 		alert(message);
 	}
+
+	var curPage = 1;
+	var kind = $("#kind").val();
+	var search = "";
+	callList(curPage,kind,search);
+
+	//검색
+	$(".search_btn").click(function(){
+		search = $("#search").val();
+		callList(curPage,kind,search);
+	});
+
+	//페이징
+	$(".paging_one").click(function(){
+		curPage = $(this).html();
+		search = $("#search").val();
+		callList(curPage,kind,search);
+		$(".paging_one").removeCss("currentPage");
+		$(this).addCss("currentPage");
+	});
 });
+
+function callList(curPage,kind,search){	
+	$.ajax({
+		type: "POST",
+		url: "./pmfList",
+		data: {
+			kind: kind,
+			search: search,
+			curPage: curPage
+		},
+		success: function(data){
+			$("#listCall").html(data);
+		}
+	});
+}
+
 </script>
 </head>
 <body>
