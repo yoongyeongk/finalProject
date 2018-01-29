@@ -82,13 +82,18 @@ public class ScheduleService {
 			scheduleDTO.setStartday(request.getParameter("startday"));
 			scheduleDTO.setUsername(request.getParameter("username"));
 			String ah = scheduleDTO.getStartday();			
+			List<PartnerDTO> part = null;
 			try {
 				List<ScheduleDTO> ar = scheduleDAO.jsonScheduleDayList(scheduleDTO);			
-				List<PartnerDTO> part = null;
 					System.out.println("success");
 					for(int i =0; i<ar.size();i++){
 						String st= scheduleDTO.getStartday();
-						part=partnerDAO.partnerList(ar.get(i).getSchnum());
+						System.out.println("suh : "+ar.get(i).getSchnum());
+						part = partnerDAO.partnerList(ar.get(i).getSchnum());
+					}
+					for(int i=0; i<part.size(); i++){
+							System.out.println("nick : "+part.get(i).getNickname());
+							System.out.println("suc : "+part.get(i).getSchnum());
 					}
 					mv.addObject("nick", part);
 					mv.addObject("list", ar);
