@@ -3,18 +3,18 @@ package com.hi.comment;
 import java.sql.Date;
 
 public class CommentDTO {
-	private int comment_id;
+	private int comments_id;
 	private int task_id;
-	private String username;
+	private String writer;
 	private String contents;
-	private Date regdate;
+	private Date reg_date;
 
 	public int getComment_id() {
-		return comment_id;
+		return comments_id;
 	}
 
-	public void setComment_id(int comment_id) {
-		this.comment_id = comment_id;
+	public void setComment_id(int comments_id) {
+		this.comments_id = comments_id;
 	}
 
 	public int getTask_id() {
@@ -25,12 +25,12 @@ public class CommentDTO {
 		this.task_id = task_id;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getWriter() {
+		return writer;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
 
 	public String getContents() {
@@ -41,12 +41,12 @@ public class CommentDTO {
 		this.contents = contents;
 	}
 
-	public Date getRegdate() {
-		return regdate;
+	public Date getReg_date() {
+		return reg_date;
 	}
 
-	public void setRegdate(Date regdate) {
-		this.regdate = regdate;
+	public void setReg_date(Date reg_date) {
+		this.reg_date = reg_date;
 	}
 
 }

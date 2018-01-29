@@ -1,39 +1,142 @@
 @CHARSET "UTF-8";
 
+.searchbar {
+	float: right;
+	width: 20%;
+	padding-left: 30px;
+	background-image: url("../images/search-icon.png");
+	background-size: 10px;
+	background-position: 10px 12px;
+	background-repeat: no-repeat;
+}
+
+.new-task {
+	display: inline-block;
+}
+
+.dashboard {
+	margin: 100px;
+	height: inherit;
+}
+
+.page-contents {
+	height: inherit;
+}
+/* 
 .task {
 	width: 305px;
 	display: inline-block;
-	background-color: #e0e0e0;
+}
+ */
+.status-label {
+	display: block;
 }
 
-.task #important {
-	margin-left: 5px;
+.dashboard {
+	margin: 100px;
+	height: inherit;
 }
 
-.task #title {
-	width: 80%;
+.page-header {
+	padding-bottom: 25px;
+}
+
+.page-contents {
+	height: inherit;
+}
+
+.section-wrap {
+	width: 32%;
+	margin: 0 5px;
+	height: 100%;
 	display: inline-block;
+	background-color: gainsboro;
+	float: left;
 }
 
-.task-header {
-	margin: 5px;
-}
-
-.task-header #new-task {
-	background-color: transparent;
-	border-color: transparent;
+.section-header label {
 	color: white;
 	font-size: 20px;
+	padding: 5px 10px;
 }
 
-.task-input textarea {
-	width: 96%;
-	margin: 0 5px;
-	resize: vertical;
-	min-height: 50px;
+.open-header {
+	background-color: #47cc8a;
 }
 
-.task-input button {
+.in-progress-header {
+	background-color: #00aaff;
+}
+
+.done-header {
+	background-color: #8f7ee6;
+}
+
+.title-wrap {
+	width: 95%;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.15);
+	transition-timing-function: ease-in-out;
+	transition-duration: 0.2s;
+	transition-property: transform, box-shadow;
+	transform: translateY(2px);
+	display: inline-block;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	align-items: center;
+	position: relative;
+	justify-content: space-between;
+	align-items: flex-start;
+	box-sizing: border-box;
+	margin: 5px;
+	padding: 10px;
+	border-radius: 3px;
+	background: white;
+	color: #464c59;
+	font-weight: 600;
+	font-size: 14px;
+	cursor: pointer;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.15);
+}
+
+.title-wrap input {
+	border: none;
+	cursor: pointer;
+}
+
+.delete-btn {
+	display: inline-block;
 	float: right;
-	margin: 5px 5px 5px 0;
+}
+
+.fa-arrow-left:before {
+	content: "\f060";
+	font-size: 30px;
+	color: cadetblue;
+}
+
+.add-task {
+	text-align: center;
+	font-size: 25px;
+	color: white;
+}
+
+.input-comment {
+	width: 465px;
+	resize: none;
+	padding: 10px;
+	margin: 0px;
+	display: inline-block;
+	height: 100px !important;
+	font-size: 12px;
+}
+
+.new-comment {
+	width: 90px;
+	height: 100px;
+	float: right;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	color: white;
+	font-weight: 600;
+	background-color: #ccc;
 }

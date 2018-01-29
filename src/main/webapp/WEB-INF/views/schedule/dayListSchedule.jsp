@@ -115,15 +115,17 @@ $(function() {
 	<c:if test="${not empty nick}">
  	<tr><td>참석자 : </td>
  
-    <td><c:forEach items="${nick}" varStatus="status" var="nickname">
+	<td>
+    <c:forEach items="${nick}" varStatus="status" var="nickname">
+	   <%--  <c:if test="${nickname.nickname ne user.nickname}"> --%>
 
-	    <c:if test="${nickname.nickname ne user.nickname}">
-    	${status.count}.${nickname.nickname} &nbsp  <input type="hidden" value="${nickname.nickname}" name="nicknaming" id="nicknaming">
-    </c:if>
+    	${status.count}.${nickname.nickname} &nbsp<input type="hidden" value="${nickname.nickname}" name="nicknaming" id="nicknaming">
+
     	<c:if test="${nickname.nickname eq user.nickname}">
     		${status.count}.본인[${nickname.nickname}]
         <input type="hidden" value="${nickname.pnum}" id="partnerpnum" >
-        </c:if>  
+        </c:if>
+        <%-- </c:if>   --%>
     </c:forEach>
     </td>
     

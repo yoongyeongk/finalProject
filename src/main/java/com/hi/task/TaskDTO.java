@@ -3,28 +3,18 @@ package com.hi.task;
 import java.sql.Date;
 import java.util.List;
 
-import org.springframework.web.multipart.MultipartFile;
-
-import com.hi.checklist.ChecklistDTO;
 import com.hi.comment.CommentDTO;
 import com.hi.file.FileDTO;
-import com.hi.users.UsersDTO;
 
 public class TaskDTO {
 	private int task_id;
 	private int project_id;
 	private String title;
-	private String contents;
-	private List<ChecklistDTO> checklist;
 	private Date start_date;
 	private Date close_date;
-	private String tag;
-	private int point;
-	private List<UsersDTO> members;
-	private List<UsersDTO> followers;
+	private String status;
 	private List<CommentDTO> comment;
-	private MultipartFile[] files;
-	private List<FileDTO> filenames;
+	private List<FileDTO> filename;
 
 	public int getTask_id() {
 		return task_id;
@@ -50,22 +40,6 @@ public class TaskDTO {
 		this.title = title;
 	}
 
-	public String getContents() {
-		return contents;
-	}
-
-	public void setContents(String contents) {
-		this.contents = contents;
-	}
-
-	public List<ChecklistDTO> getChecklist() {
-		return checklist;
-	}
-
-	public void setChecklist(List<ChecklistDTO> checklist) {
-		this.checklist = checklist;
-	}
-
 	public Date getStart_date() {
 		return start_date;
 	}
@@ -82,36 +56,12 @@ public class TaskDTO {
 		this.close_date = close_date;
 	}
 
-	public String getTag() {
-		return tag;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setTag(String tag) {
-		this.tag = tag;
-	}
-
-	public int getPoint() {
-		return point;
-	}
-
-	public void setPoint(int point) {
-		this.point = point;
-	}
-
-	public List<UsersDTO> getMembers() {
-		return members;
-	}
-
-	public void setMembers(List<UsersDTO> members) {
-		this.members = members;
-	}
-
-	public List<UsersDTO> getFollowers() {
-		return followers;
-	}
-
-	public void setFollowers(List<UsersDTO> followers) {
-		this.followers = followers;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public List<CommentDTO> getComment() {
@@ -122,20 +72,12 @@ public class TaskDTO {
 		this.comment = comment;
 	}
 
-	public MultipartFile[] getFiles() {
-		return files;
+	public List<FileDTO> getFilename() {
+		return filename;
 	}
 
-	public void setFiles(MultipartFile[] files) {
-		this.files = files;
-	}
-
-	public List<FileDTO> getFilenames() {
-		return filenames;
-	}
-
-	public void setFilenames(List<FileDTO> filenames) {
-		this.filenames = filenames;
+	public void setFilename(List<FileDTO> filename) {
+		this.filename = filename;
 	}
 
 }

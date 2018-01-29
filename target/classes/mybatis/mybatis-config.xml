@@ -13,8 +13,8 @@
 		<typeAlias type="com.hi.users.ProfileImgDTO" alias="ProfileImgDTO" />
 		<typeAlias type="com.hi.task.ProjectDTO" alias="ProjectDTO" />
 		<typeAlias type="com.hi.task.TaskDTO" alias="TaskDTO" />
-		<typeAlias type="com.hi.checklist.ChecklistDTO" alias="ChecklistDTO" />
 		<typeAlias type="com.hi.comment.CommentDTO" alias="CommentDTO" />
+		<typeAlias type="com.hi.member.MemberDTO" alias="MemberDTO"/>
 
 		<!-- yoongyeong -->
   	  	<typeAlias type="com.hi.project.pmf.PmfBoardDTO" alias="PmfBoardDTO"/>

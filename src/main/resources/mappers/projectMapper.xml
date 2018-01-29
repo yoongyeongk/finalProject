@@ -1,34 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="projectMapper">
-	<resultMap type="ProjectDTO" id="projectResult">
-		<id property="project_id" column="project_id" />
-		<collection property="manager" column="nickname" javaType="UsersDTO" ofType="UsersDTO" select="manager"></collection>
-		<collection property="members" column="nickname" javaType="ArrayList" ofType="UsersDTO" select="members"></collection>
-	</resultMap>
-	
-	<select id="manager" parameterType="UsersDTO" resultType="String">
-		select nickname from users where username=#{username}
+
+	<select id="member" parameterType="int" resultType="MemberDTO">
+		select m.*
+		from members m
+		left join project p on p.project_id = m.project_id and
+		p.project_id = #{project_id}
 	</select>
 
-	<select id="list" resultMap="projectResult">
-		select * from project order by start_date desc
+	<select id="list" parameterType="UsersDTO" resultType="ProjectDTO">
+		<!-- select * from project order by start_date desc -->
+		select p.*
+		from project p, members m
+		where p.project_id = m.project_id and m.username = #{username}
+		order by start_date desc
 	</select>
 
-	<select id="view">
-	
+	<select id="setting" parameterType="int" resultType="ProjectDTO">
+		select * from project where project_id = #{project_id}
 	</select>
 
 	<insert id="create" parameterType="ProjectDTO">
-		insert into project values (project_seq.nextval, #{title}, #{privacy}, #{status}, sysdate, null, 0, #{manager})
+		<selectKey keyProperty="project_id" resultType="int" order="BEFORE">
+			select project_seq.nextval from dual
+		</selectKey>
+		insert into project	(project_id, title, privacy, status, reg_date, start_date, close_date, star)
+		values (#{project_id}, #{title}, #{privacy}, #{status}, sysdate, null, null, 0)
 	</insert>
 
-	<update id="update">
+	<insert id="insert" parameterType="Map">
+		insert into members (project_id, username, authority)
+		select #{project_id}, #{username}, 'manager' from dual
+		where not exists
+		(select * from members where project_id = #{project_id} and username = #{username} and authority is not null)
+	</insert>
 
+	<update id="update" parameterType="ProjectDTO">
+		update project
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="title != null">title = #{title},</if>
+			<if test="privacy != null">privacy = #{privacy},</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="start_date != null">start_date = #{start_date},</if>
+			<if test="close_date != null">close_date = #{close_date},</if>
+			<if test="star != null">star = #{star}</if>
+		</trim>
+		where project_id = #{project_id}
 	</update>
 
-	<delete id="delete">
-
+	<delete id="delete" parameterType="int">
+		delete project where project_id = #{project_id}
 	</delete>
 
 </mapper>

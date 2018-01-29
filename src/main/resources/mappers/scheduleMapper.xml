@@ -22,14 +22,28 @@
   	select schedule_seq.nextval from dual
   	</selectKey>
   	insert into schedule values(#{schnum}, #{username}, #{title},
-  	#{pro_contents}, #{startday}, #{lastday}, #{start_time}, #{last_time},#{color})
+  	#{pro_contents}, #{startday}, #{lastday}, #{start_time}, #{last_time},#{color},#{schnum},#{host})
   	</insert>
   	
-  	<insert id="memoInsert" parameterType="java.util.Map">
-  		insert into memo values(schedule_seq.nextval, #{username}, #{title},
-  	#{pro_contents}, #{startday}, #{lastday}, #{start_time}, #{last_time},#{color})
-  	</insert>
-  	
+  	<insert id="write2">
+	insert into schedule values(#{schnum}, #{username}, #{title},
+  	#{pro_contents}, #{startday}, #{lastday}, #{start_time}, #{last_time},#{color},schedule_seq.nextval,#{host})
+</insert>
+  		
+<!--  참석자로 추가된 닉네임을 가진 아이디도 스케줄 추가해주는 sql 문장 
+  	<insert id="write2">
+INSERT INTO SCHEDULE 
+SELECT schedule_seq.nextval,U.username, 
+S.TITLE, S.pro_contents, S.STARTDAY,S.LASTDAY,
+S.START_TIME,S.LAST_TIME,S.color from schedule S, partner P,users U
+where U.nickname = P.nickname and S.schnum = P.schnum
+</insert> -->
+  		
+ <!-- 닉네임으로 유저네임 하나 가져옴. -->
+  <select id="selectUserName" parameterType="java.lang.String" resultType="java.lang.String">
+  	select userName from users where nickName=#{nickName}
+  </select>
+  
 <!-- 캘린더에 가져와야할 아이디별 전체값들 -->
   	<select id="jsonScheduleList" parameterType="java.lang.String" resultType="com.hi.schedule.ScheduleDTO">
   	select * from schedule where username=#{username}
@@ -38,15 +52,17 @@
  <select id="jsonScheduleDayList" parameterType="com.hi.schedule.ScheduleDTO" 
  resultType="com.hi.schedule.ScheduleDTO">select * from schedule where username=#{username} and 
  (startday = #{startday} or lastday = #{lastday})</select> 
+<!-- 주최자가 스케줄 전체 삭제할때 씀  -->
+  	<delete id="ScheduleDelete" parameterType="int">delete schedule where schnum=#{schnum}</delete>
 
-  	<delete id="ScheduleDeleteOne" parameterType="int">delete schedule where schnum=#{schnum}</delete>
+<!-- 참석자가 개인 스케줄만 삭제할때 씀  -->
+  	<delete id="SchedulepartDelete" parameterType="int">delete schedule where num=#{num}</delete>
   	
   	 <select id="ScheduleUpdateGET" parameterType="int" resultType="com.hi.schedule.ScheduleDTO">
-  	 select * from schedule where schnum=#{schnum}</select> 
+  	 select * from schedule where num=#{num} </select> 
   	 
   <update id="ScheduleUpdatePOST" parameterType="com.hi.schedule.ScheduleDTO">
   update schedule set title=#{title}, pro_contents=#{pro_contents},STARTDAY=#{startday},LASTDAY=#{lastday},
-  START_TIME=#{start_time}, LAST_TIME=#{last_time},color=#{color} WHERE schnum = #{schnum}</update> 
-  	
-  	
+  START_TIME=#{start_time}, LAST_TIME=#{last_time},color=#{color} WHERE  schnum=#{schnum}</update> 
+  
   </mapper>
