@@ -13,89 +13,14 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+<link href="${pageContext.request.contextPath }/resources/css/tenderList.css" rel="stylesheet">
 <title>Insert title here</title>
-<style type="text/css">
-	a{
-		text-decoration: none;
-		color: black;
-	}
-	a:HOVER{
-		text-decoration: none;
-	}
-	.all{
-		width: 1200px;
-		height: 1100px;
-		margin: 0 auto;
-	}
-	.box{
-		margin: 0 auto;
-		padding-top: 150px;
-		width: 950px;
-	}
-	.t_list{
-		border: solid 1px #ccc;
-		border-left: none;
-		border-right: none;
-		width: 950px;
-		margin: 0 auto;
-		border-collapse: collapse;
-		letter-spacing: -1px;
-		font-size: 14px;
-	}
-	.t_list th,.t_list td{
-		border: solid 1px #ccc;
-		border-left: none;
-		border-right: none;
-		text-align: center; 
-		vertical-align: middle;
-	}
-	.t_list td{
-		height: 35px;
-	}
-	.t_list th{
-		height: 40px;
-		background-color: white;
-	}
-	.td_1{
-		width: 120px;
-	}
-	.td_2{
-		width: 300px;
-	}
-	.td_3{
-		width: 150px;
-	}
-	.td_4{
-		width: 150px;
-	}
-	.td_5{
-		width: 150px;
-	}
-	.paging{
-		width: 400px; 
-		margin: 0 auto;
-		margin-top:45px;
-		text-align: center;
-	}
-	.pg{
-		padding: 4px;
-	    width: 35px;
-	    margin: 30px 3px;
-	    height: 30px;
-	    border-radius: 5px;
-	    background-color: rgb(244, 244, 244);
-	    text-align: center;
-	    font-size: 13px;
-	    line-height: 22px;
-	    display: inline-block;
-	}
-</style>
 </head>
 <body>
 
 <div class="all">
 	<div class="box">
+		<c:if test="${!empty list }">
 		<table class="t_list">
 			<tr>
 				<th class="td_1">기업명</th>
@@ -133,7 +58,10 @@
 			
 			<c:if test="${pager.curBlock lt pager.totalBlock }"><a class="pg" href="./tenderList?curPage=${pager.lastNum+1 }">&gt;</a></c:if>
 		</div>
-
+		</c:if>
+		<c:if test="${empty list }">
+			<h1 class="gui">입찰 내역이 없습니다</h1>
+		</c:if>
 	</div>
 </div>
 
