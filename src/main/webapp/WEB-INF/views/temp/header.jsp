@@ -65,15 +65,9 @@ function openWin(){
 			<li class="nav navbar-nav">
 			<!-- 메신저 탭 열기 -->
 				<div class="dropdown">
-					<a href="#" class="messinger_open dropdown-toggle" type="button" data-toggle="dropdown">
+					<a href="#" class="messinger_open" onclick="openWin()" type="button">
 						<span class="glyphicon glyphicon-envelope"></span>
 					</a>
-					<a onclick="openWin()">메신저</a>
-					<ul class="dropdown-menu">
-						<li class="messinger_header header">5개의 메세지가 도착했습니다.</li>
-						<li><a href="#">메세지1</a></li>
-						<li><a href="#">메세지2</a></li>
-					</ul>
 				</div>
 			</li>
 

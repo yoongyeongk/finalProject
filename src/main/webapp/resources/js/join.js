@@ -101,6 +101,7 @@ function handleImgFileSelect(e) {
 		var reader = new FileReader();
 		reader.onload = function(e) {
 			$("#img").attr("src", e.target.result);
+			$("#img").show();
 		}
 		reader.readAsDataURL(f);
 	});

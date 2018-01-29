@@ -20,13 +20,15 @@ $(function(){
 			url: "./join",
 			success: function(data){
 				$("#joinModal").html(data);
+				$(".form_wrap").hide();
 				$("#modal").show();	
 			}
 		});
 	});
 	
-	$("#modal").click(function(){
+	$(".cancel").click(function(){
 		$("#modal").hide();
+		$(".form_wrap").show();
 	});
 });
 </script>

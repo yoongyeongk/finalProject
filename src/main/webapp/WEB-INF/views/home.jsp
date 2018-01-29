@@ -33,10 +33,10 @@
 					<div class="project-header">
 						<c:choose>
 							<c:when test="${list.privacy eq 'private'}">
-								<i class="fa fas fa-lock"></i>
+								<i class="icon1 fas fa-lock"></i>
 							</c:when>
 							<c:otherwise>
-								<i class="fa fas fa-globe"></i>
+								<i class="icon1 fas fa-globe"></i>
 							</c:otherwise>
 						</c:choose>
 						<span>프로젝트명</span>
