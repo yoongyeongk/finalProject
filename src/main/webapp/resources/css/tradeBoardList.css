@@ -41,15 +41,16 @@
 	}
 	
 	.box{
-		width: 1000px;
+		width: 950px;
 		height: auto;
 		margin: 0 auto;
 	}
 	#tb{
-		width: 1000px;
+		width: 950px;
 		table-layout: fixed;
 		border-left: none;
 		border-right: none;
+		margin: 0 auto;
 	}
 	tr{
 		border-bottom:1px solid #e1e1e1;

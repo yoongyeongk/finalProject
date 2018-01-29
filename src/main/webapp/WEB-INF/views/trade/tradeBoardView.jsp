@@ -180,12 +180,14 @@ var playAlert = '';
 		
 			<div id="map"></div>
 			
-				<div class="btnBox">
-					<c:if test="${user.nickname eq one.writer}">
-						<button class="bt"><a href="./tradeBoardUpdate?num=${one.num }">수정</a></button>
-						<button class="bt"><a href="javascript:void(0)" onclick="del()">삭제</a></button>
-					</c:if>
-					<button class="bt"><a href="./tradeBoardList?curPage=${param.curPage }">목록</a></button>
+				<div class="box">
+					<div class="btnBox">
+						<c:if test="${user.nickname eq one.writer}">
+							<button class="bt"><a href="./tradeBoardUpdate?num=${one.num }">수정</a></button>
+							<button class="bt"><a href="javascript:void(0)" onclick="del()">삭제</a></button>
+						</c:if>
+						<button class="bt"><a href="./tradeBoardList?curPage=${param.curPage }">목록</a></button>
+					</div>
 				</div>
 				
 					<c:if test="${one.close eq 0 }">

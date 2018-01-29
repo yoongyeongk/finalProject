@@ -302,8 +302,13 @@
 		color: black;
 	}
 	.btnBox{
-		width: 260px;
     	float: right;
     	text-align: center;
     	margin-top: 25px;
+	}
+	.box{
+		width: 680px;
+    	margin: auto;
+    	height: 60px;
+    	margin-top: 20px;
 	}
