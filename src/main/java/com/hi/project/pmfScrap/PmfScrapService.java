@@ -12,14 +12,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hi.users.UsersDTO;
+
 @Service
 public class PmfScrapService {
 
 	@Inject
 	private PmfScrapDAO pmfScrapDAO;
 	
-	public ModelAndView selectList(String nickname) throws Exception {
+	public ModelAndView selectList(HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView();
+		String nickname = ((UsersDTO)session.getAttribute("user")).getNickname();
 		List<PmfScrapDTO> ar = pmfScrapDAO.selectList(nickname);
 		
 		for(PmfScrapDTO pmfScrapDTO: ar) {
@@ -34,7 +37,7 @@ public class PmfScrapService {
 		}
 	
 	mv.addObject("list", ar);
-	mv.setViewName("community/listBox");
+	mv.setViewName("community/pmf_scrap");
 
 	return mv;
 	}
@@ -59,31 +62,32 @@ public class PmfScrapService {
 
 	public int scrapCheck(int num, HttpSession session) throws Exception {
 		int result = 0;
-		String nickname = "nickname";
-		//session.getAttribute("member");
+		String nickname = ((UsersDTO)session.getAttribute("user")).getNickname();
 		PmfScrapDTO pmfScrapDTO = new PmfScrapDTO();
 		pmfScrapDTO.setNickname(nickname);
 		pmfScrapDTO.setNum(num);
 		PmfScrapDTO pmfScrapDTO2 = pmfScrapDAO.scrapCheck(pmfScrapDTO);
 		if(pmfScrapDTO2 != null){
-			result = 1;
+			result = pmfScrapDTO2.getSnum();
 		}
 		
 		return result;
 	}
 	
 	//비교하기
-	public ModelAndView selectOne(int [] snums) throws Exception {
+	public ModelAndView selectOne(String snums) throws Exception {
 		List<PmfScrapDTO> ar = new ArrayList<PmfScrapDTO>();
 		ModelAndView mv = new ModelAndView();
 		
+		String [] sNums = snums.split(",");
+		
 		PmfScrapDTO pmfScrapDTO = null;
-		for(int snum: snums) {
-			pmfScrapDTO = pmfScrapDAO.selectOne(snum);
+		for(String snum: sNums) {
+			pmfScrapDTO = pmfScrapDAO.selectOne(Integer.parseInt(snum));
 			ar.add(pmfScrapDTO);
 		}
 		mv.addObject("list", ar);
-		mv.setViewName("/");		//경로 설정하기
+		mv.setViewName("community/scrapResult");
 		
 		return mv;
 	}
@@ -92,8 +96,7 @@ public class PmfScrapService {
 	public int insert(String scrapNum, HttpSession session) throws Exception {
 		int result = 0;
 		PmfScrapDTO pmfScrapDTO = new PmfScrapDTO();
-		String nickname = "nickname";
-				//((MemberDTO)session.getAttribute("member")).getId();		//세션 정한 후 추가하기
+		String nickname = ((UsersDTO)session.getAttribute("user")).getNickname();
 		String [] str = scrapNum.split(",");
 		
 		for(int i=0; i<str.length; i++){

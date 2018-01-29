@@ -19,6 +19,15 @@ $(document).ready(function() {
 	 $('#partadd').on('click', function(){
 		 var nickname = $('#partner').val();
 		 var mynick =$('#mynick').val();
+		 var check = true;
+		 $('.addnick').each(function() {
+			var i=$(this).val();
+			if(nickname==i){
+				check=false;
+				alert('추가된 유저입니다.');
+			}
+		});
+		 if(check){
          $.ajax({
              type: 'POST',
              url: '../users/usersNickCheck',
@@ -26,19 +35,19 @@ $(document).ready(function() {
             	 nickname : nickname,
                  mynick : mynick
              },
-             success: function(data){
-                 if(data.result == nickname && data.result != mynick){
+             success: function(data){	          	 	
+                 if(data.result == nickname && data.result != mynick){               	 
                    alert('추가가능한 닉네임입니다.');
                 	var text = document.getElementById("partner").value;
                 	 var plusUl = document.createElement('input');
                 	 var plus = document.createElement('div');
                 	 var jbBtn= document.createElement("input");
-                	 
+                	 //컨트롤러에 넘겨서 닉네임 확인하는 부분 
                 	 plusUl.style.display="none";
                 	 plusUl.className="addnick";
                 	 plusUl.setAttribute("name", "nickname");
                 	 plusUl.setAttribute("value", text);
-                	 
+                	 //화면에 나타낼 부분
                 	 plus.style.display="inline-block";
                 	 plus.innerHTML = text;   
                 	 
@@ -57,8 +66,8 @@ $(document).ready(function() {
 					});
                  }else if(data.result == mynick){
                 	 alert('본인닉네임입니다.');
-                 }
-                 else{
+                 }else{
+                	 
                 	 alert('등록되어있지않은 닉네임입니다.');
                  }
              },
@@ -66,6 +75,7 @@ $(document).ready(function() {
                  alert("에러입니다");
          }
          });    //end ajax    
+		 }
      });    //end on    	
 	$(function(){
 		var message = '${message}';
@@ -155,8 +165,7 @@ $(document).ready(function() {
 				startday: day,
 				lastday : day,
 				//나중에 멤버로 받아오기 
-				username: '${user.username}',
-				type: 'list'
+				username: '${user.username}'
 			},
 			success: function(data){
 				$("#list_sec").html(data);
@@ -173,65 +182,74 @@ $(document).ready(function() {
 	});
 	$("#startTime").change(function(){
 		alert($(this).val());
+		var start = $(this).val();
+	});
+	$("#lastTime").change(function(){
+		alert($(this).val());
+		var last = $(this).val();
+	if (start > last) {
+		alert("x");
+	}
 	});
 	});
+     
 });
+function myFunction() {
+    setInterval(function(){ alert("Hello"); }, 30000);
+}
 </script>
 <style type="text/css">
-#list_sec {
-	display: none;
-	width: 100%;
+.delete{
+border-style :none;
+border-radius: 10px;
+color: rgb(210,255,195);
+font-size : small;
+background-color: gray;
+text-align: center;
 }
-
-body {
-	padding: 0;
-	font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
-	font-size: 14px;
-}
-
-#calendar {
-	max-width: 650px;
-	margin-top: 10px;
-}
-
-.cal_nav {
-	margin: 0 auto;
-	margin-top: 50px;
-	height: 20px;
-	margin-bottom: 5px;
-}
-
-#title {
-	font-size: 1.7em;
-	color: #212121;
-	height: 28px;
-	position: relative;
-	top: 2px;
-	width: 100%;
-	margin-bottom: 20px;
-	box-shadow: 0px 5px 10px rgb(213, 213, 213);
-}
-
-.sch_input {
-	width: 45%;
-	border-style: none;
+	body {
+	
+		padding: 0;
+		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		font-size: 14px;
+	}
+	#calendar {
+		max-width: 1000px;
+		margin-top: 10px;
+	}
+	#title{
 	background-color: #f5f5f6;
-	padding-bottom: 10px;
-	padding-top: 10px;
-	margin-bottom: 10px;
+	font-size: 1.4em;
+    color: #212121;
+    position: relative;
+    top: 2px;
+    width: 100%;
+    padding-bottom: 5px;
+	padding-top: 5px;
+    margin-bottom: 20px;
+    border-style: none;
+	}
+	.sch_input{
+	width: 45%;
+border-style: none;
+background-color: #f5f5f6;
+padding-bottom: 10px;
+padding-top: 10px;
+margin-bottom: 20px;
 }
-
-.label2 {
-	padding-top: 10px;
-	border-radius: 10px;
+#contents{
+font-size: 1.2em;
+border-style: none;
+background-color: #f5f5f6;
+padding-bottom: 5px;
+padding-top: 10px;
+margin-bottom: 20px;
 }
-
-.addT {
-	margin-top: 5%;
-	height: 200px;
-}
-
-.modal {
+	.addT{
+	margin-top : 5%;
+	height :200px;
+	}
+ .modal {
 	display: none; /* Hidden by default */
 	z-index: 999; /* Sit on top */
 	padding-top: 5%; /* Location of the box */
@@ -241,52 +259,33 @@ body {
 
 /* Modal Content */
 .modal_content {
-	background-color: #F6F6F6;
-	margin: auto;
-	padding: 20px;
-	border: 2px double #16A085;
-	border-radius: 8px;
-	width: 25%;
-	box-shadow: 0 4px 8px 0 rgba(170, 170, 170, 0.42), 0 6px 20px 0 #888;
-	-webkit-animation-name: animatetop;
-	-webkit-animation-duration: 0.8s;
-	animation-name: animatetop;
-	animation-duration: 0.8s
+     background-color: white; 
+    margin: auto;
+    border-radius: 2px; 
+    width: 25%;
+    box-shadow: 0 4px 8px 0 rgba(170, 170, 170, 0.42), 0 6px 20px 0 #888;
+   -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.8s;
+    animation-name: animatetop;
+    animation-duration: 0.8s 
 }
 /* Add Animation */
-@
--webkit-keyframes animatetop {
-	from {top: -300px;
-	opacity: 0
-}
-
-to {
-	top: 0;
-	opacity: 1
-}
-
-}
-@
 keyframes animatetop {
 	from {top: -300px;
 	opacity: 0
 }
-
 to {
 	top: 0;
 	opacity: 1
 }
-
 }
-#startTime, #lastTime {
-	width: 100%;
-	padding: 2px;
-	border-radius: 4px;
-	padding-top: 5px;
-	padding-bottom: 4px;
-	font-size: 0.7em;
+#closebtn{
+font-size: 35px;
 }
-
+.time_title{
+font-size:  1.3em;
+display: inline-block;
+}
 #lTime {
 	width: 100%;
 	padding: 2px;
@@ -295,12 +294,23 @@ to {
 	font-size: 0.7em;
 }
 
-.sTime_box {
+.Time_box {
 	display: inline-block;
-	width: 45%;
+	width: 20%;
 	margin-right: 4px;
 }
 
+.partner{
+border-style :none;
+background-color : #e7e7e7;
+padding-bottom: 7px;
+padding-top: 7px;
+}
+#partadd{
+background-color: rgb(22,160,133);
+height: 100%;
+border-style: none;
+}
 .lTime_box {
 	display: inline-block;
 	width: 45%;
@@ -312,21 +322,51 @@ to {
 	font-size: 1em;
 	font-weight: 600;
 	border-radius: 5px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	margin: 0 auto;
+	margin-top: 30px;
+	margin-bottom : 10px;
 	display: block;
-	background-color: #e7e7e7;
+	color: rgb(22,160,133);
+	background-color: #e7e7e7; 
+	
 }
-
 #submitBtn:hover {
 	background: #ddd;
 }
-/* .fc-event, .fc-event:hover {
-background-color: rgb(22,160,133);
-border-color: rgb(22,160,133);
+#ck-button {
+    margin:1.2px;
+    background-color:#EFEFEF;
+    border-radius:4px;
+    border:1px solid #D0D0D0;
+    overflow:auto;
+    float:left;
 }
- */
+#ck-button label {
+    float:left;
+    width:3.1em;
+}
+#ck-button label span {
+    text-align:center;
+    padding:3px 0px;
+        font-weight: lighter;
+    display:block;
+}
+#ck-button label input {
+    position:absolute;
+}
+#ck-button input:checked + span {
+    font-weight: bold;
+   color: white;
+}
+input[id="ss2"]{
+display: none;
+}
+.event_form{
+margin-top: 15%;
+}
+#colorss{
+margin-top: 20px;
+}
+
 </style>
 </head>
 <body>
@@ -336,104 +376,99 @@ border-color: rgb(22,160,133);
 
 <!-- contents -->
 <section id="main">
-	<div class="col-md-3"></div>
-		
-		<div class="col-md-8">
-		
-		<div class="cal_nav"></div>		
-		
+<div class="col-md-2"></div>
+		<div class="col-md-10">		
 		<div class="col-md-7">
 			<div style="width: 100%" id='calendar'></div>
-		</div>
-		
+		</div>		
 		<div class="cal_nav col-md-5">
-		
-			<form class="event_form" action="../schedule/ScheduleWrite" method="post">
-				<!-- 	//나중에 멤버로 받아오기  --> 
-				<input type="hidden" name="username" value="${user.username}">	
-				<input type="hidden" id="mynick" name="mynick" value="${user.nickname}">
-					<table class="addT">
-						<tr colspan="4">
-							<td><input required="required" type="text" id="title" placeholder="프로젝트 명" name="title"></td>
-						</tr>
+	<form class="event_form" action="../schedule/ScheduleWrite" method="post">
+					<!-- 	//나중에 멤버로 받아오기  --> 
+					
+			<input type="hidden" name="username" value="${user.username}">	
+		 			<input type="hidden" id="mynick" name="mynick" value="${user.nickname}">
+				<table class="addT">
+								<tr colspan="4">
+								<td><input required="required" type="text" id="title" placeholder="일정 명"
+									name="title"></td>
+							</tr>
+								<tr>
+								<td><input required="required" class="sch_input" type="date" id="startDay"
+									name="startday">
+								<input type="date" class="sch_input" id="lastDay"	name="lastday"></td>
+							</tr>
+									<tr>
+								<td><textarea rows="5" cols="35"
+								required="required" id="contents"
+									name="pro_contents" placeholder="세부내용을 작성해주세요."></textarea></td>
+							</tr>
+								<tr>
+								<td> <p class="time_title">일정시간</p>
+									<div id="sTimeBox" class="Time_box">
+										<select style="background-color:#f5f5f6; border-style: none;" id="startTime" name="start_time" required="required">
+											<c:forEach begin="9" end="21" var="i" varStatus="num">
+												<option id="sTime${num.count}" class="s_time">${i}:00</option>
+											</c:forEach>
+										</select>
+									</div>
+									<div id="lTimeBox" class="Time_box">
+											<select style="background-color:#f5f5f6; border-style: none;" id="lastTime" name="last_time" required="required">
+											<c:forEach begin="9" end="21" var="i" varStatus="num">
+												<option id="lTime${num.count}"  class="l_time">${i}:00</option>
+											</c:forEach>
+										</select>
+									</div>
+								</td>
+							</tr>
 						<tr>
-							<td>
-								<input required="required" class="sch_input" type="date" id="startDay" name="startday">
-								<input type="date" class="sch_input" id="lastDay" name="lastday">
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<textarea rows="3" cols="40" required="required" id="contents"
-									name="pro_contents" placeholder="세부내용을 작성해주세요."></textarea>
-							</td>
-						</tr>
-						<tr>
-							<td class="label2">일정 시간 </td>
-						</tr>
-						<tr>
-							<td>
-								<div id="sTimeBox" class="sTime_box">
-									<select id="startTime" name="start_time" required="required">
-									<c:forEach begin="9" end="21" var="i" varStatus="num">
-										<option id="sTime${num.count}" class="s_time">${i}:00</option>
-									</c:forEach>
-									</select>
-								</div>
-								<div id="lTimeBox" class="lTime_box">
-									<select id="lastTime" name="last_time" required="required">
-										<c:forEach begin="9" end="21" var="i" varStatus="num">
-										<option id="lTime${num.count}"  class="l_time">${i}:00</option>
-										</c:forEach>
-									</select>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td class="label2">
-								<input type="text" id="partner" name="nickinput" placeholder = "참석자 닉네임 입력">
-								<input id="partadd" type="button" value="추가"><br>
-							</td>
-						</tr>
-					</table>
-							 
-					<div id="nick" style="display: inline-block;"></div>						
+							<td class="label2"><input type="text" class="partner" id="partner"
+									name="nickinput" placeholder = "참석자 닉네임 입력">
+									<input id="partadd" type="button" value="추가"><br>
+							</td></tr>
+						</table>
+							 <div id="nick" style="display: inline-block;"></div>						
+						<table>
+						<tr><td class="colorss">일정 배경 색상</td><tr>
+						<tr><td>
+						<div id="ck-button" style="background-color: rgb(22,160,133)"><label>
+						<input type="radio" name="color"id="ss2" checked="" value="rgb(22,160,133)">
+						<span>green</span></label></div>
 						
-					<table>
-						<tr>
-							<td class="label2">일정 배경 색상</td>
-						<tr>
-						<tr>
-							<td>
-								초록<input type="radio" name="color" checked="checked" value="rgb(22,160,133)">
-								빨강<input type="radio" name="color" value="rgb(255,0,0)">
-								노랑<input type="radio" name="color" value="rgb(225,225,54)">
-								파랑<input type="radio" name="color" value="rgb(3,0,102)">
-								갈색<input type="radio" name="color" value="rgb(130,0,0)">
-								검정<input type="radio" name="color" value="rgb(0,0,0)">
-							</td>
-						</tr>
-					</table>
-							
-					<button type="submit" id="submitBtn" class="btn">등록하기</button>
-				
-				</form>
-			</div>
+						<div id="ck-button" style="background-color: rgb(255,0,0)"><label>
+						<input type="radio" name="color" id="ss2" value="rgb(255,0,0)">
+						<span>red</span></label></div>
+						<div id="ck-button" style="background-color: rgb(225,225,54)"><label>
+						<input type="radio" name="color" id="ss2" value="rgb(225,225,54)">
+						<span>yellow</span></label></div>
+						<div id="ck-button" style="background-color:rgb(3,0,102)"><label>
+						<input type="radio" name="color" id="ss2" value="rgb(3,0,102)">
+						<span>blue</span></label></div>
+						<div id="ck-button" style="background-color:rgb(130,0,0)"><label>
+						<input type="radio" name="color" id="ss2"  value="rgb(130,0,0)">
+						<span>brown</span></label></div>
+						<div id="ck-button" style="background-color:rgb(0,0,0)"><label>
+						<input type="radio" name="color" id="ss2" value="rgb(0,0,0)">
+						<span>black</span></label></div>
+						</td></tr>
+						</table>
+							<button type="submit" id="submitBtn" class="btn" onclick="myFunction()">등록하기</button>
+						</form>
+		</div>
 		</div>
 		
 		<!--  색상 : rgb(22,160,133) -->
-		
-		<!-- Modal -->
-		<div id="myModal" class="modal">		
-			<!-- Modal Content -->
-			<div class="modal_content">		
-				<!-- close button -->
-				<span class="close">&times;</span>			
-				<div id="list_sec"></div>
-			</div>	
+
+	<!-- Modal -->
+	<div id="myModal" class="modal">		
+		<!-- Modal Content -->
+		<div class="modal_content">		
+			<!-- close button -->
+			<span class="close" id="closebtn">&times;</span>			
+			<div id="list_sec">
+			</div>
 		</div>
-		
-	</section>
+	</div>
+	</section>		
 <!-- contents 끝 -->
 </body>
 </html>

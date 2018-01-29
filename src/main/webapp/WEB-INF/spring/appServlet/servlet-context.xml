@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/mvc"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
@@ -16,21 +19,38 @@
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 
+	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<beans:property name="order" value="0"></beans:property>
+	</beans:bean>
+
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
 	<beans:bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
+		<beans:property name="order" value="1"/>
 	</beans:bean>
 	
+	<beans:bean class="com.hi.project.util.FileDownload" id="FileDown"></beans:bean>
+	
 	<beans:bean id="login" class="com.hi.interceptor.LoginInterceptor" />
+<!-- 	<beans:bean id="authority" class="com.hi.interceptor.AuthorityInterceptor" /> -->
 	
 	<interceptors>
 		<interceptor>
-			<mapping path="/"/>
+			<mapping path="/**"/>
+			<exclude-mapping path="/users/login"/>
+			<exclude-mapping path="/users/join"/>
+			<exclude-mapping path="/resources/**"/>
 			<beans:ref bean="login"/>
 		</interceptor>
+		
+		<!-- <interceptor>
+			<mapping path="/reply/pmfReplyUpdate*"/>
+			<mapping path="/reply/pmfReplyDelete*"/>
+			<beans:ref bean="authority"/>
+		</interceptor> -->
 	</interceptors>
 	
 	<context:component-scan base-package="com.hi.member" />
@@ -42,5 +62,12 @@
 	<!-- 서연 -->
 	<context:component-scan base-package="com.hi.schedule"/>
 	<context:component-scan base-package="com.hi.partner"/>
-
+	<!-- 진수 -->
+	<context:component-scan base-package="com.hi.websocketdemo"/>
+	<websocket:message-broker application-destination-prefix="/app">
+		<websocket:stomp-endpoint path="/project">
+			<websocket:sockjs/>
+		</websocket:stomp-endpoint>
+		<websocket:simple-broker prefix="/channel/public"/>
+	</websocket:message-broker>
 </beans:beans>

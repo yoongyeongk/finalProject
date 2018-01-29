@@ -8,6 +8,28 @@ body{
 	margin-top: 50px;
 	width: 1000px;
 }
+#move_wrap{
+	border-bottom: 1px solid #eee;
+}
+#move_wrap a{
+	width: 450px;
+    height: 60px;
+    line-height: 60px;
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 600;
+    color: gray;
+    text-align: center;
+    border-radius: 5px;
+    border: #eee solid;
+    margin-bottom: 30px;
+}
+#move_wrap a:hover{
+	background-color: #eee;
+}
+.pmf_move{
+	margin-right: 50px;
+}
 .new{
 	width: 80px;
 	height: 30px;
@@ -17,6 +39,7 @@ body{
 	font-size: 12px;
 	font-weight: 600;
 	color: white;
+	margin-top: 30px;
 	margin-bottom: 20px;
 	background-color: rgb(22, 160, 133);
     border: solid 1px rgb(22, 160, 133);
@@ -26,56 +49,13 @@ a:hover{
 	text-decoration: none;
 	color: white;
 }
-/* Style the tab */
-.tab {
-    overflow: hidden;
-}
-
-/* Style the buttons inside the tab */
-.tab button {
-    background-color: inherit;
-    float: left;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    width: 100px;
-    padding: 10px;
-    transition: 0.3s;
-    font-size: 15px;
-    letter-spacing: -1px;
-    font-weight: 600;
-    border: 1px solid #cccccc38;
-    border-bottom: none;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    margin-right: 1px;
-}
-
-/* Change background color of buttons on hover */
-.tab button:hover {
-    background-color: #cccccc38;
-}
-
-/* Create an active/current tablink class */
-.tab button.active {
-    background-color: #cccccc38;
-}
-
-/* Style the tab content */
-.tabcontent {
-    display: none;
-    padding: 6px 12px;
-}
-
-#content_wrap{
-    width: 100%;
-    height: 600px;
-    background-color: #cccccc38;
-}
 
 /* pmf list div */
+#pmfList_sec{
+	padding-bottom: 50px;
+    border-bottom: 1px solid #eee;
+}
 #search_bar{
-	text-align: center;
     margin-top: 30px;
     margin-bottom: 30px;
 }
@@ -124,11 +104,12 @@ a:hover{
 	vertical-align: middle;
 }
 .t_list td{
-	height: 35px;
+	height: 45px;
+	font-size: 0.9em;
 }
 .t_list th{
-	height: 40px;
-	background-color: white;
+	height: 50px;
+	background-color: #fafafa;
 }
 .td_1{
 	width: 50px;
@@ -157,74 +138,19 @@ a:hover{
 .t_font{
 	font-size: 12px;
 }
-/* myMenu div */
-#btn_wrap{
-	text-align: right;
-    padding-right: 15px;
-    margin-bottom: 10px;
-}
-.compare_btn{
-	width: 100px;
-    height: 40px;
+
+.scrap_btn{
+	font-size: 14px;
+    width: 70px;
+    height: 35px;
+    padding: 2px 0;
+    color: #2eaa91;
+    background-color: #f5f5f5;
+    border: solid 1px #ccc;
     border-radius: 3px;
-    background-color: rgb(94, 94, 94);
-    border: 1px solid rgb(94, 94, 94);
-    color: white;
-    font-weight: 600;
-}
-.wrap_total{
-	width: 300px;
-    background-color: rgba(26, 188, 156, 0.39);
-    border-radius: 3px;
-    height: 120px;
-    margin: 20px 12px;
     float: left;
-}
-.wrap_total:hover{
-	background-color: rgb(46, 170, 145);
-}
-.wrap_1{
-	width: 80px;
-    height: 100%;
-    display: inline-block;
-    padding: 10px 5px 10px 10px;
-    float: left;
-}
-.image{
-	background-color: white;
-    width: 60px;
-    height: 60px;
-    margin-top: 15px;
-    margin-bottom: 5px;
-}
-.d-day{
-    text-align: left;
-    font-size: 11px;
-}
-.wrap_2{
-	width: 220px;
-    height: 100%;
-    display: inline-block;
-    float: right;
-    padding-left: 15px;	
-}
-.project_title{
-	font-size: 15px;
-    font-weight: 600;
-    margin-top: 8px;
-    margin-bottom: 18px;
-    text-align: center;
-}
-.works_list ul{
-	-webkit-padding-start: 25px;
-    -webkit-margin-before: -10px;
-    -webkit-margin-after: 5px;
-}
-.works_list li{
-	margin-bottom: 5px;
-}
-.tag_list{
-	font-size: 13px;
+    margin-top: 25px;
+    margin-left: 10px;
 }
 
 /* 페이징 */
@@ -232,6 +158,7 @@ a:hover{
 	text-decoration: none;
     width: 327px;
     margin: 0 auto;
+    height: 30px;
 }
 .paging_move{
 	width: 45px;
@@ -247,20 +174,11 @@ a:hover{
     background-color: rgb(244, 244, 244);
     text-align: center;
     font-size: 13px;
+    cursor: pointer;
 }
-
+.currentPage{
+	background-color: rgb(22, 160, 133) !important;
+}
 .paging li a{
 	color: black;
-}
-
-.scrap_btn{
-	font-size: 12px;
-    margin-left: 15px;
-    width: 45px;
-    padding: 2px 0;
-    color: #2eaa91;
-    background-color: #f5f5f5;
-    border: solid 1px #ccc;
-    border-radius: 3px;
-    margin-top: 10px;
 }

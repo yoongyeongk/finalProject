@@ -24,6 +24,10 @@ public class UsersDAO {
 		return sqlSession.selectOne(NAMESPACE + "login", usersDTO);
 	}
 
+	public UsersDTO selectOne(String username) {
+		return sqlSession.selectOne(NAMESPACE + "selectOne", username);
+	}
+	
 	public int update(UsersDTO usersDTO) {
 		return sqlSession.update(NAMESPACE + "update", usersDTO);
 	}

@@ -1,9 +1,71 @@
 @CHARSET "UTF-8";
-
-#default-img {
-	width: 100px;
+/* modal */
+#modal{
+	width: 100%;
+	height: 100%;
+    z-index: 20;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #8080804d;
+    text-align: center;
+}
+#joinModal{
+	background-color: white;
+	display: inline-block;
+	width: 700px;
+    height: 420px;
+    margin-top: 200px;
+    border-radius: 8px;
+    padding: 20px 10px;
+    opacity: 0.9;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.join_container{
+	padding: 0 50px;
 }
 
-#profile-img {
+#default-img {
+	width: 150px;
+}
+.img_wrap{
+	display: inline-block;
+   	margin-bottom: 20px;
+}
+#profile_img {
+	width: 150px;
+}
+#profile_img input{
+	font-size: 10px;
+}
+.t_join{
+	margin-top: 30px;
+    width: 100%;
+}
+.t_join th{
+	text-align: center;
+    width: 150px;
+}
+.t_join td{
+	height: 50px;
+}
+.t_join input{
+	width: 100%;
+	padding: 10px;
+}
+.wrap{
+	width: 100%;
+	display: inline-block;
+	margin-bottom: 20px;
+}
+.wrap label{
+	float: right;
+}
+.btn_wrap2 input{
 	width: 100px;
+	height: 35px;
+	font-weight: 700;
+	text-align: center;
+	background-color: rgb(22, 160, 133);
+	border: none;
 }

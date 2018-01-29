@@ -7,14 +7,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="../resources/css/pmf/pmf_write_css.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdn.ckeditor.com/4.8.0/basic/ckeditor.js"></script>
 <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
-<link rel="stylesheet" href="../resources/css/pmf/pmf_write_css.css">
-<link rel="stylesheet" href="../resources/css/header.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Hi!Project/community/find member/update</title>
+<title>Hi!Project - update</title>
 <script type="text/javascript">
 $(function(){
 	
@@ -64,7 +63,7 @@ $(function(){
 				$("#fileSec").append('<div id="file'+cnt+'"></div>');
 				$("#file"+cnt).append('<input type="hidden" name="filename" value="'+data.filename+'">');
 				$("#file"+cnt).append('<input type="hidden" name="oriname" value="'+data.oriname+'">');
-				$("#file"+cnt).append('<input type="hidden" name="size" value="'+data.size+'">');
+				$("#file"+cnt).append('<input type="hidden" name="size" value="'+data.filesize+'">');
 				status.setProgress(100);
 			}
 		});
@@ -72,7 +71,7 @@ $(function(){
 		status.setAbort(jqxhr);
 	}
 	
-	var rowCount = ${fn:length(view.fileDTO)};
+	var rowCount = '${fn:length(view.fileDTO)}'*1;
 	function createStatusbar(drop_sec){
 		
 		rowCount++;
@@ -159,10 +158,21 @@ $(function(){
 	//DB에 없는 파일 삭제하기 - 배열에서 파일명 AJAX로 넘기고, 제거
 	$("#fileSec").on("click",".deleteArray",function(){
 		var delArray = $(this);
-		var index = $(delArray).attr("id").replace("del","");
-		fileArray.splice(index+1,1);
-		$(delArray).parent().remove();
-		alert(fileArray);
+		var index = $(delArray).attr("id").replace("del","")*1;
+		var filename = fileArray[index];
+		//파일 이름 찾아서 데이터에서 삭제하기
+		$.ajax({
+			type: "POST",
+			url: "../pmfFile/fileDelete",
+			data:{
+				filename: filename
+			},
+			success: function(data){
+				$(delArray).parent().remove();		//div 삭제 처리
+				index = index+1;
+				$("#file"+index).remove();			//input 삭제 처리
+			}
+		});
 	});
 	
 	//이미 업로드된 파일 삭제하기

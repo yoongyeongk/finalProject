@@ -19,18 +19,21 @@
 		select * from users where username=#{username} and password=#{password}
 	</select>
 
+	<!-- 윤경 추가 -->
+	<select id="selectOne" parameterType="String" resultType="UsersDTO">
+		select * from users where username=#{username}
+	</select>
+
 	<update id="update" parameterType="UsersDTO">
-		update users set modify_date=sysdate,
-		<set>
-			<if test="password != null">password=#{password},</if>
-			<if test="nickname != null">nickname=#{nickname},</if>
-			<if test="phone != null">phone=#{phone}</if>
-		</set>
+		update users set modify_date=sysdate, 
+		password=#{password}, 
+		nickname=#{nickname}, 
+		phone=#{phone}
 		where username=#{username}
 	</update>
 	
 	<delete id="delete" parameterType="String">
-		delete users where username=#{username} 
+		delete users where username=#{username}
 	</delete>
 	
 	<!-- profile_img -->
@@ -43,5 +46,7 @@
 	</insert>
 	
 	<select parameterType="java.lang.String" resultType="java.lang.String" id="nicknameCheck"> 
-	select nickname from users where nickname=#{nickname} </select>
+		select nickname from users where nickname=#{nickname} 
+	</select>
+	
 </mapper>

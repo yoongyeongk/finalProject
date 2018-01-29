@@ -10,13 +10,12 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdn.ckeditor.com/4.8.0/basic/ckeditor.js"></script>
 <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+<script src="../resources/js/pmf_write.js"></script>
 <link rel="stylesheet" href="../resources/css/pmf/pmf_write_css.css">
-<link rel="stylesheet" href="../resources/css/header.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Hi!project - write form</title>
 <script type="text/javascript">
 $(function(){
-	
 	function fileUpload(files, drop_sec){
 		var formdata = new FormData();
 		
@@ -31,6 +30,8 @@ $(function(){
 	}
 	
 	var cnt = 0;
+	var fileArray = [];		//새로 올린 filename을 담아둘 배열
+	
 	function sendFileToServer(formdata,status){
 		//파일 서버로 전송 및 저장
 		var jqxhr = $.ajax({
@@ -58,10 +59,11 @@ $(function(){
 				status.setProgress(100);		//상태 100으로 설정
 				//fileDTO 객체에 값 넣기
 				cnt++;
+				fileArray.push(data.filename);
 				$("#fileSec").append('<div id="file'+cnt+'"></div>');
 				$("#file"+cnt).append('<input type="hidden" name="filename" value="'+data.filename+'">');
 				$("#file"+cnt).append('<input type="hidden" name="oriname" value="'+data.oriname+'">');
-				$("#file"+cnt).append('<input type="hidden" name="size" value="'+data.size+'">');
+				$("#file"+cnt).append('<input type="hidden" name="size" value="'+data.filesize+'">');
 			}
 		});
 		
@@ -76,15 +78,16 @@ $(function(){
 		if(rowCount % 2 == 0){
 			row = "even";
 		}
+		
 		this.statusbar = $("<div class='statusbar "+row+"'></div>");
 		this.filename = $("<div class='filename'></div>").appendTo(this.statusbar);
 		this.size = $("<div class='filesize'></div>").appendTo(this.statusbar);
 		this.progressBar = $("<div class='progressBar'><div></div></div>").appendTo(this.statusbar);
 		this.abort = $("<div class='abort'>중지</div>").appendTo(this.statusbar);
-		this.delF = $('<span id="delfile'+rowCount+'" class="delfile">삭제</span>').appendTo(this.statusbar);
+		this.delF = $('<span id="del'+cnt+'" class="deleteArray delfile">삭제</span>').appendTo(this.statusbar);
 		this.delF.hide();
 		
-		drop_sec.after(this.statusbar);
+		$("#fileSec").append(this.statusbar);
 		
 		//파일 이름과 사이즈를 구하는 메서드
 		this.setFileNameSize = function(name,size){
@@ -149,10 +152,24 @@ $(function(){
 		}
 	})
 	
- 	//업로드한 파일 삭제하기
-	$(".delfile").click(function(){
-		var delFile = $(this);
-		alert($(delFile).attr("id"));
+	//DB에 없는 파일 삭제하기 - 배열에서 파일명 AJAX로 넘기고, 제거
+	$("#fileSec").on("click",".deleteArray",function(){
+		var delArray = $(this);
+		var index = $(delArray).attr("id").replace("del","")*1;
+		var filename = fileArray[index];
+		//파일 이름 찾아서 데이터에서 삭제하기
+		$.ajax({
+			type: "POST",
+			url: "../pmfFile/fileDelete",
+			data:{
+				filename: filename
+			},
+			success: function(data){
+				$(delArray).parent().remove();		//div 삭제 처리
+				index = index+1;
+				$("#file"+index).remove();			//input 삭제 처리
+			}
+		});
 	});
 
 	//CKEditor
@@ -246,7 +263,7 @@ $(function(){
 			<input class="title form-control" name="title" type="text" placeholder="프로젝트 내용를 설명할 수 있는 제목을 등록해 주세요.">
 			<input type="button" value="임시저장" id="tempSave">
 			<input type="hidden" value="0" name="temp" id="temp_value">
-			<input type="hidden" value="writer" name="writer">
+			<input type="hidden" value="${user.username}" name="writer">
 			
 			<p class="des">* 표시된 항목은 필수항목입니다.</p>
 			<table class="t_project">

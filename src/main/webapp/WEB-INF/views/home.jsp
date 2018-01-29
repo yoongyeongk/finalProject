@@ -12,11 +12,13 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="resources/js/sidebar.js"></script>
+<script src="//cdn.ckeditor.com/4.8.0/basic/ckeditor.js"></script>
 <script src="resources/js/project.js"></script>
 <script src="resources/js/moment.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.3/css/all.css" >
 <link rel="stylesheet" href="resources/css/header.css">
+<link href="https://use.fontawesome.com/releases/v5.0.3/css/all.css" rel="stylesheet">
 <link rel="stylesheet" href="resources/css/main.css">
 <body>
 <c:import url="temp/header.jsp"></c:import>
@@ -74,6 +76,40 @@
 								<button class="btn btn-warning" data-dismiss="modal">취소</button>
 							</div>
 						</form>
+				<div class="project-box">
+					<div class="project-header">
+						<c:choose>
+							<c:when test="${list.privacy eq 'private'}">
+								<i class="icon1 fas fa-lock"></i>
+							</c:when>
+							<c:otherwise>
+								<i class="icon1 fas fa-globe"></i>
+							</c:otherwise>
+						</c:choose>
+						<span>프로젝트명</span>
+					</div>
+					
+					<div class="project-footer">
+						<div class="project-side">
+							<c:choose>
+								<c:when test="${list.star eq 0}">
+									<i class="far fa-star"></i>
+								</c:when>
+								<c:otherwise>
+									<i class="fas fa-star"></i>
+								</c:otherwise>
+							</c:choose>
+							<i class="fas fa-cog"></i>
+						</div>
+					
+						<select class="status" name="status">
+							<option value="">상태 없음</option>
+							<option value="계획됨">계획됨</option>
+							<option value="진행중">진행중</option>
+							<option value="완료됨">완료됨</option>
+							<option value="보류">보류</option>
+							<option value="취소">취소</option>
+						</select>
 					</div>
 				</div>
 			</div>
@@ -119,12 +155,6 @@
 			</div>
 			<!-- /new-project -->
 		</div>
-		<!-- /contents -->
-			<a href="${pageContext.request.contextPath}/pmf/pmfList">find member</a>
-			<p></p>
-			<a href="${pageContext.request.contextPath}/trade/tradeBoardWrite">wt</a>
-			<a href="${pageContext.request.contextPath}/trade/tradeBoardList">lt</a>
-			<a href="${pageContext.request.contextPath}/trade/tradeBoardUpdate?num=31">ut</a>
 	</div>
 	<a href="pmf/pmfList">find member</a>
 

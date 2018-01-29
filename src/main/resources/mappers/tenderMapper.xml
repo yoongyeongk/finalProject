@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="tenderMapper">
+  	<select id="selectList" parameterType="java.util.Map" resultType="tradeBoardDTO">
+  		select * from 
+  		(select rowNum R,D.* from (select B.* from TRADE_BOARD B,TENDER T where B.num=T.num and T.writer=#{writer} order by B.num desc) D)
+  		 where R BETWEEN #{startRow} and #{lastRow}
+  	</select>
+  	
+  	<select id="selectTender" parameterType="java.lang.String" resultType="tenderDTO">
+  		select * from TENDER where writer=#{writer}
+  	</select>
+  	
+  	<select id="totalCount" parameterType="java.lang.String" resultType="Integer">
+  		select nvl(count(B.num),0) from TRADE_BOARD B,TENDER T where B.num=T.num and T.writer=#{writer}
+  	</select>
+  </mapper>

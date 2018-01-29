@@ -1,5 +1,7 @@
 package com.hi.schedule;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +10,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
@@ -28,30 +31,48 @@ public class ScheduleService {
 	private PartnerDAO partnerDAO;
 	
 	//수정을 위한 view 
-			public ModelAndView ScheduleUpdateGET(int schnum,HttpServletRequest request){
+			public ModelAndView ScheduleUpdateGET(int num,HttpServletRequest request)throws Exception{
 				ModelAndView mv= new ModelAndView();
 				ScheduleDTO scheduleDTO = null;
-				schnum = Integer.parseInt(request.getParameter("schnum"));
-				try {
-				scheduleDTO = scheduleDAO.ScheduleUpdateGET(schnum);
+				num = Integer.parseInt(request.getParameter("num"));
+				System.out.println("dao num : "+num);
+				scheduleDTO = scheduleDAO.ScheduleUpdateGET(num);
 				scheduleDTO.setStartday(scheduleDTO.getStartday().substring(0, scheduleDTO.getStartday().indexOf(" ")));
 				scheduleDTO.setLastday(scheduleDTO.getLastday().substring(0, scheduleDTO.getLastday().indexOf(" ")));
-				//System.out.println("22 num :"+scheduleDTO.getNum());
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				List<PartnerDTO> nick=	partnerDAO.partnerList(num);
+				mv.addObject("nick", nick);
 				mv.addObject("view", scheduleDTO);
 				return mv;
 			}
 			//본격 수정 
-			public int ScheduleUpdatePOST(ScheduleDTO scheduleDTO)throws Exception{
+			public int ScheduleUpdatePOST(ScheduleDTO scheduleDTO,String []nickname)throws Exception{				
 				System.out.println(scheduleDTO.getUsername());
-				return scheduleDAO.ScheduleUpdatePOST(scheduleDTO);
+				int result =0;
+				result = scheduleDAO.ScheduleUpdatePOST(scheduleDTO);
+				if(nickname !=null){
+					for(String s: nickname){
+						PartnerDTO partnerDTO = new PartnerDTO();
+						partnerDTO.setNickname(s);
+						partnerDTO.setSchnum(scheduleDTO.getSchnum());
+						result=partnerDAO.partnerinsert(partnerDTO);
+						scheduleDTO.setUsername(scheduleDAO.selectUserName(s));
+						scheduleDAO.write2(scheduleDTO);
+						}
+				}
+				return result;
 			}
-		
-		public int ScheduleDeleteOne(int schnum) throws Exception {
-			int result=scheduleDAO.ScheduleDeleteOne(schnum);	
+			//주최자가 파트너 스케줄까지 전체 삭제 버튼 누르면 삭제되게 
+		public int ScheduleDelete(int schnum) throws Exception {			
+			partnerDAO.partnerDelete(schnum);
+			int result=scheduleDAO.ScheduleDelete(schnum);	
+			return result;
+		}
+		//참석자가 삭제 
+		public int SchdulepartDelete(int num,int pnum)throws Exception{
+			
+			partnerDAO.SchdulepartDelete(pnum);
+			int result = scheduleDAO.SchdulepartDelete(num);
+			System.out.println("파트너 삭제 service : "+num);
 			return result;
 		}
 		//클릭한 날짜의 일정 상세정보 보여주기 
@@ -60,23 +81,19 @@ public class ScheduleService {
 			ModelAndView mv = new ModelAndView();
 			scheduleDTO.setStartday(request.getParameter("startday"));
 			scheduleDTO.setUsername(request.getParameter("username"));
-			String ah = scheduleDTO.getStartday();
-/*			System.out.println(ah);*/
-			
+			String ah = scheduleDTO.getStartday();			
 			try {
-				List<ScheduleDTO> ar = scheduleDAO.jsonScheduleDayList(scheduleDTO);
-				String type = request.getParameter("type");
-				List<PartnerDTO> part = new ArrayList<PartnerDTO>();
-				if(type.equals("list")){
+				List<ScheduleDTO> ar = scheduleDAO.jsonScheduleDayList(scheduleDTO);			
+				List<PartnerDTO> part = null;
 					System.out.println("success");
 					for(int i =0; i<ar.size();i++){
 						String st= scheduleDTO.getStartday();
+						part=partnerDAO.partnerList(ar.get(i).getSchnum());
 					}
 					mv.addObject("nick", part);
 					mv.addObject("list", ar);
 					mv.setViewName("/schedule/dayListSchedule");
-					System.out.println(part);
-				}
+					/*System.out.println(part);*/
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -138,15 +155,20 @@ public class ScheduleService {
 			return mv;
 		}
 		
-		public int write(ScheduleDTO scheduleDTO, String [] nickname ,HttpServletRequest request) throws Exception {
-			List<PartnerDTO> part = new ArrayList<PartnerDTO>();
-			int result = scheduleDAO.write(scheduleDTO);
+		public int write(ScheduleDTO scheduleDTO,String[]nickname,HttpSession session,HttpServletRequest request) throws Exception {
+			int result = 0;
+			String host = ((UsersDTO)session.getAttribute("user")).getUsername();
+			scheduleDTO.setHost(host);
+			result = scheduleDAO.write(scheduleDTO);
+			if(nickname !=null){
 			for(String s: nickname){
-			PartnerDTO partnerDTO = new PartnerDTO();
-			partnerDTO.setNickname(s);
-			partnerDTO.setSchnum(scheduleDTO.getSchnum());
-			part.add(partnerDTO);
-			result=partnerDAO.partnerinsert(partnerDTO);
+				PartnerDTO partnerDTO = new PartnerDTO();
+				partnerDTO.setNickname(s);
+				partnerDTO.setSchnum(scheduleDTO.getSchnum());
+				result=partnerDAO.partnerinsert(partnerDTO);
+				scheduleDTO.setUsername(scheduleDAO.selectUserName(s));
+				scheduleDAO.write2(scheduleDTO);
+				}
 			}
 			return  result;
 		}

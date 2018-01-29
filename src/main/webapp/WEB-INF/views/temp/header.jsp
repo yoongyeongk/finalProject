@@ -3,6 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css">
 <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
+<script type="text/javascript">
+
+function openWin(){
+	window.open("https://spring-ws-chat.herokuapp.com/", 
+			"_blank", "width=600, height=800, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
+}
+
+</script>
 <!DOCTYPE html>
 <!-- header -->
 <header class="nav-header">
@@ -11,7 +19,7 @@
 	<a data-toggle="sidebar" class="sideOn sidebar-btn" href="#"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></a>
 	
 	<!-- logo-img -->
-	<a href="#" id="logo">
+	<a href="${pageContext.request.contextPath}/" id="logo">
 		<img class="logo-img" src="${pageContext.request.contextPath}/resources/images/logo_3.png">
 	</a>
 	
@@ -57,15 +65,9 @@
 			<li class="nav navbar-nav">
 			<!-- 메신저 탭 열기 -->
 				<div class="dropdown">
-					<a href="#" class="messinger_open dropdown-toggle" type="button" data-toggle="dropdown">
+					<a href="#" class="messinger_open" onclick="openWin()" type="button">
 						<span class="glyphicon glyphicon-envelope"></span>
 					</a>
-					
-					<ul class="dropdown-menu">
-						<li class="messinger_header header">5개의 메세지가 도착했습니다.</li>
-						<li><a href="#">메세지1</a></li>
-						<li><a href="#">메세지2</a></li>
-					</ul>
 				</div>
 			</li>
 
@@ -84,7 +86,7 @@
 					
 					<ul class="dropdown-menu">
 						<li class="header">${user.username}</li>
-						<li><a href="#">나의 정보</a></li><!-- 내 정보 / 내가 쓴 글 모아보는 페이지 -->
+						<li><a href="${pageContext.request.contextPath}/users/myPage">나의 정보</a></li>
 						<c:if test="${user ne null}">
 							<li><a href="${pageContext.request.contextPath}/users/logout">로그아웃</a></li>
 						</c:if>
@@ -111,5 +113,5 @@
 	<a href="${pageContext.request.contextPath}/schedule/mainSchedule">calendar</a> 
 	<a href="#">contact</a>
 	<a href="${pageContext.request.contextPath}/pmf/pmfList">community</a>
-	<a href="#">scrap</a>
+	<a href="${pageContext.request.contextPath}/scrap/pmfList">scrap</a>
 </div>

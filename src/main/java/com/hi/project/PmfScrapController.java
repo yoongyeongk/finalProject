@@ -23,12 +23,12 @@ public class PmfScrapController
 	@Inject
 	private PmfScrapService pmfScrapService;
 	
-	@RequestMapping(value="pmfList", method=RequestMethod.POST)
-	public ModelAndView selectList(String nickname) {
+	@RequestMapping(value="pmfList")
+	public ModelAndView selectList(HttpSession session) {
 		ModelAndView mv = null;
 		
 		try {
-			mv = pmfScrapService.selectList(nickname);
+			mv = pmfScrapService.selectList(session);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -54,7 +54,8 @@ public class PmfScrapController
 	}
 	
 	@RequestMapping(value="pmfViews")
-	public ModelAndView selectOne(int [] snums) {
+	public ModelAndView selectOne(String snums) {
+		
 		ModelAndView mv = null;
 		
 		try {
@@ -92,13 +93,13 @@ public class PmfScrapController
 			e.printStackTrace();
 		}
 		
-		String message = "삭제에 실패했습니다.";
+		String message = "취소에 실패했습니다.";
 		if(result>0) {
-			message = "삭제되었습니다.";
+			message = "스크랩이 취소되었습니다.";
 		}
-		model.addAttribute("message", message);
+		model.addAttribute("data", message);
 		
-		return "community/listBox";
+		return "common/ajax";
 	}
 	
 	@RequestMapping(value="pmfDeleteAll")

@@ -1,5 +1,6 @@
 package com.hi.boardFile;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,13 +37,31 @@ public class TradeBoardFileService {
 	return files;
 	}
 	
-	public int deleteOne (int num) throws Exception {
+	public List<TradeBoardFileDTO> selectFile (int num) throws Exception {
+			
+		return tradeBoardFileDAO.selectFile(num);
+	}
+	
+	public int deleteOne (int fnum,HttpSession session) throws Exception {
 		int result = 0;
-			result = tradeBoardFileDAO.deleteOne(num);
+		String path = session.getServletContext().getRealPath("resources/upload");
+			TradeBoardFileDTO fileDTO = tradeBoardFileDAO.selectOne(fnum);
+			File file = new File(path, fileDTO.getFileName());
+			file.delete();
+			
+			result = tradeBoardFileDAO.deleteOne(fnum);			
+			
 		return result;
 	}
 	
-	public int deleteAll (int num) throws Exception {
+	public int deleteAll (int num,HttpSession session) throws Exception {
+		List<TradeBoardFileDTO> ar = tradeBoardFileDAO.selectFile(num);
+		String path = session.getServletContext().getRealPath("resources/upload");
+		for (TradeBoardFileDTO fileDTO : ar) {
+			File file = new File(path, fileDTO.getFileName());
+			file.delete();
+		}
+		
 		return tradeBoardFileDAO.deleteAll(num);
 	}
 }

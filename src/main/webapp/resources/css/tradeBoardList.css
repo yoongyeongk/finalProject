@@ -5,23 +5,52 @@
 		height: 100%;
 	}
 	.all{
-		width: 1200px;
-		height: 1500px;
+		width: 1000px;
+		height: 1600px;
 		margin: 0 auto;
 	}
+	/* 윤경 추가 */
+	a:hover{
+	text-decoration: none;
+	}
+	#move_wrap{
+	border-bottom: 1px solid #eee;
+	}
+	#move_wrap a{
+		width: 450px;
+	    height: 60px;
+	    line-height: 60px;
+	    display: inline-block;
+	    font-size: 20px;
+	    font-weight: 600;
+	    color: gray;
+	    text-align: center;
+	    border-radius: 5px;
+	    border: #eee solid;
+	    margin-bottom: 30px;
+	}
+	#move_wrap a:hover{
+	background-color: #eee;
+	}
+	.pmf_move{
+		margin-right: 50px;
+	}
+	.list_wrap{
+		padding-bottom: 50px;
+    	border-bottom: solid 1px #eee;
+	}
+	
 	.box{
-		width: 1000px;
+		width: 950px;
 		height: auto;
 		margin: 0 auto;
-	}
-	#listBox{
-		margin-top: 30px;
 	}
 	#tb{
 		width: 950px;
 		table-layout: fixed;
 		border-left: none;
 		border-right: none;
+		margin: 0 auto;
 	}
 	tr{
 		border-bottom:1px solid #e1e1e1;
@@ -31,12 +60,12 @@
 	}
 	#top>th{
 		text-align: center;
-    	height: 37px;
+    	height: 50px;
     	background: #fafafa;
     	border:0;
     	border-bottom: 1px solid #ddd;
     	border-top: 1px solid #ddd;
-    	font-family: "Malgun Gothic", "Arial", sans-serif !important;
+    	/* font-family: "Malgun Gothic", "Arial", sans-serif !important; */
     	font-size: 13px;
     	color: #888;
 	}
@@ -46,7 +75,6 @@
    		text-overflow: ellipsis;
     	white-space: nowrap;
     	vertical-align: top;
-    	
 	}
 	.co{
 		font-size: 14px;
@@ -56,9 +84,11 @@
 		width: 191px;
 	}
 	.loc>a{
-		font-size: 16px;
+		font-size: 15px;
 		text-decoration: none;
 		color: black;
+		/* font-family: NanumGothic; */
+		letter-spacing:-1px;
 	}
 	.loc>a:hover{
 		color: black;
@@ -72,7 +102,7 @@
 	.price{
 		font-size: 12px;
     	line-height: 20px;
-    	font-family: "Malgun Gothic", "Arial", sans-serif;
+    	/* font-family: "Malgun Gothic", "Arial", sans-serif; */
     	color: #666;
 	}
 	.date{
@@ -89,7 +119,7 @@
 		text-decoration: none;
 		display: inline-block;
     	margin-top: 5px;
-    	font-family: "Malgun Gothic", "Arial", sans-serif;
+    	/* font-family: "Malgun Gothic", "Arial", sans-serif; */
 		font-size:13px;
 		margin-bottom: 5px;
 		margin-left: 1px;
@@ -109,6 +139,7 @@
 		background : salmon;
 	}
 	.scolor:hover{
+		border: 1px solid salmon;
 		color: salmon;
 		background : white;
 	}
@@ -125,22 +156,22 @@
 	}
 	.b{
 		display: inline-block;
-   	 	border: 1px solid #dcdede;
-   	 	border-right: 1px solid #c0c3c6;
- 		border-bottom: 1px solid #c0c3c6;
- 		color: #606060;
    		text-decoration: none;
-   		background-color: white;
+   		background-color: rgb(22, 160, 133);
+	    border: solid 1px rgb(22, 160, 133);
+	    border-radius: 4px;
 	}
-	#write{
+	#write,#tenderList{
 		width: 80px;
 		height: 29px;
 		float: right;
 		text-align: center;
 		line-height: 25px;
 		font-weight: bold;
+		margin-left: 10px;
+		color: white;
 	}
-	#write:hover{
+	#write:hover,#tenderList:hover{
 		text-decoration: none;
 	}
 	#write>img{
@@ -148,12 +179,30 @@
 	}
 	.pager{
 		margin: 0 auto;
-		background-color: red;
+		margin-top: 55px;
 	}
 	.list{
 		cursor: pointer;
 		display: inline-block;
-		border: 1px solid black;
+		background-color: #F6F6F6;
+   	 	background-image: -moz-linear-gradient(#F6F6F6, #EEEEEE);
+    	border: 1px solid #CCCCCC;
+    	border-radius: 5px;
+    	color: #333333;
+    	padding: 3px 7px;
+    	text-shadow: 0 1px 1px #FFFFFF;
+    	cursor: pointer;
+    	margin: 0 10px;
+	}
+	#selected{
+		background-color: #95D7EF;
+    	background-image: -moz-linear-gradient(#95D7EF, #59C8EF);
+    	border: 1px solid #0CA1D3;
+    	border-radius: 5px 5px 5px 5px;
+    	color: #FFFFFF;
+    	padding: 3px 7px;
+    	text-shadow: 0 1px 1px #000000;
+    	margin: 0 10px;
 	}
 	.searchBox {
 		position:relative;
@@ -162,7 +211,7 @@
 		height:40px;
 		background:url('../images/tradeBoard/ico_select_arrow.png') right center no-repeat;
 		background-color:#fff;
-		margin-top: 100px;
+		margin-top: 30px;
 		top:1px;
 	}
 	.searchBox .txt {
@@ -173,6 +222,7 @@
 		line-height:40px;
 		border:1px solid #ccc;
 		text-align:left;
+		border-radius: 3px;
 	}
 	.searchBox label {
 		overflow:hidden;
@@ -203,9 +253,11 @@
 	}
 	#search{
 		width: 300px;
-		height: 38px;
+		height: 40px;
 		padding-right: 43px;
 		padding-left: 12px;
+		border: 1px solid #ccc;
+		border-radius: 3px; 
 	}
 	.searchInput{
 		display: inline-block;
@@ -221,3 +273,9 @@
 		top:-2;
 		right: 50;
 	}
+	/* @FONT-FACE {
+	font-family: BMJUA;
+	src:url("../font/BMJUA_ttf.ttf");
+	font-family: :NanumGothic;
+	src:url("../font/NanumGothic.ttf")
+	} */

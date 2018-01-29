@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,7 +31,6 @@ public class TradeSaveController {
 		int result = 0;
 		
 		try {
-	
 			result =  tradeSaveService.insert(tradeSaveDTO);
 			map.put("save_num", result);
 
@@ -39,6 +39,20 @@ public class TradeSaveController {
 			e.printStackTrace();
 		}
 		return map;
+	}
+	
+	@RequestMapping(value="tradeSaveUpdate", method=RequestMethod.GET)
+	public ModelAndView update (int save_num) {
+		ModelAndView mv = null;
+		
+		try {
+			mv = tradeSaveService.update(save_num);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return mv;
 	}
 	
 	@RequestMapping(value="tradeSaveUpdate")
@@ -55,7 +69,7 @@ public class TradeSaveController {
 	
 	@RequestMapping(value="saveList")
 	@ResponseBody
-	public ModelAndView selectList ( int save_num,String writer,ListData listData) {
+	public ModelAndView selectList (int save_num, String writer, ListData listData) {
 		ModelAndView view = new ModelAndView();
 		listData.setPerPage(5);
 		try {

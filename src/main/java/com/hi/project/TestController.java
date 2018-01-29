@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.hi.file.FileDTO;
 import com.hi.project.pmfFile.PmfFileDTO;
+import com.hi.project.pmfFile.PmfFileService;
 import com.hi.project.util.FileSaver;
 
 @Controller
@@ -27,20 +28,6 @@ public class TestController {
 	@RequestMapping("dadTest")
 	public String dragAndDrop() {
 		return "test/dragAndDropTest";
-	}
-	
-	@RequestMapping(value="fileDownload")
-	public ModelAndView fileDownload(FileDTO fileDTO, HttpSession session) throws Exception {
-		ModelAndView mv = new ModelAndView();
-		
-		String filePath = session.getServletContext().getRealPath("pmf_file");
-		File file = new File(filePath, fileDTO.getFilename());
-		
-		mv.addObject("file", file);
-		mv.addObject("oriname", fileDTO.getOriname());
-		mv.setViewName("FileDownload");
-		
-		return mv;
 	}
 	
 	@RequestMapping(value="fileUpload", method=RequestMethod.POST)

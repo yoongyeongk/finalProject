@@ -12,6 +12,7 @@ public class PmfReplyDTO {
 	private int ref;
 	private int step;
 	private int depth;
+	private String nickname;
 	
 	public int getRnum() {
 		return rnum;
@@ -61,5 +62,12 @@ public class PmfReplyDTO {
 	public void setDepth(int depth) {
 		this.depth = depth;
 	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	
 
 }

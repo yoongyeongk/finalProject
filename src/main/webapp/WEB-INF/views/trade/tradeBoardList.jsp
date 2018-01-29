@@ -6,16 +6,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- bootstrap -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <title>Insert title here</title>
-<link href="${pageContext.request.contextPath }/resources/css/tradeBoardList.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/tradeBoardList.css" rel="stylesheet">
 
 <script type="text/javascript">
 
@@ -71,13 +67,25 @@ $(function() {
 </script>
 </head>
 <body>
+<!-- header -->
+	<c:import url="../temp/header.jsp"></c:import>
+<!-- header 끝 -->
+
+	<section id="main">
+	
 	<list>
 		<div class="all">
+			<div id="move_wrap">
+				<a class="pmf_move" href="${pageContext.request.contextPath}/pmf/pmfList">프로젝트 멤버 모집</a>
+				<a href="${pageContext.request.contextPath}/trade/tradeBoardList?curPage=1">프로젝트 판매</a>
+			</div>
 
+			<div class="list_wrap">
 			<div class="box">
 				<div class="outBox">
 					<form action="tradeBoardList" method="get" id="f">
 						<input type="hidden" value="1" name="curPage"  id="curPage">
+						
 						<div class="searchBox">
 							<span class="txt">${pager.kind }</span>
 							<label for="kind" class="screen_out">검색분류선택</label>
@@ -87,7 +95,7 @@ $(function() {
 								</select>
 						</div>
 							<div class="searchInput">
-								<input type="text" name="search" id="search" value="${pager.search }" placeholder="태그 검색 예) #개발">
+								<input type="text" name="search" id="search" value="${pager.search }">
 							</div>
 							<span class="s_img">
 									<label for="s">
@@ -99,10 +107,11 @@ $(function() {
 					</form>
 				</div>
 				
-				<div class="outBox" style="vertical-align: middle;">
+				<div class="outBox" style="vertical-align: middle; margin-top: 36px; float: right;">
 					<a href="./tradeBoardWrite" class="b" id="write">
 					<img src="${pageContext.request.contextPath }/resources/images/tradeBoard/ico-btn-write.gif" >
 					 글쓰기</a>
+					 <a href="./tenderList?curPage=1&writer=${user.nickname }" class="b" id="tenderList">입찰목록</a>
 				</div>
 			</div>
 				
@@ -119,7 +128,7 @@ $(function() {
 							<tr id="top">
 								<th scope="col">기업명</th>
 								<th scope="col">프로젝트 제목</th>
-								<th scope="col">현재 경매가</th>
+								<th scope="col">최소<em>/현재 경매가</em></th>
 								<th scope="col">마감일</th>
 							</tr>
 						</thead>
@@ -135,7 +144,7 @@ $(function() {
 											</div>
 										</div>
 									</th>
-									<td class="title t"> <div class="loc"><a href="./tradeBoardView?num=${dto.num }">${dto.title }</a>
+									<td class="title t"> <div class="loc"><a href="./tradeBoardView?num=${dto.num }&writer=${user.nickname}&curPage=${param.curPage}">${dto.title }</a>
 										<div class="line"> 
 											
 												<c:forEach items="${tags }" var="t" varStatus="i">
@@ -161,8 +170,12 @@ $(function() {
 									
 									<td class="ct price">
 										<div class="loc">
-											<fmt:formatNumber value="1000" type="currency" currencySymbol="￦"/>
+											<fmt:formatNumber value="${dto.min_price }" type="currency" currencySymbol="￦"/> /
+											<div>
+												<fmt:formatNumber value="${dto.present_price }" type="currency" currencySymbol="￦"/>
+											</div>
 										</div>
+										
 									</td>
 									
 									<td class="ct date">
@@ -188,24 +201,36 @@ $(function() {
 					
 						</tbody>
 					</table>
-				</div>
-			</div>
-			
+					
 				<div class="pager">
 					<c:if test="${pager.curBlock gt 1}">
 						<span class="list" title="${pager.startNum-1 }">이전</span>
 					</c:if>
 				
 					<c:forEach  begin="${pager.startNum }" end="${pager.lastNum }" var="p">
-							<span class="list" title="${p }">${p }</span>
+							<c:choose>
+								<c:when test="${param.curPage eq p}">
+									<span class="list" id="selected" title="${p }">${p }</span>
+								</c:when>
+								<c:otherwise>
+									<span class="list" title="${p }">${p }</span>
+								</c:otherwise>
+							</c:choose>
+							
 					</c:forEach>
 					
 					<c:if test="${pager.curBlock lt pager.totalBlock }">
 						<span class="list" title="${pager.lastNum+1 }">다음</span>
 					</c:if>
 				</div>
+			
+				</div>
+				</div>
+	
+			</div>
 		</div>
 		
 	</list>
+	</section>
 </body>
 </html>

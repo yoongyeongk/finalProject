@@ -23,6 +23,12 @@
 	height: inherit;
 }
 
+.project-header{
+	padding: 5px;
+    padding-bottom: 10px;	
+    border-bottom: 1px solid #ddd;
+}
+
 .project-box {
 	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.15);
 	transition-timing-function: ease-in-out;
@@ -42,7 +48,8 @@
 	width: 226px;
 	height: 170px;
 	border-radius: 3px;
-	background: gainsboro;
+	background: #eee;
+    opacity: 0.8;
 	color: #464c59;
 	font-weight: 600;
 	font-size: 14px;
@@ -61,4 +68,14 @@
 .project-footer {
 	position: absolute;
 	bottom: 10px;
+	right: 10px;
+}
+.status{
+	height: 25px;
+	width: 100px;
+	border: 1px solid #ddd;
+	border-radius: 3px;
+}
+.icon1{
+	margin-right: 10px	
 }

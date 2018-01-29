@@ -1,7 +1,9 @@
 package com.hi.saveboard;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -20,12 +22,19 @@ public class TradeSaveService {
 	@Inject
 	TradeSaveDAO tradeSaveDAO;
 	
-	public ModelAndView selectList (String writer,ListData listData) throws Exception {
+	public ModelAndView selectList (String writer, ListData listData) throws Exception {
 		int totalCount = 0;
 		totalCount = tradeSaveDAO.getCount(writer);
 		RowNum rowNum = listData.makeRow();
 		Pager pager = listData.makePage(totalCount);
-		List<TradeSaveDTO> ar = tradeSaveDAO.selectList(writer, rowNum);
+		
+		//윤경 수정
+		Map<String, Object> boardMap = new HashMap<String, Object>();
+		boardMap.put("writer", writer);
+		boardMap.put("rownum", rowNum);
+		
+		List<TradeSaveDTO> ar = tradeSaveDAO.selectList(boardMap);
+		//
 		
 		ModelAndView view = new ModelAndView();
 		
@@ -52,7 +61,6 @@ public class TradeSaveService {
 	}
 	
 	public TradeSaveDTO selectOne (int save_num) throws Exception {
-
 		return tradeSaveDAO.selectOne(save_num);
 	}
 	
@@ -68,6 +76,24 @@ public class TradeSaveService {
 			result = 0;
 		}
 		return result;
+	}
+	
+	//윤경 수정
+	//1. 임시저장 내용 불러오기
+	public ModelAndView update (int save_num) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		TradeSaveDTO tradeSaveDTO = tradeSaveDAO.selectOne(save_num);
+		
+		if(tradeSaveDTO != null) {
+			mv.addObject("one", tradeSaveDTO);
+			mv.setViewName("trade/tradeBoardWrite");
+		}else {
+			mv.addObject("message", "내용을 불러올 수 없습니다.");
+			mv.setViewName("redirect:../users/myWrite");
+		}
+		
+		return mv;
 	}
 	
 	public int update (TradeSaveDTO tradeSaveDTO) throws Exception {

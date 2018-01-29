@@ -12,10 +12,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hi.boardFile.TradeBoardFileDTO;
 import com.hi.boardFile.TradeBoardFileService;
 import com.hi.project.util.ListData;
 import com.hi.project.util.Pager;
 import com.hi.project.util.RowNum;
+import com.hi.tender.TenderDTO;
 import com.hi.tradeTag.TradeTagDTO;
 import com.hi.tradeTag.TradeTagService;
 
@@ -67,7 +69,11 @@ public class TradeBoardService {
 				Calendar c_d = Calendar.getInstance();
 				c_d.set(Integer.parseInt(date[0]),Integer.parseInt(date[1])-1, Integer.parseInt(date[2]));
 				long time = c_d.getTimeInMillis() - sysdate.getTimeInMillis();
-				days.add(time / (24*60*60*1000));
+				long day = time / (24*60*60*1000);
+				if(day < 0){
+					tradeBoardDAO.close(tradeBoardDTO);
+				}
+				days.add(day);
 			}
 			
 			if(ar.size() == 0){
@@ -84,27 +90,44 @@ public class TradeBoardService {
 	
 	public TradeBoardDTO selectOne(int num) throws Exception {
 			TradeBoardDTO tradeBoardDTO = tradeBoardDAO.selectOne(num);
-			
 		return tradeBoardDTO;
 	}
 	
 	public int update (TradeBoardDTO tradeBoardDTO,HttpSession session) throws Exception {
-		System.out.println(tradeBoardDTO.getImg());
-			
-				tradeBoardDTO.setFileNames(tradeBoardFileService.insert(tradeBoardDTO, session));
-				tagService.insert(tradeBoardDTO);
-			
+			tradeBoardDTO.setFileNames(tradeBoardFileService.insert(tradeBoardDTO, session));
+			tagService.insert(tradeBoardDTO);
 		return tradeBoardDAO.update(tradeBoardDTO);
 	}
 	
-	public int deleteAll(int num) throws Exception {
+	public int deleteAll(int num,HttpSession session) throws Exception {
 		int result = 0;
-		result = tradeBoardFileService.deleteAll(num);
+		result = tradeBoardFileService.deleteAll(num,session);
+		
 		if(result > 0){
 			tagService.deleteAll(num);
+			tradeBoardDAO.deleteTender(num);
 		}
 	return tradeBoardDAO.deleteAll(num);
 	}
-
 	
+	public int insertAC (TenderDTO tenderDTO) throws Exception {
+			int result = 0;
+			result = tradeBoardDAO.insertAC(tenderDTO);
+			
+		return result;
+	}
+	
+	public TenderDTO selectTender (TenderDTO tenderDTO) throws Exception {
+			
+		return tradeBoardDAO.selectTender(tenderDTO);
+	}
+	
+	public int updateAC (TenderDTO tenderDTO) throws Exception {
+		
+		return tradeBoardDAO.updateAC(tenderDTO);
+	}
+	
+	public int updatePrice (TenderDTO tenderDTO) throws Exception {
+		return tradeBoardDAO.updatePrice(tenderDTO);
+	}
 }
